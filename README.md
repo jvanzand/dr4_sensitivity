@@ -41,6 +41,12 @@ plan is firm.
   (following the Octofitter DR4 pre-release tutorial). Since 2026-11-04 it writes
   `scan_pos_angle` in degrees, for Octofitter v9.
 
+The folder is a git repository (local only, since 2026-11-04). `.gitignore` leaves out the
+arXiv source bundles behind the literature tables (~250 MB, kept on Judah's machine):
+the per-source `build.py` scripts need them, but everything downstream, from
+`literature.py --cached` on, runs from a clone without them (checked: a fresh clone
+rebuilds `census_table.csv` byte for byte).
+
 Rebuild the census from the cached downloads with one command (from this folder, in the
 `gaia_dr4_sensitivity` environment):
 
