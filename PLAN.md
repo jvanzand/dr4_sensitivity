@@ -404,6 +404,57 @@ will measure how much.
   The difference measures how much real data degrade the forecasts.
 - Project onto distance for representative planet/host pairs.
 
+### Overview: the three lanes and the four comparisons (sketched 2026-11-05)
+
+Judah's flowchart of the project, a candidate paper figure (a rough draft so far; a paper
+version would be made in matplotlib). Three parallel lanes:
+
+1. **Our pipeline:** census -> RV fits (+ pre-DR4 astrometry; Step 3) -> synthetic DR4
+   with our RV orbits injected at our hosts (Step 4) -> fits to the synthetic DR4, which
+   give predicted detection probabilities and posterior widths per system.
+2. **Real DR4** (2 December 2026): Gaia DR4 epoch astrometry -> DR4-only fits (Step 5).
+3. **Epochalypse** (Yahalomi et al. 2026, arXiv:2611.06915): their simulated DR4-like
+   epoch astrometry -> our DR4-only fits to it. This lane needs only the DR4 fitter, so it
+   can run before DR4, in parallel with the RV fits.
+
+The four comparisons, each stating both sides:
+- **Our RV fits vs. our fits to real DR4 data.** The main result: does DR4 alone recover
+  the known RV companions? (Steps 5-6.)
+- **Our RV fits vs. published literature fits.** A consistency check of the RV fitting:
+  do we reproduce published orbits? Agreement shows consistency with published practice,
+  not correctness (the same RVs, mostly); disagreements are cases to investigate.
+- **Epochalypse injected orbits vs. our fits to its data.** A consistency check of the DR4
+  fitting against exact truth. Limits: per-epoch data (real DR4 is per CCD); no RVs; their
+  reported errors deliberately omit an injected noise term, so a fit without jitter should
+  come out overconfident. Check their scan-angle units and Ω convention first, and pick a
+  subset matched to our hosts and companions.
+- **Our fits to synthetic DR4 vs. our fits to real DR4.** A realism check: do simulated
+  detection odds match what DR4 actually finds? Per system it is one noisy outcome, but
+  across the sample it is a calibration test (in bins, the summed predicted probability
+  vs. the number detected; predicted vs. real posterior widths; simulated vs. real
+  residual scatter). It tests our simulations and, by extension, injection-based
+  forecasts such as Lammers & Winn's and Epochalypse.
+
+Left out of the sketch, but part of the plan: the false-alarm threshold that defines
+"detection," set on companion-free data (our own zero-companion injections, or
+Epochalypse's no-companion systems); and DPAC's DR4 orbital solutions as a secondary
+comparison (Section 7).
+
+**About Epochalypse.** Yahalomi et al. inject random companions (log-uniform in mass and
+SMA, no occurrence model) onto all ~5.04 million main-sequence G23H stars within 500 pc
+and brighter than G = 16, in zero-, one-, and two-companion versions, and recover them
+with a kepmodel periodogram. They don't model or test known planets: the data are
+simulated from scratch, so a known host simply gets random companions. So they don't do
+our Step 4 (which injects our real RV orbits), and nobody has yet published a test of DR4
+against known RV companions. What may be reusable: their per-star noise model (Kiefer et
+al. terms from G23H, checked against the DR4 prerelease to ~10%), their public injection
+code (a possible replacement or cross-check for `gaiamock`), and their long-period S/N
+penalty, S/N_tot = S/N_1 √N / [1 + (P/T_baseline)²], which is relevant to `SNR_MIN`.
+Their prediction that companions beyond the baseline are often detected with wrong
+periods could be tested with our long-period RV companions (a possible extension; it
+would mean relaxing the P ≤ 5.5 yr cut). Several authors (W. Thompson, Lammers, Winn) are the
+possible collaborators named in Section 8.
+
 ## 5. Workflow: local first, then the cluster
 
 Claude works only on this machine. Every script must run locally on a toy configuration

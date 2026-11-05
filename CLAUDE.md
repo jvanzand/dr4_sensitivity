@@ -5,7 +5,13 @@ reference fits as the answer. Gaia DR4 is released 2 December 2026.
 
 ## Where things are
 - `PLAN.md`: science framing, analysis Steps 0-6 and their decisions, data-format notes
-  (Octofitter v9, time standard, DR4 transit reduction).
+  (Octofitter v9, time standard, DR4 transit reduction). Its Section 4 "Overview"
+  summarizes the project flowchart (2026-11-05): three lanes (our pipeline: census -> RV
+  fits -> synthetic DR4 -> fits; real DR4 -> DR4-only fits; the Epochalypse simulated
+  catalog -> DR4-only fits) feeding four comparisons. The main result is our RV fits vs.
+  our real-DR4 fits. Three checks: our RV fits vs. the literature (RV fitting); Epochalypse
+  truths vs. our fits to its data (DR4 fitting); our synthetic-DR4 fits vs. our real-DR4
+  fits (whether the simulations are realistic).
 - `QUESTIONS.md`: open questions, and settled decisions with dates. Treat "Settled" as
   decided; don't reopen them unless Judah does.
 - `sample/`: the census (`CENSUS.md`, `census_table.csv`, figures, `build_all.py`).

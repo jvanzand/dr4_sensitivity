@@ -40,6 +40,16 @@
 - **Bulk data-quality checks.** Duplicates and similar issues are handled per system for now;
   Judah will add automated checks for bulk runs.
 
+## Settled (2026-11-05): project structure and Epochalypse
+
+- **Four comparisons** structure the project (PLAN.md, Section 4, "Overview"): our RV fits
+  vs. real DR4 fits (main result); our RV fits vs. the literature (RV-fitting
+  consistency); Epochalypse truths vs. our fits to its data (DR4-fitting consistency);
+  our synthetic-DR4 fits vs. our real-DR4 fits (realism check).
+- **Epochalypse** (Yahalomi et al. 2026, arXiv:2611.06915) is a validation set for our
+  DR4 fitter, not a substitute for Step 4: it injects random companions, not our RV
+  orbits, and doesn't test known planets.
+
 ## Settled (2026-11-04): RV collection and refits
 
 - **Our fits use RVs plus the astrometry Octofitter provides** (Hipparcos IAD, HGCA, G23H)
