@@ -1,0 +1,141 @@
+J/ApJS/262/21       3-D selection of 167 sub-stellar companions    (Feng+, 2022)
+================================================================================
+3-D selection of 167 sub-stellar companions to nearby stars.
+    Feng F., Butler R.P., Vogt S.S., Clement M.S., Tinney C.G., Cui K.,
+    Aizawa M., Jones H.R.A., Bailey J., Burt J., Carter B.D., Crane J.D.,
+    Flammini Dotti F., Holden B., Ma B., Ogihara M., Oppenheimer R.,
+    O'Toole S.J., Shectman S.A., Wittenmyer R.A., Wang S.X., Wright D.J.,
+    Xuan Y.
+    <Astrophys. J. Suppl. Ser. 262, 21 (2022)>
+    =2022ApJS..262...21F        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, nearby ; Stars, dwarfs; Stars, subdwarf ; Exoplanets ;
+              Binaries, orbits ; Optical
+Keywords: astrometric exoplanet detection - radial velocity -
+          exoplanet detection methods - exoplanet astronomy -
+          brown dwarfs - exoplanet catalogs
+
+Abstract:
+    We analyze 5108 AFGKM stars with at least five high-precision radial
+    velocity points, as well as Gaia and Hipparcos astrometric data,
+    utilizing a novel pipeline developed in previous work. We find 914
+    radial velocity signals with periods longer than 1000 days. Around
+    these signals, 167 cold giants and 68 other types of companions are
+    identified, through combined analyses of radial velocity, astrometry,
+    and imaging data. Without correcting for detection bias, we estimate
+    the minimum occurrence rate of the wide-orbit brown dwarfs to be 1.3%,
+    and find a significant brown-dwarf valley around 40M_Jup_. We also find
+    a power-law distribution in the host binary fraction beyond 3 au,
+    similar to that found for single stars, indicating no preference of
+    multiplicity for brown dwarfs. Our work also reveals nine substellar
+    systems (GJ 234 B, GJ 494 B, HD 13724 b, HD 182488 b, HD 39060 b and
+    c, HD 4113 C, HD 42581 d, HD 7449 B, and HD 984 b) that have
+    previously been directly imaged, and many others that are observable
+    at existing facilities. Depending on their ages, we estimate that an
+    additional 10-57 substellar objects within our sample can be
+    detected with current imaging facilities, extending the imaged cold
+    (or old) giants by an order of magnitude.
+
+Description:
+    This table lists the orbital parameters of 230 companions detected in
+    our work. The systems are sorted by the host names listed in the first
+    column, while the companions in each system are sorted by their
+    orbital periods. For companions with orbital periods of less than
+    1000-days, the inclination is not given and the mass reported in this
+    table is mcsini. For companions with mass higher than 75 MJup, we use
+    capital letters to label them. Among the parameters, the directly
+    inferred parameters are P (orbital period), K (RV semi-amplitude), e
+    (eccentricity), {omega}* (argument of periastron), i (inclination), and
+    {Omega} (longitude of ascending node). The derived parameters are Tp
+    (periastron epoch), mc (companion mass), and a (semimajor axis). The
+    dynamical stabilities of Earth-like planets in the habitable zones
+    (HZs) of their host stars are determined numerically, as described in
+    Section 7. The median and 1{sigma} quantiles (i.e., the 16% and 84%
+    quantiles) are used to measure the uncertainty of each parameter.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table3.dat       321      230   Orbital parameters for the stellar and planetary
+                                 companions detected in this work
+refs.dat          90      119   References
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 13  A13   ---     Companion Companion Name
+      15  A1    ---     ImFlag    [d] Direct imaging flag (1)
+  17- 27  A11   ---     Host      Host Name
+      29  A1    ---     BinFlag   [*] Wide binary flag (2)
+  31- 41  F11.7 yr      Per-yr    Orbital period, years
+  43- 53  F11.7 yr    e_Per-yr    Uncertainty in Per (3)
+  55- 65  F11.7 yr    E_Per-yr    Uncertainty in Per (3)
+  67- 78  F12.5 d       Per-d     Orbital period, days
+  80- 90  F11.5 d     e_Per-d     Uncertainty in Per (3)
+  92-102  F11.5 d     E_Per-d     Uncertainty in Per (3)
+ 104-110  F7.3  deg     i         ? inclination (4)
+ 112-117  F6.3  deg   e_i         ? Lower uncertainty on i
+ 119-124  F6.3  deg   E_i         ? Upper uncertainty on i
+ 127-131  F5.3  ---     e         Eccentricity
+ 133-138  F6.4  ---   e_e         Lower uncertainty on e
+ 140-145  F6.4  ---   E_e         Upper uncertainty on e
+ 147-153  F7.3  deg     omega*    Argument of periastron
+ 155-161  F7.3  deg   e_omega*    Lower uncertainty on omega*
+ 163-169  F7.3  deg   E_omega*    Upper uncertainty on omega*
+ 171-178  F8.3  m/s     K         Radial velocity semi-amplitude
+ 180-186  F7.3  m/s   e_K         Lower uncertainty on K
+ 188-194  F7.3  m/s   E_K         Upper uncertainty on K
+ 196-202  F7.3  deg     Omega     ? Longitude of ascending node
+ 204-210  F7.3  deg   e_Omega     ? Lower uncertainty on Omega
+ 212-218  F7.3  deg   E_Omega     ? Upper uncertainty on Omega
+ 220-226  F7.3  Mjup    mc        Companion mass (4)
+ 228-233  F6.3  Mjup  e_mc        Lower uncertainty on mc
+ 235-240  F6.3  Mjup  E_mc        Upper uncertainty on mc
+ 242-247  F6.3  au      a         Semi-major axis
+ 249-253  F5.3  au    e_a         Lower uncertainty on a
+ 255-260  F6.3  au    E_a         Upper uncertainty on a
+ 262-272  A11   d       Tp        Periastron epoch, BJD-2400000
+ 274-282  F9.3  d     e_Tp        ? Lower uncertainty on Tp
+ 284-293  F10.3 d     E_Tp        Upper uncertainty on Tp
+ 295-302  A8    ---     HZ        Dynamical stability of Earth-like planets
+                                   in the habitable zones
+ 304-314  A11   ---     Ref       Reference, in refs.dat file
+ 316-321  I6    ---     HIP       ? Hipparcos identifier
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+   d = systems imaged and their relative astrometry data are analyzed in
+        combination with other types of data in the solutions.
+Note (2): Note as follows:
+   * = systems have wide-binary companions that are identified by
+        El-Badry et al. (2021MNRAS.506.2269E) or other studies.
+Note (3): The median and the 1-{sigma} quantiles (i.e. 16% and 84% quantiles)
+   are used to measure the uncertainty of each parameter.
+Note (4): For companions with orbital period less than 1000 days, the
+   inclination is not given and the mass reported in this table is mc*sin(i).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---     Ref       Reference number
+   5- 23  A19   ---     BibCode   BibCode
+  25- 48  A24   ---     Aut       Author's name
+  50- 90  A41   ---     Com       Comments
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Fabo Feng, ffeng(at)sjtu.edu.cn
+
+History:
+    19-Sep-2022 : Fabo Feng slightly modified the published data table.
+     This table shows the orbital period parameters "Per-yr" and "Per-d" with
+     higher precision than that shown in the published data table.
+    07-Oct-2022 : some values corrected in table3.dat
+
+================================================================================
+(End)                                      Patricia Vannier [CDS]    19-Sep-2022

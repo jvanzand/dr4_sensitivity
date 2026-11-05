@@ -1,0 +1,5 @@
+target,dataset,kept_dataset,n_pairs,n_rejected,fraction_of_dataset,evidence,offset_ms,scatter_ms,expected_ms,max_abs_dt_s,max_candidates,flags
+HD 43691,dace:ELODIE:2007A&A...473..323D,dace:ELODIE:TACOS,22,0,1.0,E2 time,-3.95,12.08,20.73,0.0,1,
+HD 43691,dace:HIRES:2017arXiv1702.03571,hires_j,14,0,0.78,E2 time,27.47,3.07,2.35,522.7,1,
+HD 43691,dace:HIRES:2017arXiv1702.03571,hires_k,4,0,0.22,E2 time,31.13,4.64,3.23,512.6,1,
+HD 43691,dace:SOPHIE:2007A&A...473..323D,dace:SOPHIE:HR_DRS-3.1,14,0,1.0,E2 time,-13.9,5.49,5.28,6.9,2,

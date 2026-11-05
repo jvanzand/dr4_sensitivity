@@ -1,0 +1,20 @@
+{
+  "ReadMe": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/ApJS/255/8/ReadMe",
+    "retrieved_utc": "2026-10-24T20:01:21+00:00",
+    "lines": 357,
+    "sha256": "b71a3a1037ce096ccd1f0a7db9ec648fc86d584c857934d544a305528442709c"
+  },
+  "planets.dat": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/ApJS/255/8/planets.dat",
+    "retrieved_utc": "2026-10-24T20:01:26+00:00",
+    "lines": 330,
+    "sha256": "4d0f83b8b66a2e3c984d01f3dd31c4f8fdc368db8a001e1e155c8aef7c3792de"
+  },
+  "table2.dat": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/ApJS/255/8/table2.dat",
+    "retrieved_utc": "2026-10-24T20:01:29+00:00",
+    "lines": 719,
+    "sha256": "1ea1ca8edeb7c5893c16c9a925be16b17deadd1fa9b75fdae27f932134a8e7c8"
+  }
+}

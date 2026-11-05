@@ -1,0 +1,304 @@
+J/A+A/631/A125      54 massive companions detected with SOPHIE  (Kiefer+, 2019)
+================================================================================
+Detection and characterisation of 54 massive companions with the SOPHIE
+spectrograph - Seven new brown dwarfs and constraints on the brown dwarf desert.
+    Kiefer F., Hebrard G., Sahlmann J., Sousa S.G., Forveille T., Santos N.,
+    Mayor M., Deleuil M., Wilson P.A., Dalal S., Diaz R.F., Henry G.W.,
+    Hagelberg J., Hobson M.J., Demangeon O., Bourrier V., Delfosse X.,
+    Arnold L., Astudillo-Defru N., Beuzit J.-L., Boisse I., Bonfils X.,
+    Borgniet S., Bouchy F., Courcol B., Ehrenreich D., Hara N., Lagrange A.-M.,
+    Lovis C., Montagnier G., Moutou C., Pepe F., Perrier C., Rey J.,
+    Santerne A., Segransan D., Udry S., Vidal-Madjar A.
+    <Astron. Astrophys. 631, A125 (2019)>
+    =2019A&A...631A.125K        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, double and multiple ; Stars, brown dwarf ;
+              Radial velocities
+Keywords: brown dwarf - binaries: spectroscopic -
+          techniques: radial velocities - methods: observational -
+          methods: numerical
+
+Abstract:
+    Brown-dwarfs (BD) are substellar objects with masses intermediate
+    between planets and stars within about 13-80M_J_. While isolated
+    brown-dwarfs are most likely produced by gravitational collapse in
+    molecular clouds down to masses of a few M_J_, a nonnegligible
+    fraction of low-mass companions might be formed through the planet
+    formation channel in protoplanetary disks. The upper mass limit of
+    objects formed within disks is still observationnally unknown, the
+    main reason being the strong dearth of BD companions at orbital
+    periods shorter than 10 years, a.k.a. the brown-dwarf desert.
+
+    We aim at determining the best statistics of secondary companions
+    within the 10-100M_Jup_ range within 10au from the primary star, while
+    minimising observational bias. This can help determining the mass
+    limit separating planet-formed from star-formed browndwarfs. Moreover,
+    the exact shape of the BD desert in a mass-period space is still
+    underdetermined, and can strongly constrain the companion-star
+    interactions mechanisms at work in close binary systems at small mass
+    ratio.
+
+    We made an extensive use of the radial velocity (RV) surveys of FGK
+    stars below 60 pc distance to the Sun and in the northern hemisphere
+    performed with the SOPHIE spectrograph at Observatoire de
+    Haute-Provence. We derived the Keplerian solutions of the RV
+    variations of 54 sources. Public astrometric data of the Hipparcos and
+    Gaia missions allowed deriving direct astrometric solution of orbital
+    motion and constraining the mass of the companion for most sources. We
+    introduce GASTON, a new method to derive inclination combining RVs
+    Keplerian and astrometric excess noise from Gaia DR1.
+
+    We report the discovery of 12 new BD candidates. For 5 of them,
+    additional astrometric data led to revise their mass in the M-dwarf
+    regime. Among the 7 remaining objects, 4 are confirmed BD companions,
+    and 3 others are likely also in this mass regime. Moreover, we report
+    the detection of 42 objects in the M-dwarf mass regime
+    90M_J_-0.52M_{sun}_. The resulting Msin i-P distribution of BD
+    candidates shows a clear drop in the detection rate below 80-day
+    orbital period. Above that limit, the BD desert reveals rather wet,
+    with a uniform distribution of the Msin i. We derive a minimum
+    BD-detection frequency around Solar-like stars of 2.0+/-0.5%.
+
+Description:
+    We tabulated the radial velocity data obtained with the SOPHIE and
+    ELODIE spectrograph at Observatoire de Haute-Provence for the 54
+    targets published in this article. This includes epochs, RV, errors,
+    with FWHM, CCF contrast and bissector spans for the SOPHIE spectra.
+    The on-line data also contain Tables B.1 and B.3 to B.7 from the
+    original article. They present some target basic informations (such as
+    e.g. RA, DEC, mag etc.) as well as derived spectral properties (such
+    as e.g. effective temperature, surface gravity, stellar mass, Vsin(i),
+    activity indicators etc.). Finally, the results of Keplerian fits for
+    all 54 targets are summarised in Tables B.5 to B.7.
+
+    Table B1:
+    Basic information such as RA, DEC, color and magnitude,
+    as found on the SIMBAD page. The parallax is given in mas and was
+    published in the Gaia DR2. This table includes the timespan and the
+    number of RV measurements obtained from SOPHIE spectra.
+
+    Tables B3 and B4: Spectral data.
+    The spectral analysis was performed using the MOOG software (Sneden
+    1973ApJ...184..839S) using Kurucz stellar models. The mass of the star
+    was calculated thanks to Torres et al. (2010A&ARv..18...67T) empirical
+    relation. The log R'HK magnetic activity indicator (see e.g. Boisse et
+    al. 2011A&A...528A...4B), as well as the bissector span (BIS), and the
+    full-width at half maximum (FWHM), as in e.g. Santerne et al.
+    (2014A&A...571A..37S, Cat. J/A+A/571/A37; 2015MNRAS.451.2337S), are
+    calculated by the SOPHIE data-reduction pipeline.
+
+    Tables B5-B7: Keplerian fit solutions.
+    Table B.5 contains Keplerian fit results of brown dwarfs candidates
+    only in the mass regime 15-90M_jup_.
+    Table B.6 presents the Keplerian solutions for all other targets in
+    the stellar (mainly M-dwarf) regime. Parameters tabulated are period P
+    (days), semi-amplitudes K (m/s), eccentricities e, periastron angle
+    omega (degree), time of periastron passage (or time of inferior
+    conjunction if e=0) in JD, center-of-mass velocity (km/s) for Sophie
+    and Sophie+ datasets, residuals O-C (m/s) for Sophie and Sophie+
+    datasets, the mass function f(m) in solar mass, the Msin(i) in Jupiter
+    mass, and the companion semi-major axis (assuming a dark companion) in
+    AU.
+    Table B.7 presents the center-of-mass and residuals for other datasets
+    (from the Keck/HIRES, the SB9 catalogue, or Elodie mainly).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tableb1.dat       97       54   Table of the 54 observed targets
+tableb3.dat       85       54   Table of stellar parameters for the 54 stars
+                                 in Table B1
+tableb4.dat       93       74  *The summary of the FWHM and bissector span
+                                 analysis for the 54 sources in our sample.
+tableb5.dat      199       11  *Table of orbital fits for the 11 single
+                                 companions with Msini within 20-90M_Jup_,
+                                 ordered by values of M2sini
+tableb6.dat      200       40  *Table of orbital fits for the 40 single stellar
+                                 companions in the M-dwarf regime with
+                                 90M_J_<Msini<0.52M_{sun}_,
+                                 ordered by values of M2sini
+tableb7.dat       76       18   Table of RV offsets and residues O-C for the
+                                 supplementary datasets, from ELODIE, HIRES or
+                                 available in the SB9 catalogue
+sophiep.dat       67      711   SOPHIE+ Radial velocities
+sophiem.dat       67      212   SOPHIE- radial velocities
+elodie.dat        39       54   Elodie radial velocities
+--------------------------------------------------------------------------------
+Note on tableb4.dat: SOPHIE and SOPHIE+ datasets are analysed separately.
+--------------------------------------------------------------------------------
+Note on tableb5.dat, tableb6.dat: The error on stellar mass was neglected to
+  calculate the uncertainty on M2sini and a.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  11- 12  I2    h       RAh       Right ascension (J2000) from Simbad
+  14- 15  I2    min     RAm       Right ascension (J2000) from Simbad
+  17- 23  F7.4  s       RAs       Right ascension (J2000) from Simbad
+      25  A1    ---     DE-       Declination sign (J2000) from Simbad
+  26- 27  I2    deg     DEd       Declination (J2000) from Simbad
+  29- 30  I2    arcmin  DEm       Declination (J2000) from Simbad
+  32- 37  F6.3  arcsec  DEs       Declination (J2000) from Simbad
+  39- 43  F5.2  mag     Vmag      V magnitude from Simbad
+  45- 48  F4.2  mag     B-V       B-V colour index from Simbad
+  50- 55  F6.3  mas     Plx       Absolute parallax from Gaia DR2 (Cat. I/345)
+  57- 61  F5.3  mas   e_Plx       rms uncertainty on Plx
+  63- 75  A13   ---     SpType    Spectral type (from Simbad)
+  76- 83  F8.2  d       TimeSpan  Time span
+  85- 87  I3    ---     Ntot      Total number of SOPHIE radial velocity
+                                   measurements
+  90- 91  I2    ---     NSoph-    Number of radial velocity measurements
+                                   with SOPHIE- (in sophiem.dat file ) (G1)
+  93- 94  I2    ---     NSoph+    Number of radial velocity measurements
+                                   with SOPHIE+ (in sophiep.dat file ) (G1)
+  96- 97  I2    ---     NElod     Total number of radial velocity measurements
+                                   with Elodie (in elodie.dat file)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---       Name     Star name
+  11- 14  I4    K         Teff     Effective temperature
+  16- 18  I3    K       e_Teff     rms uncertainty on Teff
+  20- 23  F4.2  [cm2/s]   logg     Surface gravity
+  25- 28  F4.2  [cm2/s] e_logg     rms uncertainty on logg
+  30- 33  F4.2  km/s      vturb    Turbulent velocity
+  35- 38  F4.2  km/s    e_vturb    rms uncertainty on vturb
+  40- 44  F5.2  [-]       [Fe/H]   Metallicity
+  46- 49  F4.2  [-]     e_[Fe/H]   rms uncertainty on [Fe/H]
+  51- 53  I3    ---       NFeI     Number of FeI lines used
+  55- 56  I2    ---       NFeII    Number of FeII lines used
+  58- 61  F4.2  Msun      Mass     Stellar mass estimated using the Torres et
+                                    al. (2010A&ARv..18...67T,
+                                    Cat. J/other/A+ARV/18.67) empirical relation
+  63- 66  F4.2  Msun    e_Mass     rms uncertainty on Mass
+  68- 72  F5.2  [-]       logR'HK  R'_HK_ activity index
+  74- 77  F4.2  [-]     e_logR'HK  rms uncertainty on logR'HK
+  79- 81  F3.1  km/s      vsini    Rotational velocity
+  83- 85  F3.1  km/s    e_vsini    ? rms uncertainty on vsini
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Name        Star name
+  11- 17  A7    ---     Dataset     Dataset, SOPHIE or SOPHIE+
+  19- 20  I2    ---     Npts        Number of points
+  22- 27  F6.4  km/s    <sigma>     Mean velocity dispersion
+  29- 34  F6.3  km/s    <FWHM>      Mean FWHM of the CCF
+  36- 40  F5.3  km/s  s_<FWHM>      ?=- Standard dispersion on FWHM
+  42- 47  F6.3  km/s    <BIS>       Mean bisector span
+  49- 53  F5.3  km/s  s_<BIS>       ?=- Standard dispersion on BIS
+  55- 60  F6.2  ---     chi2FWHM    ?=- {chi}^2^ test of the "no-variation"
+                                      null hypothesis for FHWM
+  62- 67  F6.2  [-]     logpFWHM    ?=- p-value of {chi}^2^ test for FHWM
+  69- 73  F5.2  ---     Rp(FWHM-RV) ?=- Pearson correlation coefficient R of
+                                     FWHM with RV
+  75- 80  F6.2  ---     chi2BIS     ?=- {chi}^2^ test of the "no-variation"
+                                      null hypothesis for BIS
+  82- 87  F6.2  [-]     logpBIS     ?=- p-value of {chi}^2^ test for BIS
+  89- 93  F5.2  ---     Rp(BIS-RV)  ?=- Pearson correlation coefficient R of
+                                     BIS with RV
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb5.dat tableb6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---       Name    Star name
+  11- 23  F13.7 d         Per     Period
+  25- 37  F13.7 d       e_Per     rms uncertainty on Per
+  39- 46  F8.2  m/s       K       Semi-amplitude velocity, K
+  48- 54  F7.2  m/s     e_K       rms uncertainty on Velocity semi-amplitude
+  56- 63  F8.6  ---       e       Eccentricity
+  65- 71  F7.5  ---     e_e       ? rms uncertainty on Eccentricity
+  73- 80  F8.3  deg       omega   ?=- Periastron angle {omega}
+  82- 87  F6.3  deg     e_omega   ? rms uncertainty on omega
+  89- 98  F10.4 d         Tp      Time of passage at periastron, for objects
+                                  with e=0, time of primary transit (Tp-2400000)
+      99  A1    ---     n_Tp      [*] * when Tp is the time of primary
+                                   transit (1)
+ 100-108  F9.4  d       e_Tp      rms uncertainty on Tp
+ 110-118  F9.4  km/s      GammaS+ Center-of-mass velocity gamma from
+                                   SOPHIE+ measurements (G1)
+ 120-125  F6.4  km/s    e_GammaS+ rms uncertainty on GammaS+
+ 127-134  F8.4  km/s      GammaS- ? Center-of-mass velocity gamma from
+                                   SOPHIE- measurements (G1)
+ 136-141  F6.4  km/s    e_GammaS- ? rms uncertainty on GammaS-
+     142  A1    ---     n_GammaS- [f] f for fixed (2)
+ 143-147  F5.2  m/s       sO-CS+  Residual O-C for SOPHIE+ measurements (G1)(3)
+ 149-153  F5.2  m/s       sO-CS-  ? Residual O-C for SOPHIE-
+                                   measurements (G1)(3)
+ 155-162  F8.2 10-6Msun   f(m)    Mass function
+ 164-171  F8.2 10-6Msun e_f(m)    rms uncertainty on  Mass function
+ 174-179  F6.2  Mjup      M2sini  Mass of companion, in Jupiter mass unit
+ 181-185  F5.2  Mjup    e_M2sini  rms uncertainty on M2sini
+ 186-192  F7.4  AU        a2      Semi-major axis of companion
+ 194-200  F7.4  AU      e_a2      rms uncertainty on a2
+--------------------------------------------------------------------------------
+Note (1): With an eccentricity of 0, the time of periastron passage is
+ ill-defined. In this case, T_p_ indicates the time of primary transit.
+Note (2): f: We fixed the {gamma} of the S+ and S- dataset at a common value.
+Note (3): Residual O-C and RV {gamma} of supplementary data from different
+  instruments used to calculate these orbits are given in tableb7.dat.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  10- 17  F8.4  km/s    gammaE    ? Elodie gamma velocity
+  19- 24  F6.4  km/s  e_gammaE    ? rms uncertainty on gammaE
+  26- 30  F5.2  m/s     sO-CE     ? Elodie residual O-C
+      31  A1    ---   n_sO-CE     [*] *: Only one ELODIE RV measurement
+  34- 40  F7.4  km/s    gammaH    ? HIRES center-of-mass velocity gamma
+  42- 47  F6.4  km/s  e_gammaH    ? rms uncertainty on gammaH
+  49- 53  F5.2  m/s     sO-CH     ? HIRES residual O-C
+  55- 62  F8.4  km/s    gammaS    ? SB9 center-of-mass velocity gamma
+  64- 69  F6.4  km/s  e_gammaS    ? rms uncertainty on gammaS
+  71- 76  F6.2  m/s     sO-CS     ? SB9 residual O-C
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: sophiep.dat sophiem.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  11- 21  F11.5 d       BJD       Barycentric Julian date (BJD-2400000)
+  23- 32  F10.5 km/s    RV        Radial velocity
+  34- 40  F7.5  km/s  e_RV        rms uncertainty on RV
+  42- 49  F8.5  km/s    FWHM      FWHM
+  51- 58  F8.5  ---     Cont      Contrast (height of the CCF peak with
+                                   respect to the baseline)
+  60- 67  F8.5  km/s    BIS       Bissector span
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: elodie.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  A8    ---     Name      Star name
+  10- 20  F11.5 d       BJD       Barycentric Julian date (BJD-2400000)
+  22- 28  F7.3  km/s    RV        Radial velocity
+  30- 39  F10.8 km/s  e_RV        rms uncertainty on RV
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): SOPHIE measurements before and after the instrument upgrade in
+  June 2011 are referred to respectively as S- and S+.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Flavien Kiefer, flavien.kiefer(at)iap.fr
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  26-Sep-2019

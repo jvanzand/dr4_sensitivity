@@ -1,0 +1,7 @@
+Host: Gaia DR3 match {'NEA Gaia DR3 ID': 1817, 'SIMBAD / 2MASS crossmatch': 293, 'Gaia DR3 cone search': 13, 'Absent from DR3': 8, 'NEA ID flagged suspect': 5}
+Host: G magnitude {'Gaia DR3 G': 2123, 'NEA V (stand-in)': 8, 'NEA G': 5}
+Host: distance {'Gaia DR3 parallax': 2120, 'NEA parallax': 13, 'NEA distance': 3}
+Host: mass {'NEA orbit solution': 1796, 'Literature orbit paper': 285, 'NEA composite table': 47, 'Gaia DR3 FLAME': 8}
+Companion: orbit and mass {'NEA transit + RV': 1229, 'NEA RV-only': 1003, 'NEA RV+astrometry': 141, 'Low-precision survey (APOGEE, MARVELS)': 123, 'Survey paper': 81, 'Compilation': 64, 'SB1 catalogs (M sin i from mass function)': 22, 'RV+astrometry paper': 4}
+Companion: which solution {'NEA: newest paper for the system': 2194, 'Literature (precedence by tier)': 294, 'NEA: more precise P (>2x)': 161, 'NEA: newest paper for the planet': 18}
+Companion: periastron time {'No Tp given': 1891, 'NEA: converted from JD, HJD, or BJD_UTC': 244, 'NEA: BJD, time scale unstated': 160, 'Literature: time system unstated': 129, 'NEA: time system unstated': 96, 'NEA: BJD_TDB as published': 65, 'Literature: BJD, time scale unstated': 46, 'Literature: converted from JD, HJD, or BJD_UTC': 35, 'Literature: BJD_TDB as published': 1}

@@ -1,0 +1,1 @@
+rv_id,spectrum_id,rjd,rv,rv_err,texp,instrument_name,ins_mode,drs_qc,is_latest_drs,version_major,version_minor,version_patch,rv_extraction_method,pub_reference,pub_bibcode,program_id,program_code,status_public,target_catname,ra_deg,dec_deg,file_rootname,spectro_smw,spectro_rhk,ccf_fwhm,ccf_bispan

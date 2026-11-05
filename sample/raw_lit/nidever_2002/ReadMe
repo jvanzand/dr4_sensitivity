@@ -1,0 +1,161 @@
+J/ApJS/141/503      Radial Velocities for 889 late-type stars  (Nidever+, 2002)
+================================================================================
+Radial velocities of 889 late-type stars
+    Nidever D.L., Marcy G.W., Butler R.P., Fischer D.A., Vogt S.S.
+   <Astrophys. J. Suppl. Ser. 141, 503 (2002)>
+   =2002ApJS..141..503N
+================================================================================
+ADC_Keywords: Stars, late-type ; Radial velocities
+Keywords: stars: fundamental parameters; late-type; kinematics -
+          techniques: radial velocities; spectroscopic -
+          catalogs: binaries: spectroscopic
+
+Abstract:
+    We report radial velocities for 844 FGKM-type main sequence and
+    subgiant stars and 45 K giants, most of which had either low-precision
+    velocity measurements or none at all. These velocities differ from the
+    standard stars of Udry et al. (1999IAUCo.170..354U) by 0.035km/s (RMS)
+    for the 26 FGK standard stars in common. The zero-point of our
+    velocities differs from that of Udry et al.:
+    <V_present_-V_Udry_>=+0.053km/s. Thus these new velocities agree with
+    the best known standard stars both in precision and zero-point, to
+    well within 0.1km/s.
+
+    Nonetheless, both these velocities and the standards suffer from three
+    sources of systematic error, namely, convective blueshift,
+    gravitational redshift, and spectral type mismatch of the reference
+    spectrum. These systematic errors are here forced to be zero for G2V
+    stars by using the Sun as reference, with Vesta and day sky as
+    proxies. But for spectral types departing from solar, the systematic
+    errors reach 0.3km/s in the F and K stars and 0.4km/s in M dwarfs.
+
+    Multiple spectra were obtained for all 889 stars during four years,
+    with the HIRES echelle spectrometer (Vogt et al., 1994, , Proc. Soc.
+    Photo-Opt. Instr. Eng., 2198, 362) on the 10m Keck I telescope and
+    with the "Hamilton" echelle spectrometer fed by either the 3m Shane or
+    the 0.6m Coude Auxilliary (CAT) Telescopes (Vogt, 1987PASP...99.1214V),
+    and 782 of them exhibit velocity scatter less than 0.1km/s. These
+    stars may serve as radial velocity standards if they remain constant
+    in velocity. We found 11 new spectroscopic binaries and report orbital
+    parameters for them.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .  This file
+table1.dat     50      782  Radial velocities of stable stars with RMS<100m/s
+table2.dat     75      107  Radial velocities of stars with RMS >0.1km/s
+table3.dat    125       15  Orbital parameters of 15 stars with companions
+table4.dat     40       30  Stars with linear trends
+--------------------------------------------------------------------------------
+
+See also:
+   III/21  : General catalogue of stellar radial velocity (Wilson, 1953)
+   III/190 : WEB Catalog of Radial Velocities (Duflot+ 1995)
+   III/213 : General Catalog of mean radial velocities (Barbier-Brossat+, 2000)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Primary name
+  14- 25  A12   ---     AName     Alternative name
+  27- 29  A3    ---     Ref       [NSO M] Stellar spectrum used as the template
+                                   (NSO: National Solar Observatory or
+                                      M: M dwarf composite)
+  31- 37  I7    JD      Date      Mean time of observation
+  39- 42  I4    d       DeltaT    ?=0 Span of observations (1)
+  44- 50  I7    m/s     <RV>      Mean barycentric radial velocity
+--------------------------------------------------------------------------------
+Note (1): Stars with only one observation were put in the table even though 
+     the RMS scatter is not defined. They can be distinguished by DeltaT=0.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Primary name
+  14- 25  A12   ---     AName     Alternative name
+  27- 29  A3    ---     Ref       [NSO M] Stellar spectrum used as the template
+                                   (NSO: National Solar Observatory, M: M dwarf)
+  31- 41  F11.3 d       JD        Time of observation
+  43- 48  I6    m/s     RV        Barycentric radial velocity
+  50- 56  I7    d       <JD>      Mean time of observation
+  58- 61  I4    d       DeltaT    Span of observations (1)
+  63- 67  I5    m/s     RMS       RMS scatter of velocity of all observations
+  69- 71  I3    ---   o_RV        Number of observations
+  73- 74  A2    ---     Com       [AL CO] Comments (2)
+--------------------------------------------------------------------------------
+Note (1): Stars with only one observation were put in the table even though the
+     RMS scatter is not defined. They can be distinguished by DeltaT=0.
+Note (2): Comments on stars with companion orbit or linears trends:
+     L: velocity varies linearly with time (see table4.dat)
+    CO: a companion and its orbit were found
+     C: a published companion exists but an orbit is not given here
+     A: the star is chromospherically active based on the emission
+        reversal seen at the Ca II H&K lines in our spectrum
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---       Name    Primary name
+  11- 19  F9.4  d         Per     Orbital period
+  21- 29  F9.4  d       e_Per     rms uncertainty on Per
+  31- 35  F5.2  km/s      K       Velocity semi-amplitude
+  37- 40  F4.2  km/s    e_K       rms uncertainty on K
+  42- 45  F4.2  ---       Ecc     Eccentricity
+  47- 51  F5.3  ---     e_Ecc     ? rms uncertainty on Ecc
+      52  A1    ---     n_Ecc     [f] f: fixed
+  54- 56  I3    deg       omega   Longitude of periastron
+  58- 61  F4.1  deg     e_omega   rms uncertainty on omega
+  63- 73  F11.3 d         T0      Time of periastron passage
+  75- 82  F8.4  d       e_T0      rms uncertainty on T0
+  84- 87  F4.2  solMass   M1      Mass of the primary
+  89- 93  F5.1  ---       M2,min  Minimum mass of the secondary, in Jupiter mass
+  95- 98  F4.2  AU        amin    Minimum semi-major axis
+ 100-107  F8.6  solMass   f(M)    Mass function = (M2*sini)^3^/(M1+M2)^2^
+ 109-125  A17   ---       Ref     References (1)
+--------------------------------------------------------------------------------
+Note (1): References:
+    1: Duquennoy & Mayor, 1991A&A...248..485D
+    2: Martin et al., 1998A&AS..133..149M
+    3: Blazit et al., 1987A&AS...71...57B
+    4: Kamper, 1987AJ.....93..683K
+    5: Wagman, 1949AJ.....54Q.138W
+    6: Beavers & Salzer, 1983PASP...95...79B
+    7: Kamper & Lyons, 1981JRASC..75...56K
+    8: Halbwachs et al., 2000A&A...355..581H
+    9: Mazeh et al., 1996, Cat. <J/ApJ/466/415>
+   10: Oetik er et al., 2001PASP..113..703O
+   11: Mayor et al., 1997IAUCo.161..313M
+   12: McCarthy 1986; in Astrophysics of Brown Dwarfs, ed. M.C. Kafatos,
+       R.S. Harrinton and S.P Maran (Cambridge University Press), p. 9.
+   13: Barbieri et al., 1996A&A...315..418B
+   14: Henry & McCarthy, 1993, Cat. <J/AJ/106/773>
+   15: Marcy & Moore, 1989ApJ...341..961M
+   16: McCarthy & Henry, 1987ApJ...319L..93M
+   17: Lippincott & Borgman, 1978PASP...90..330L
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Primary name (HD name)
+      10  A1    ---   n_Name      [ab] Note on Name (1)
+  12- 21  A10   ---     AName     Alternate name (HIP name)
+  23- 30  F8.3  m/s/d   Slope     Slope of the radial velocity
+  32- 36  F5.3  m/s/d e_Slope     rms uncertainty on Slope
+  38- 39  I2    ---     Nobs      Number of observations
+--------------------------------------------------------------------------------
+Note (1): a: Exhibits some additional positive curvature
+          b: Exhibits some additional negative curvature
+--------------------------------------------------------------------------------
+
+Acknowledgements: David Nidever <dnidever@quark.sfsu.edu>
+================================================================================
+(End)                                         Patricia Bauer [CDS]   10-Apr-2002

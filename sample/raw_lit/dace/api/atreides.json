@@ -1,0 +1,484 @@
+{
+  "parameters": [
+    {
+      "variableName": "pl_name",
+      "variableNumber": 1,
+      "label": "Planet name",
+      "group": "General information",
+      "description": "Planet name",
+      "unit": "-",
+      "stringValues": [
+        "TOI-421 b",
+        "TOI-421 c"
+      ]
+    },
+    {
+      "variableName": "hostname",
+      "variableNumber": 2,
+      "label": "Star name",
+      "group": "General information",
+      "description": "Star name",
+      "unit": "-",
+      "stringValues": [
+        "TOI-421",
+        "TOI-421"
+      ]
+    },
+    {
+      "variableName": "t0",
+      "variableNumber": 3,
+      "label": "T0",
+      "group": "Transit parameters",
+      "description": "Mid-transit point",
+      "unit": "BJD (TDB)",
+      "doubleValues": [
+        2459189.7341,
+        2459195.30741
+      ]
+    },
+    {
+      "variableName": "pl_orbper",
+      "variableNumber": 4,
+      "label": "P",
+      "group": "Transit parameters",
+      "description": "Orbital period",
+      "unit": "DAY",
+      "doubleValues": [
+        5.197576,
+        16.067541
+      ]
+    },
+    {
+      "variableName": "ephem_ref",
+      "variableNumber": 5,
+      "label": "Ephemeris reference",
+      "group": "Transit parameters",
+      "description": "Ephemeris reference",
+      "unit": "-",
+      "stringValues": [
+        "Krenn et al. 2024",
+        "Krenn et al. 2024"
+      ]
+    },
+    {
+      "variableName": "st_vsin",
+      "variableNumber": 6,
+      "label": "vsini",
+      "group": "Architecture parameters",
+      "description": "Sky-projected stellar rotational velocity",
+      "unit": "KMPS",
+      "doubleValues": [
+        1.6,
+        1.6
+      ]
+    },
+    {
+      "variableName": "pl_projobliq",
+      "variableNumber": 7,
+      "label": "lambda",
+      "group": "Architecture parameters",
+      "description": "Sky-projected spin-orbit angle",
+      "unit": "SDEG",
+      "doubleValues": [
+        -35.0,
+        14.0
+      ]
+    },
+    {
+      "variableName": "archi_ref",
+      "variableNumber": 8,
+      "label": "Architecture reference",
+      "group": "Architecture parameters",
+      "description": "Orbital architecture reference",
+      "unit": "-",
+      "stringValues": [
+        "Bourrier et al. 2025",
+        "Bourrier et al. 2025"
+      ]
+    },
+    {
+      "variableName": "oid",
+      "variableNumber": 9,
+      "label": "OID",
+      "group": "General information",
+      "description": "Simbad identifier",
+      "unit": "-",
+      "stringValues": [
+        "TOI-421",
+        "TOI-421"
+      ]
+    },
+    {
+      "variableName": "st_teff",
+      "variableNumber": 10,
+      "label": "Teff",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Stellar effective temperature",
+      "unit": "KELVIN",
+      "doubleValues": [
+        5291.0,
+        5291.0
+      ]
+    },
+    {
+      "variableName": "st_tefferr2",
+      "variableNumber": 11,
+      "label": "Teff lower unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Lower uncertainty on stellar effective temperature",
+      "unit": "KELVIN",
+      "doubleValues": [
+        -64.0,
+        -64.0
+      ]
+    },
+    {
+      "variableName": "st_tefferr1",
+      "variableNumber": 12,
+      "label": "Teff upper unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Upper uncertainty on stellar effective temperature",
+      "unit": "KELVIN",
+      "doubleValues": [
+        64.0,
+        64.0
+      ]
+    },
+    {
+      "variableName": "st_logg",
+      "variableNumber": 13,
+      "label": "log g",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Stellar surface gravity",
+      "unit": "log(cm/s\u00b2)",
+      "doubleValues": [
+        4.48,
+        4.48
+      ]
+    },
+    {
+      "variableName": "st_loggerr2",
+      "variableNumber": 14,
+      "label": "log g lower unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Lower uncertainty on stellar surface gravity",
+      "unit": "log(cm/s\u00b2)",
+      "doubleValues": [
+        -0.03,
+        -0.03
+      ]
+    },
+    {
+      "variableName": "st_loggerr1",
+      "variableNumber": 15,
+      "label": "log g upper unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Upper uncertainty on stellar surface gravity",
+      "unit": "log(cm/s\u00b2)",
+      "doubleValues": [
+        0.03,
+        0.03
+      ]
+    },
+    {
+      "variableName": "st_met",
+      "variableNumber": 16,
+      "label": "Fe/H",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Stellar metallicity",
+      "unit": "DEX",
+      "doubleValues": [
+        -0.044,
+        -0.044
+      ]
+    },
+    {
+      "variableName": "st_meterr2",
+      "variableNumber": 17,
+      "label": "Fe/H lower unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Lower uncertainty on stellar metallicity",
+      "unit": "DEX",
+      "doubleValues": [
+        -0.04,
+        -0.04
+      ]
+    },
+    {
+      "variableName": "st_meterr1",
+      "variableNumber": 18,
+      "label": "Fe/H upper unc.",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Upper uncertainty on stellar metallicity",
+      "unit": "DEX",
+      "doubleValues": [
+        0.04,
+        0.04
+      ]
+    },
+    {
+      "variableName": "starspec_ref",
+      "variableNumber": 19,
+      "label": "Star reference",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Stellar spectroscopy reference",
+      "unit": "-",
+      "stringValues": [
+        "Krenn et al. 2024",
+        "Krenn et al. 2024"
+      ]
+    },
+    {
+      "variableName": "starspec_ads_link",
+      "variableNumber": 20,
+      "label": "Star reference link",
+      "group": "Stellar spectroscopic parameters",
+      "description": "Stellar spectroscopy reference link",
+      "unit": "-",
+      "stringValues": [
+        "https://doi.org/10.1051/0004-6361/202348584",
+        "https://doi.org/10.1051/0004-6361/202348584"
+      ]
+    },
+    {
+      "variableName": "texp",
+      "variableNumber": 21,
+      "label": "Texp",
+      "group": "Transit parameters",
+      "description": "ATREIDES exposure time",
+      "unit": "SEC",
+      "doubleValues": [
+        300.0,
+        300.0
+      ]
+    },
+    {
+      "variableName": "t0err2",
+      "variableNumber": 22,
+      "label": "T0 lower unc.",
+      "group": "Transit parameters",
+      "description": "Lower uncertainty on mid-transit point",
+      "unit": "DAY",
+      "doubleValues": [
+        -0.0005,
+        -0.00018
+      ]
+    },
+    {
+      "variableName": "t0err1",
+      "variableNumber": 23,
+      "label": "T0 upper unc.",
+      "group": "Transit parameters",
+      "description": "Upper uncertainty on mid-transit point",
+      "unit": "DAY",
+      "doubleValues": [
+        0.0005,
+        0.00018
+      ]
+    },
+    {
+      "variableName": "pl_orbpererr2",
+      "variableNumber": 24,
+      "label": "P lower unc.",
+      "group": "Transit parameters",
+      "description": "Lower uncertainty on orbital period",
+      "unit": "DAY",
+      "doubleValues": [
+        -5e-06,
+        -4e-06
+      ]
+    },
+    {
+      "variableName": "pl_orbpererr1",
+      "variableNumber": 25,
+      "label": "P upper unc.",
+      "group": "Transit parameters",
+      "description": "Upper uncertainty on orbital period",
+      "unit": "DAY",
+      "doubleValues": [
+        5e-06,
+        4e-06
+      ]
+    },
+    {
+      "variableName": "ephem_ads_link",
+      "variableNumber": 26,
+      "label": "Ephemeris reference link",
+      "group": "Transit parameters",
+      "description": "Ephemeris reference link",
+      "unit": "-",
+      "stringValues": [
+        "https://doi.org/10.1051/0004-6361/202348584",
+        "https://doi.org/10.1051/0004-6361/202348584"
+      ]
+    },
+    {
+      "variableName": "st_vsinerr2",
+      "variableNumber": 27,
+      "label": "vsini lower unc.",
+      "group": "Architecture parameters",
+      "description": "Lower uncertainty on sky-projected stellar rotational velocity",
+      "unit": "KMPS",
+      "doubleValues": [
+        -0.09,
+        -0.09
+      ]
+    },
+    {
+      "variableName": "st_vsinerr1",
+      "variableNumber": 28,
+      "label": "vsini upper unc.",
+      "group": "Architecture parameters",
+      "description": "Upper uncertainty on sky-projected stellar rotational velocity",
+      "unit": "KMPS",
+      "doubleValues": [
+        0.09,
+        0.09
+      ]
+    },
+    {
+      "variableName": "pl_projobliqerr2",
+      "variableNumber": 29,
+      "label": "lambda lower unc.",
+      "group": "Architecture parameters",
+      "description": "Lower uncertainty on sky-projected spin-orbit angle",
+      "unit": "SDEG",
+      "doubleValues": [
+        -23.0,
+        -1.8
+      ]
+    },
+    {
+      "variableName": "pl_projobliqerr1",
+      "variableNumber": 30,
+      "label": "lambda upper unc.",
+      "group": "Architecture parameters",
+      "description": "Upper uncertainty on sky-projected spin-orbit angle",
+      "unit": "SDEG",
+      "doubleValues": [
+        26.0,
+        1.8
+      ]
+    },
+    {
+      "variableName": "st_rotp",
+      "variableNumber": 31,
+      "label": "Prot",
+      "group": "Architecture parameters",
+      "description": "Stellar rotational period",
+      "unit": "DAY",
+      "doubleValues": [
+        19.8,
+        19.8
+      ]
+    },
+    {
+      "variableName": "st_rotperr2",
+      "variableNumber": 32,
+      "label": "Prot lower unc.",
+      "group": "Architecture parameters",
+      "description": "Lower uncertainty on stellar rotational period",
+      "unit": "DAY",
+      "doubleValues": [
+        -0.8,
+        -0.8
+      ]
+    },
+    {
+      "variableName": "st_rotperr1",
+      "variableNumber": 33,
+      "label": "Prot upper unc.",
+      "group": "Architecture parameters",
+      "description": "Upper uncertainty on stellar rotational period",
+      "unit": "DAY",
+      "doubleValues": [
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "variableName": "istar",
+      "variableNumber": 34,
+      "label": "i star",
+      "group": "Architecture parameters",
+      "description": "Stellar inclination",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        46.9,
+        46.9
+      ]
+    },
+    {
+      "variableName": "istarerr2",
+      "variableNumber": 35,
+      "label": "i star lower unc.",
+      "group": "Architecture parameters",
+      "description": "Lower uncertainty on stellar inclination",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        -4.5,
+        -4.5
+      ]
+    },
+    {
+      "variableName": "istarerr1",
+      "variableNumber": 36,
+      "label": "i star upper unc.",
+      "group": "Architecture parameters",
+      "description": "Upper uncertainty on stellar inclination",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        4.2,
+        4.2
+      ]
+    },
+    {
+      "variableName": "pl_trueobliq",
+      "variableNumber": 37,
+      "label": "Psi",
+      "group": "Architecture parameters",
+      "description": "3D spin-orbit angle",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        54.0,
+        44.5
+      ]
+    },
+    {
+      "variableName": "pl_trueobliqerr2",
+      "variableNumber": 38,
+      "label": "Psi lower unc.",
+      "group": "Architecture parameters",
+      "description": "Lower uncertainty on 3D spin-orbit angle",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        -16.0,
+        -4.4
+      ]
+    },
+    {
+      "variableName": "pl_trueobliqerr1",
+      "variableNumber": 39,
+      "label": "Psi upper unc.",
+      "group": "Architecture parameters",
+      "description": "Upper uncertainty on 3D spin-orbit angle",
+      "unit": "deg [0..180]",
+      "doubleValues": [
+        12.0,
+        4.8
+      ]
+    },
+    {
+      "variableName": "archi_ads_link",
+      "variableNumber": 40,
+      "label": "Architecture reference link",
+      "group": "Architecture parameters",
+      "description": "Orbital architecture Architecture link",
+      "unit": "-",
+      "stringValues": [
+        "TBD test",
+        "TBD"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+host,companion,P_d,e_P_d,K_ms,e,omega_deg,Tp_bjd,msini_mj,a_au,mstar_msun,fit_type,table_ref,notes
+HD 13724,HD 13724 b,14763.41,3250.72,214.3,0.34,187.5,2456189.1,26.77,12.4,1.14,RV-only,arXiv:1904.01573 Table 3 (mstar Tables 1-2),"OUT OF TARGET RANGE (a>5 AU); P given as 40.42 (+13.42/-4.38) yr, converted with 365.25 d/yr; mode of posterior"
+HD 92987,HD 92987 b,10354.84,410.91,152.7,0.21,195.1,2457889,16.88,9.62,1.08,RV-only,arXiv:1904.01573 Table 3 (mstar Tables 1-2),"OUT OF TARGET RANGE (a>5 AU); P given as 28.35 yr, converted with 365.25 d/yr"
+HD 181234,HD 181234 b,7462.06,78.53,126.8,0.73,93.3,2457668.7,8.37,7.52,1.01,RV-only,arXiv:1904.01573 Table 3 (mstar Tables 1-2),"OUT OF TARGET RANGE (a>5 AU); P given as 20.43 yr, converted with 365.25 d/yr"
+HD 98649,HD 98649 b,6022.97,334.2,140.1,0.86,252.61,2455121.7,6.79,6.57,1.03,RV-only,arXiv:1904.01573 Table 4 (mstar Table 1),"OUT OF TARGET RANGE (a>5 AU); P given as 16.49 yr, converted with 365.25 d/yr"

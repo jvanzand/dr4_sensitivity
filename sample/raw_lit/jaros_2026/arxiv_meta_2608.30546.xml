@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/z+uWG0dUvJEZD3VUnjS1QT76i9M</id>
+  <title>arXiv Query: search_query=&amp;id_list=2608.30546&amp;start=0&amp;max_results=10</title>
+  <updated>2026-10-26T17:21:20Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2608.30546" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.30546v1</id>
+    <title>Joint Observations of PTPS Targets (JOTA). Combined spectroscopic and photometric analysis of 16 SB1 systems</title>
+    <updated>2026-08-31T10:16:46Z</updated>
+    <link href="https://arxiv.org/abs/2608.30546v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.30546v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Context. The Pennsylvania-Toruń Planet Search, which operates on a sample of $\sim$1000 northern-hemisphere stars, has been underway since 2004. Stars with radial velocity (RV) amplitudes exceeding 2 km s$^{-1}$ represent a backup subprogram sample dedicated to monitoring binary stars with multiple instruments. Aims. We used almost 21 years of combined RV measurements to search for Doppler signals consistent with stellar or brown dwarf companions and to produce a catalog of both known and previously unpublished binary stars in our planet-search sample. Methods. We analyzed the combined RV measurements, searching for stellar companions and obtaining orbital solutions for both known and new binary systems. We also searched for periods in available long-term photometric monitoring data from All Sky Automated Survey (ASAS), and applied Gaia astrometric data whenever available. Results. We report the results of long-term RV monitoring of 16 systems: new detections of low-mass companions to 11 stars and updated orbital elements based on combined sets of our new and literature data for five systems. For two objects (TYC 3318-00789-1 and TYC 3318-01538-1), we find evidence of activity or the influence of another unseen companion, possibly due to line-profile variations or unresolved spectral contamination. We present true masses for three systems in our sample: TYC 1931-1040-1, TYC 3451- 1449-1, and TYC 3667-1636-1. We obtained these masses using Gaia DR3 non-single star data.</summary>
+    <category term="astro-ph.SR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.EP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-31T10:16:46Z</published>
+    <arxiv:primary_category term="astro-ph.SR"/>
+    <author>
+      <name>Robert Jaros</name>
+    </author>
+    <author>
+      <name>Andrzje Niedzielski</name>
+    </author>
+    <author>
+      <name>Sohaib Ali</name>
+    </author>
+    <author>
+      <name>Divyansh Srivastava</name>
+    </author>
+    <author>
+      <name>Julia Sierzputowska</name>
+    </author>
+    <author>
+      <name>Monika Adamów</name>
+    </author>
+    <author>
+      <name>Jorge Lillo-Box</name>
+    </author>
+    <author>
+      <name>Dmytro Orikhovskyi</name>
+    </author>
+    <author>
+      <name>Aleksander Wolszczan</name>
+    </author>
+    <author>
+      <name>Eva Villaver</name>
+    </author>
+    <author>
+      <name>Theodor Pribulla</name>
+    </author>
+    <author>
+      <name>Martin Vaňko</name>
+    </author>
+  </entry>
+</feed>

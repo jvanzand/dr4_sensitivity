@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/a1tmHr0lhdxTnTVnAPT/9etBb4A</id>
+  <title>arXiv Query: search_query=&amp;id_list=2606.29001&amp;start=0&amp;max_results=10</title>
+  <updated>2026-10-26T17:21:20Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2606.29001" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.29001v1</id>
+    <title>The GAPS programme at TNG LXXV. Validating and confirming Gaia substellar astrometric candidates with HARPS-N</title>
+    <updated>2026-06-27T16:34:39Z</updated>
+    <link href="https://arxiv.org/abs/2606.29001v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.29001v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The astrometric measurements provided by the Gaia space mission represent a key advancement in the search and characterization of exoplanets, helping in particular to solve the mass degeneracy intrinsic to the radial velocity (RV) method. The fact that a fraction of astrophysical false positives contaminates the current catalog of astrometric candidate solutions requires an RV follow-up to validate and confirm such candidates. Within the GAPS programme, we have observed a selected sample of 14 stars having Gaia astrometric solutions compatible with the presence of a substellar companion. The immediate aim of this survey is to identify astrophysical false positives and provide the first RV validation and confirmation of the remaining candidates. We analysed data collected with the HARPS-N spectrograph to identify stellar binary systems from the spectral cross-correlation function profiles. The remaining astrometric candidates were characterized via Markov chain Monte Carlo analysis searching for the best-fit RV solution. Among the stars in our sample with astrometric candidate solutions, we identify 6 as originating from close binary companions mimicking the astrometric motion of distant substellar companions, from which we can estimate an updated value of $43_{-11}^{+13}\%$ for the binary contamination fraction in the Gaia DR3 catalog of astrometric candidates. We validate and confirm the remaining 8 solutions, corresponding to giant and brown dwarf companions with minimum masses between 8 and 62 $M_{\rm Jup}$ and semimajor axes between 0.76 and 1.42 au, providing the first RV characterization for 6 of these candidates and updated orbital solutions for 2 previously confirmed ones.</summary>
+    <category term="astro-ph.EP" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.IM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.SR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-27T16:34:39Z</published>
+    <arxiv:comment>19 pages, 11 figures, accepted for publication on A&amp;A</arxiv:comment>
+    <arxiv:primary_category term="astro-ph.EP"/>
+    <author>
+      <name>D. Barbato</name>
+    </author>
+    <author>
+      <name>M. Pinamonti</name>
+    </author>
+    <author>
+      <name>A. Sozzetti</name>
+    </author>
+    <author>
+      <name>S. Desidera</name>
+    </author>
+    <author>
+      <name>V. D'Orazi</name>
+    </author>
+    <author>
+      <name>J. Maldonado</name>
+    </author>
+    <author>
+      <name>K. Biazzo</name>
+    </author>
+    <author>
+      <name>L. Naponiello</name>
+    </author>
+    <author>
+      <name>A. F. Lanza</name>
+    </author>
+    <author>
+      <name>A. Bignamini</name>
+    </author>
+    <author>
+      <name>A. S. Bonomo</name>
+    </author>
+    <author>
+      <name>M. Brogi</name>
+    </author>
+    <author>
+      <name>L. Cabona</name>
+    </author>
+    <author>
+      <name>M. Damasso</name>
+    </author>
+    <author>
+      <name>R. Gratton</name>
+    </author>
+    <author>
+      <name>L. Mancini</name>
+    </author>
+    <author>
+      <name>G. Mantovan</name>
+    </author>
+    <author>
+      <name>D. Nardiello</name>
+    </author>
+    <author>
+      <name>M. Rainer</name>
+    </author>
+    <author>
+      <name>G. Guilluy</name>
+    </author>
+    <author>
+      <name>P. Giacobbe</name>
+    </author>
+    <author>
+      <name>L. Malavolta</name>
+    </author>
+    <author>
+      <name>R. Cosentino</name>
+    </author>
+    <author>
+      <name>W. Boschin</name>
+    </author>
+    <author>
+      <name>R. Claudi</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,1247 @@
+src,host,comp,P,K,e,msini,Pv,msv
+barbato_2023,HD 3277,HD 3277 b,True,False,True,True,46.15,66.17
+barbato_2023,HD 4747,HD 4747 b,True,True,True,True,12196.71,54.81
+barbato_2023,HD 17155,HD 17155 b,True,True,True,True,1426.2,74.44
+barbato_2023,HD 17289,HD 17289 b,True,False,True,True,561.68,51.26
+barbato_2023,HD 20916,HD 20916 b,True,False,True,True,2234.53,77.33
+barbato_2023,HD 28454,HD 28454 b,True,False,True,True,6.29,78.13
+barbato_2023,HIP 22059,HIP 22059 b,True,True,True,True,13855.08,57.9
+barbato_2023,HD 30501,HD 30501 b,True,True,True,True,2076.27,62.44
+barbato_2023,HD 30774,HD 30774 b,True,True,True,True,4.93,41.59
+barbato_2023,HD 43848,HD 43848 b,True,True,True,True,2345.72,61.17
+barbato_2023,HD 53680,HD 53680 b,True,False,True,True,1685.2,51.33
+barbato_2023,HD 74014,HD 74014 b,True,True,True,True,6845.33,47.24
+barbato_2023,HD 78746,HD 78746 b,True,False,True,True,3994.02,72.19
+barbato_2023,HD 87359,HD 87359 b,True,False,True,True,20828.1,61.65
+barbato_2023,HD 89707,HD 89707 b,True,True,True,True,298.23,54.25
+barbato_2023,HD 94340,HD 94340 b,True,True,True,True,1122.96,77.84
+barbato_2023,HD 112863,HD 112863 b,True,True,True,True,7894.53,60.18
+barbato_2023,HD 119559,HD 119559 b,True,False,True,True,10163.23,76.26
+barbato_2023,HD 151528,HD 151528 b,True,True,True,True,211.85,72.47
+barbato_2023,HD 153284,HD 153284 b,True,False,True,True,2007.96,70.68
+barbato_2023,HD 154697,HD 154697 b,True,False,True,True,1836.98,67.74
+barbato_2023,HD 164427A,HD 164427A b,True,False,True,True,108.53,45.51
+barbato_2023,HD 167665,HD 167665 b,True,False,True,True,4437.8,51.51
+barbato_2023,HD 184860A,HD 184860A b,True,True,True,True,717.92,61.28
+barbato_2023,HD 195010,HD 195010 b,True,True,True,True,14202.77,47.43
+barbato_2023,HD 196885,HD 196885 b,True,True,True,True,1330.64,1.96
+barbato_2023,HD 206505,HD 206505 b,True,True,True,True,18687.09,66.91
+barbato_2023,HD 217580,HD 217580 b,True,False,True,True,453.96,64.96
+barbato_2023,HD 219709,HD 219709 b,True,False,True,True,7.89,72.87
+barbato_2026,2MASS J20570943+1406590,2MASS J20570943+1406590 b,True,True,True,True,281.89,30.32
+barbato_2026,HIP 105707,HIP 105707 b,True,True,True,True,668.76,20.34
+barbato_2026,TYC 198-493-1,TYC 198-493-1 b,True,True,True,True,718.67,8.63
+barbato_2026,HIP 60865,HIP 60865 b,True,True,True,True,528.08,43.93
+barbato_2026,PM J13580+3141,PM J13580+3141 b,True,True,True,True,588.58,10.3
+barbato_2026,TYC 3456-251-1,TYC 3456-251-1 b,True,True,True,True,592.66,59.52
+barbato_2026,TYC 4998-437-1,TYC 4998-437-1 b,True,True,True,True,558.67,22.8
+barbato_2026,StKM 1-1494,StKM 1-1494 b,True,True,True,True,789.26,63.35
+bouchy_2016,HD 14348,b,False,True,True,True,4743.5,48.9
+bouchy_2016,HD 72946,b,True,True,True,True,5818.43,60.4
+bouchy_2016,HD 209262,b,True,True,True,True,5434.92,32.3
+cui_2026,HD 175167,"HD 175167 (Cui+2026, P=3.49 yr)",True,,True,True,1274.7,6.43
+cui_2026,HD 217786,"HD 217786 (Cui+2026, P=3.57 yr)",True,,True,True,1303.9,13.46
+cui_2026,HD 39213,"HD 39213 (Cui+2026, P=3.56 yr)",True,,True,True,1300.3,69.25
+cui_2026,HD 106515 A,"HD 106515 A (Cui+2026, P=9.82 yr)",True,,True,True,3586.8,11.06
+cui_2026,HD 10697,"HD 10697 (Cui+2026, P=2.94 yr)",True,,True,True,1073.8,6.02
+cui_2026,HD 111232,"HD 111232 (Cui+2026, P=3.2 yr)",True,,True,True,1168.8,8.24
+cui_2026,HD 125612,"HD 125612 (Cui+2026, P=7.73 yr)",True,,True,True,2823.4,7.4
+cui_2026,HD 127506,"HD 127506 (Cui+2026, P=7.34 yr)",True,,True,True,2680.9,36.97
+cui_2026,HD 136118,"HD 136118 (Cui+2026, P=3.25 yr)",True,,True,True,1187.1,11.74
+cui_2026,HD 145675,"HD 145675 (Cui+2026, P=4.83 yr)",True,,True,True,1764.2,4.72
+cui_2026,HD 150554,"HD 150554 (Cui+2026, P=10.1 yr)",True,,True,True,3689.0,67.25
+cui_2026,HD 168443,"HD 168443 (Cui+2026, P=4.8 yr)",True,,True,True,1753.2,18.04
+cui_2026,HD 169830,"HD 169830 (Cui+2026, P=4.98 yr)",True,,True,True,1818.9,2.95
+cui_2026,HD 224538,"HD 224538 (Cui+2026, P=3.29 yr)",True,,True,True,1201.7,7.03
+cui_2026,HD 23596,"HD 23596 (Cui+2026, P=4.2 yr)",True,,True,True,1534.0,7.26
+cui_2026,HD 30177,"HD 30177 (Cui+2026, P=6.88 yr)",True,,True,True,2512.9,8.66
+cui_2026,HD 39091,"HD 39091 (Cui+2026, P=5.72 yr)",True,,True,True,2089.2,9.96
+cui_2026,HD 66428,"HD 66428 (Cui+2026, P=6.21 yr)",True,,True,True,2268.2,3.09
+cui_2026,HD 74156,"HD 74156 (Cui+2026, P=6.7 yr)",True,,True,True,2447.2,7.88
+cui_2026,HD 86264,"HD 86264 (Cui+2026, P=4.08 yr)",True,,True,True,1490.2,12.83
+cui_2026,HD 8673,"HD 8673 (Cui+2026, P=4.5 yr)",True,,True,True,1643.6,13.34
+cui_2026,HD 87883,"HD 87883 (Cui+2026, P=9.06 yr)",True,,True,True,3309.2,2.31
+cui_2026,HIP 22203,"HIP 22203 (Cui+2026, P=2.74 yr)",True,,True,True,1000.8,50.6
+dalal_2021,BD-00 4475,b,True,True,True,True,723.2,25.05
+dalal_2021,HD 184601,b,True,True,True,True,849.35,60.27
+dalal_2021,HD 205521,b,True,True,True,True,2032.32,26.62
+dalal_2021,HD 5433,b,True,True,True,True,576.6,49.11
+diaz_2012,HD 22781,b,True,True,True,True,528.07,13.65
+diaz_2012,HD 156279,b,True,True,True,True,131.05,9.71
+diaz_2012,HD 14651,b,True,True,True,True,79.4179,47.0
+diaz_2012,HD 30246,b,True,True,True,True,990.7,55.1
+diaz_2012,HD 92320,b,True,True,True,True,145.402,59.4
+diaz_2012,HD 137510,b,True,True,True,True,801.3,27.3
+diaz_2012,HD 16702,b,True,True,True,True,72.8322,48.7
+exoplanet_eu,Gaia 19cwm,Gaia 19cwm b,,,,,0.05994478,73.0
+exoplanet_eu,TOI-2533,TOI-2533 b,,,,,6.6847,72.0
+exoplanet_eu,TIC 13344668,TIC 13344668 b,,,,,141.77,68.0
+exoplanet_eu,SDSS J155720.78+091624.7,SDSS J1557+0916 b,,,,,0.09471470833,66.0
+exoplanet_eu,ZTF J1840-1742,ZTF J1840-1742 b,,,,,0.0117,65.0
+exoplanet_eu,ZTF J2111+3158,ZTF J2111+3158 b,,,,,0.0116,65.0
+exoplanet_eu,gamma1 Leo,gamma1 Leo b,,,,,428.5,63.88
+exoplanet_eu,CoRoT-15,CoRoT-15 b,,,,,3.06036,63.4
+exoplanet_eu,GJ 569 B,GJ 569 Bb,,,,,870.0,62.0
+exoplanet_eu,NGTS-7 A,NGTS-7 Ab,,,,,0.67599,62.0
+exoplanet_eu,TOI-263,TOI-263 b,,,,,0.5568143,61.6
+exoplanet_eu,TOI-7019,TOI-7019 b,,,,,48.2592,61.3
+exoplanet_eu,GJ 867 B,GJ 867 Bb,,,,,1.795,61.0
+exoplanet_eu,PG 1621+476,SDSS J1622+4730 b,,,,,0.0697888,61.0
+exoplanet_eu,WASP-30,WASP-30 b,,,,,4.156736,60.86
+exoplanet_eu,PPL 15,PPL 15 b,,,,,5.825,60.0
+exoplanet_eu,TCP J2017,TCP J2017 b,,,,,0.0611,60.0
+exoplanet_eu,GALEX J003854.9+203026,ZTF J0038+2030 b,,,,,0.4319208,59.3
+exoplanet_eu,CoRoT-33,CoRoT-33 b,,,,,5.819143,59.2
+exoplanet_eu,PM J14332+1011,SDSS J1433+1011 b,,,,,0.054,57.1
+exoplanet_eu,HD 87646,HD 87646 Ac,,,,,674.0,57.0
+exoplanet_eu,RIK 72,RIK 72 b,,,,,97.84,56.1
+exoplanet_eu,Gaia DR3 2893941099963718528,Gaia DR3 2893941099963718528,,,,,0.234,56.0
+exoplanet_eu,SDSS J000649.16-085246.3,LP 704-48 Bb,,,,,147.6,56.0
+exoplanet_eu,NLTT 5306,NLTT 5306 b,,,,,0.07,56.0
+exoplanet_eu,WASP-81,WASP-81 c,,,,,1306.0,55.6
+exoplanet_eu,WD 0137-349,WD 0137-349 b,,,,,0.079424,55.5
+exoplanet_eu,TOI-811,TOI-811 Ab,,,,,25.16551,55.3
+exoplanet_eu,HD 29587,HD 29587 b,,,,,1481.0,55.2
+exoplanet_eu,ups1 Hya,ups1 Hya b,,,,,1500.0,55.0
+exoplanet_eu,TOI-5090,TOI-5090 b,,,,,1.982796,54.2
+exoplanet_eu,2MASS J03202839-0446358,2MASS J0320-0446 b,,,,,246.73,54.0
+exoplanet_eu,TOI-2844,TOI-2844 b,,,,,3.5524204,54.0
+exoplanet_eu,TOI-3577,TOI-3577 b,,,,,5.266759,53.8
+exoplanet_eu,TOI-852,TOI-852 b,,,,,4.94561,53.7
+exoplanet_eu,TOI-503,TOI-503 b,,,,,3.6775,53.6
+exoplanet_eu,TOI-5081,TOI-5081 b,,,,,5.169885,52.3
+exoplanet_eu,HD 114623,MARVELS-11 b,,,,,11.6121,52.1
+exoplanet_eu,G 178-27,G 178-27 b,,,,,80.82,51.0
+exoplanet_eu,HQ Tau,HQ Tau Ab,,,,,125.8,50.1
+exoplanet_eu,ADS 11163 A,ADS 11163 Ab,,,,,4.63629,50.0
+exoplanet_eu,HD 153252 A,HD 153252 Ab,,,,,5.526174,50.0
+exoplanet_eu,HIP 65040,HIP 65040 Ab,,,,,305.11,50.0
+exoplanet_eu,Parenago 2017,ISOY J0535-0447 b,,,,,3.905625,50.0
+exoplanet_eu,SDSS J1411+2009,SDSS J1411+2009 b,,,,,0.0854,50.0
+exoplanet_eu,WD 1202-024,WD 1202-024 b,,,,,0.04946525,49.0
+exoplanet_eu,HD 16702,HD 16702 b,,,,,72.8322,48.7
+exoplanet_eu,BD+63 974,BD+63 974 b,,,,,2146.6,48.0
+exoplanet_eu,HD 160508,HD 160508 b,,,,,178.9049,48.0
+exoplanet_eu,HIP 61637,HIP 61637 b,,,,,6.829104,47.8
+exoplanet_eu,TOI-3755,TOI-3755 b,,,,,5.543744,47.1
+exoplanet_eu,HD 134113,HD 134113 b,,,,,201.68,47.0
+exoplanet_eu,HD 14651,HD 14651 Ab,,,,,79.4179,47.0
+exoplanet_eu,TOI-1406,TOI-1406 b,,,,,10.57398,46.0
+exoplanet_eu,HIP 60865,HIP 60865 b,,,,,528.08,44.29
+exoplanet_eu,LTT 11586,LTT 11586 Ab,,,,,15.04547,44.27
+exoplanet_eu,G 190-10,G 190-10 b,,,,,30.1712,44.0
+exoplanet_eu,SRGeJ0453,SRGeJ0453 b,,,,,0.03925014,44.0
+exoplanet_eu,TYC 3130-160-1,MARVELS-16 b,,,,,31.656,42.7
+exoplanet_eu,HD 149790,HD 149790 b,,,,,6.673,42.0
+exoplanet_eu,GSC 03467-00030,MARVELS-13 b,,,,,147.6,41.8
+exoplanet_eu,HD 30774,HD 30774 b,,,,,4.93,41.59
+exoplanet_eu,G 123-45,G 123-45 b,,,,,34.7557,40.51
+exoplanet_eu,TOI-5610,TOI-5610 b,,,,,7.95346,40.4
+exoplanet_eu,MARVELS-4,MARVELS-4 b,,,,,9.009,40.0
+exoplanet_eu,HD 135748,mu Lup Cb,,,,,12.353,40.0
+exoplanet_eu,TYC 2534-698-1,TYC 2534-698-1 c,,,,,103.698,39.05
+exoplanet_eu,TYC 123-549-1,MARVELS-8 b,,,,,36.045,37.7
+exoplanet_eu,HD 119445,HD 119445 b,,,,,410.2,37.6
+exoplanet_eu,EPIC 219388192,TOI-7497 b,,,,,5.2926298,37.25
+exoplanet_eu,WASP-128,WASP-128 b,,,,,2.20883665,37.19
+exoplanet_eu,Kepler-494,Kepler-494 b,,,,,8.02511821,37.0
+exoplanet_eu,ZTF J0218+0711,ZTF J0218+0711 b,,,,,0.07096958559,37.0
+exoplanet_eu,2MASS J20570943+1406590,2MASS J2057+1406 b,,,,,281.89,36.09
+exoplanet_eu,G 65-52,G 65-52 b,,,,,150.81,36.0
+exoplanet_eu,2MASS J0535-0546,2MASS J0535-0546 b,,,,,,35.6
+exoplanet_eu,SDSS J092638.71+362402.4,SDSS J0926+3624 b,,,,,0.0196,35.0
+exoplanet_eu,TYC 198-493-1,TYC 198-493-1 b,,,,,718.67,34.19
+exoplanet_eu,NLTT 41135,NLTT 41135 b,,,,,2.889475,33.7
+exoplanet_eu,2M1510 B,2M1510 B,,,,,20.90769,33.21
+exoplanet_eu,GJ 3626,GJ 3626 b,,,,,2996.0,33.1
+exoplanet_eu,TYC 3469-492-1,MARVELS-12 b,,,,,252.5,32.8
+exoplanet_eu,HIP 105707,HIP 105707 b,,,,,665.32,32.2
+exoplanet_eu,QZ Lib,QZ Lib b,,,,,0.06436,32.0
+exoplanet_eu,TOI-4776,TOI-4776 Ab,,,,,10.413815,32.0
+exoplanet_eu,MARVELS-6,MARVELS-6 b,,,,,47.8929,31.7
+exoplanet_eu,WD 0837+185,WD 0837+185 B,,,,,0.175,30.0
+exoplanet_eu,HD 168443,HD 168443 c,,,,,1749.83,29.463
+exoplanet_eu,V347 Aur,V347 Aur b,,,,,154.6,29.0
+exoplanet_eu,GJ 1046,GJ 1046 b,,,,,168.844,28.62
+exoplanet_eu,bet And,bet And b,,,,,663.87,28.26
+exoplanet_eu,HD 71827,HD 71827 Ab,,,,,15.052366,27.43
+exoplanet_eu,HD 137510,HD 137510 b,,,,,801.3,27.3
+exoplanet_eu,HD 92788,HD 92788 b,,,,,325.8,27.02
+exoplanet_eu,nu Oph,nu Oph c,,,,,3175.3,26.8
+exoplanet_eu,GP Com,GP Com b,,,,,0.032,26.2
+exoplanet_eu,BD+26 1888,BD+26 1888 b,,,,,536.78,26.0
+exoplanet_eu,PB 7296,ZTF J2252-05 b,,,,,0.024,26.0
+exoplanet_eu,HD 189310,HD 189310 b,,,,,14.18643,25.6
+exoplanet_eu,Gaia14aae,Gaia14aae b,,,,,0.0345,25.3
+exoplanet_eu,59 Dra,59 Dra b,,,,,28.44,25.0
+exoplanet_eu,[NC98] Cha HA 8,Cha Ha 8 b,,,,,1895.0,25.0
+exoplanet_eu,TIC 673440531,J0404+1112 b,,,,,0.122294,25.0
+exoplanet_eu,2MASS J1559+4403 A,2MASS J1559+4403 Ab,,,,,13.976,24.5
+exoplanet_eu,TYC 3556-3602-1,MARVELS-18 b,,,,,117.6,24.4
+exoplanet_eu,nu Oph,nu Oph b,,,,,529.91,24.2
+exoplanet_eu,HD 38529,HD 38529 Ac,,,,,2134.76,23.7
+exoplanet_eu,ZTF J163743.49+491740.4,ZTF J1637+49 b,,,,,0.043,23.0
+exoplanet_eu,HD 81817,HD 81817 c,,,,,623.0,22.609
+exoplanet_eu,HD 125390,HD 125390 b,,,,,1756.2,22.16
+exoplanet_eu,HD 66141,HD 66141 b,,,,,480.7,22.1
+exoplanet_eu,HD 180314,HD 180314 b,,,,,396.03,22.0
+exoplanet_eu,HD 60532,HD 60532 c,,,,,607.06,21.81
+exoplanet_eu,HD 202206,HD 202206 b,,,,,256.26,21.55
+exoplanet_eu,TOI-544,TOI-544 c,,,,,50.089,21.5
+exoplanet_eu,BD+20 2457,BD+20 2457 b,,,,,379.63,21.42
+exoplanet_eu,HD 18438,HD 18438 b,,,,,803.0,21.0
+exoplanet_eu,KELT-25,KELT-25 b,,,,,4.401131,21.0
+exoplanet_eu,BEBOP-4,BEBOP-4 (AB)b,,,,,1823.5,20.9
+exoplanet_eu,3 Cnc,3 Cnc b,,,,,853.64,20.76
+exoplanet_eu,tau Gem,tau Gem b,,,,,305.5,20.6
+exoplanet_eu,1SWASP J1407,1SWASP J1407 b,,,,,3725.0,20.0
+exoplanet_eu,HD 13507,HD 13507 b,,,,,3029.5,20.0
+exoplanet_eu,HIP 97233,HIP 97233 b,,,,,1058.8,20.0
+exoplanet_eu,Roque 12,Roque 12 b,,,,,70.0,20.0
+exoplanet_eu,HD 110833,HD 110833 b,,,,,273.44,19.97
+exoplanet_eu,AS 205 A,AS 205 Ab,,,,,24.84,19.25
+exoplanet_eu,HD 165131,HD 165131 b,,,,,2343.0,19.0
+exoplanet_eu,ASASSN-18dg,ZTF J0407-00 b,,,,,0.0246,19.0
+exoplanet_eu,HD 41004 B,HD 41004 Bb,,,,,1.32363,18.4
+exoplanet_eu,KIC 3526061,KIC 3526061 b,,,,,3552.0,18.15
+exoplanet_eu,HD 64114,HD 64114 b,,,,,45.791,17.8
+exoplanet_eu,BD+42 3438,MARVELS-19 b,,,,,122.2,17.3
+exoplanet_eu,HD 39392,HD 39392 b,,,,,394.3,17.3
+exoplanet_eu,CoRoT-20,CoRoT-20 c,,,,,1675.0,17.0
+exoplanet_eu,Gaia DR2 2768879344590703872,ZTF J0003+14 b,,,,,0.0385,17.0
+exoplanet_eu,WASP-53,WASP-53 c,,,,,3083.7,16.67
+exoplanet_eu,iot Dra,iot Dra b,,,,,510.855,16.4
+exoplanet_eu,11 Com,11 Com Ab,,,,,326.03,16.1284
+exoplanet_eu,HD 73256,HD 73256 c,,,,,2690.0,16.0
+exoplanet_eu,HD 240237,HD 240237 b,,,,,745.7,15.89
+exoplanet_eu,del Vir,del Vir b,,,,,466.63,15.83
+exoplanet_eu,HD 14067,HD 14067 b,,,,,2742.245,15.3
+exoplanet_eu,1RXS J105010.3-140431,1RXS J105010.3-140431 b,,,,,1.48,15.0
+exoplanet_eu,TYC 4955-369-1,MARVELS-10 b,,,,,217.3,14.8
+exoplanet_eu,HD 164604,HD 164604 b,,,,,641.47,14.3
+exoplanet_eu,HAT-P-13,HAT-P-13 c,,,,,446.27,14.28
+exoplanet_eu,HD 8673 A,HD 8673 Ab,,,,,1634.0,14.2
+exoplanet_eu,HD 13189,HD 13189 b,,,,,471.6,14.0
+exoplanet_eu,HD 158996,HD 158996 b,,,,,820.2,14.0
+exoplanet_eu,GALEX J022008.6+214156,ZTF J0220+21 b,,,,,0.037,14.0
+exoplanet_eu,HD 4760,HD 4760 b,,,,,434.0,13.9
+exoplanet_eu,HD 22781,HD 22781 b,,,,,528.07,13.65
+exoplanet_eu,TYC 3547-1007-1,MARVELS-17 b,,,,,103.4,13.1
+exoplanet_eu,TOI-5217,TOI-5217 Ac,,,,,1761.0,13.0
+exoplanet_eu,44 Uma,44 Uma b,,,,,785.74,12.11
+exoplanet_eu,PSR J1311-3430,PSR J1311-3430 b,,,,,0.065115,12.0
+exoplanet_eu,TOI-1444,TOI-1444 c,,,,,16.086,11.8
+exoplanet_eu,Sand 178,Sand 178 b,,,,,123.93,10.4
+exoplanet_eu,HD 106574,HD 106574 b,,,,,1065.7,8.5
+exoplanet_eu,UCAC4 588-049886,2MASS J1253+2734 b,,,,,24.31,8.3
+exoplanet_eu,NGP 28 123,2MASS J1252+2735 b,,,,,35.08,6.88
+exoplanet_eu,HD 44385,HD 44385 b,,,,,473.5,5.9
+exoplanet_eu,HD 164428,HD 164428 b,,,,,599.6,5.7
+exoplanet_eu,WASP-34,WASP-34 c,,,,,2033.4,5.29
+exoplanet_eu,WASP-22,WASP-22 c,,,,,2541.0,4.9
+exoplanet_eu,HD 175370,HD 175370 b,,,,,349.5,4.6
+exoplanet_eu,HD 97619,HD 97619 b,,,,,665.9,3.5
+exoplanet_eu,2MASS J12582326+2630091,2MASS J1258+2630 b,,,,,11.88,3.4
+exoplanet_eu,eta Cet,eta Cet c,,,,,751.9,3.32
+exoplanet_eu,WASP-185,WASP-185 c,,,,,1061.0,3.24
+exoplanet_eu,chi Vir,chi Vir c,,,,,130.0,3.1
+exoplanet_eu,HD 118904,HD 118904 Ab,,,,,676.7,3.1
+exoplanet_eu,WASP-67,WASP-67 c,,,,,2244.0,2.88
+exoplanet_eu,eta Cet,eta Cet b,,,,,403.5,2.55
+exoplanet_eu,HD 202432,HD 202432 b,,,,,418.8,1.9
+exoplanet_eu,HD 132563 B,HD 132563 Bb,,,,,1544.0,1.49
+exoplanet_eu,HD 25723,HD 25723 c,,,,,2369.84,1.33
+exoplanet_eu,HD 20367,HD 20367 b,,,,,500.0,1.07
+exoplanet_eu,HD 9826,ups And Ae,,,,,3848.86,1.059
+exoplanet_eu,HIP 11915,HIP 11915 b,,,,,3830.0,0.99
+exoplanet_eu,WASP-134,WASP-134 c,,,,,70.196,0.768
+exoplanet_eu,CD-35 2722,CD-35 2722 b I,,,,,169.45,0.743
+exoplanet_eu,HD 190622,HD 190622 c,,,,,315.7,0.714
+exoplanet_eu,HD 9578,HD 9578 Ab,,,,,494.0,0.62
+exoplanet_eu,HD 103891,HD 103891 c,,,,,951.5,0.46
+exoplanet_eu,GJ 2056,GJ 2056 c,,,,,2982.394,0.4443
+exoplanet_eu,HD 114613,HD 114613 b,,,,,4000.0,0.357
+exoplanet_eu,HD 208487,HD 208487 c,,,,,923.06,0.32
+exoplanet_eu,HD 82943,HD 82943 d,,,,,1078.0,0.29
+exoplanet_eu,HD 46588,HD 46588 b,,,,,223.0,0.25
+exoplanet_eu,HD 215456,HD 215456 Ac,,,,,2277.0,0.246
+exoplanet_eu,HD 136925,HD 136925 c,,,,,310.76,0.2246
+exoplanet_eu,HD 219134,HD 219134 e,,,,,1842.0,0.223
+exoplanet_eu,HD 150433,HD 150433 b,,,,,1096.2,0.168
+exoplanet_eu,HD 208487,HD 208487 d,,,,,1380.13,0.15
+exoplanet_eu,HD 157172,HD 157172 b,,,,,104.84,0.12
+exoplanet_eu,HD 215456,HD 215456 Ab,,,,,191.99,0.101
+exoplanet_eu,TW Hya,TW Hya b,,,,,8.339,0.094
+exoplanet_eu,HD 30669,HD 30669 c,,,,,149.9,0.0903
+exoplanet_eu,HIP 68468,HIP 68468 Ac,,,,,194.0,0.082
+exoplanet_eu,TOI-784,TOI-784 c,,,,,42.0,0.06878
+exoplanet_eu,TOI-1416,TOI-1416 c,,,,,29.5306,0.068
+exoplanet_eu,BD-06 1339,BD-06 1339 d,,,,,487.0,0.0582
+exoplanet_eu,HD 7449 A,HD 7449 Ad,,,,,51.154,0.053
+exoplanet_eu,109 Psc,109 Psc c,,,,,8.1127,0.0522
+exoplanet_eu,HD 102365,HD 102365 Ab,,,,,122.1,0.05
+exoplanet_eu,K2-222,K2-222 c,,,,,141.22,0.0387
+exoplanet_eu,HD 24085 B,HD 24085 Bb,,,,,2.0455,0.0371
+exoplanet_eu,K2-105,K2-105 c,,,,,5.02173,0.0349
+exoplanet_eu,Luyten's Star,Luyten's Star d,,,,,413.9,0.03448
+exoplanet_eu,TOI-521,TOI-521 c,,,,,20.35,0.0337
+exoplanet_eu,2MASS J15104786-2818174,2M1510 (AB)b,,,,,100.0,0.031
+exoplanet_eu,TOI-682,TOI-682 c,,,,,16.1,0.0302
+exoplanet_eu,GJ 649,GJ 649 c,,,,,4.4762,0.03
+exoplanet_eu,Luyten's Star,Luyten's Star e,,,,,542.0,0.0297
+exoplanet_eu,TOI-2443,TOI-2443 c,,,,,96.6,0.0293
+exoplanet_eu,TOI-2211,TOI-2211 c,,,,,15.611,0.02681
+exoplanet_eu,GJ 176,GJ 176 c,,,,,28.586,0.0233
+exoplanet_eu,GJ 179,GJ 179 c,,,,,3.4798,0.0154
+exoplanet_eu,GJ 4276,GJ 4276 c,,,,,6.6744,0.01337
+exoplanet_eu,Wolf 359,Wolf 359 c,,,,,2.68687,0.012
+exoplanet_eu,HD 126053,HD 126053 c,,,,,10.9145,0.0113
+exoplanet_eu,HD 40307,HD 40307 e,,,,,34.62,0.011
+exoplanet_eu,BD-06 1339,BD-06 1339 e,,,,,2.3946,0.0104
+exoplanet_eu,HIP 68468,HIP 68468 Ab,,,,,1.8374,0.0091
+exoplanet_eu,LTT 1445 A,LTT 1445 Ad,,,,,24.29,0.00856
+exoplanet_eu,GJ 480,GJ 480 c,,,,,6.4349,0.0085
+exoplanet_eu,L 98-59,L 98-59 g,,,,,1.73615,0.00182
+exoplanets_org,LTT 9337,HD 217786 b,True,True,True,True,1319.0,13.1868
+exoplanets_org,HD 168443,HD 168443 c,True,True,True,True,1749.83,17.3857
+exoplanets_org,XO-3,XO-3 b,True,True,True,True,3.1915426,13.0547
+exoplanets_org,HD 186641,HIP 97233 b,True,True,True,True,1058.8,19.8471
+exoplanets_org,42 Dra,42 Dra b,True,True,True,True,479.1,3.73203
+exoplanets_org,HD 204313,HD 204313 d,True,True,True,True,2831.6,1.60642
+exoplanets_org,HR 5460,alpha Cen B b,True,True,True,True,3.2357,0.00354639
+exoplanets_org,BD+05 1668,GJ 273 d,True,True,True,True,423.3821719,0.0448185
+exoplanets_org,LHS 311,HD 102365 b,True,True,True,True,122.1,0.0509774
+exoplanets_org,HD 33636,HD 33636 b,True,True,True,True,2127.7,9.26951
+exoplanets_org,KOI-423,Kepler-39 b,True,True,True,True,21.0874,18.1767
+exoplanets_org,CoRoT-Exo-3,CoRoT-3 b,True,True,True,True,4.2568,21.799
+exoplanets_org,BD+05 1668,GJ 273 e,True,True,True,True,699.81424883,0.0285413
+exoplanets_org,tau Gem,tau Gem b,True,True,True,True,305.5,20.3246
+exoplanets_org,Cl* NGC 4349 MMU 127,NGC 4349 127 b,True,True,True,True,677.8,9.88561
+exoplanets_org,HD 162020,HD 162020 b,True,True,True,True,8.428198,15.2138
+exoplanets_org,HD 22781,HD 22781 b,True,True,True,True,528.07,13.8403
+exoplanets_org,eta Cet,eta Cet b,True,True,True,True,407.5,2.5485
+exoplanets_org,HIP 12184,30 Ari B b,True,True,True,True,335.1,9.87792
+exoplanets_org,BD+12 1917,M 67 SAND 364 b,True,True,True,True,121.71,1.88274
+exoplanets_org,HD 155233,HD 155233 b,True,True,True,True,885.0,1.99403
+exoplanets_org,HD 114762,HD 114762 b,True,True,True,True,83.9151,11.6351
+exoplanets_org,HD 73256,HD 73256 b,True,True,True,True,2.5485799,1.86902
+exoplanets_org,HD 180314,HD 180314 b,True,True,True,True,396.03,22.6261
+exoplanets_org,HD 202206,HD 202206 b,True,True,True,True,255.87,16.8244
+exoplanets_org,HD 204961,GJ 832 c,True,True,True,True,35.68,0.016749
+exoplanets_org,11 Com,11 Com b,True,True,True,True,326.03,16.1284
+exoplanets_org,HD 158996,HD 158996 b,True,True,True,True,820.2,14.0573
+exoplanets_org,eta Cet,eta Cet c,True,True,True,True,744.5,3.28703
+exoplanets_org,HD 16760,HD 16760 b,True,True,True,True,465.1,13.2921
+exoplanets_org,HAT-P-13,HAT-P-13 c,True,True,True,True,446.27,14.2696
+exoplanets_org,HD 131664,HD 131664 b,True,True,True,True,1951.0,18.3282
+exoplanets_org,HD 114613,HD 114613 b,True,True,True,True,3827.0,0.506039
+exoplanets_org,HD 85512,HD 85512 b,True,True,True,True,58.43,0.0113953
+express_jones,HIP 97233,b,True,True,True,True,1058.8,20.0
+express_jones,HIP 67537,b,True,True,True,True,2556.5,11.1
+feng_2022,HD 21019,GJ 2030 b,True,True,True,True,2.38129,0.015
+feng_2022,HD 21175,GJ 3222 b,True,True,True,True,10.66669,0.036
+feng_2022,HD 21175,GJ 3222 c,True,True,True,True,1429.84379,1.896
+feng_2022,CD-51 10924,GJ 676 A d,True,True,True,True,3.60076,0.012
+feng_2022,CD-51 10924,GJ 676 A e,True,True,True,True,35.47358,0.021
+feng_2022,CD-51 10924,GJ 676 A b,True,True,True,True,1051.44521,4.3659
+feng_2022,HD 214100,GJ 864 b,True,True,True,True,5199.59263,16.314
+feng_2022,HD 100939,HD 100939 b,True,True,True,True,2675.57603,6.7452
+feng_2022,HD 105618,HD 105618 b,True,True,True,True,10.02245,0.08
+feng_2022,HD 105811,HD 105811 b,True,True,True,True,1175.33632,0.45942
+feng_2022,HD 106515 A,HD 106515 A b,True,True,True,True,3586.86089,9.5163
+feng_2022,109 Psc,HD 10697 b,True,True,True,True,1075.3799,5.7298
+feng_2022,HD 111232,HD 111232 b,True,True,True,True,1169.13202,7.95
+feng_2022,HD 113337,HD 113337 b,True,True,True,True,317.58639,3.259
+feng_2022,HD 11343,HD 11343 c,True,True,True,True,228.53731,0.804
+feng_2022,HD 11343,HD 11343 b,True,True,True,True,1852.14387,7.713
+feng_2022,HD 11506,HD 11506 c,True,True,True,True,223.95986,0.369
+feng_2022,HD 11506,HD 11506 b,True,True,True,True,1613.74017,4.5053
+feng_2022,HD 115404,HD 115404 A b,True,True,True,True,10.49488,0.097
+feng_2022,HD 120084,HD 120084 b,True,True,True,True,2085.10024,5.3817
+feng_2022,12 Psc,HD 12235 b,True,True,True,True,4.36305,0.033
+feng_2022,HD 122562,HD 122562 c,True,True,True,True,84.96276,0.23
+feng_2022,HD 122562,HD 122562 b,True,True,True,True,2907.53665,26.997
+feng_2022,HD 125390,HD 125390 b,True,True,True,True,1757.39151,27.087
+feng_2022,HD 125612,HD 125612 b,True,True,True,True,4.15466,0.049
+feng_2022,HD 125612,HD 125612 c,True,True,True,True,557.69994,2.974
+feng_2022,HD 125612,HD 125612 d,True,True,True,True,2822.72698,7.1744
+feng_2022,HD 126614,HD126614 A b,True,True,True,True,1257.25303,0.33612
+feng_2022,HD 127506,HD 127506 b,True,True,True,True,65.78395,0.086
+feng_2022,HD 127506,HD 127506 c,True,True,True,True,2679.47562,36.884
+feng_2022,HD 135872,HD 135872 b,True,True,True,True,2422.32597,5.4765
+feng_2022,HD 136118,HD 136118 b,True,True,True,True,1187.59765,11.697
+feng_2022,HD 13724,HD 13724 c,True,True,True,True,142.22895,0.16
+feng_2022,HD 139357,HD 139357 b,True,True,True,True,1124.79139,19.343
+feng_2022,HD 14067,HD 14067 b,True,True,True,True,2721.23479,15.737
+feng_2022,HD 140901,HD 140901 b,True,True,True,True,9.02378,0.049
+feng_2022,HD 142,HD142 A d,True,True,True,True,108.45299,0.26
+feng_2022,HD 142,HD142 A b,True,True,True,True,351.43394,1.249
+feng_2022,HD 144899,HD 144899 b,True,True,True,True,40.43914,0.064
+feng_2022,14 Her,HD 145675 b,True,True,True,True,1765.0389,4.659
+feng_2022,HD 145934,HD 145934 b,True,True,True,True,2751.53433,2.0516
+feng_2022,HD 151450,HD 151450 b,True,True,True,True,21.89288,0.121
+feng_2022,HD 153557,HD 153557 b,True,True,True,True,7.29903,0.064
+feng_2022,HD 153557,HD 153557 c,True,True,True,True,15.27018,0.055
+feng_2022,HD 155918,HD 155918 b,True,True,True,True,1.87567,0.024
+feng_2022,HD 156098,HD 156098 b,True,True,True,True,21.85849,0.05
+feng_2022,HD 156279,HD 156279 b,True,True,True,True,133.40355,9.432
+feng_2022,HD 168443,HD 168443 b,True,True,True,True,58.11187,7.628
+feng_2022,HD 168443,HD 168443 c,True,True,True,True,1753.1096,17.302
+feng_2022,HD 169830,HD 169830 b,True,True,True,True,225.67372,2.531
+feng_2022,HD 169830,HD 169830 c,True,True,True,False,1818.82339,3.1765
+feng_2022,HD 170707,HD 170707 b,True,True,True,True,455.73816,2.102
+feng_2022,HD 175167,HD 175167 b,True,True,True,True,1276.07604,6.39
+feng_2022,HD 18143,HD 18143 b,True,True,True,True,10.2851,0.034
+feng_2022,HD 183263,HD 183263 b,True,True,True,True,624.87404,3.471
+feng_2022,HD 190228,HD 190228 b,True,True,True,True,1143.59858,5.011
+feng_2022,HD 191806,HD 191806 b,True,True,True,True,1603.38923,8.5611
+feng_2022,HD 199509,HD 199509 b,True,True,True,True,99.62167,0.136
+feng_2022,iot Cap,HD 203387 b,True,True,True,True,512.5352,3.48
+feng_2022,iot Cap,HD 203387 c,True,True,True,True,2481.07227,2.7479
+feng_2022,HD 203771,HD 203771 b,True,True,True,True,1112.01366,53.952
+feng_2022,HD 204313,HD 204313 b,True,True,True,True,34.95875,0.054
+feng_2022,HD 204313,HD 204313 c,True,True,True,True,2041.11539,4.4114
+feng_2022,HD 205158,HD 205158 b,True,True,True,True,25.33798,0.392
+feng_2022,HD 211847,HD 211847 b,True,True,True,True,3443.50331,15.574
+feng_2022,HD 213519,HD 213519 b,True,True,True,True,11.12214,0.029
+feng_2022,HD 214823,HD 214823 b,True,True,True,True,1854.84424,18.354
+feng_2022,HD 217786,HD 217786 A c,True,True,True,True,2.52221,0.023
+feng_2022,HD 217786,HD 217786 A b,True,True,True,True,1301.36009,12.997
+feng_2022,HD 217958,HD 217958 b,True,True,True,True,2560.19774,0.52385
+feng_2022,HD 219828,HD 219828 b,True,True,True,True,3.83483,0.06
+feng_2022,HD 224538,HD 224538 b,True,True,True,True,1202.05199,6.5297
+feng_2022,HD 23596,HD 23596 b,True,True,True,True,1535.11912,7.4812
+feng_2022,HD 25912,HD 25912 b,True,True,True,True,41.83156,0.12
+feng_2022,HD 27894,HD 27894 b,True,True,True,True,18.01939,0.619
+feng_2022,HD 28185,HD 28185 b,True,True,True,True,385.52775,5.837
+feng_2022,HD 28192,HD 28192 b,True,True,True,True,14.23283,0.314
+feng_2022,HD 30177,HD 30177 b,True,True,True,True,2514.53422,8.3759
+feng_2022,HD 38529,HD 38529 b,True,True,True,True,14.3099,0.65
+feng_2022,HD 38529,HD 38529 c,True,True,True,True,2127.60566,10.047
+feng_2022,bet Pic,HD 39060 c,True,True,True,True,1192.77951,10.137
+feng_2022,pi. Men,HD 39091 c,True,True,True,True,6.26791,0.011
+feng_2022,pi. Men,HD 39091 b,True,True,True,True,2088.75851,10.026
+feng_2022,HD 39213,HD 39213 b,True,True,True,True,1302.91196,67.03
+feng_2022,HD 4113,HD 4113 A b,True,True,True,True,526.5239,1.703
+feng_2022,HD 42581,HD 42581 b,True,True,True,True,121.93268,0.027
+feng_2022,HD 42581,HD 42581 c,True,True,True,True,579.47495,0.047
+feng_2022,HD 43197,HD 43197 b,True,True,True,True,308.92072,0.553
+feng_2022,HD 48679,HD 48679 b,True,True,True,True,1111.51815,35.655
+feng_2022,HD 66428,HD 66428 b,True,True,True,True,2269.81726,3.1343
+feng_2022,HD 72659,HD 72659 b,True,True,True,True,3549.39854,2.9181
+feng_2022,HD 72892,HD 72892 b,True,True,True,True,39.44603,5.468
+feng_2022,HD 73267,HD 73267 b,True,True,True,False,1257.99159,3.1455
+feng_2022,HD 74156,HD 74156 b,True,True,True,True,51.63564,1.675
+feng_2022,HD 74156,HD 74156 c,True,True,True,True,2448.48726,7.4918
+feng_2022,HD 7449,HD 7449 A b,True,True,True,True,1270.55195,1.1897
+feng_2022,HD 80869,HD 80869 b,True,True,True,True,1752.92067,5.0086
+feng_2022,HD 81040,HD 81040 b,True,True,True,True,1005.98854,6.7664
+feng_2022,HD 81817,HD 81817 c,True,True,True,True,622.97802,22.609
+feng_2022,HD 81817,HD 81817 b,True,True,True,True,1021.20159,24.013
+feng_2022,HD 86264,HD 86264 b,True,True,True,True,1488.79123,9.7887
+feng_2022,HD 8673,HD 8673 A b,True,True,True,True,1644.69097,13.188
+feng_2022,HD 87883,HD 87883 b,True,True,True,True,3309.22118,2.324
+feng_2022,HD 93351,HD 93351 b,True,True,True,True,2.45946,0.011
+feng_2022,HD 95544,HD 95544 b,True,True,True,True,2041.54152,6.0098
+feng_2022,CD-41 1354,HIP 19976 b,True,True,True,True,50.65905,0.068
+feng_2022,HD 30246,HIP 22203 b,True,True,True,True,1001.84418,50.518
+feng_2022,HD 244957,HIP 26196 b,True,True,True,True,3917.05866,62.509
+feng_2022,BD-08 2813,HIP 48953 B,True,True,True,True,1044.54065,68.854
+feng_2022,HD 117253,HIP 65891 b,True,True,True,True,1079.55726,5.8871
+feng_2022,HD 120457,HIP 67537 b,True,True,True,True,2523.64713,13.43
+feng_2022,HD 121056,HIP 67851 b,True,True,True,True,88.87622,1.568
+feng_2022,HD 121056,HIP 67851 c,True,True,True,True,3923.6609,6.937
+feng_2022,HD 186641,HIP 97233 b,True,True,True,True,1062.26506,19.142
+frensch_2023,HD 62364,HD 62364 b,True,True,True,True,5138.0,12.7
+frensch_2023,HD 56380,HD 56380 B,True,True,True,True,3254.0,33.2
+frensch_2023,HD 221638,HD 221638 B,True,True,True,True,6064.0,53.0
+frensch_2023,HD 33473A,HD 33473 C,True,True,True,True,18236.0,38.3
+gaia_dr3_val,HD 175167,HD 175167 b,True,,True,True,1290.0,7.8
+gaia_dr3_val,HD 164604,HD 164604 b,True,,True,True,606.0,2.7
+gaia_dr3_val,HD 132406,HD 132406 b,True,,True,True,974.0,5.6
+gaia_dr3_val,HR 810,HR 810 b,True,,True,True,312.0,2.26
+gaia_dr3_val,BD-17 63,BD -17 0063 b,True,,True,True,656.0,5.1
+gaia_dr3_val,HD 111232,HD 111232 b,True,,True,True,1143.0,6.8
+gaia_dr3_val,HD 81040,HD 81040 b,True,,True,True,1002.0,6.8
+gaia_dr3_val,HD 142,HD 142 b,True,,True,True,350.0,1.3
+gaia_dr3_val,GJ 876,GJ 876 b,True,,True,True,61.08,2.1
+gaia_dr3_val,BD-00 4475,BD -00 4475 b,True,,True,True,723.2,25.0
+gaia_dr3_val,HD 5433,HD 5433 b,True,,True,True,576.6,49.0
+gaia_dr3_val,HD 30246,HD 30246 b,True,,True,True,990.0,55.0
+gaia_dr3_val,HD 91669,HD 91669 b,True,,True,True,497.5,30.6
+gaia_dr3_val,HD 89707,HD 89707 b,True,,True,True,298.5,54.0
+gaia_dr3_val,HD 77065,HD 77065 b,True,,True,True,119.113,41.0
+gaia_dr3_val,HD 92320,HD 92320 b,True,,True,True,145.4,59.4
+gaia_dr3_val,HD 82460,HD 82460 b,True,,True,True,590.9,73.2
+gaia_dr3_val,BD+29 1539,BD +29 1539 b,True,,True,True,175.87,59.7
+gaia_dr3_val,HD 52756,HD 52756 b,True,,True,True,52.8657,59.3
+gaia_dr3_val,HD 148284,HD 148284 (Gaia DR3 1318110830190386048),True,,True,,339.331,
+gaia_dr3_val,EBLM J2011-71,EBLM J2011-71 (Gaia DR3 6374231714992810752),True,,True,,662.99,
+gaia_dr3_val,HD 48679,HD 48679 (Gaia DR3 1142214430312151424),True,,True,,1111.61,
+gaia_dr3_val,HD 137812,HD 137812 (Gaia DR3 6264881882000588672),True,,True,,73.022,
+gaia_dr3_val,HD 68638,HD 68638 (Gaia DR3 1035000055055287680),True,,True,,240.85,
+gaia_dr3_val,HD 106888,HD 106888 (Gaia DR3 3921176983720146560),True,,True,,365.606,
+gaia_dr3_val,HD 151465,HD 151465 (Gaia DR3 4385502286022654464),True,,True,,54.439,
+gaia_dr3_val,HD 17155,HD 17155 (Gaia DR3 4753355209745022208),True,,True,,1426.07,
+gaia_dr3_val,HD 166356,HD 166356 (Gaia DR3 2161507648230817792),True,,True,,261.539,
+gaia_dr3_val,HD 140913,HD 140913 (Gaia DR3 1224551770875466496),True,,True,,147.886,
+gaia_dr3_val,HD 130396,HD 130396 (Gaia DR3 1236764218322666880),True,,True,,2060.6,
+gaia_dr3_val,HD 132032,HD 132032 (Gaia DR3 1181993180456516864),True,,True,,274.33,
+gaia_dr3_val,HIP 66074,HIP 66074 (Gaia DR3 1712614124767394816),,,,,,
+gaia_dr3_val,HD 40503,HD 40503 (Gaia DR3 2884087104955208064),,,,,,
+gaia_dr3_val,GJ 812A,GJ 812A (Gaia DR3 6913810483612308480),,,,,,
+gaia_dr3_val,CD-46 10046,CD-46 10046 (Gaia DR3 5999024986946599808),True,,True,,242.48,
+grieves_2017,TYC 123-549-1,b,True,True,True,True,36.045,37.7
+grieves_2017,TYC 173-2410-1,b,True,True,True,True,216.5,76.0
+grieves_2017,TYC 4955-369-1,b,True,True,True,True,217.3,14.8
+grieves_2017,TYC 1451-1054-1,b,True,True,True,True,11.6121,52.1
+grieves_2017,TYC 3469-492-1,b,True,True,True,True,252.5,32.8
+grieves_2017,GSC 03467-00030,b,True,True,True,True,147.6,41.8
+grieves_2017,TYC 3130-160-1,b,True,True,True,True,31.656,42.7
+grieves_2017,TYC 3547-1007-1,b,True,True,True,True,103.4,13.1
+grieves_2017,TYC 3556-3602-1,b,True,True,True,True,117.6,24.4
+grieves_2017,TYC 3148-2071-1,b,True,True,True,True,122.2,17.3
+jenkins_2009,HD 191760,HD 191760 b,True,True,True,True,505.65,38.17
+jenkins_2009,HD 154672,HD 154672 b,True,True,True,True,163.9,5.02
+jenkins_2015,HD 39213,HD 39213 b,True,True,True,False,1309.0,73.3
+jenkins_2015,HD 145825,HD 145825 b,True,True,True,False,6024.0,62.9
+kiefer_2021,30 Ari B,30 Ari B b,True,True,True,True,335.1,9.88
+kiefer_2021,HD 114762,HD 114762 b,True,True,True,True,83.9151,11.64
+kiefer_2021,HD 141937,HD 141937 b,True,True,True,True,653.2,9.48
+kiefer_2021,HD 16760,HD 16760 b,True,True,True,True,465.1,13.29
+kiefer_2021,HD 190228,HD 190228 b,True,True,True,True,1136.1,5.94
+kiefer_2021,HD 95127,HD 95127 b,True,True,True,True,482.0,5.04
+kiefer_2021,HIP 65891,HIP 65891 b,True,True,True,True,1084.0,6.0
+kiefer_2021,BD+20 2457,BD +20 2457 b,True,True,True,True,379.6,11.9
+kiefer_2021,BD+20 2457,BD +20 2457 c,True,True,True,True,622.0,6.9
+kiefer_2021,HD 111232,HD 111232 b,True,True,True,True,1143.0,6.84
+kiefer_2021,HD 131664,HD 131664 b,True,True,True,True,1951.0,18.3
+kiefer_2021,HD 13189,HD 13189 b,True,True,True,True,471.6,7.1
+kiefer_2021,HD 136118,HD 136118 b,True,True,True,True,1187.3,11.68
+kiefer_2021,HD 145377,HD 145377 b,True,True,True,True,103.95,5.78
+kiefer_2021,HD 147018,HD 147018 c,True,True,True,True,1008.0,6.59
+kiefer_2021,HD 156279,HD 156279 b,True,True,True,True,131.05,9.78
+kiefer_2021,HD 162020,HD 162020 b,True,True,True,True,8.428198,15.21
+kiefer_2021,HD 168443,HD 168443 b,True,True,True,True,58.11247,7.7
+kiefer_2021,HD 168443,HD 168443 c,True,True,True,True,1749.83,17.39
+kiefer_2021,HD 175167,HD 175167 b,True,True,True,True,1290.0,7.8
+kiefer_2021,HD 178911 B,HD 178911 B b,True,True,True,True,71.484,7.29
+kiefer_2021,HD 191806,HD 191806 b,True,True,True,True,1606.3,8.57
+kiefer_2021,HD 202206,HD 202206 b,True,True,True,True,255.87,16.82
+kiefer_2021,HD 222582,HD 222582 b,True,True,True,True,572.38,7.63
+kiefer_2021,HD 22781,HD 22781 b,True,True,True,True,528.07,13.84
+kiefer_2021,HD 233604,HD 233604 b,True,True,True,True,192.0,6.62
+kiefer_2021,HD 33636,HD 33636 b,True,True,True,True,2127.7,9.27
+kiefer_2021,HD 5583,HD 5583 b,True,True,True,True,139.35,5.8
+kiefer_2021,HD 5891,HD 5891 b,True,True,True,True,177.11,5.23
+kiefer_2021,HD 74156,HD 74156 c,True,True,True,True,2520.0,8.25
+kiefer_2021,HD 75784,HD 75784 b,True,True,True,True,5040.0,5.6
+kiefer_2021,HD 81040,HD 81040 b,True,True,True,True,1001.7,6.88
+kiefer_2021,HD 86264,HD 86264 b,True,True,True,True,1475.0,6.6
+kiefer_2021,NGC 2423 3,NGC 2423 3 b,True,True,True,True,714.3,6.6
+latham_2002,Wolf 272,Wolf 272 B (Latham+2002 SB1),True,True,True,True,13.9346,74.84
+latham_2002,HD 77065,HD 77065 B (Latham+2002 SB1),True,True,True,True,120.44,41.27
+latham_2002,BD+07 2634,BD+07 2634 B (Latham+2002 SB1),True,True,True,True,305.11,51.94
+latham_2002,G 65-52,G 65-52 B (Latham+2002 SB1),True,True,True,True,150.81,51.09
+latham_2002,HD 134113,HD 134113 B (Latham+2002 SB1),True,True,True,True,201.715,57.49
+latham_2002,HD 169822,HD 169822 B (Latham+2002 SB1),True,True,True,True,293.5,23.9
+latham_2002,HD 217580,HD 217580 B (Latham+2002 SB1),True,True,True,True,468.1,75.06
+latham_2002,Ross 783,Ross 783 B (Latham+2002 SB1),True,True,True,True,30.1712,43.85
+latham_2002,G 42-30,G 42-30 B (Latham+2002 SB1),True,True,True,True,797.3,70.11
+lee_2023,HD 6860,HD 6860 b,True,True,True,True,663.87,28.26
+lee_2023,HD 112300,HD 112300 b,True,True,True,True,466.63,15.83
+lick_giants,nu Oph,b,True,True,True,True,530.02,22.204
+lick_giants,nu Oph,c,True,True,True,True,3183.02,24.674
+lick_giants,tau Gem,b,True,True,True,True,305.5,20.6
+ma_ge_2014,HD 30501,HD 30501 b,True,,True,True,2073.6,90.0
+ma_ge_2014,HD 43848,HD 43848 b,True,,True,True,2354.3,24.5
+ma_ge_2014,HD 52756,HD 52756 b,True,,True,True,52.8657,59.3
+ma_ge_2014,HD 89707,HD 89707 b,True,,True,True,298.5,53.6
+ma_ge_2014,HD 167665,HD 167665 b,True,,True,True,4451.8,50.6
+ma_ge_2014,HD 189310,HD 189310 b,True,,True,True,14.18643,25.6
+ma_ge_2014,HD 4747,HD 4747 b,True,,True,True,11593.2,46.1
+ma_ge_2014,HD 211847,HD 211847 b,True,,True,True,7929.4,19.2
+ma_ge_2014,HD 180314,HD 180314 b,True,,True,True,396.03,22.0
+ma_ge_2014,HD 13189,HD 13189 b,True,,True,True,471.6,20.0
+ma_ge_2014,HD 30339,HD 30339 b,True,,True,True,15.0778,77.8
+ma_ge_2014,HD 65430,HD 65430 b,True,,True,True,3138.0,67.8
+ma_ge_2014,HD 140913,HD 140913 b,True,,True,True,147.968,43.2
+ma_ge_2014,HD 174457,HD 174457 b,True,,True,,840.8,
+ma_ge_2014,HD 38529,HD 38529 c,True,,True,True,2136.14,13.99
+ma_ge_2014,HD 91669,HD 91669 b,True,,True,True,497.5,30.6
+ma_ge_2014,11 Com,11 Com b,True,,True,True,326.03,19.4
+ma_ge_2014,HD 119445,HD 119445 b,True,,True,True,410.2,37.6
+ma_ge_2014,HD 131664,HD 131664 b,True,,True,,1951.0,
+ma_ge_2014,GJ 595,GJ 595 b,True,,True,True,62.6277,60.0
+ma_ge_2014,HD 162020,HD 162020 b,True,,True,True,8.428198,14.4
+ma_ge_2014,HD 168443,HD 168443 c,True,,True,,1748.2,
+ma_ge_2014,HD 180777,HD 180777 b,True,,True,True,28.44,25.0
+ma_ge_2014,HD 190228,HD 190228 b,True,,True,,1146.0,
+ma_ge_2014,HD 191760,HD 191760 b,True,,True,True,505.65,38.17
+ma_ge_2014,HD 202206,HD 202206 b,True,,True,True,256.2,17.5
+ma_ge_2014,HIP 21832,HIP 21832 b,True,,True,,1474.9,
+ma_ge_2014,HD 14651,HD 14651 b,True,,True,True,79.4179,47.0
+ma_ge_2014,HD 30246,HD 30246 b,True,,True,True,990.7,55.1
+ma_ge_2014,HD 92320,HD 92320 b,True,,True,True,145.4,59.4
+ma_ge_2014,HD 22781,HD 22781 b,True,,True,True,528.07,13.65
+ma_ge_2014,HD 137510,HD 137510 b,True,,True,True,801.3,27.3
+ma_ge_2014,HIP 5158,HIP 5158 b,True,,True,True,9017.76,15.04
+ma_ge_2014,HD 41004B,HD 41004B b,True,,True,True,1.3283,18.37
+ma_ge_2014,HAT-P-13,HAT-P-13 c,True,,True,True,446.27,14.28
+ma_ge_2014,BD+20 2457,BD+20 2457 b,True,,True,True,379.63,22.7
+ma_ge_2014,BD+20 2457,BD+20 2457 c,True,,True,True,621.99,13.2
+ma_ge_2014,HD 137759,HD 137759 b,True,,True,True,511.098,12.7
+ma_ge_2014,NGC 2423 3,NGC 2423 3 b,True,,True,True,714.3,10.64
+ma_ge_2014,NGC 4349 127,NGC 4349 127 b,True,,True,True,678.0,20.0
+ma_ge_2014,HD 16760,HD 16760 b,True,,True,True,466.47,13.13
+ma_ge_2014,HD 10697,HD 10697 b,True,,True,,1075.0,
+ma_ge_2014,HD 114762,HD 114762 b,True,,True,True,83.9152,10.99
+ma_ge_2014,TYC 2534-698-1,TYC 2534-698-1 b,True,,True,True,103.698,39.1
+ma_ge_2014,TYC 2949-557-1,TYC 2949-557-1 b,True,,True,True,5.69449,64.3
+ma_ge_2014,TYC 1240-945-1,TYC 1240-945-1 b,True,,True,True,5.8953,28.0
+ma_ge_2014,HIP 67526,HIP 67526 b,True,,True,True,90.2695,62.6
+ma_ge_2014,TYC 2930-872-1,TYC 2930-872-1 b,True,,True,True,2.43042,68.1
+ma_ge_2014,TYC 2087-255-1,TYC 2087-255-1 b,True,,True,True,9.009,40.0
+ma_ge_2014,TYC 3130-160-1,TYC 3130-160-1 b,True,,True,True,31.66,57.4
+ma_ge_2014,HIP 78530,HIP 78530 b,,,True,True,,23.0
+ma_ge_2014,HD 5388,HD 5388 b,True,,True,,777.0,
+ma_ge_2014,HR 7672,HR 7672 b,True,,True,,26772.0,
+ma_ge_2014,HD 175679,HD 175679 b,True,,True,True,1366.8,37.3
+ma_ge_2014,HD 136118,HD 136118 b,True,,True,True,1188.0,12.0
+ma_ge_2014,HD 217786,HD 217786 b,True,,True,True,1319.0,13.0
+ma_ge_2014,WASP-30,WASP-30 b,True,,True,,4.156736,
+ma_ge_2014,CoRoT-15,CoRoT-15 b,True,,True,,3.06036,
+ma_ge_2014,LHS 6343,LHS 6343 b,True,,True,,12.71382,
+ma_ge_2014,CoRoT-3,CoRoT-3 b,True,,True,,4.2568,
+ma_ge_2014,XO-3,XO-3 b,True,,True,,3.1915239,
+ma_ge_2014,KOI-423,KOI-423 b,True,,True,,21.0874,
+ma_ge_2014,KELT-1,KELT-1 b,True,,True,,1.217514,
+ma_ge_2014,KOI-205.01,KOI-205.01 b,True,,,,11.72,
+ma_ge_2014,KOI-554.01,KOI-554.01 b,True,,,,3.66,
+marvels_bd,TYC 2949-557-1,b,True,False,True,True,5.69459,64.3
+marvels_bd,TYC 2930-872-1,b,True,True,True,True,2.43042,68.1
+marvels_bd,TYC 2087-255-1,b,True,False,True,True,9.009,40.0
+marvels_bd,HIP 67526,b,True,True,True,True,90.2695,65.0
+marvels_bd,GSC 03546-01452,b,True,True,True,True,47.8929,31.7
+marvels_bd,HD 87646,b,True,True,True,True,13.481,12.4
+marvels_bd,HD 87646,c,True,True,True,True,674.0,57.0
+nidever_2002,HD 30339,HD 30339 B (Nidever+2002 SB1),True,True,True,True,15.0778,77.8
+nidever_2002,HD 65430,HD 65430 B (Nidever+2002 SB1),True,True,True,True,3138.0,67.8
+nidever_2002,HD 140913,HD 140913 B (Nidever+2002 SB1),True,True,True,True,147.968,43.2
+nidever_2002,HD 174457,HD 174457 B (Nidever+2002 SB1),True,True,True,True,840.8,65.8
+nidever_2002,GJ 595,GJ 595 B (Nidever+2002 SB1),True,True,True,True,62.6277,60.0
+nidever_2002,GJ 623,GJ 623 B (Nidever+2002 SB1),True,True,True,True,1366.1,42.0
+okayama_eapsnet,HD 119445,b,True,True,True,True,410.2,37.6
+parc_2026,WASP-8,WASP-8 c,True,True,True,True,3054.0,8.33
+parc_2026,WASP-34,WASP-34 c,True,True,True,True,2033.4,5.29
+parc_2026,WASP-53,WASP-53 c,True,True,True,True,3083.7,16.67
+parc_2026,WASP-68,WASP-68 c,True,True,True,True,6212.0,15.35
+parc_2026,WASP-81,WASP-81 c,True,True,True,True,1306.0,55.6
+parc_2026,WASP-99,WASP-99 c,True,True,True,True,5795.0,21.4
+parc_2026,WASP-132,WASP-132 c,True,True,True,True,1741.0,5.63
+patel_2007,HD 167665,b,True,True,True,True,4385.0,50.3
+ptps,BD+20 2457,b,True,True,True,True,379.63,21.42
+ptps,BD+20 2457,c,True,True,True,True,621.99,12.47
+ptps,HD 4760,b,True,True,True,True,434.0,13.9
+ptps,BD+02 3313,b,True,True,True,True,1393.0,34.1
+ptps,TYC 434-4538-1,b,True,True,True,True,193.2,6.1
+ren_2026,HD 203771,HD 203771 B,True,True,True,False,1140.02,53.23
+rickman_2019,HD 13724,HD 13724 b,True,True,True,True,14763.41,26.77
+rickman_2019,HD 92987,HD 92987 b,True,True,True,True,10354.84,16.88
+rickman_2019,HD 181234,HD 181234 b,True,True,True,True,7462.06,8.37
+rickman_2019,HD 98649,HD 98649 b,True,True,True,True,6022.97,6.79
+sahlmann_2011,HD 3277,HD 3277 b,True,True,True,True,46.1512,64.7
+sahlmann_2011,HD 17289,HD 17289 b,True,True,True,True,562.1,48.9
+sahlmann_2011,HD 30501,HD 30501 b,True,True,True,True,2073.6,62.3
+sahlmann_2011,HD 43848,HD 43848 b,True,True,True,True,2354.3,24.5
+sahlmann_2011,HD 52756,HD 52756 b,True,True,True,True,52.8657,59.3
+sahlmann_2011,HD 53680,HD 53680 b,True,True,True,True,1688.6,54.7
+sahlmann_2011,HD 74014,HD 74014 b,True,True,True,True,6936.3,49.0
+sahlmann_2011,HD 89707,HD 89707 b,True,True,True,True,298.5,53.6
+sahlmann_2011,HD 154697,HD 154697 b,True,True,True,True,1835.9,71.1
+sahlmann_2011,HD 164427A,HD 164427A b,True,True,True,True,108.537,48.0
+sahlmann_2011,HD 167665,HD 167665 b,True,True,True,True,4451.8,50.6
+sahlmann_2011,HD 189310,HD 189310 b,True,True,True,True,14.18643,25.6
+sahlmann_2011,HIP 103019,HIP 103019 b,True,True,True,True,917.3,52.5
+sahlmann_2011,HD 4747,HD 4747 b,True,True,True,True,11593.2,46.1
+sahlmann_2011,HD 211847,HD 211847 b,True,True,True,True,7929.4,19.2
+sahlmann_2011,HD 131664,HD 131664 b,True,True,True,True,1951.0,18.2
+sahlmann_2011,HD 174457,HD 174457 b,True,True,True,True,840.8,65.8
+sahlmann_2011,HD 190228,HD 190228 b,True,True,True,True,1146.0,3.6
+sahlmann_2011,HD 168443,HD 168443 c,True,True,True,True,1748.2,18.1
+sahlmann_2011,HD 191760,HD 191760 b,True,True,True,True,505.6,38.0
+sb9,HIP 64426,HIP 64426 (SB9 2406.1),True,True,True,True,83.9,13.01
+sb9,HIP 62145,HIP 62145 (SB9 3625.1),True,True,True,True,270.33,20.35
+sb9,HIP 29804,HIP 29804 (SB9 3882.1),True,True,True,True,2354.3,24.43
+sb9,BD+33 2379,BD+33 2379 (SB9 3945.1),True,True,True,True,8.6628,25.16
+sb9,HIP 99634,HIP 99634 (SB9 3889.1),True,True,True,True,14.1864,25.53
+sb9,ADS 11163,ADS 11163 (SB9 1519.1),True,True,True,True,4.6363,36.2
+sb9,HIP 70950,HIP 70950 (SB9 3629.1),True,True,True,True,2669.5,38.29
+sb9,HIP 55203,HIP 55203 (SB9 667.2),True,True,True,True,3.9805,40.09
+sb9,HIP 63366,HIP 63366 (SB9 3627.1),True,True,True,True,103.226,40.53
+sb9,HIP 44259,HIP 44259 (SB9 2324.1),True,True,True,True,120.44,41.18
+sb9,HIP 77152,HIP 77152 (SB9 1537.1),True,True,True,True,147.968,43.72
+sb9,HIP 88531,HIP 88531 (SB9 3887.1),True,True,True,True,108.537,44.47
+sb9,HIP 518,HIP 518 (SB9 1522.1),True,True,True,True,47.51,44.51
+sb9,HIP 13769,HIP 13769 (SB9 3617.1),True,True,True,True,553.89,46.72
+sb9,HIP 24019,HIP 24019 (SB9 1980.1),True,True,True,True,32.5226,47.37
+sb9,HIP 19832,HIP 19832 (SB9 3619.1),True,True,True,True,716.8,47.59
+sb9,HIP 80346,HIP 80346 (SB9 1542.1),True,True,True,True,1366.1,49.29
+sb9,HIP 12726,HIP 12726 (SB9 3880.1),True,True,True,True,562.1,51.96
+sb9,Cl* NGC 2539 MMU 233,Cl* NGC 2539 MMU 233 (SB9 2907.1),True,True,True,True,164.83,52.22
+sb9,HIP 34052,HIP 34052 (SB9 3884.1),True,True,True,True,1688.6,52.79
+sb9,HIP 21832,HIP 21832 (SB9 2407.1),True,True,True,True,1481.0,53.54
+sb9,HIP 103019,HIP 103019 (SB9 3891.1),True,True,True,True,917.3,55.08
+sb9,HIP 74033,HIP 74033 (SB9 2305.1),True,True,True,True,201.715,57.43
+sb9,Cl* NGC 2682 SAND 2206,Cl* NGC 2682 SAND 2206 (SB9 1811.1),True,True,True,True,18.377,58.22
+sb9,HIP 33736,HIP 33736 (SB9 3883.1),True,True,True,True,52.8657,60.81
+sb9,Cl* NGC 188 PKM 5268,Cl* NGC 188 PKM 5268 (SB9 3155.1),True,True,True,True,420.6,60.92
+sb9,HIP 50671,HIP 50671 (SB9 2550.2),True,True,True,True,298.295,61.2
+sb9,Cl Melotte 22 522,Cl Melotte 22 522 (SB9 3430.2),True,True,True,True,23.8353,62.27
+sb9,HIP 92418,HIP 92418 (SB9 1538.1),True,True,True,True,840.8,63.86
+sb9,HIP 22122,HIP 22122 (SB9 3881.1),True,True,True,True,2073.6,64.45
+sb9,Cl* NGC 188 PKM 5601,Cl* NGC 188 PKM 5601 (SB9 3169.1),True,True,True,True,10.0142,66.04
+sb9,HIP 78493,HIP 78493 (SB9 878.1),True,True,True,True,35.474,67.16
+sb9,HIP 89601,HIP 89601 (SB9 2061.1),True,True,True,True,4.4852,67.66
+sb9,HIP 21039,HIP 21039 (SB9 1979.1),True,True,True,True,58.37,67.78
+sb9,Cl* NGC 188 PKM 5052,Cl* NGC 188 PKM 5052 (SB9 3151.1),True,True,True,True,3.8473,68.08
+sb9,HIP 16846,HIP 16846 (SB9 1523.1),True,True,True,True,1152.0,69.04
+sb9,HIP 2790,HIP 2790 (SB9 3879.1),True,True,True,True,46.1512,69.3
+sb9,HIP 98001,HIP 98001 (SB9 1187.1),True,True,True,True,155.1,69.88
+sb9,HIP 76901,HIP 76901 (SB9 1541.1),True,True,True,True,62.6277,71.52
+sb9,HIP 83770,HIP 83770 (SB9 3886.1),True,True,True,True,1835.9,72.46
+sb9,HIP 84230,HIP 84230 (SB9 2571.1),True,True,True,True,3.3348,72.48
+sb9,Cl* NGC 188 PKM 5738,Cl* NGC 188 PKM 5738 (SB9 3174.1),True,True,True,True,13.0492,72.58
+sb9,HIP 14844,HIP 14844 (SB9 152.1),True,True,True,True,11.665,72.99
+sb9,HIP 39064,HIP 39064 (SB9 1536.1),True,True,True,True,3138.0,73.2
+sb9,Cl* NGC 188 PKM 5463,Cl* NGC 188 PKM 5463 (SB9 3166.1),True,True,True,True,9.4648,73.83
+sb9,HIP 115087,HIP 115087 (SB9 3703.1),True,True,True,True,7.8854,74.25
+sb9,HIP 113718,HIP 113718 (SB9 1492.3),True,True,True,True,453.9,74.66
+sb9,HIP 8796,HIP 8796 (SB9 94.1),True,True,True,True,1.767,75.78
+sb9,HIP 21112,HIP 21112 (SB9 3412.1),True,True,True,True,2809.2,75.83
+sb9,Cl* NGC 2477 MMU 1272,Cl* NGC 2477 MMU 1272 (SB9 2899.1),True,True,True,True,297.8,77.01
+sb9,HIP 22429,HIP 22429 (SB9 1533.1),True,True,True,True,15.0778,77.3
+sb9,HIP 66257,HIP 66257 (SB9 773.2),True,True,True,True,2.6132,80.32
+sb9,HIP 50747,HIP 50747 (SB9 4024.1),True,True,True,True,3064.0,83.76
+sb9,BD+31 250,BD+31 250 (SB9 3725.1),True,True,True,True,581.17,89.38
+sb9,HIP 109563,HIP 109563 (SB9 2224.1),True,True,True,True,3822.0,89.53
+sb9,BD+47 3256,BD+47 3256 (SB9 3094.1),True,True,True,True,1.6353,90.17
+sb9,HIP 20890,HIP 20890 (SB9 247.1),True,True,True,True,41.6625,91.23
+sb9,HIP 74079,HIP 74079 (SB9 3949.1),True,True,True,True,67.838,92.59
+sb9,HIP 42430,HIP 42430 (SB9 3510.1),True,True,True,True,211.76,93.52
+sb9,HIP 80686,HIP 80686 (SB9 898.1),True,True,True,True,12.9762,93.66
+sb9,HIP 103256,HIP 103256 (SB9 3633.1),True,True,True,True,2173.3,95.85
+sb9,HIP 115711,HIP 115711 (SB9 1894.1),True,True,True,True,7.5967,99.12
+sb9_tic,HD 283750,HD 283750 (SB9 258.1),True,True,True,True,1.788,56.06
+sb9_tic,G 178-27,G 178-27 (SB9 1696.1),True,True,True,True,80.82,79.52
+sb9_tic,HD 283750,HD 283750 (SB9 258.2),True,True,True,True,1.788,54.52
+sb9_tic,Wolf 272,Wolf 272 (SB9 2173.1),True,True,True,True,13.9346,74.83
+sb9_tic,G 42-30,G 42-30 (SB9 2282.1),True,True,True,True,797.3,69.81
+sb9_tic,BD+07 2634,BD+07 2634 (SB9 2297.1),True,True,True,True,305.11,51.92
+sb9_tic,G 65-52,G 65-52 (SB9 2303.1),True,True,True,True,150.81,51.17
+sb9_tic,OGLE-TR 113,OGLE-TR 113 (SB9 2451.1),True,True,True,True,1.4325,1.04
+sb9_tic,OGLE-TR 113,OGLE-TR 113 (SB9 2451.2),True,True,True,True,1.4325,1.31
+sb9_tic,2MASS J19413531+4011459,2MASS J19413531+4011459 (SB9 3250.1),True,True,True,True,511.0,67.1
+sb9_tic,BPS CS 22169-0001,BPS CS 22169-0001 (SB9 3413.1),True,True,True,True,0.178,25.79
+sb9_tic,CPD-64 481,CPD-64 481 (SB9 3414.1),True,True,True,True,0.2772,49.18
+sb9_tic,HD 283750,HD 283750 (SB9 258.3),True,True,True,True,1.788,55.24
+segransan_2010,HD 147018,HD 147018 c,True,True,True,True,1008.0,6.56
+stevenson_2023,11 Com,11 Com (BD),True,,True,True,326.03,19.4
+stevenson_2023,30 Ari B,30 Ari B (BD),True,,True,True,335.1,9.878
+stevenson_2023,BD-00 4475,BD-00 4475 (BD),True,,True,True,723.2,25.05
+stevenson_2023,BD+20 2457,BD+20 2457 (BD),True,,True,True,379.63,22.7
+stevenson_2023,BD+20 2457,BD+20 2457 (BD),True,,True,True,621.99,13.2
+stevenson_2023,BD+24 4697,BD+24 4697 (BD),True,,True,True,145.081,53.0
+stevenson_2023,BD+26 1888,BD+26 1888 (BD),True,,True,True,536.78,26.0
+stevenson_2023,BD+29 1539,BD+29 1539 (BD),True,,True,True,175.87,59.7
+stevenson_2023,COROT-15,COROT-15 (BD),True,,True,True,3.06036,63.3
+stevenson_2023,Corot-27,Corot-27 (BD),True,,True,True,3.57532,10.39
+stevenson_2023,Corot-3,Corot-3 (BD),True,,True,True,4.2568,21.66
+stevenson_2023,Corot-33,Corot-33 (BD),True,,True,True,5.819143,59.0
+stevenson_2023,EPIC 201702477,EPIC 201702477 (BD),True,,True,True,40.73691,66.9
+stevenson_2023,EPIC 219388192,EPIC 219388192 (BD),True,,True,True,5.292569,36.84
+stevenson_2023,GJ 3222,GJ 3222 (BD),True,,True,,1429.84379,
+stevenson_2023,GJ 595,GJ 595 (BD),True,,True,True,62.6277,60.0
+stevenson_2023,GPX-TF8A-1859,GPX-TF8A-1859 (BD),True,,True,True,1.744579,19.7
+stevenson_2023,GSC 03467-00030,GSC 03467-00030 (BD),True,,True,True,297.961,53.591
+stevenson_2023,HAT-P-13,HAT-P-13 (BD),True,,True,True,446.27,14.28
+stevenson_2023,HD 105811,HD 105811 (BD),True,,True,,1175.33632,
+stevenson_2023,HD 106270,HD 106270 (BD),True,,True,True,1888.34,10.1
+stevenson_2023,HD 10697,HD 10697 (BD),True,,True,,1075.0,
+stevenson_2023,HD 114762,HD 114762 (BD),True,,True,True,83.9152,11.64
+stevenson_2023,HD 119445,HD 119445 (BD),True,,True,True,410.2,37.6
+stevenson_2023,HD 122562,HD 122562 (BD),True,,True,True,2938.8015,25.4
+stevenson_2023,HD 125390,HD 125390 (BD),True,,True,True,1757.583,22.6
+stevenson_2023,HD 127506,HD 127506 (BD),True,,True,,2679.47562,
+stevenson_2023,HD 130396,HD 130396 (BD),True,,,True,2060.6,50.9
+stevenson_2023,HD 131664,HD 131664 (BD),True,,True,True,1951.0,21.59
+stevenson_2023,HD 13189,HD 13189 (BD),True,,True,True,471.6,20.0
+stevenson_2023,HD 132032,HD 132032 (BD),True,,True,True,274.33,70.0
+stevenson_2023,HD 134113,HD 134113 (BD),True,,True,True,201.68,47.0
+stevenson_2023,HD 136118,HD 136118 (BD),True,,True,True,1191.4455,11.88
+stevenson_2023,HD 137510,HD 137510 (BD),True,,True,True,801.3,27.3
+stevenson_2023,HD 137759,HD 137759 (BD),True,,True,True,511.098,12.7
+stevenson_2023,HD 139357,HD 139357 (BD),True,,True,True,1127.892,10.1
+stevenson_2023,HD 14067,HD 14067 (BD),True,,True,True,2859.9075,9.07
+stevenson_2023,HD 140913,HD 140913 (BD),True,,True,True,147.968,43.2
+stevenson_2023,HD 141937,HD 141937 (BD),True,,,True,653.2,9.475
+stevenson_2023,HD 14651,HD 14651 (BD),True,,True,True,79.4179,47.0
+stevenson_2023,HD 148427,HD 148427 (BD),True,,,True,331.5,1.144
+stevenson_2023,HD 156846,HD 156846 (BD),True,,True,True,359.5546,10.57
+stevenson_2023,HD 160508,HD 160508 (BD),True,,True,True,178.9049,48.0
+stevenson_2023,HD 162020,HD 162020 (BD),True,,True,True,8.428198,9.8
+stevenson_2023,HD 163917,HD 163917 (BD),True,,True,True,530.21,22.204
+stevenson_2023,HD 163917,HD 163917 (BD),True,,True,True,3184.83,24.674
+stevenson_2023,HD 164604,HD 164604 (BD),True,,True,True,606.0,2.7
+stevenson_2023,HD 165131,HD 165131 (BD),True,,True,True,2342.64045,17.56
+stevenson_2023,HD 16760,HD 16760 (BD),True,,True,True,466.47,13.13
+stevenson_2023,HD 168443,HD 168443 (BD),True,,True,,1753.1096,
+stevenson_2023,HD 174457,HD 174457 (BD),True,,True,True,840.8,65.8
+stevenson_2023,HD 175679,HD 175679 (BD),True,,True,True,1366.40025,37.7
+stevenson_2023,HD 180314,HD 180314 (BD),True,,True,True,396.03,22.0
+stevenson_2023,HD 180777,HD 180777 (BD),True,,True,True,28.44,25.0
+stevenson_2023,HD 184601,HD 184601 (BD),True,,True,True,849.35,60.27
+stevenson_2023,HD 189310,HD 189310 (BD),True,,True,True,14.18643,25.6
+stevenson_2023,HD 190228,HD 190228 (BD),True,,True,,1146.0,
+stevenson_2023,HD 191760,HD 191760 (BD),True,,True,True,505.65,38.17
+stevenson_2023,HD 191806,HD 191806 (BD),True,,True,True,1606.3,8.52
+stevenson_2023,HD 202206,HD 202206 (BD),True,,True,True,256.2,17.5
+stevenson_2023,HD 203771,HD 203771 (BD),True,,True,,1112.01366,
+stevenson_2023,HD 211847,HD 211847 (BD),True,,True,,3443.50331,
+stevenson_2023,HD 214823,HD 214823 (BD),True,,True,True,1854.556875,19.6
+stevenson_2023,HD 217786,HD 217786 (BD),True,,True,True,1302.079725,12.31
+stevenson_2023,HD 217850,HD 217850 (BD),True,,,True,3508.2,22.3
+stevenson_2023,HD 224538,HD 224538 (BD),True,,True,True,1200.58,6.98
+stevenson_2023,HD 22781,HD 22781 (BD),True,,True,True,528.07,13.65
+stevenson_2023,HD 23596,HD 23596 (BD),True,,True,True,1574.2275,8.21
+stevenson_2023,HD 283668,HD 283668 (BD),True,,True,True,2558.0,53.0
+stevenson_2023,HD 30246,HD 30246 (BD),True,,True,True,991.2885,49.7
+stevenson_2023,HD 30339,HD 30339 (BD),True,,True,True,15.0778,77.8
+stevenson_2023,HD 30501,HD 30501 (BD),True,,True,True,2074.510425,66.2
+stevenson_2023,HD 3221,HD 3221 (BD),True,,True,,476.0,
+stevenson_2023,HD 33636,HD 33636 (BD),True,,True,True,2121.00675,9.57
+stevenson_2023,HD 39091,HD 39091 (BD),True,,True,True,2088.75851,10.27
+stevenson_2023,HD 39213,HD 39213 (BD),True,,True,,1302.91196,
+stevenson_2023,HD 39392,HD 39392 (BD),True,,True,True,394.3,13.2
+stevenson_2023,HD 41004 B,HD 41004 B (BD),True,,True,True,1.3283,18.37
+stevenson_2023,HD 48679,HD 48679 (BD),True,,True,True,1111.6128075,37.59
+stevenson_2023,HD 52756,HD 52756 (BD),True,,True,True,52.8657,59.3
+stevenson_2023,HD 5388,HD 5388 (BD),True,,True,True,777.0,1.965
+stevenson_2023,HD 5433,HD 5433 (BD),True,,True,True,576.6,49.0
+stevenson_2023,HD 65430,HD 65430 (BD),True,,True,True,3138.0,67.8
+stevenson_2023,HD 66428,HD 66428 (BD),True,,True,,2269.81726,
+stevenson_2023,HD 6718,HD 6718 (BD),True,,,True,2496.0,1.559
+stevenson_2023,HD 71827,HD 71827 (BD),True,,,True,15.05,26.3
+stevenson_2023,HD 77065,HD 77065 (BD),True,,True,True,119.113,41.0
+stevenson_2023,HD 77712,HD 77712 (BD),True,,,True,1311.7,50.2
+stevenson_2023,HD 81817,HD 81817 (BD),True,,True,True,622.97802,22.609
+stevenson_2023,HD 81817,HD 81817 (BD),True,,True,,1021.20159,
+stevenson_2023,HD 82460,HD 82460 (BD),True,,True,True,590.9,73.2
+stevenson_2023,HD 86264,HD 86264 (BD),True,,True,True,1482.915,7.9
+stevenson_2023,HD 8673,HD 8673 (BD),True,,True,,1644.69097,
+stevenson_2023,HD 89707,HD 89707 (BD),True,,True,True,298.5,54.0
+stevenson_2023,HD 91669,HD 91669 (BD),True,,True,True,487.5,30.6
+stevenson_2023,HD 92320,HD 92320 (BD),True,,True,True,145.4,59.4
+stevenson_2023,HD 95127,HD 95127 (BD),True,,,True,482.0,5.036
+stevenson_2023,HD 96127,HD 96127 (BD),True,,,True,647.3,4.007
+stevenson_2023,HIP 103019,HIP 103019 (BD),True,,True,True,918.01935,56.3
+stevenson_2023,HIP 21832,HIP 21832 (BD),True,,True,,1474.9,
+stevenson_2023,HIP 26196,HIP 26196 (BD),True,,True,,3917.05866,
+stevenson_2023,HIP 30037,HIP 30037 (BD),True,,True,True,31.61112,63.928
+stevenson_2023,HIP 48953,HIP 48953 (BD),True,,True,,1044.54065,
+stevenson_2023,HIP 65891,HIP 65891 (BD),True,,,True,1084.0,6.001
+stevenson_2023,HIP 67526,HIP 67526 (BD),True,,True,True,90.2695,62.6
+stevenson_2023,HIP 67537,HIP 67537 (BD),True,,True,True,2549.445,11.05
+stevenson_2023,HIP 84056,HIP 84056 (BD),True,,True,True,825.83025,2.92
+stevenson_2023,HIP 97233,HIP 97233 (BD),True,,True,True,1054.1115,19.2
+stevenson_2023,KELT-1,KELT-1 (BD),True,,True,True,1.217514,27.23
+stevenson_2023,Kepler-39,Kepler-39 (BD),True,,True,True,21.08721,20.1
+stevenson_2023,KOI-205.01,KOI-205.01 (BD),True,,True,True,11.720125,39.9
+stevenson_2023,KOI-415,KOI-415 (BD),True,,True,True,166.78805,62.14
+stevenson_2023,KOI-554.01,KOI-554.01 (BD),True,,,True,3.66,80.0
+stevenson_2023,LHS 6343,LHS 6343 (BD),True,,True,True,12.71382,62.9
+stevenson_2023,NGC 2423 3,NGC 2423 3 (BD),True,,True,True,714.3,10.64
+stevenson_2023,NGC 4349 127,NGC 4349 127 (BD),True,,True,True,678.0,20.0
+stevenson_2023,TYC 0123-00549-1,TYC 0123-00549-1 (BD),True,,True,True,36.045,37.7
+stevenson_2023,TYC 1451-01054-1,TYC 1451-01054-1 (BD),True,,True,True,11.6121,52.1
+stevenson_2023,TYC 3130-00160-1,TYC 3130-00160-1 (BD),True,,True,True,31.656,42.7
+stevenson_2023,TYC 3148-02071-1,TYC 3148-02071-1 (BD),True,,True,True,122.2,17.3
+stevenson_2023,TYC 3469-00492-1,TYC 3469-00492-1 (BD),True,,True,True,252.5,32.8
+stevenson_2023,TYC 3547-01007-1,TYC 3547-01007-1 (BD),True,,True,True,103.4,13.1
+stevenson_2023,TYC 3556-03602-1,TYC 3556-03602-1 (BD),True,,True,True,117.6,24.4
+stevenson_2023,TYC 4955-00369-1,TYC 4955-00369-1 (BD),True,,True,True,217.3,14.8
+stevenson_2023,TYC 1240-945-1,TYC 1240-945-1 (BD),True,,True,True,5.8953,28.0
+stevenson_2023,TYC 2087-255-1,TYC 2087-255-1 (BD),True,,True,True,9.009,40.0
+stevenson_2023,TYC 2534-698-1,TYC 2534-698-1 (BD),True,,True,True,103.698,39.1
+stevenson_2023,TYC 2930-872-1,TYC 2930-872-1 (BD),True,,True,True,2.43042,68.1
+stevenson_2023,TYC 2949-557-1,TYC 2949-557-1 (BD),True,,True,True,5.69449,64.3
+stevenson_2023,TYC 3130-160-1,TYC 3130-160-1 (BD),True,,True,True,31.66,57.4
+stevenson_2023,WASP-18,WASP-18 (BD),True,,True,True,0.9414529,10.11
+stevenson_2023,WASP-30,WASP-30 (BD),True,,True,True,4.156736,60.96
+stevenson_2023,XO-3,XO-3 (BD),True,,True,True,3.1915239,11.8
+stevenson_2023,NGTS-19,NGTS-19 (BD),True,,True,True,17.84,69.5
+stevenson_2023,TOI-1406,TOI-1406 (BD),True,,True,True,10.57415,46.0
+stevenson_2023,TOI-569,TOI-569 (BD),True,,True,True,6.55604,64.1
+stevenson_2023,HATS-70,HATS-70 (BD),True,,True,True,1.888,12.9
+stevenson_2023,NLTT 41135,NLTT 41135 (BD),True,,True,True,2.889,33.7
+stevenson_2023,LP 261-75,LP 261-75 (BD),True,,True,True,1.882,68.1
+stevenson_2023,WASP-128,WASP-128 (BD),True,,True,True,2.209,37.2
+stevenson_2023,KOI-189,KOI-189 (BD),True,,True,True,30.36,78.0
+stevenson_2023,EPIC 212036875,EPIC 212036875 (BD),True,,True,True,5.17,52.3
+stevenson_2023,EPIC 211946007,EPIC 211946007 (BD),True,,True,True,1.983,54.2
+stevenson_2023,EPIC 205207894,EPIC 205207894 (BD),True,,True,True,97.76,59.2
+stevenson_2023,TOI-503,TOI-503 (BD),True,,True,True,3.677,53.7
+stevenson_2023,NGTS-7A,NGTS-7A (BD),True,,True,True,0.676,75.5
+stevenson_2023,TOI-1278,TOI-1278 (BD),True,,True,True,14.48,18.5
+stevenson_2023,TOI-811,TOI-811 (BD),True,,True,True,25.17,59.9
+stevenson_2023,TOI-263,TOI-263 (BD),True,,True,True,0.56,61.6
+stevenson_2023,TOI-148,TOI-148 (BD),True,,True,True,4.87,77.1
+stevenson_2023,TOI-1052,TOI-1052 (BD),True,,True,True,35.806,34.3
+stevenson_2023,TOI-544,TOI-544 (BD),True,,True,True,50.089,21.5
+stevenson_2023,HD 73256,HD 73256 (BD),True,,True,,2690.0,
+teng_2023,11 Com,b,True,True,True,True,323.21,15.464
+teng_2023,nu Oph,b,True,True,True,True,529.93,21.548
+teng_2023,nu Oph,c,True,True,True,True,3180.6,23.693
+teng_2023,HD 175679,b,True,True,True,True,1357.64,36.868
+teng_2023,HD 180314,b,True,True,True,True,394.73,22.707
+teng_2023,HD 14067,b,True,True,True,True,2725.81,8.806
+troup_2016,2MASS J00225114+6202031,b,False,False,False,True,20.2186,10.84
+troup_2016,2MASS J00230781+6635311,b,False,False,False,False,49.5624,49.74
+troup_2016,2MASS J00283822+5833027,b,False,False,False,False,86.519,13.58
+troup_2016,2MASS J00295684+6356284,b,False,False,False,False,94.0012,72.76
+troup_2016,2MASS J00301928+6648359,b,False,False,False,False,18.2208,9.17
+troup_2016,2MASS J00334291+6236198,b,False,True,True,False,14.5685,17.26
+troup_2016,2MASS J00334320+8523017,b,False,False,True,False,76.5729,29.73
+troup_2016,2MASS J00370172+8455256,b,False,False,False,False,13.4669,22.82
+troup_2016,2MASS J00471754+8456301,b,False,False,False,False,66.5097,8.22
+troup_2016,2MASS J00475315+8504023,b,False,False,False,False,36.589,25.5
+troup_2016,2MASS J00513648+8443583,b,False,False,False,True,98.3212,80.89
+troup_2016,2MASS J01214291+8604187,b,False,False,False,False,13.7163,7.19
+troup_2016,2MASS J01250592+8444252,b,False,False,False,False,307.214,32.99
+troup_2016,2MASS J01304108+8553271,b,True,False,False,False,217.051,14.88
+troup_2016,2MASS J01340081+8535530,b,False,False,False,False,108.598,12.31
+troup_2016,2MASS J01565559+8526305,b,False,False,True,False,86.1751,6.02
+troup_2016,2MASS J03123190+8018137,b,False,False,False,True,9.17558,58.93
+troup_2016,2MASS J03145671+8003470,b,False,False,False,False,144.645,14.89
+troup_2016,2MASS J03192158+7942033,b,False,False,False,False,23.7575,10.21
+troup_2016,2MASS J03252046+7909078,b,False,False,False,False,4.6197,8.33
+troup_2016,2MASS J03280181+4707518,b,True,False,False,False,154.836,46.47
+troup_2016,2MASS J03321708+7951573,b,False,False,True,True,185.198,8.66
+troup_2016,2MASS J03360098+8032080,b,True,False,False,False,207.234,40.56
+troup_2016,2MASS J03360422+4600053,b,False,False,False,False,2.63727,14.89
+troup_2016,2MASS J03411894+4631030,b,False,False,False,True,19.2214,15.0
+troup_2016,2MASS J03431065+3235323,b,False,False,False,False,158.863,37.67
+troup_2016,2MASS J03464334+4926498,b,False,False,False,False,200.49,57.26
+troup_2016,2MASS J03475791+4759452,b,False,False,False,False,43.2021,17.54
+troup_2016,2MASS J03543039+7939477,b,False,False,True,False,88.4271,80.28
+troup_2016,2MASS J03553099+5203331,b,False,False,True,True,19.5241,70.12
+troup_2016,2MASS J03585279+5155016,b,False,False,False,False,4.12187,14.44
+troup_2016,2MASS J04073011+7923186,b,False,False,False,True,6.10119,8.29
+troup_2016,2MASS J04212706+5543164,b,False,True,True,False,3.4747,5.27
+troup_2016,2MASS J04265695+5405371,b,True,False,False,True,99.9074,37.02
+troup_2016,2MASS J04293442+5449033,b,False,False,False,False,24.434,12.51
+troup_2016,2MASS J04294257+5629439,b,False,False,False,False,5.73807,20.34
+troup_2016,2MASS J04302445+5458419,b,False,True,True,False,23.0593,44.44
+troup_2016,2MASS J04421084+5802243,b,True,False,False,False,274.165,57.35
+troup_2016,2MASS J04452079+3803475,b,False,False,False,False,164.988,37.81
+troup_2016,2MASS J04473998+3846403,b,False,False,False,True,1.31936,6.13
+troup_2016,2MASS J04491188+4003096,b,False,False,False,True,161.152,72.01
+troup_2016,2MASS J04521987+3745440,b,True,False,False,False,18.6425,11.15
+troup_2016,2MASS J05155531+2319522,b,False,False,False,False,210.162,30.54
+troup_2016,2MASS J05202674+4251053,b,False,False,False,False,82.0704,39.62
+troup_2016,2MASS J05310225+2735570,b,False,False,False,False,153.815,68.76
+troup_2016,2MASS J05311298+2718532,b,False,False,True,True,408.054,48.97
+troup_2016,2MASS J05445028+2847562,b,False,True,False,True,5.28495,7.25
+troup_2016,2MASS J05452339+2829265,b,False,True,False,False,120.108,15.57
+troup_2016,2MASS J05454972+3008464,b,False,False,True,False,40.774,53.82
+troup_2016,2MASS J05490717+2835566,b,False,False,False,False,8.22708,7.37
+troup_2016,2MASS J06010798+3152329,b,False,False,False,False,225.726,30.15
+troup_2016,2MASS J06062922+1410524,b,False,False,False,False,235.368,42.76
+troup_2016,2MASS J06070031+3040121,b,False,True,False,False,4.34451,6.1
+troup_2016,2MASS J06131277+3253212,b,False,False,False,False,73.7509,12.59
+troup_2016,2MASS J06171599+0019388,b,True,False,False,False,35.6118,24.63
+troup_2016,2MASS J06171890-0012568,b,False,True,False,False,71.6643,55.59
+troup_2016,2MASS J06293397+1758208,b,True,True,False,False,244.159,72.22
+troup_2016,2MASS J06300571+0106151,b,True,False,True,False,12.9918,6.95
+troup_2016,2MASS J06310594+0045131,b,False,False,False,False,7.30901,7.29
+troup_2016,2MASS J06315647+0504364,b,False,False,True,False,3.64215,10.66
+troup_2016,2MASS J06321756+0057557,b,True,False,False,False,752.132,72.26
+troup_2016,2MASS J06344847+0616158,b,False,False,True,False,93.8016,18.89
+troup_2016,2MASS J06373467+1702080,b,False,False,True,False,24.3976,68.17
+troup_2016,2MASS J06554572+0356327,b,True,False,False,True,138.753,83.86
+troup_2016,2MASS J06575827+0350135,b,True,False,False,True,214.759,56.0
+troup_2016,2MASS J06592037+0539140,b,True,False,False,False,49.0315,33.75
+troup_2016,2MASS J07003681+0419556,b,False,False,False,False,1.79081,6.31
+troup_2016,2MASS J07163554+0608507,b,False,True,False,False,85.1813,38.1
+troup_2016,2MASS J07323237+2100401,b,True,False,False,False,194.099,65.15
+troup_2016,2MASS J08122482+3307108,b,False,True,False,True,248.136,18.97
+troup_2016,2MASS J08140761+3145095,b,False,False,False,False,157.461,30.9
+troup_2016,2MASS J08194758+3104102,b,False,False,False,True,25.3182,12.19
+troup_2016,2MASS J08511963+1232465,b,False,False,False,False,202.432,58.31
+troup_2016,2MASS J08532372+1119098,b,False,False,False,True,30.7205,41.3
+troup_2016,2MASS J11431623+0055135,b,False,False,True,True,152.791,71.0
+troup_2016,2MASS J11434636+0030400,b,False,True,False,False,16.8064,29.06
+troup_2016,2MASS J11440094+0034363,b,False,False,False,False,27.4331,23.06
+troup_2016,2MASS J11444122+0031591,b,False,False,True,True,678.671,41.35
+troup_2016,2MASS J11450339+0121238,b,False,False,False,False,164.653,32.42
+troup_2016,2MASS J11452461+0125173,b,True,False,False,False,642.641,56.31
+troup_2016,2MASS J11462469+0102248,b,False,False,False,False,23.8376,10.06
+troup_2016,2MASS J11513917+0039454,b,False,False,False,False,361.886,14.18
+troup_2016,2MASS J12045063+1911396,b,False,False,False,False,104.824,43.61
+troup_2016,2MASS J12112555+1908295,b,False,False,False,False,114.723,56.43
+troup_2016,2MASS J12154845+1349282,b,True,False,False,False,1.19785,6.68
+troup_2016,2MASS J12161612+1411251,b,False,False,False,False,2.17754,10.43
+troup_2016,2MASS J12164821+1455510,b,False,False,False,False,2.7239,6.44
+troup_2016,2MASS J12170968-0042550,b,True,False,False,False,8.10391,30.1
+troup_2016,2MASS J12211694+1358233,b,False,False,False,False,259.051,45.89
+troup_2016,2MASS J12220451+1413438,b,False,False,False,False,156.379,28.12
+troup_2016,2MASS J12224798+1333258,b,False,False,True,False,11.0872,11.07
+troup_2016,2MASS J12244488+2640386,b,False,True,False,False,153.79,35.27
+troup_2016,2MASS J12253745+2546127,b,True,False,False,False,103.402,9.36
+troup_2016,2MASS J12271056-0030016,b,False,False,False,False,2.59434,20.66
+troup_2016,2MASS J12383663-0736479,b,True,True,False,False,180.894,84.46
+troup_2016,2MASS J12401224-0648362,b,True,False,False,False,602.119,37.61
+troup_2016,2MASS J12415580-0809155,b,True,False,True,False,2.49891,8.83
+troup_2016,2MASS J13084943+1705275,b,False,False,False,False,16.4149,6.28
+troup_2016,2MASS J13101232+1811409,b,False,True,False,False,22.3097,5.03
+troup_2016,2MASS J13104680+1759363,b,False,False,True,False,0.878933,84.18
+troup_2016,2MASS J13131777+1705326,b,False,True,True,True,24.3495,22.58
+troup_2016,2MASS J13133317+1542134,b,True,False,False,False,112.817,6.45
+troup_2016,2MASS J13141550+1700169,b,False,False,False,False,2.26542,9.2
+troup_2016,2MASS J13150364+1806426,b,False,False,False,False,202.365,28.58
+troup_2016,2MASS J13384893+1840175,b,False,False,False,False,28.1016,33.45
+troup_2016,2MASS J13405513+2709430,b,False,False,False,False,9.27888,45.16
+troup_2016,2MASS J13414217+1805294,b,False,False,False,False,6.97097,11.93
+troup_2016,2MASS J13433307+1731175,b,False,False,False,False,17.7556,45.53
+troup_2016,2MASS J13435045+2800384,b,False,False,True,False,14.8659,19.78
+troup_2016,2MASS J13454310+1819440,b,False,False,True,True,11.643,8.28
+troup_2016,2MASS J13461152+2653184,b,False,False,False,False,242.432,48.8
+troup_2016,2MASS J13472690+2744293,b,False,False,True,False,23.9329,59.74
+troup_2016,2MASS J13483077+1745228,b,False,True,True,False,12.8807,11.4
+troup_2016,2MASS J13501100+1818464,b,False,False,False,True,0.16822,5.01
+troup_2016,2MASS J14053944+2744230,b,False,False,False,False,72.5103,8.06
+troup_2016,2MASS J15142280+0024103,b,False,False,True,True,56.2745,23.0
+troup_2016,2MASS J15182185+0147091,b,False,False,False,False,31.4324,64.23
+troup_2016,2MASS J17105698+4301117,b,False,False,False,False,204.676,57.94
+troup_2016,2MASS J17150008+4320355,b,False,False,False,True,127.439,30.96
+troup_2016,2MASS J17172331+4256556,b,False,False,False,False,3.28362,58.75
+troup_2016,2MASS J17194150+4305034,b,False,False,True,False,6.93362,10.64
+troup_2016,2MASS J17194262+4354561,b,False,False,False,False,56.3854,11.17
+troup_2016,2MASS J17214931+4221402,b,False,False,False,False,118.58,47.6
+troup_2016,2MASS J18404988-0205151,b,False,False,False,False,151.681,68.22
+troup_2016,2MASS J18471777-0135164,b,True,False,False,False,410.836,50.15
+troup_2016,2MASS J18504195-0311203,b,False,False,False,False,16.1427,25.53
+troup_2016,2MASS J18563573-0353463,b,False,True,False,False,104.617,14.9
+troup_2016,2MASS J18565556-0402568,b,True,False,False,False,190.336,58.13
+troup_2016,2MASS J18575650-0315315,b,False,False,False,False,117.149,31.64
+troup_2016,2MASS J18580981-0506126,b,False,False,False,False,122.788,58.54
+troup_2016,2MASS J19105197+2845422,b,True,False,False,True,147.112,72.87
+troup_2016,2MASS J19110770+2747154,b,False,False,False,False,26.1311,8.35
+troup_2016,2MASS J19123733+2724276,b,False,False,False,False,36.8157,24.46
+troup_2016,2MASS J19130255-0625100,b,False,False,False,False,158.904,20.11
+troup_2016,2MASS J19131944-0532048,b,False,True,False,False,152.766,27.89
+troup_2016,2MASS J19275008+2426204,b,False,False,False,False,332.893,18.9
+troup_2016,2MASS J19411443+2454266,b,False,False,False,False,48.8767,17.45
+troup_2016,2MASS J19474741+2321103,b,True,False,False,True,36.5239,26.0
+troup_2016,2MASS J20032039+2127112,b,False,True,False,False,54.0452,12.38
+troup_2016,2MASS J20122312+1922250,b,True,True,False,True,157.257,39.93
+troup_2016,2MASS J20123077+1850399,b,False,True,True,False,98.6693,23.05
+troup_2016,2MASS J20130687+2044173,b,False,False,True,False,17.9319,29.42
+troup_2016,2MASS J20443307+5040001,b,False,False,False,False,28.1077,18.38
+troup_2016,2MASS J20455210+5138327,b,False,False,True,False,27.2009,50.67
+troup_2016,2MASS J20511111+5054053,b,False,False,False,False,14.6403,18.51
+troup_2016,2MASS J20531937+5012375,b,True,True,False,False,14.7059,15.22
+troup_2016,2MASS J20533921+4948286,b,True,True,True,False,151.079,35.82
+troup_2016,2MASS J20544823+5017406,b,False,True,False,False,211.773,27.28
+troup_2016,2MASS J20551781+5012028,b,False,False,False,False,680.195,36.42
+troup_2016,2MASS J20555422+5036211,b,True,False,False,False,10.833,53.22
+troup_2016,2MASS J20564020+5021315,b,False,False,False,False,19.5507,55.5
+troup_2016,2MASS J20574795+5015567,b,True,False,False,False,6.99697,20.42
+troup_2016,2MASS J21264913+4515101,b,False,False,False,False,2.1998,5.41
+troup_2016,2MASS J21273750+4654009,b,True,False,False,True,380.454,24.98
+troup_2016,2MASS J21274355+1202081,b,False,False,False,False,279.206,42.72
+troup_2016,2MASS J21303338+1314001,b,False,False,True,False,63.7723,7.83
+troup_2016,2MASS J21310801+1201391,b,False,True,True,False,157.733,57.16
+troup_2016,2MASS J21312112+1307399,b,False,False,False,False,102.055,83.69
+troup_2016,2MASS J21325045+1206334,b,False,False,False,False,61.44,53.37
+troup_2016,2MASS J21331372+1254561,b,False,True,False,False,242.61,25.09
+troup_2016,2MASS J21380962+4208595,b,False,False,False,False,18.3974,21.32
+troup_2016,2MASS J21482923+4307053,b,False,False,False,False,93.1549,50.13
+troup_2016,2MASS J21492557+4203285,b,False,True,True,False,22.3458,8.69
+unger_2023,HIP 66074,HIP 66074 b,True,True,True,True,300.3,0.44
+unger_2023,HR 810,HR 810 b,True,True,True,True,307.5,1.772
+unger_2023,BD-17 63,BD-17 63 b,True,True,True,True,655.62,5.25
+unger_2023,HD 132406,HD 132406 b,True,True,True,True,970.0,5.49
+unger_2023,HD 81040,HD 81040 b,True,True,True,True,1003.6,6.38
+unger_2023,HD 175167,HD 175167 b,True,True,True,True,1243.0,7.65
+unger_2023,HD 68638,HD 68638 b,True,True,True,True,240.75,8.24
+unger_2023,HD 114762,HD 114762 b,True,True,True,True,83.91709,12.4
+unger_2023,HD 162020,HD 162020 b,True,True,True,True,8.4282377,14.96
+unger_2023,HD 91669,HD 91669 b,True,True,True,True,497.6,28.8
+unger_2023,BD-00 4475,BD-00 4475 b,True,True,True,True,723.55,31.4
+unger_2023,HD 112758,HD 112758 b,True,True,True,True,103.2517,32.7
+unger_2023,HD 48679,HD 48679 b,True,True,True,True,1083.0,35.9
+unger_2023,HD 140913,HD 140913 b,True,True,True,True,147.931,40.0
+unger_2023,HD 148284,HD 148284 b,True,True,True,True,339.301,40.2
+unger_2023,HD 30246,HD 30246 b,True,True,True,True,989.54,41.0
+unger_2023,HD 77065,HD 77065 b,True,True,True,True,119.1142,42.0
+unger_2023,HD 5433,HD 5433 b,True,True,True,True,575.1,45.4
+unger_2023,HD 164427,HD 164427 b,True,True,True,True,108.53856,48.8
+unger_2023,CD-46 10046,CD-46 10046 b,True,True,True,True,242.48,49.6
+unger_2023,HD 17289,HD 17289 b,True,True,True,True,561.637,51.6
+unger_2023,HD 89707,HD 89707 b,True,True,True,True,298.241,53.7
+unger_2023,HD 92320,HD 92320 b,True,True,True,True,145.413,59.1
+unger_2023,HD 52756,HD 52756 b,True,True,True,True,52.865777,59.6
+unger_2023,BD+29 1539,BD+29 1539 b,True,True,True,True,175.928,60.1
+unger_2023,HD 166356,HD 166356 b,True,True,True,True,275.0,61.0
+unger_2023,HD 132032,HD 132032 b,True,True,True,True,274.45,64.5
+unger_2023,HD 3277,HD 3277 b,True,True,True,True,46.151369,66.2
+unger_2023,HD 151528,HD 151528 b,True,True,True,True,211.8478,72.4
+unger_2023,HD 17155,HD 17155 b,True,True,True,True,1425.92,74.5
+unger_2023,HD 82460,HD 82460 b,True,True,True,True,589.44,77.8
+unger_2023,BD-17 63,BD-17 63 b,True,True,True,True,655.641,5.25
+unger_2023,HD 132406,HD 132406 b,True,True,True,True,920.0,5.49
+unger_2023,HD 81040,HD 81040 b,True,True,True,True,1004.8,6.38
+unger_2023,HD 68638,HD 68638 b,True,True,True,True,240.59,8.24
+unger_2023,HD 91669,HD 91669 b,True,True,True,True,498.73,28.8
+unger_2023,HD 30246,HD 30246 b,True,True,True,True,990.08,41.0
+unger_2023,BD-00 4475,BD-00 4475 b,True,True,True,True,723.71,31.4
+unger_2023,HD 77065,HD 77065 b,True,True,True,True,119.1141,42.0
+unger_2023,CD-46 10046,CD-46 10046 b,True,True,True,True,242.32,49.6
+unger_2023,HD 52756,HD 52756 b,True,True,True,True,52.86577,59.6
+unger_2023,HD 92320,HD 92320 b,True,True,True,True,145.418,59.1
+unger_2023,HD 132032,HD 132032 b,True,True,True,True,274.51,64.5
+unger_2023,BD+29 1539,BD+29 1539 b,True,True,True,True,175.926,60.1
+unger_2023,HD 17155,HD 17155 b,True,True,True,True,1422.53,74.5
+unger_2023,HD 140913,HD 140913 b,True,True,True,True,147.912,40.0
+unger_2023,HD 148284,HD 148284 b,True,True,True,True,339.307,40.2
+unger_2023,HD 48679,HD 48679 b,True,True,True,True,1172.6,35.9
+unger_2023,HD 166356,HD 166356 b,True,True,True,True,260.69,61.0
+unger_2023,HD 151528,HD 151528 b,True,True,True,True,211.8506,72.4
+unger_2023,HD 114762,HD 114762 b,True,True,True,True,83.9172,12.4
+unger_2023,HD 112758,HD 112758 b,True,True,True,True,103.2495,32.7
+unger_2023,HD 164427,HD 164427 b,True,True,True,True,108.53855,48.8
+unger_2023,HD 162020,HD 162020 b,True,True,True,True,8.4282388,14.96
+unger_2023,HIP 66074,HIP 66074 b,True,True,True,True,298.3,0.44
+unger_2023,HD 175167,HD 175167 b,True,True,True,True,1177.0,7.65
+unger_2023,HD 5433,HD 5433 b,True,True,True,True,574.92,45.4
+unger_2023,HD 82460,HD 82460 b,True,True,True,True,587.6,77.8
+unger_2023,HD 89707,HD 89707 b,True,True,True,True,298.228,53.7
+unger_2023,HD 3277,HD 3277 b,True,True,True,True,46.15135,66.2
+unger_2023,HD 17289,HD 17289 b,True,True,True,True,561.877,51.6
+wilson_2016,HD 6664,B,True,True,True,True,1718.0,80.0
+wilson_2016,BD+73 275,B,True,True,True,True,1423.2,44.0
+wilson_2016,HD 51813,B,True,True,True,True,1437.0,46.0
+wilson_2016,HD 56709,B,True,True,True,True,2499.0,72.0
+wilson_2016,HD 134169,B,True,True,True,True,67.8578,83.0
+wilson_2016,HD 283668,b,True,True,True,True,2558.0,53.0
+wilson_2016,HD 39392,b,True,True,True,True,394.3,13.2
+wilson_2016,HD 77065,b,True,True,True,True,119.1135,41.0
+wilson_2016,BD+26 1888,b,True,True,True,True,536.78,26.0
+wilson_2016,HD 122562,b,True,True,True,True,2777.0,24.0
+wilson_2016,HD 132032,b,True,True,True,True,274.33,70.0
+wilson_2016,HD 134113,b,True,True,True,True,201.68,47.0
+wilson_2016,HD 160508,b,True,True,True,True,178.9049,48.0
+wilson_2016,BD+24 4697,b,True,True,True,True,145.081,53.0
+wittenmyer_2009,HD 3651,HD 3651 b,True,True,True,True,62.218,0.229
+wittenmyer_2009,HD 8574,HD 8574 b,True,True,True,True,227.0,1.8
+wittenmyer_2009,HD 10697,HD 10697 b,True,True,True,True,1075.2,6.21
+wittenmyer_2009,HD 19994,HD 19994 b,True,True,True,True,466.2,1.37
+wittenmyer_2009,HD 23596,HD 23596 b,True,True,True,True,1561.0,7.71
+wittenmyer_2009,HD 28185,HD 28185 b,True,True,True,True,385.9,5.59
+wittenmyer_2009,HD 38529,HD 38529 b,True,True,True,True,14.3098,0.839
+wittenmyer_2009,HD 38529,HD 38529 c,True,True,True,True,2140.2,13.38
+wittenmyer_2009,HD 40979,HD 40979 b,True,True,True,True,264.15,4.01
+wittenmyer_2009,HD 72659,HD 72659 b,True,True,True,True,3383.0,3.15
+wittenmyer_2009,HD 74156,HD 74156 b,True,True,True,True,51.645,1.8
+wittenmyer_2009,HD 74156,HD 74156 c,True,True,True,True,2473.0,8.06
+wittenmyer_2009,HD 80606,HD 80606 b,True,True,True,True,111.429,3.91
+wittenmyer_2009,HD 89744,HD 89744 b,True,True,True,True,256.78,8.44
+wittenmyer_2009,47 UMa,47 UMa b,True,True,True,True,1076.6,2.45
+wittenmyer_2009,HD 106252,HD 106252 b,True,True,True,True,1531.0,6.92
+wittenmyer_2009,HD 108874,HD 108874 b,True,True,True,True,395.8,1.29
+wittenmyer_2009,HD 108874,HD 108874 c,True,True,True,True,1624.0,0.99
+wittenmyer_2009,HD 114783,HD 114783 b,True,True,True,True,493.7,1.1
+wittenmyer_2009,HD 128311,HD 128311 b,True,True,True,True,454.2,1.45
+wittenmyer_2009,HD 128311,HD 128311 c,True,True,True,True,923.8,3.24
+wittenmyer_2009,HD 130322,HD 130322 b,True,True,True,True,10.7085,1.04
+wittenmyer_2009,HD 136118,HD 136118 b,True,True,True,True,1187.3,11.6
+wittenmyer_2009,HD 178911 B,HD 178911B b,True,True,True,True,71.484,7.03
+wittenmyer_2009,HD 190228,HD 190228 b,True,True,True,True,1136.1,5.93
+wittenmyer_2009,HD 91669,HD 91669 b,True,True,True,True,497.5,30.6
+xiao_2023,GJ 832,GJ 832 b,True,,True,True,3608.67,0.657
+xiao_2023,GJ 179,GJ 179 b,True,,True,True,2303.27,0.821
+xiao_2023,HD 154345,HD 154345 b,True,,True,True,3342.04,1.103
+xiao_2023,HD 220689,HD 220689 b,True,,True,True,2275.51,1.106
+xiao_2023,HD 30562,HD 30562 b,True,,True,True,1153.46,1.3
+xiao_2023,HD 27631,HD 27631 b,True,,True,True,2173.24,1.47
+xiao_2023,HD 222155,HD 222155 b,False,,True,True,3265.34,1.64
+xiao_2023,HD 89307,HD 89307 b,True,,True,True,2188.21,1.89
+xiao_2023,HD 32963,HD 32963 b,False,,True,True,2367.92,0.684
+xiao_2023,HD 117207,HD 117207 b,False,,True,True,2606.42,2.032
+xiao_2023,HD 108341,HD 108341 b,False,,True,True,1147.62,1.97
+xiao_2023,HD 129445,HD 129445 b,False,,True,True,1801.78,1.93
+xiao_2023,HD 167677,HD 167677 b,True,,True,True,1815.29,1.369
+xiao_2023,HD 103891,HD 103891 b,False,,True,True,1893.82,1.33
+xiao_2023,HD 69123,HD 69123 b,False,,True,True,1191.08,2.85
+xiao_2023,HD 18015,HD 18015 b,False,,True,True,2235.33,3.0
+xiao_2023,HD 216437,HD 216437 b,False,,True,True,1336.08,2.23
+xiao_2023,HD 70642,HD 70642 b,False,,True,True,2100.55,1.947
+xiao_2023,HD 55696,HD 55696 b,False,,True,True,1706.08,3.56
+xiao_2023,HD 143361,HD 143361 b,False,,True,True,1042.35,3.583
+xiao_2023,HD 142022 Ab,HD 142022 Ab,False,,True,True,1934.73,4.14
+xiao_2023,HD 196050,HD 196050 b,False,,True,True,1392.7,2.987
+xiao_2023,HD 73267,HD 73267 b,False,,True,True,1257.23,3.054
+xiao_2023,HIP 106006,HIP 106006 b,True,,True,True,2049.78,4.46
+xiao_2023,HD 89839,HD 89839 b,True,,True,True,3441.02,3.811
+xiao_2023,HD 213240,HD 213240 b,False,,True,True,879.193,4.64
+xiao_2023,HIP 56640,HIP 56640 b,False,,True,True,2615.19,3.7
+xiao_2023,HD 80869,HD 80869 b,False,,True,True,1710.83,4.91
+xiao_2023,HIP 8541,HIP 8541 b,False,,True,True,1584.82,5.34
+xiao_2023,HD 50554,HD 50554 b,False,,True,True,1238.2,5.13
+xiao_2023,HD 16175,HD 16175 b,False,,True,True,981.062,4.92
+xiao_2023,HD 190228,HD 190228 b,False,,True,True,1146.56,4.56
+xiao_2023,HD 132406,HD 132406 b,False,,True,True,964.26,5.25
+xiao_2023,HD 10697,HD 10697 b,False,,True,True,1075.52,6.33
+xiao_2023,HD 111232,HD 111232 b,True,,True,True,1168.69,7.24
+xiao_2023,HD 120084,HD 120084 b,False,,True,True,2084.12,4.57
+xiao_2023,HD 95544,HD 95544 b,True,,True,True,2170.32,6.87
+xiao_2023,HD 68402,HD 68402 b,True,,True,True,1150.54,2.67
+xiao_2023,HD 115954,HD 115954 b,False,,True,True,3232.46,8.2
+xiao_2023,HD 175167,HD 175167 b,True,,True,True,1288.97,8.1
+xiao_2023,HD 74156,HD 74156 c,True,,True,True,2446.08,7.94
+xiao_2023,HD 191806,HD 191806 b,False,,True,True,1603.81,8.97
+xiao_2023,BD+631405,BD+631405 b,True,,True,True,1230.89,4.07
+xiao_2023,HD 106270,HD 106270 b,True,,True,True,1888.34,10.1
+xiao_2023,HD 224538,HD 224538 b,False,,True,True,1200.58,6.98
+xiao_2023,HD 86264,HD 86264 b,False,,True,True,1482.91,7.9
+xiao_2023,HIP 67537,HIP 67537 b,False,,True,True,2549.45,11.05
+xiao_2023,HD 23596,HD 23596 b,False,,True,True,1574.23,8.21
+xiao_2023,HD 14067,HD 14067 b,True,,True,True,2859.91,9.07
+xiao_2023,HD 136118,HD 136118 b,False,,True,True,1191.45,11.88
+xiao_2023,HD 139357,HD 139357 b,True,,True,True,1127.89,10.1
+xiao_2023,HD 165131,HD 165131 b,True,,True,True,2342.64,17.56
+xiao_2023,HD 214823,HD 214823 b,True,,True,True,1854.56,19.6
+xiao_2023,HIP 97233,HIP 97233 b,False,,True,True,1054.11,19.2
+xiao_2023,HD 217786,HD 217786 b,False,,True,True,1302.08,12.31
+xiao_2023,HIP 84056,HIP 84056 b,True,,True,True,825.83,2.92
+xiao_2023,HD 125390,HD 125390 b,False,,True,True,1757.58,22.6
+xiao_2023,HD 122562,HD 122562 b,False,,True,True,2938.8,25.4
+xiao_2023,HD 30246,HD 30246 b,True,,True,True,991.288,49.7
+xiao_2023,HD 175679,HD 175679 b,False,,True,True,1366.4,37.7
+xiao_2023,HD 30501,HD 30501 b,True,,True,True,2074.51,66.2
+xiao_2023,HD 48679,HD 48679 b,False,,True,True,1111.61,37.59
+xiao_2023,HD 33636,HD 33636 b,False,,True,True,2121.01,9.57
+xiao_2023,HIP 103019,HIP 103019 b,True,,True,True,918.019,56.3
+xiao_2023,HD 130396,HD 130396 B,False,,True,True,2057.82,53.6
+xiao_2023,HD 203473,HD 203473 B,True,,True,True,2962.69,62.3
+xiao_2023,HD 184601,HD 184601 B,False,,True,True,849.425,64.7
+xiao_2023,HD 154697,HD 154697 B,True,,True,True,1843.27,76.7
+xiao_2023,HD 131664,HD 131664 B,False,,True,True,1986.52,21.59
+xiao_2023,BD+730275,BD+730275 B,True,,True,True,1423.0,50.4
+xiao_2023,HD 51813,HD 51813 B,False,,True,True,1343.39,53.2
+xiao_2023,HD 53680,HD 53680 B,False,,True,True,1688.73,63.7
+xiao_2023,HD 77712,HD 77712 B,False,,True,True,1311.94,50.2
+xiao_2023,HD 283668,HD 283668 B,False,,True,True,2550.91,78.0
+xiao_2023,HD 217850,HD 217850 B,True,,True,True,3505.93,26.3
+xiao_2023,HD 205521,HD 205521 B,False,,True,True,2034.26,33.8

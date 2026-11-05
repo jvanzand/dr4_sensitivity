@@ -1,0 +1,259 @@
+J/A+A/674/A114  Southern extrasolar planets CORALIE survey. XIX (Barbato+, 2023)
+================================================================================
+The CORALIE survey for southern extrasolar planets. XIX.
+Brown dwarfs and stellar companions unveiled by radial velocity and astrometry.
+    Barbato D., Segransan D., Udry S., Unger N., Bouchy F., Lovis C., Mayor M.,
+    Pepe F., Queloz D., Santos N.C., Delisle J.B., Figueira P., Marmier M.,
+    Matthews E.C., Lo Curto G., Venturini J., Chaverot G., Cretignier M.,
+    Otegi J.F., Stalport M.
+    <Astron. Astrophys. 674, A114 (2023)>
+    =2023A&A...674A.114B        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, double and multiple ; Exoplanets ; Stars, brown dwarf ;
+              Radial velocities
+Keywords: astrometry - proper motions - stars: fundamental parameters -
+          binaries: general - techniques: radial velocities -
+          planets and satellites: dynamical evolution and stability
+
+Abstract:
+    A historical planet-search on a sample of 1647 nearby southern main
+    sequence stars has been ongoing since 1998 with the CORALIE
+    spectrograph at La Silla Observatory, with a backup subprogram
+    dedicated to the monitoring of binary stars.
+
+    We review 25 years of CORALIE measurements and search for Doppler
+    signals consistent with stellar or brown dwarf companions to produce
+    an updated catalog of both known and previously unpublished binary
+    stars in the planet-search sample, assessing the binarity fraction of
+    the stellar population and providing perspective for more precise
+    planet-search in the binary sample.
+
+    We perform new analysis on the CORALIE planet-search sample radial
+    velocity measurements, searching for stellar companions and obtaining
+    orbital solutions for both known and new binary systems. We perform
+    simultaneous radial velocity and proper motion anomaly fits on the
+    subset of these systems for which Hipparcos and Gaia astrometry
+    measurements are available, obtaining accurate estimates of true mass
+    for the companions.
+
+    We find 218 stars in the CORALIE sample to have at least one stellar
+    companion, 130 of which are not yet published in the literature and
+    for which we present orbital solutions. The use of proper motion
+    anomaly allow us to derive true masses for the stellar companions in
+    132 systems, which we additionally use to estimate stability regions
+    for possible planetary companions on circumprimary or circumbinary
+    orbits. Finally, we produce detection limit maps for each star in the
+    sample and obtain occurrence rates of 0.43^+0.23^_-0.11_% and
+    12.69^+0.87^_-0.77_% for brown dwarf and stellar companions
+    respectively in the CORALIE sample.
+
+Description:
+    Out of the 1647 stars composing the CORALIE exoplanetsearch
+    sample, we first exclude known SB2 identified as such either by
+    archive query or by identifying double peaks in the cross-correlation
+    function (CCF) of the radial velocity spectra. From this we further
+    identify a subset of 218 stars for which we detect a robust radial
+    velocity signal hinting at the presence of a massive companion having
+    minimum mass Msini>~40M_Jup_.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat       175      218   Host stars parameters from SED fits
+table2.dat       344      221   Companion orbital parameters
+table3.dat        47      218   Dynamical stability regions boundaries
+rvdata.dat        69     9260   Radial velocity measurements
+--------------------------------------------------------------------------------
+
+See also:
+ J/A+A/356/590  : CORALIE survey for extrasolar planets II (Udry+, 2000)
+ J/A+A/375/205  : CORALIE survey for extrasolar planets V (Naef+ 2001)
+ J/A+A/379/999  : CORALIE survey for extrasolar planets VI (Santos+ 2001)
+ J/A+A/388/632  : CORALIE survey for extrasolar planets VII  (Pepe+, 2002)
+ J/A+A/390/267  : CORALIE survey for extrasolar planets VIII (Udry+, 2002)
+ J/A+A/392/215  : CORALIE survey for extrasolar planets IX (Santos+ 2002)
+ J/A+A/406/373  : CORALIE survey for extrasolar planets XI (Santos+, 2003)
+ J/A+A/415/391  : CORALIE survey for extrasolar planets XII (Mayor+, 2004)
+ J/A+A/447/1159 : CORALIE survey for extrasolar planets XIV (Eggenberger+ 2006)
+ J/A+A/480/L33  : CORALIE survey for extrasolar planets XV (Tamuz+, 2008)
+ J/A+A/511/A45  : CORALIE survey for extrasolar planets XVI (Segransan+, 2010)
+ J/A+A/625/A71  : CORALIE survey for extrasolar planets XVII (Rickman+, 2019)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---       Star      Host star name
+  11- 12  I2    h         RAh       Simbad right ascension (J2000.0)
+  14- 15  I2    min       RAm       Simbad right ascension (J2000.0)
+  17- 21  F5.2  s         RAs       Simbad right ascension (J2000.0)
+      23  A1    ---       DE-       Simbad declination sign (J2000.0)
+  24- 25  I2    deg       DEd       Simbad declination sign (J2000.0)
+  27- 28  I2    arcmin    DEm       Simbad declination sign (J2000.0)
+  30- 34  F5.2  arcsec    DEs       Simbad declination sign (J2000.0)
+  36- 50  A15   ---       SpType    Simbad MK spectral type
+  52- 55  F4.2  Msun      Mstar     Stellar mass
+  58- 61  F4.2  Msun    E_Mstar     Stellar mass upper uncertainty
+  64- 67  F4.2  Msun    e_Mstar     Stellar mass lower uncertainty
+  70- 73  F4.2  Rsun      Rstar     Stellar radius
+  76- 79  F4.2  Rsun    E_Rstar     Stellar radius upper uncertainty
+  82- 85  F4.2  Rsun    e_Rstar     Stellar radius lower uncertainty
+  88- 91  F4.2  Lsun      Lstar     Stellar luminosity
+  94- 97  F4.2  Lsun    E_Lstar     Stellar luminosity upper uncertainty
+ 100-103  F4.2  Lsun    e_Lstar     Stellar luminosity lower uncertainty
+ 106-109  F4.2  g/cm3     rho       Stellar density
+ 111-115  F5.2  g/cm3   E_rho       Stellar density upper uncertainty
+ 118-121  F4.2  g/cm3   e_rho       Stellar density lower uncertainty
+ 124-127  F4.2  [cm/s2]   logg      Stellar surface gravity
+ 130-133  F4.2  [cm/s2] E_logg      Stellar surface gravity upper uncertainty
+ 136-139  F4.2  [cm/s2] e_logg      Stellar surface gravity lower uncertainty
+ 142-145  I4    K         Teff      Stellar effective temperature
+ 147-150  I4    K       E_Teff      Stellar effective temperature
+                                     upper uncertainty
+ 153-156  I4    K       e_Teff      Stellar effective temperature
+                                     lower uncertainty
+ 160-164  F5.2  [-]       [Fe/H]    Stellar metallicity
+ 166-169  F4.2  [-]     E_[Fe/H]    Stellar metallicity upper uncertainty
+ 172-175  F4.2  [-]     e_[Fe/H]    Stellar metallicity lower uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Star      Host star name
+  11- 18  F8.2  d       Prv       Orbital period from RV-only solution
+  20- 26  F7.2  d     E_Prv       Orbital period from RV-only solution
+                                   upper uncertainty
+  28- 34  F7.2  d     e_Prv       Orbital period from RV-only solution
+                                   lower uncertainty
+  36- 41  F6.3  km/s    Krv       RV semiamplitude from RV-only solution
+  43- 47  F5.3  km/s  E_Krv       RV semiamplitude from RV-only solution
+                                   upper uncertainty
+  49- 53  F5.3  km/s  e_Krv       RV semiamplitude from RV-only solution
+                                   lower uncertainty
+  55- 59  F5.3  ---     erv       Eccentricity from RV-only solution
+  61- 65  F5.3  ---   E_erv       Eccentricity from RV-only solution
+                                   upper uncertainty
+  67- 71  F5.3  ---   e_erv       Eccentricity from RV-only solution
+                                   lower uncertainty
+  73- 79  F7.2  deg     l0rv      Reference longitude from RV-only solution
+  81- 85  F5.2  deg   E_l0rv      Reference longitude from RV-only solution
+                                   upper uncertainty
+  87- 90  F4.2  deg   e_l0rv      Reference longitude from RV-only solution
+                                   lower uncertainty
+  92- 97  F6.2  deg     omrv      Argument of periastron from RV-only solution
+  99-104  F6.2  deg   E_omrv      Argument of periastron from RV-only solution
+                                   upper uncertainty
+ 106-111  F6.2  deg   e_omrv      Argument of periastron from RV-only solution
+                                   lower uncertainty
+ 113-118  F6.2  Mjup    Msini     Minimum mass from RV-only solution
+ 120-125  F6.2  Mjup  E_Msini     Minimum mass from RV-only solution
+                                   upper uncertainty
+ 127-132  F6.2  Mjup  e_Msini     Minimum mass from RV-only solution
+                                   lower uncertainty
+ 134-137  F4.2  Msun    MsiniS    Minimum mass from RV-only solution
+ 139-142  F4.2  Msun  E_MsiniS    Minimum mass from RV-only solution
+                                   upper uncertainty
+ 144-147  F4.2  Msun  e_MsiniS    Minimum mass from RV-only solution
+                                   lower uncertainty
+ 149-153  F5.2  au      arv       Semimajor axis from RV-only solution
+ 155-158  F4.2  au    E_arv       Semimajor axis from RV-only solution
+                                   upper uncertainty
+ 160-163  F4.2  au    e_arv       Semimajor axis from RV-only solution
+                                   lower uncertainty
+ 165-171  F7.2  ---     tspan/P   Orbital coverage from RV-only solution
+ 173-176  F4.2  ---     qmin      Minimum binary mass ratio from RV-only
+                                   solution
+ 178-184  F7.2  Mjup    Mtrue     ?=- True mass from RV+astrometry solution
+ 186-191  F6.2  Mjup  E_Mtrue     ?=- True mass from RV+astrometry
+                                   upper uncertainty
+ 193-198  F6.2  Mjup  e_Mtrue     ?=- True mass from RV+astrometry
+                                   lower uncertainty
+ 200-203  F4.2  Msun    MtrueS    ?=- True mass from RV+astrometry solution
+ 205-208  F4.2  Msun  E_MtrueS    ?=- True mass from RV+astrometry solution
+                                   upper uncertainty
+ 210-213  F4.2  Msun  e_MtrueS    ?=- True mass from RV+astrometry solution
+                                   lower uncertainty
+ 215-219  F5.2  au      arva      ?=- Semimajor axis from RV+astrometry solution
+ 221-224  F4.2  au    E_arva      ?=- Semimajor axis from RV+astrometry solution
+                                   upper uncertainty
+ 226-229  F4.2  au    e_arva      ?=- Semimajor axis from RV+astrometry solution
+                                   lower uncertainty
+ 231-238  F8.2  d       Prva      ?=- Orbital period from RV+astrometry solution
+ 240-246  F7.2  d     E_Prva      ?=- Orbital period from RV+astrometry solution
+                                   upper uncertainty
+ 248-254  F7.2  d     e_Prva      ?=- Orbital period from RV+astrometry solution
+                                   lower uncertainty
+ 256-262  F7.5  ---     erva      ?=- Eccentricity from RV+astrometry solution
+ 264-270  F7.5  ---   E_erva      ?=- Eccentricity from RV+astrometry solution
+                                   upper uncertainty
+ 272-278  F7.5  ---   e_erva      ?=- Eccentricity from RV+astrometry solution
+                                   lower uncertainty
+ 280-285  F6.2  deg     irva      ?=- Orbital inclination from RV+astrometry
+                                   solution
+ 287-292  F6.2  deg   E_irva      ?=- Orbital inclination from RV+astrometry
+                                   solution upper uncertainty
+ 294-299  F6.2  deg   e_irva      ?=- Orbital inclination from RV+astrometry
+                                   solution lower uncertainty
+ 301-306  F6.2  deg     omrva     ?=- Argument of periastron from RV+astrometry
+                                   solution
+ 308-313  F6.2  deg   E_omrva     ?=- Argument of periastron from RV+astrometry
+                                   solution upper uncertainty
+ 315-319  F5.2  deg   e_omrva     ?=- Argument of periastron from RV+astrometry
+                                   solution lower uncertainty
+ 321-324  F4.2  ---     qrva      ?=- Binary mass ratio from RV+astrometry
+                                   solution
+ 326-344  A19   ---     pub       Previous publication regarding the companion
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ----    Star      Host star name
+  11- 15  F5.3  au      droche    Minimum stable circumprimary distance
+  19- 23  F5.3  au      acS       ?=- Maximum stable circumprimary distance
+  27- 33  F7.3  au      acP       Minimum stable circumbinary distance
+  35- 39  F5.3  au      acSsec    ?=- Maximum stable circumsecundary distance
+  43- 47  A5    ----    Note      Minimum or true companion mass
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: rvdata.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Star      Target star name
+  16- 27  F12.4 d       BJD       Epochs of measurement
+  31- 43  F13.4 m/s     RV        ?=-99999 Radial velocity value
+  45- 56  F12.4 m/s   e_RV        ?=-99999 Radial velocity uncertainty
+  61- 69  A9    ----    Inst      Instrument name
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Domenico Barbato, Domenico.Barbato(at)unige.ch
+
+References:
+   Queloz et al.,      Paper I      2000A&A...354...99Q
+   Udry et al.,        Paper II     2000A&A...356..590U, Cat. J/A+A/356/590
+   Santos et al.,      Paper III    2000A&A...356..599S
+   Santos et al.,      Paper IV     2000A&A...361..265S
+   Naef et al.,        Paper V      2001A&A...375..205N, Cat. J/A+A/375/205
+   Santos et al.,      Paper VI     2001A&A...379..999S, Cat. J/A+A/379/999
+   Pepe et al.,        Paper VII    2002A&A...388..632P
+   Udy et al.,         Paper VIII   2002A&A...390..267U, Cat. J/A+A/390/267
+   Santos et al.,      Paper IX     2002A&A...392..215S, Cat. J/A+A/392/215
+   Udry et al.,        Paper X      2003A&A...407..679U
+   Santos et al.,      Paper XI     2003A&A...406..373S, Cat. J/A+A/406/373
+   Mayor et al.,       Paper XII    2004A&A...415..391M, Cat. J/A+A/415/391
+   Correia et al.,     Paper XIII   2005A&A...440..751C
+   Eggenberger et al., Paper XIV    2006A&A...447.1159E, Cat. J/A+A/447/1159
+   Tamuz et al.,       Paper XV     2008A&A...480L..33T, Cat. J/A+A/480/L33
+   Segransan et al.,   Paper XVI    2010A&A...511A..45S, Cat. J/A+A/511/A45
+   Marmier et al.,     Paper XVII   2013A&A...551A..90M
+   Rickman et al.,     Paper XVIII  2019A&A...625A..71R, Cat. J/A+A/625/A71
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  18-Apr-2023

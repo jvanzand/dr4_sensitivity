@@ -1,0 +1,54 @@
+Title: Gaia-4b and 5b: Radial Velocity Confirmation of Gaia
+    Astrometric Orbital Solutions Reveal a Massive Planet and a Brown
+    Dwarf Orbiting Low-mass Stars 
+Authors: Stefánsson G., Mahadevan S., Winn J.N., Marcussen M.L., 
+    Kanodia S., Albrecht S., Fitzmaurice E., Mikulskitye O., Canas C.I., 
+    Espinoza-Retamal J.I., Zwart Y., Krolikowski D.M., Hotnisky A., 
+    Robertson P., Alvarado-Montes J.A., Bender C.F., Blake C.H., 
+    Callingham J.R., Cochran W.D., Delamer M., Diddams S.A., Dong J., 
+    Fernandes R.B., Giovinazzi M.R., Halverson S., Libby-Roberts J., 
+    Logsdon S.E., McElwain M.W., Ninan J.P., Rajagopal J., Reji V., 
+    Roy A., Schwab C., Wright J.T.
+Table: Radial velocities of Gaia-4
+================================================================================
+Byte-by-byte Description of file: ajada9e1t5_mrt.txt
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1- 14 F14.6  d       BJD    Time, Barycentric Julian date at TDB
+  16- 21 F6.1   m.s-1   RVel   Radial velocity
+  23- 26 F4.1   m.s-1 e_RVel   Uncertainty in RVel
+  28- 31 A4     ---     Inst   Instrument used for RVel (1)
+--------------------------------------------------------------------------------
+Note (1): Instruments used as follows:
+    HPF = Habitable-zone Planet Finder, a fiber-fed, near-infrared
+        spectrograph on the 10m Hobby-Eberly Telescope at McDonald
+        Observatory in Texas, USA;
+    NEID = fiber-fed, red-optical spectrograph on the WIYN 3.5m Telescope at 
+        Kitt Peak National Observatory, Arizona, USA;
+    FIES = FIber-fed Échelle Spectrograph, 2.56 m Nordic Optical Telescope,
+        the Roque de los Muchachos Observatory on La Palma, Spain.
+--------------------------------------------------------------------------------
+2460039.707428  174.4 22.7 HPF  
+2460120.745063  -36.5 14.1 HPF  
+2460148.648947 -136.4 11.2 HPF  
+2460161.621481 -196.9 26.4 HPF  
+2460292.028558 -357.5 16.5 HPF  
+2460359.862195    4.6 16.2 HPF  
+2460365.827808   -9.0 15.6 HPF  
+2460371.827772    7.2 16.9 HPF  
+2460517.642454  150.0 11.0 HPF  
+2460522.617242  197.3 12.5 HPF  
+2460278.000150 -392.8  7.4 NEID 
+2460295.046997 -344.8  6.8 NEID 
+2460309.971096 -261.0  5.8 NEID 
+2460323.915039 -157.7 10.8 NEID 
+2460491.771605  210.6 10.8 NEID 
+2460499.705697  181.3  9.2 NEID 
+2460557.641766  157.7  7.0 NEID 
+2460561.650529  197.5 13.4 NEID 
+2460076.423770  222.0 11.3 FIES 
+2460274.764694 -329.0 12.3 FIES 
+2460275.763224 -325.8 13.7 FIES 
+2460339.724544   -8.3 12.8 FIES 
+2460400.549350  205.3 11.9 FIES 

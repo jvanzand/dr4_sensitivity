@@ -1,0 +1,173 @@
+J/A+A/674/A10       Gaia DR3 systems with companions               (Holl+, 2023)
+================================================================================
+Gaia Data Release 3.
+Astrometric orbit determination with Markov Chain Monte Carlo and genetic
+algorithms. Systems with stellar, substellar, and planetary mass companions.
+    Holl B., Sozzetti A., Sahlmann J., Giacobbe P., Segransan D., Unger N.,
+    Delisle J.B., Barbato D., Lattanzi M.G., Morbidelli R., Sosnowska D.
+    <Astron. Astrophys. 674, A10 (2023)>
+    =2023A&A...674A..10H        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, double and multiple ; Radial velocities ; Optical
+Keywords: astrometry - planets and satellites: detection -
+          techniques: radial velocities - catalogs -
+          brown dwarfs - binaries: general
+
+Abstract:
+    Astrometric discovery of sub-stellar mass companions orbiting stars is
+    exceedingly hard due to the required sub-milliarcsecond precision,
+    limiting the application of this technique to only a few instruments
+    on a target-per-target basis as well as the global astrometry space
+    missions Hipparcos and Gaia. The third Gaia data release includes the
+    first Gaia astrometric orbital solutions, whose sensitivity in terms
+    of estimated companion mass extends down into the planetary-mass
+    regime. We present the contribution of the 'exoplanet pipeline' to the
+    Gaia DR3 sample of astrometric orbital solutions by describing the
+    methods used for fitting the orbits, the identification of significant
+    solutions, and their validation. We then present an overview of the
+    statistical properties of the solution parameters. Using both a Markov
+    Chain Monte Carlo and Genetic Algorithm we fit the 34 months of Gaia
+    DR3 astrometric time series with a single Keplerian astrometric-orbit
+    model. Verification and validation steps are taken using significance
+    tests, internal consistency checks using the Gaia radial velocity
+    measurements (when available), as well as literature radial velocity
+    and astrometric data, leading to a subset of candidates that are
+    labelled as 'validated'. We determined astrometric-orbit solutions for
+    1162 sources and 198 solutions have been assigned the 'validated'
+    label. Precise companion mass estimates are presented elsewhere. From
+    internal and external verification and validation we estimate the
+    level of spurious/incorrect solutions in our sample to be of the order
+    of ~5-10% in our non-'validated' candidate samples. We demonstrate
+    that Gaia is able to confirm and sometimes refine known orbital
+    companion orbits as well as identify new candidates, providing us with
+    a positive outlook of the expected harvest from the full mission data
+    in future data releases.
+
+Description:
+    refsols.dat: Overview of all sources we published in Gaia DR3 table
+    "nss_two_body_orbit" (Cat. I/357) for which we have identified
+    reference data. Asymmetric uncertainties available for some of the
+    literature sources have been set to the largest absolute uncertainty.
+
+    For all radial velocity time series below, the maximum included
+    observation date is JD 2459519.5 (1 Nov 2021), which is the time at
+    which the validations for this paper were done:
+
+    bd-18113.dat: CORALIE radial velocity time series first published with
+    this publication.
+
+    46_10046.dat: CORALIE radial velocity time series for CD-46 10046
+    first published with this publication.
+
+    gj812a.dat: HARPS03 radial velocity time series from the HARPS- ESO
+    public archive program id: 183.C-0437(A) (Bonfils).
+
+    gj9732.dat: HARPS03 radial velocity time series from the HARPS- ESO
+    public archive program id: 180.C-0886(A) and 183.C-0437(A) (Bonfils).
+
+    hd26596.dat: radial velocity time series from the SOPHIE public
+    archive http://atlas.obs-hp.fr/sophie/.
+
+     hd40503.dat: HARPS03 program id: 085.C-0019(A) (Lo Curto) and CORALIE
+    radial velocity time series, first published with this publication.
+
+    hd68638.dat: ELODIE radial velocity time series from the ELODIE public
+    archive http://atlas.obs-hp.fr/elodie/
+
+    hd89010.dat: ELODIE - SOPHIE - OHP radial velocity time series from
+    the SOPHIE and ELODIE public archives.
+
+    hd134237.dat: CORALIE (prog. 703) radial velocity time series first
+    published with this publication.
+
+    hd183162.dat: radial velocity time series from HIRES Butler et al.
+    (2017AJ....153..208B), as well as SOPHIE public archive.
+
+    hip9095.dat: CORALIE (prog. 714) radial velocity time series series
+    first published with this publication.
+
+    toi-288.dat: ORALIE radial velocity time series from Psardi et al.
+    (2022A&A...664A..94P).
+
+    hd40503.dat: HARPS and CORALIE radial velocity time series data of
+    HD40503 within the time range BJD [2452989.7078, 2459500.8049].
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+sources.dat       49       12   List of sources with radial velocity time series
+rv/*               .       14   Individual radial velocity time series
+refsols.dat      403      204   Reference solution table
+--------------------------------------------------------------------------------
+
+See also:
+   I/355 : Gaia DR3 Part 1. Main source (Gaia Collaboration, 2022)
+   I/357 : Gaia DR3 Part 3. Non-single stars (Gaia Collaboration, 2022)
+
+Byte-by-byte Description of file: sources.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     Star      Star name
+  13- 14  I2    h       RAh       Simbad Right ascension (J2000)
+  16- 17  I2    min     RAm       Simbad Right ascension (J2000)
+  19- 23  F5.2  s       RAs       Simbad Right ascension (J2000)
+      25  A1    ---     DE-       Simbad Declination sign (J2000)
+  26- 27  I2    deg     DEd       Simbad Declination (J2000)
+  29- 30  I2    arcmin  DEm       Simbad Declination (J2000)
+  32- 35  F4.1  arcsec  DEs       Simbad Declination (J2000)
+  38- 49  A12   ---     FileName  Name of the file with RV data in
+                                   subdirectory rv
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: rv/*
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1- 12  F12.4 d       BJD      Epoch of radial velocity
+  15- 25  F11.4 m/s     RV       Radial velocity
+  27- 34  F8.4  m/s   e_RV       Radial velocity uncertainty
+  38- 47  A10   ---     Inst     Instrument name (HARPS, CORALIE07 or CORALIE14)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refsols.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1- 19  I19   ---     GaiaDR3    Gaia DR3 source_id
+  22- 51  A30   ---     NSSmodel   NSS solution type (1)
+  54- 64  F11.6 d       Perl       ? Reference period
+  67- 76  F10.6 d     e_Perl       ? Uncertainty of reference period
+  79- 89  F11.6 d       Per        Our period
+  92-101  F10.6 d     e_Per        Uncertainty of our period
+ 104-111  F8.6  ---     eccl       ? Reference eccentricity
+ 114-121  F8.6  ---   e_eccl       ? Uncertainty of reference eccentricity
+ 124-131  F8.6  ---     ecc        Our eccentricity
+ 134-141  F8.6  ---   e_ecc        Uncertainty of our eccentricity
+     144  I1    ---     pseu-m-idx [0/2] Our companion pseudo mass index (2)
+ 147-169  A23   ---     Name       Target common name resolvable in Simbad
+ 172-281  A110  ---     Ref        Reference/description of reference data
+ 284-403  A120  ---   n_Ref        Additional notes related to reference (data)
+--------------------------------------------------------------------------------
+Note (1): nss_solution_type in Gaia DR3 table "nss_two_body_orbit", being one of
+    "OrbitalAlternativeValidated", "OrbitalTargetedSearch", and
+    "OrbitalTargetedSearchValidated". Note that we did not identify reference
+    data for any of our published "OrbitalAlternative" sources.
+Note (2): Our derived pseudo mass for the companion, i.e., assuming the primary
+    has 1M_{sun}_, separated in 3 categories used in the paper as a rough way to
+    separate the mass ranges, as follows:
+    0 =              M_comp_ <   20 M_jup_
+    1 = 20 M_jup_ <= M_comp_ <= 120 M_jup_
+    2 =              M_comp_ >  120 M_jup_
+
+    Note that proper mass estimates need additional information, see e.g.:
+    Gaia Collaboration, Arenou, F., Babusiaux, C., et al. 2022, in prep.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Berry Holl, berry.holl(at)unige.ch
+
+================================================================================
+(End) B. Holl/D. Barbato [DoA, Geneva, Switzerland] P. Vannier [CDS] 06-Oct-2022

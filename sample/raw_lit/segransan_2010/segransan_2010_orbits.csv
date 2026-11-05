@@ -1,0 +1,2 @@
+host,companion,P_d,e_P_d,K_ms,e,omega_deg,Tp_bjd,msini_mj,a_au,mstar_msun,fit_type,table_ref,notes
+HD 147018,HD 147018 c,1008,18,141.2,0.133,-133.1,,6.56,1.922,0.927,RV-only,arXiv:0908.1479 Table 2 (mstar Table 1),"Tp left blank: table gives T0=55301+/-22 in JD*=JD-2450000, inconsistent with that definition (probably 2455301 i.e. a typo); likely already in NASA Exoplanet Archive. Other companions in paper (HD 147018 b, HD 171238 b, HD 204313 b) have Msini 2.1-4.1 MJ"

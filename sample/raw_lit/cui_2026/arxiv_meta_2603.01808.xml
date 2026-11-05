@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/yKjWDd7j5o/CbR4m/n2aQPwMLAQ</id>
+  <title>arXiv Query: search_query=&amp;id_list=2603.01808&amp;start=0&amp;max_results=10</title>
+  <updated>2026-10-26T17:21:19Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2603.01808" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.01808v1</id>
+    <title>A universal brown dwarf desert formed between planets and stars</title>
+    <updated>2026-03-02T12:44:13Z</updated>
+    <link href="https://arxiv.org/abs/2603.01808v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.01808v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Giant planets and brown dwarfs play a crucial role in star and planet formation, as they are situated at the boundary between planets and stars with uncertain formation mechanisms. Previous observational searches for the formation boundary were hampered by the lack of large unified samples of wide-orbit giant planets and substellar companions. A combined analysis of radial velocity and astrometry mitigates this problem and has significantly enlarged the sample. Here we present a rigorous statistical analysis of the sample of 55 giant planets, brown dwarfs and low-mass stellar companions orbiting FGK stars. We quantitatively analyze the occurrence rates of brown dwarfs and identify a distinct brown dwarf desert at approximately $30\,M_\mathrm{J}$, with no evidence of disappearance up to 20 au. Unlike previous studies that predicted a declining planet occurrence rate beyond the water-ice line, we identify a new population of giant planets and low-mass brown dwarfs in this region. The metallicity and eccentricity trends in our sample suggest that these are the consequences of two different formation scenarios. Our combined population synthesis model successfully accounts for the observed brown dwarf desert, supporting the dual formation hypothesis.</summary>
+    <category term="astro-ph.EP" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.SR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-02T12:44:13Z</published>
+    <arxiv:comment>Published in PNAS</arxiv:comment>
+    <arxiv:primary_category term="astro-ph.EP"/>
+    <author>
+      <name>Kaiming Cui</name>
+    </author>
+    <author>
+      <name>Guang-Yao Xiao</name>
+    </author>
+    <author>
+      <name>Fabo Feng</name>
+    </author>
+    <author>
+      <name>Beibei Liu</name>
+    </author>
+    <author>
+      <name>Sergei Nayakshin</name>
+    </author>
+    <author>
+      <name>Cassandra Hall</name>
+    </author>
+    <author>
+      <name>Kangrou Guo</name>
+    </author>
+    <author>
+      <name>Dong Lai</name>
+    </author>
+    <author>
+      <name>Masahiro Ogihara</name>
+    </author>
+    <author>
+      <name>Yicheng Rui</name>
+    </author>
+    <author>
+      <name>Alan P. Boss</name>
+    </author>
+    <author>
+      <name>R. Paul Butler</name>
+    </author>
+    <author>
+      <name>Yifan Xuan</name>
+    </author>
+    <arxiv:doi>10.1073/pnas.2524764123</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1073/pnas.2524764123" title="doi"/>
+  </entry>
+</feed>

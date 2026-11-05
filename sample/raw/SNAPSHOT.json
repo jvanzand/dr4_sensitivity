@@ -1,0 +1,32 @@
+{
+  "nea_pscomppars_rv.csv": {
+    "source": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync: pscomppars, rv_flag = 1",
+    "retrieved_utc": "2026-10-26T17:15:58+00:00",
+    "lines": 2532,
+    "sha256": "627bbd48d7eec7b7c8566fb2ce6ccac8b59be6e1b93eb4199b5c6b40c799b446"
+  },
+  "nea_ps_rv.csv": {
+    "source": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync: ps, rv_flag = 1",
+    "retrieved_utc": "2026-10-30T21:54:26+00:00",
+    "lines": 10440,
+    "sha256": "d6c743627ab3eeb92816207ddf027dd0d9748a2d503b4fc1606edf6cb8bf8201"
+  },
+  "gaia_dr3_hosts.csv": {
+    "source": "https://gea.esac.esa.int/tap-server/tap/sync: gaiadr3.gaia_source, NEA and literature hosts",
+    "retrieved_utc": "2026-10-30T22:03:47+00:00",
+    "lines": 2364,
+    "sha256": "5b04366582db8454bd29801e4a8f7844f20be7651cbaa5d229c3c1ba1cc55d5f"
+  },
+  "gaia_dr3_flame_mass.csv": {
+    "source": "https://gea.esac.esa.int/tap-server/tap/sync: gaiadr3.astrophysical_parameters (mass_flame)",
+    "retrieved_utc": "2026-10-30T22:03:47+00:00",
+    "lines": 1583,
+    "sha256": "ad980b7c62e8a02d3f7cffef015d9f8a0fff1d178ad7350d2f371016a1635b21"
+  },
+  "gaia_dr3_cone_no_id.csv": {
+    "source": "https://gea.esac.esa.int/tap-server/tap/sync: gaiadr3.gaia_source cone searches around NEA hosts without a DR3 ID",
+    "retrieved_utc": "2026-10-26T17:17:03+00:00",
+    "lines": 1154,
+    "sha256": "34227e71a47e8de0a74577327b94069b45ee001e1931d16cebfdc0ad2ff8c111"
+  }
+}

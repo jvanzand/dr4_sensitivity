@@ -1,0 +1,211 @@
+Unvetted sub-13 M_J literature entries set aside: 136 (see raw_lit/review_planet_regime.csv)
+Literature companions already in the NEA (dropped): 745
+Cut flow (companions, hosts):
+  NEA rv_flag = 1, plus new literature companions   2945  2325
+  M sin i or mass from a usable solution            2874  2280
+  M sin i (or true mass) <= 80.0 M_J                2826  2235
+  SMA <= 5.0 AU                                     2702  2168
+  stellar mass and distance known                   2667  2136
+
+G vs P/T
+P/T bin  <0.1  0.1-0.5  0.5-1  1-2  >2  total
+G bin                                        
+<6         62       85     15   14   0    176
+6-8       210      155     68   44   0    477
+8-10      395       94     40   37   5    571
+10-12     635       44      9    4   0    692
+12-14     461       22      7    4   0    494
+>14       225       29      2    0   1    257
+total    1988      429    141  103   6   2667
+
+S/N vs P/T
+P/T bin  <0.1  0.1-0.5  0.5-1  1-2  >2  total
+S/N bin                                      
+<0.1     1814       74      0    0   0   1888
+0.1-0.5    97      184     26    8   1    316
+0.5-1.5    38       92     42   15   0    187
+1.5-5      22       34     40   31   2    129
+>5         17       45     33   49   3    147
+total    1988      429    141  103   6   2667
+
+Recoverable (S/N >= 1.5, P <= 5.5 yr) by G
+recoverable  False  True  total
+G bin                          
+<6             161    15    176
+6-8            408    69    477
+8-10           509    62    571
+10-12          668    24    692
+12-14          482    12    494
+>14            250     7    257
+total         2478   189   2667
+
+Gaia match (hosts)
+gaia_match
+archive ID                    1817
+SIMBAD                         293
+position                        10
+not in DR3                       8
+archive ID (suspect)             5
+position (no DR3 parallax)       3
+Name: count, dtype: int64
+
+Discovery method
+discoverymethod
+Radial Velocity                  1347
+Transit                          1298
+Transit Timing Variations          12
+Astrometry                          4
+Orbital Brightness Modulation       4
+Imaging                             2
+Name: count, dtype: int64
+
+Mass source
+mass_source
+transit+RV                1229
+RV-only                   1003
+RV+astrometry              141
+troup_2016                 107
+exoplanet_eu                37
+stevenson_2023              23
+sb9                         17
+unger_2023                  15
+sahlmann_2011               13
+wilson_2016                 10
+grieves_2017                10
+barbato_2023                 8
+barbato_2026                 7
+Kiefer+2019                  7
+marvels_bd                   6
+CLS I (Rosenthal+2021)       5
+ma_ge_2014                   4
+nidever_2002                 3
+latham_2002                  3
+diaz_2012                    3
+parc_2026                    3
+xiao_2023                    2
+dalal_2021                   2
+sb9_tic                      2
+cui_2026                     1
+frensch_2023                 1
+jenkins_2015                 1
+ren_2026                     1
+ptps                         1
+teng_2023                    1
+okayama_eapsnet              1
+Name: count, dtype: int64
+
+NEA solution rule
+solution_rule
+newest paper for the system    2194
+more precise P (>2x)            161
+newest paper for the planet      18
+Name: count, dtype: int64
+
+SMA source
+sma_source
+published                              2395
+Kepler (no SMA given)                   251
+Kepler (published SMA off by > 20%)      21
+Name: count, dtype: int64
+
+Mass (M sin i, M_J) by catalog
+mass_mj                 (0, 13]  (13, 20]  (20, 30]  (30, 50]  (50, 80]  total
+catalog                                                                       
+CLS I (Rosenthal+2021)        2         0         0         2         1      5
+Kiefer+2019                   0         0         1         2         4      7
+NEA                        2323        30        20         0         0   2373
+barbato_2023                  0         0         0         1         7      8
+barbato_2026                  1         0         2         2         2      7
+cui_2026                      0         0         0         0         1      1
+dalal_2021                    0         0         1         0         1      2
+diaz_2012                     0         0         1         2         0      3
+exoplanet_eu                  1         2         5        17        12     37
+frensch_2023                  0         0         0         1         0      1
+grieves_2017                  0         3         1         4         2     10
+jenkins_2015                  0         0         0         0         1      1
+latham_2002                   0         0         1         0         2      3
+ma_ge_2014                    0         1         2         1         0      4
+marvels_bd                    0         0         0         2         4      6
+nidever_2002                  0         0         0         0         3      3
+okayama_eapsnet               0         0         0         1         0      1
+parc_2026                     2         0         0         0         1      3
+ptps                          0         0         0         1         0      1
+ren_2026                      0         0         0         0         1      1
+sahlmann_2011                 0         1         2         3         7     13
+sb9                           0         0         1         1        15     17
+sb9_tic                       0         0         0         0         2      2
+stevenson_2023                0         0         1         4        18     23
+teng_2023                     0         0         0         1         0      1
+troup_2016                    0        18        23        34        32    107
+unger_2023                    1         0         1         8         5     15
+wilson_2016                   0         1         2         4         3     10
+xiao_2023                     1         0         0         0         1      2
+total                      2331        56        64        91       125   2667
+
+Published SMA replaced by the Kepler value (21):
+                                  pl_name               pl_refname    period_d   sma_au  st_mass      snr  published_sma
+[NC98] Cha HA 8 [exoplanet_eu Cha Ha 8 b]             exoplanet_eu 1895.000000 1.430997  0.08500 6.690831        1.02000
+                               HD 20868 b      STASSUN_ET_AL__2017  380.850010 0.752038  0.39000 1.045793        0.95000
+                              HD 162020 b      STASSUN_ET_AL__2017    8.428200 0.061148  0.42000 0.927211        0.08000
+                             BD+14 4559 b      STASSUN_ET_AL__2017  268.940000 0.643283  0.49000 0.573965        0.78000
+                              HD 142245 b      STASSUN_ET_AL__2017 1299.000000 3.538532  3.50000 0.475652        2.78000
+                              HD 102329 b      STASSUN_ET_AL__2017  778.099980 2.444271  3.21000 0.393031        1.81000
+                               HD 82886 b      STASSUN_ET_AL__2017  705.000000 2.113002  2.53000 0.218505        1.58000
+                               HD 17092 b      STASSUN_ET_AL__2017  359.899990 1.870426  6.73000 0.181108        1.31000
+                               HD 95127 b      STASSUN_ET_AL__2017  482.000000 1.862523  3.70000 0.124939        1.28000
+                               HD 12648 b      STASSUN_ET_AL__2017  133.600010 0.447960  0.67000 0.119985        0.54000
+                              HD 240237 b      STASSUN_ET_AL__2017  745.700010 3.319462  8.76000 0.090210        1.92000
+                          TIC 172900988 b       SAIRAM_ET_AL__2024  151.200000 0.596514  1.23681 0.077008        0.74740
+           PPL 15 [exoplanet_eu PPL 15 b]             exoplanet_eu    5.825000 0.030710  0.07000 0.076616        0.02000
+                              KOI-2513.01 CA_NTILDE_AS_ET_AL__2023   19.005470 0.136141  0.91000 0.021178        0.50000
+                                   XO-6 b      CROUZET_ET_AL__2017    3.765001 0.053906  1.47000 0.014304        0.08150
+                               HD 63454 b      STASSUN_ET_AL__2017    2.818050 0.029246  0.42000 0.009595        0.04000
+                                HAT-P-7 b          YANG_ET_AL_2025    2.200000 0.036603  1.35000 0.003060        3.00000
+                                NGTS-31 b        VINES_ET_AL__2025    4.162734 0.049978  0.96000 0.001766        0.06400
+                              Kepler-34 b        WELSH_ET_AL__2012  288.822000 0.868618  1.04790 0.001262        1.08960
+                                 K2-285 c        PALLE_ET_AL__2019    7.138048 0.068186  0.83000 0.000554        0.08240
+                              Kepler-35 b        WELSH_ET_AL__2012  131.458000 0.486302  0.88770 0.000304        0.60347
+
+2x period-precision switches whose period disagrees with the step-1 (newest) solution at > 3 sigma (41 of 161):
+    pl_name                      pl_refname    period_d  period_err_d                                    step1_ref  step1_period_d  step1_period_err_d   sigma       snr
+HD 168443 c           ROSENTHAL_ET_AL__2021 1749.670000  2.850000e-01                                AN_ET_AL_2025     1759.200000        1.500000e+00     6.2 20.230170
+  eps Eri b            BENEDICT_ET_AL__2006 2502.000000  1.000000e+01                          THOMPSON_ET_AL_2025     2680.000000        3.000000e+01     5.6  6.672022
+   GJ 876 b           ROSENTHAL_ET_AL__2021   61.034740  8.200000e-04                           NELSON_ET_AL__2016       61.087000        1.150000e-02     4.5  5.507207
+  GJ 3512 c      LOPEZ_SANTIAGO_ET_AL__2020 1599.600000  9.500000e-01                           MORALES_ET_AL_2025     2354.000000        3.300000e+01    22.9  4.529288
+HD 219134 h               HARADA_ET_AL_2025 2090.000000  1.400000e+01                             VOGT_ET_AL__2015     2247.000000        4.300000e+01     3.5  1.339982
+   GJ 876 c           ROSENTHAL_ET_AL__2021   30.229020  5.350000e-04                           NELSON_ET_AL__2016       30.078400        7.300000e-03    20.6  1.142082
+ HAT-P-17 c              HOWARD_ET_AL__2012 1610.000000  2.000000e+01                           BONOMO_ET_AL__2017     3972.000000        1.655000e+02    14.2  0.866972
+ HD 47536 b            SETIAWAN_ET_AL__2003  712.130000  3.100000e-01                             SOTO_ET_AL__2015      434.900000        2.600000e+00   105.9  0.405959
+HIP 14810 c              WRIGHT_ET_AL__2007   95.284700  2.000000e-03                             MENT_ET_AL__2018      147.747000        2.900000e-02  1804.8  0.106978
+HD 217107 b           GIOVINAZZI_ET_AL_2025    7.127017  4.700000e-06                                AN_ET_AL_2025        7.126860        1.100000e-05    13.1  0.090728
+HD 192263 b           ROSENTHAL_ET_AL__2021   24.359700  1.600000e-03                          PAREDES_ET_AL__2021       23.646000        2.193000e-01     3.3  0.086745
+HD 130322 b           ROSENTHAL_ET_AL__2021   10.708670  1.700000e-04                          PAREDES_ET_AL__2021       10.721000        3.200000e-03     3.8  0.045518
+  TOI-201 b MACIEJEWSKI_AMP__321_OBODA_2025   52.977946  3.550000e-05                           MIRELES_ET_AL_2026       52.978600        1.000000e-04     6.2  0.024678
+   KOI-12 b             STASSUN_ET_AL__2017   17.855230  1.000000e-06                                  MASUDA_2017       17.855182        7.000000e-06     6.8  0.023916
+ LHS 1140 b              EDWARDS_ET_AL_2021   24.736915  5.800000e-06                          CADIEUX_ET_AL__2024       24.737230        2.000000e-05    15.1  0.016151
+ TOI-1408 b        GALAZUTDINOV_ET_AL__2023    4.424711  1.600000e-06                             KORTH_ET_AL_2024        4.425870        3.000000e-05    38.6  0.010951
+ TOI-5205 b             KANODIA_ET_AL__2023    1.630757  1.000000e-06                             CANAS_ET_AL_2026        1.630731        3.000000e-06     8.2  0.007616
+    K2-18 b             BENNEKE_ET_AL__2019   32.940045  1.000000e-05                         CLOUTIER_ET_AL__2017       32.939630        1.000000e-04     4.1  0.004868
+   WASP-2 b              BONOMO_ET_AL__2017    2.152222  4.200000e-07                          ADDISON_ET_AL__2019        2.152175        1.150000e-05     4.1  0.004478
+   TrES-2 b              BONOMO_ET_AL__2017    2.470613  1.900000e-08            _OUML_ZT_UUML_RK__AMP__ERDEM_2019        2.470614        9.000000e-08    10.8  0.004143
+   TrES-5 b         MACIEJEWSKI_ET_AL__2016    1.482248  1.700000e-07                           BONOMO_ET_AL__2017        1.482245        7.000000e-07     4.1  0.002631
+  TOI-270 d           VAN_EYLEN_ET_AL__2021   11.379573  1.300000e-05                             KAYE_ET_AL__2022       11.381940        1.100000e-04    21.4  0.002620
+ WASP-148 b                WANG_ET_AL__2022    8.803544  2.100000e-05                         ALMENARA_ET_AL__2022        8.803809        4.300000e-05     5.5  0.002605
+ HAT-P-29 b              BONOMO_ET_AL__2017    5.723390  1.000000e-06                          MANCINI_ET_AL__2022        5.723375        3.400000e-06     4.3  0.002474
+   WASP-4 b               BOUMA_ET_AL__2019    1.338231  2.250000e-08        BA_AMP__351_T_AMP_UUML_RK_ET_AL__2025        1.338231        8.400000e-08     5.4  0.002421
+ WASP-178 b             HELLIER_ET_AL__2019    3.344829  1.200000e-06 RODR_IACUTE_GUEZ_MART_IACUTE_NEZ_ET_AL__2020        3.344841        3.300000e-06     3.6  0.002252
+ TOI-2015 b                JONES_ET_AL_2024    3.348968  4.000000e-06                          BARKAOUI_ET_AL_2025        3.348237        3.250000e-05    22.3  0.001604
+    K2-24 c           NASCIMBENI_ET_AL_2024   42.347320  1.800000e-04                           HOWARD_ET_AL__2025       42.339100        1.200000e-03     6.8  0.001449
+ TOI-1246 e            POLANSKI_ET_AL__2024   37.925480  1.600000e-04                        TURTELBOOM_ET_AL_2022       37.921600        1.000000e-03     3.8  0.001344
+  TOI-178 f               LELEU_ET_AL__2021   15.231915  1.050000e-04                            LELEU_ET_AL__2024       15.233350        2.450000e-04     5.4  0.001249
+HIP 41378 g             LEONARDI_ET_AL_2025   64.067000  4.650000e-02                          GROUFFAL_ET_AL_2026       63.190000        1.200000e-01     6.8  0.001137
+  TOI-178 g               LELEU_ET_AL__2021   20.709500  1.250000e-04                            LELEU_ET_AL__2024       20.716630        3.050000e-04    21.6  0.000782
+  CoRoT-1 b              TURNER_ET_AL__2016    1.508977  9.700000e-08                           BONOMO_ET_AL__2017        1.508968        5.000000e-07    16.4  0.000736
+   YZ Cet c                  ROBERTSON_2018    0.752150  1.000000e-05                            STOCK_ET_AL__2020        3.059890        1.000000e-04 22962.9  0.000633
+    K2-19 b             ALMENARA_ET_AL_2025    7.922806  9.000000e-05                          ENTRICAN_ET_AL_2026        7.919300        2.500000e-04    13.2  0.000569
+ WASP-193 b             BARKAOUI_ET_AL_2024    6.246334  3.000000e-07                              YEE_ET_AL__2025        6.246347        1.500000e-06     8.5  0.000507
+  TOI-178 e               LELEU_ET_AL__2021    9.961881  4.200000e-05                            LELEU_ET_AL__2024        9.963180        1.350000e-04     9.2  0.000471
+  TOI-270 b           VAN_EYLEN_ET_AL__2021    3.360154  4.800000e-06                             KAYE_ET_AL__2022        3.359920        5.000000e-05     4.7  0.000384
+ DMPP-3 A b              BARNES_ET_AL__2020    6.673200  7.000000e-04                          STANDING_ET_AL_2026        5.590000        8.550000e-02    12.7  0.000273
+    K2-19 c             ALMENARA_ET_AL_2025   11.897700  4.600000e-04                          ENTRICAN_ET_AL_2026       11.906000        1.500000e-03     5.3  0.000269
+  CoRoT-7 b             STASSUN_ET_AL__2017    0.853592  6.000000e-09                              JOHN_ET_AL_2022        0.853500        5.870000e-07   156.1  0.000034

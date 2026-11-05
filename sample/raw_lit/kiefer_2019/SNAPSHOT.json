@@ -1,0 +1,26 @@
+{
+  "ReadMe": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/631/A125/ReadMe",
+    "retrieved_utc": "2026-10-24T20:01:32+00:00",
+    "lines": 304,
+    "sha256": "3ada026f07eb00dbf38baca2502909a90dc80dd3924cf1948e299acf81748215"
+  },
+  "tableb1.dat": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/631/A125/tableb1.dat",
+    "retrieved_utc": "2026-10-24T20:01:33+00:00",
+    "lines": 54,
+    "sha256": "39b8b639d174bb931f1c3f55bf5db4a03bfabb3eb06f6431a3e1eb24502f6d02"
+  },
+  "tableb3.dat": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/631/A125/tableb3.dat",
+    "retrieved_utc": "2026-10-24T20:01:33+00:00",
+    "lines": 54,
+    "sha256": "b93b5706dfa1624514c1397fb2cfde873f5891d7a97cf70f71b69fd116a58326"
+  },
+  "tableb5.dat": {
+    "source": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/631/A125/tableb5.dat",
+    "retrieved_utc": "2026-10-24T20:01:34+00:00",
+    "lines": 11,
+    "sha256": "55ae6c15ce67cc9f62cc325a3a446b201bb8800f1d6bbd04b37f1e56f0d6f987"
+  }
+}

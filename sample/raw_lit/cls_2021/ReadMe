@@ -1,0 +1,357 @@
+J/ApJS/255/8  The California Legacy Survey. I. Planet catalog (Rosenthal+, 2021)
+================================================================================
+The California Legacy Survey.
+I. A catalog of 178 planets from precision radial velocity monitoring of
+719 nearby stars over three decades.
+    Rosenthal L.J., Fulton B.J., Hirsch L.A., Isaacson H.T., Howard A.W.,
+    Dedrick C.M., Sherstyuk I.A., Blunt S.C., Petigura E.A., Knutson H.A.,
+    Behmard A., Chontos A., Crepp J.R., Crossfield I.J.M., Dalba P.A.,
+    Fischer D.A., Henry G.W., Kane S.R., Kosiarek M., Marcy G.W.,
+    Rubenzahl R.A., Weiss L.M., Wright J.T.
+   <Astrophys. J. Suppl. Ser., 255, 8 (2021)>
+   =2021ApJS..255....8R
+================================================================================
+ADC_Keywords: Exoplanets; Spectroscopy; Photometry; Optical; Infrared;
+              Radial velocities; Stars, double and multiple; Stars, masses;
+              Stars, diameters
+Keywords: Exoplanet catalogs ; Exoplanet astronomy ; Radial velocity
+
+Abstract:
+    We present a high-precision radial velocity (RV) survey of 719 FGKM
+    stars, which host 164 known exoplanets and 14 newly discovered or
+    revised exoplanets and substellar companions. This catalog updated the
+    orbital parameters of known exoplanets and long-period candidates,
+    some of which have decades-longer observational baselines than they
+    did upon initial detection. The newly discovered exoplanets range from
+    warm sub-Neptunes and super-Earths to cold gas giants. We present the
+    catalog sample selection criteria, as well as over 100,000 RV
+    measurements, which come from the Keck-HIRES, APF-Levy, and Lick-
+    Hamilton spectrographs. We introduce the new RV search pipeline
+    RVSearch (http://california-planet-search.github.io/rvsearch/) that
+    we used to generate our planet catalog, and we make it available to
+    the public as an open-source Python package. This paper is the first
+    study in a planned series that will measure exoplanet occurrence rates
+    and compare exoplanet populations, including studies of giant planet
+    occurrence beyond the water ice line, and eccentricity distributions
+    to explore giant planet formation pathways. We have made public all
+    radial velocities and associated data that we use in this catalog.
+
+Description:
+    The high-resolution echelle spectrometer (HIRES) has R=67,000 with a
+    wavelength range spanning {lambda}=0.31-1.10um located at Keck
+    Observatory on the 10m Keck I telescope in Hawaii, USA. We distinguish
+    between "pre-upgrade" RVs (1996-2004; ~3m/s uncertainties) and
+    "post-upgrade" RVs (2004-present; ~1m/s uncertainties). We account
+    in the time series modeling for different RVs zero points for data
+    from the two different eras.
+    The RVs from 1996 to 2004 are based on HIRES spectra acquired by the
+    California & Carnegie Planet Search (CCPS) collaboration and were
+    reported in Cumming+2008 (2008PASP..120..531C). This paper principally
+    reports results from 41,804 CPS (California Planet Search) and CCPS
+    HIRES spectra that were obtained and analyzed by our team during
+    1996-2020. In addition, we have included RVs computed by our pipeline
+    for 7530 spectra of CLS (California Legacy Survey) stars taken by LCES
+    (Lick-Carnegie Exoplanet Survey) during 2008-2014.
+
+    APF-Levy (Automated Planet Finder and Levy Spectrometer) is an optical
+    spectrograph with a wavelength range of {lambda}=0.37-0.97um configured
+    with the 2.4m telescope on Mount Hamilton at Lick Observatory in
+    California, USA, that can achieve a resolution up to R=150,000. Most
+    of the APF data in the California Legacy Survey was collected as part
+    of the APF-50 Survey (Fulton+2017, 2017PhDT.......136F).
+
+    The Hamilton spectrograph installed at the Lick Observatory's Shane 3m
+    telescope in California, USA, is capable of making broadband
+    ({lambda}=0.34-1.10um) spectroscopic measurements up to a resolution
+    of R=60,000. Beginning in 1987 and ending in 2011, the Lick Planet
+    Search program (Fischer+2014, J/ApJS/210/5) monitored 387 bright FGKM
+    dwarfs to search for and characterize giant exoplanets.
+
+    We collected long-term photometric observations of the subset of our
+    sample that were included in the APF-50 survey, in order to search for
+    evidence of rotation-induced stellar activity. We collected these
+    measurements with Tennessee State University's Automated Photometric
+    Telescopes (APTs) at Fairborn Observatory in Arizona, USA. Most stars
+    have photometric data sets spanning 15-23yr. The APTs measure the flux
+    in the Stromgren b and y bands. We combined the differential b and y
+    measurements into a single (b+y)/2 "passband" then converted the
+    differential magnitudes into a relative flux normalized to 1.0.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table2.dat     108      719  Stellar catalog
+table3.dat     149      178  Planet catalog
+table4.dat      95       48  Binary and substellar catalog
+table5.dat     117       89  Long term trends
+table6.dat      86   104720  Radial velocity data
+table7.dat      87      102  False positives
+apf50.dat       36    64847  APF-50 survey photometric data
+planets.dat    403      330  Full data for planet catalog production & analysis
+--------------------------------------------------------------------------------
+
+See also:
+ I/355          : Gaia DR3 Part 1. Main source (Gaia Collaboration, 2022)
+ J/A+A/356/590  : The CORALIE survey for extrasolar planets II (Udry+, 2000)
+ J/A+A/375/205  : The CORALIE survey for extrasolar planets V (Naef+ 2001)
+ J/A+A/410/1051 : ELODIE surv. for north. extra-solar planets. II. (Naef+, 2003)
+ J/A+A/410/1039 : Northern extra-solar planets ELODIE survey I (Perrier+, 2003)
+ J/A+A/415/391  : The CORALIE survey for extrasolar planets. XII (Mayor+, 2004)
+ J/ApJ/634/625  : Radial velocities and photometry of GJ 876 (Rivera+, 2005)
+ J/ApJ/646/505  : Catalog of nearby exoplanets (Butler+, 2006)
+ J/ApJ/654/625  : Radial velocities of 9 long-period objects (Wittenmyer+, 2007)
+ J/A+A/493/645  : Gl 176 radial velocities (Forveille+, 2009)
+ J/A+A/507/487  : GJ 581 radial velocity curve (Mayor+, 2009)
+ J/ApJ/693/1084 : Ten new and updated multiplanet systems (Wright+, 2009)
+ J/other/Sci/330.653 : Detected planets in the Eta-Earth Survey (Howard+, 2010)
+ J/ApJ/725/875  : Chromospheric activity for CPS stars (Isaacson+, 2010)
+ J/ApJ/719/890  : Keck radial velocities of GJ 876 (Rivera+, 2010)
+ J/ApJ/708/1366 : Radial velocities for 61 Vir (Vogt+, 2010)
+ J/ApJ/727/117  : RVs of four exoplanet candidates (Meschiari+, 2011)
+ J/A+A/526/A111 : RVs of HD 85390, 90156 and 103197 (Mordasini+, 2011)
+ J/A+A/545/A55  : Extrasolar planets. RVs of 5 stars (Boisse+, 2012)
+ J/A+A/538/A113 : Extrasolar planets. RVs of eight stars (Diaz+ 2012)
+ J/ApJ/768/155  : RVs & photometry of HD 38529 system (Henry+, 2013)
+ J/ApJS/210/5   : The twenty-five year Lick planet search (Fischer+, 2014)
+ J/ApJ/785/126  : HIRES radial velocity measurements (Knutson+, 2014)
+ J/ApJ/800/22   : Radial velocities of long-period planets (Feng+, 2015)
+ J/ApJ/805/175  : Keck and APF radial velocities of HD7924 (Fulton+, 2015)
+ J/ApJ/821/89   : 12yrs of RV obs. of exoplanet systems (Bryan+, 2016)
+ J/ApJ/830/46   : RVs of 3 Neptune-mass planet hosts (Fulton+, 2016)
+ J/ApJ/817/104  : Keck/HIRES radial velocity obs. of HD32963 (Rowan+, 2016)
+ J/AJ/153/208   : LCES HIRES/Keck RV Exoplanet Survey (Butler+, 2017)
+ J/AJ/154/108   : California-Kepler Surv. (CKS). II. Properties (Johnson+, 2017)
+ J/AJ/154/181   : Radial velocities for the star HD 34445 (Vogt+, 2017)
+ J/AJ/154/184   : Multiplicity of RV exoplanet host stars (Wittrock+, 2017)
+ J/ApJ/836/77   : Library of high-S/N optical spectra of FGKM stars (Yee+, 2017)
+ J/A+A/609/L5   : HD147379 b velocity curve (Reiners+, 2018)
+ J/A+A/609/A117 : CARMENES radial velocity curves of 7 M-dwarf (Trifonov+, 2018)
+ J/AJ/158/181   : Radial velocities & S-index values for HR 5183 (Blunt+, 2019)
+ J/AJ/157/52    : Radial velocity obs. in super-Earth systems (Bryan+, 2019)
+ J/A+A/625/A17  : SOPHIE data of Gliese 411 (Diaz+, 2019)
+ J/AJ/158/13    : The first 300 stars observed by the GPIES (Nielsen+, 2019)
+ J/A+A/625/A71  : Radial velocity measurements for 7 stars (Rickman+, 2019)
+ J/MNRAS/484/L8 : Correcting HIRES/Keck RVs for systematic err. (Tal-Or+, 2019)
+ J/A+A/639/A50  : HD 164922 d HARPS-N time series (Benatti+, 2020)
+ J/AJ/159/63   : New AO obs. of exoplanets & brown dwarf comp. (Bowler+, 2020)
+ J/AJ/161/134  : Survey of stellar & planetary comp. within 25pc (Hirsch+, 2021)
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units       Label   Explanations
+--------------------------------------------------------------------------------
+  1-   3 I3     ---         Seq     [0/718] Internal index number
+  5-  13 A9     ---         CPS     Abbreviated California Planet Search
+                                     identifier
+ 15-  20 F6.1   K           Teff    [0/6513.6] Effective temperature
+ 22-  26 F5.1   K         e_Teff    [0/116.1] Uncertainty in Teff
+ 28-  33 F6.3   [-]         [Fe/H]  [-1.9/0.54] Metallicity
+ 35-  39 F5.3   [-]       e_[Fe/H]  [0.03/0.25] Uncertainty in [Fe/H]
+ 41-  45 F5.3   [cm/s2]     logg    [2.54/5.26] Log surface gravity
+ 47-  51 F5.3   [cm/s2]   e_logg    [7e-3/0.11] Uncertainty in logg
+ 53-  58 F6.3   solRad      Rad     [0.12/14.94] Stellar radius
+ 60-  64 F5.3   solRad    e_Rad     [3e-3/0.47] Uncertainty in Rad
+ 66-  70 F5.3   solMass     Mass    [0.1/2.87] Stellar mass
+ 72-  76 F5.3   solMass   e_Mass    [3e-3/0.24] Uncertainty in Mass
+ 78-  84 F7.4   mag         Vmag    [1.32/16.69] Apparent V band magnitude
+ 86-  91 F6.4   mag         B-V     [0.41/2.01] The (B-V) color
+ 93- 100 F8.5   arcsec/yr   plx     [-1/12.12] Gaia DR2 parallax
+102- 103 A2     ---         RV      Link to interactive radial velocity plot
+                                     (data from Table 6); column added by CDS
+105- 108 A4     ---         Phot    Link to interactive photometric data plot
+                                     from APF-50 survey (data from Table apf50);
+				     column added by CDS
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+  1-  12 A12    ---     CPS      California Planet Search identifier
+ 14-  25 A12    ---     Name     Name in literature
+ 27-  34 F8.5   Mjup    Msini    [8e-3/27] Minimum mass, M sin(i)
+ 36-  44 F9.5   Mjup  e_Msini    [-17/-9e-4] Lower uncertainty on Msini
+ 46-  53 F8.5   Mjup  E_Msini    [9e-4/22] Upper uncertainty on Msini
+ 55-  62 F8.5   AU      a        [0.01/25] Semimajor axis
+ 64-  71 F8.5   AU    e_a        [-8.3/-1e-4] Lower uncertainty on a
+ 73-  80 F8.5   AU    E_a        [1e-4/19] Upper uncertainty on a
+ 82-  88 F7.5   ---     e        [1e-3/0.94] Eccentricity
+ 90-  97 F8.5   ---   e_e        [-0.24/-6.1e-4] Lower uncertainty on e
+ 99- 105 F7.5   ---   E_e        [6e-4/0.29] Upper uncertainty on e
+107- 149 A43    ---     Ref      Reference
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---     CPS    California Planet Search identifier
+  13- 24 A12    ---     Name   Name in literature
+  26- 31 F6.1   Mjup    Msini  [24/1405] Minimum mass, M sin(i)
+  33- 38 F6.1   Mjup  e_Msini  [-470/-1.4] Lower uncertainty on Msini
+  40- 45 F6.1   Mjup  E_Msini  [1.4/2200] Upper uncertainty on Msini
+  47- 53 F7.4   AU      a      [0.11/49] Semimajor axis
+  55- 62 F8.4   AU    e_a      [-19/-1.1e-3] Lower uncertainty on a
+  64- 70 F7.4   AU    E_a      [1.1e-3/46] Upper uncertainty on a
+  72- 78 F7.5   ---     e      [0.017/0.98] Eccentricity
+  80- 87 F8.5   ---   e_e      [-0.2/-1.8e-4] Lower uncertainty on e
+  89- 95 F7.5   ---   E_e      [1.8e-4/0.27] Upper uncertainty on e
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+  1-   3 I3     ---      Seq      [2/717] Internal index number
+  5-  12 A8     ---      CPS      Abbreviated California Planet Search
+                                   identifier
+ 14-  25 F12.10 Msun     Mass     [0.25/2.22] Stellar mass
+ 27-  39 F13.10 m/s/d    dvdt     [-0.4/0.43] Linear trend term of RVs
+                                   zero-points from max-likelihood fit
+ 41-  53 F13.10 m/s/d    dvdtMed  [-0.4/0.67] Median linear trend term term of
+                                   RVs zero-points from MCMC
+ 55-  66 F12.10 m/s/d  e_dvdt     [8.79e-4/0.44] Lower uncertainty in dvdt
+ 68-  79 F12.10 m/s/d  E_dvdt     [5.96e-4/1.08] Upper uncertainty in dvdt
+ 81-  89 E9.2   m/s/d2   curv     [-3.22e-5/2.73e-5]? Quadratic trend term
+                                   of RVs zero-points from max-likelihood fit
+ 91-  99 E9.2   m/s/d2   curvMed  [-3.14e-5/2.73e-5]? Median quadratic trend
+                                   term of RVs zero-points from MCMC
+101- 108 E8.2   m/s/d2 e_curv     [3.09e-7/3.62e-5]? Lower uncertainty in curv
+110- 117 E8.2   m/s/d2 E_curv     [2.65e-7/2.77e-5]? Upper uncertainty in curv
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1-  6 I6     ---     Seq    [0/104719] Internal index number
+   8- 16 A9     ---     CPS    Abbreviated California Planet Search identifier
+  18- 21 A4     ---     Inst   Instrument code (1)
+  23- 32 A10    ---     ObID   Observation identifier
+  34- 47 F14.6  d       BJD    [2446957/2458970] Barycentric Julian Date
+  49- 57 F9.2   m/s     RVel   [-33185/10069] Radial velocity
+  59- 67 F9.6   m/s   e_RVel   [0.34/55.97] Uncertainty in RVel
+  69- 77 F9.5   ---     SVal   [0/790]? Ca II H & K line core strength value
+  79- 86 F8.1   ct      cts    [3001/806706] Counts
+--------------------------------------------------------------------------------
+Note (1): Instruments as follows:
+      k = The HIgh-Resolution Echelle Spectrometer (HIRES) located at Keck
+          Observatory on the 10m Keck I telescope in Hawaii, USA (pre-2004);
+          13746 occurrences
+      j = The HIgh-Resolution Echelle Spectrometer (HIRES) located at Keck
+          Observatory on the 10m Keck I telescope in Hawaii, USA (pre-2004);
+          49150 occurrences
+    apf = Automated Planet Finder and Levy Spectrometer, configured with the
+          2.4m telescope on Mount Hamilton at Lick Observatory in California,
+          USA; 30839 occurrences
+   lick = Hamilton spectrograph installed at the Lick Observatory's Shane
+          3m telescope in California, USA; 10985 occurrences
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file:table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---     CPS    California Planet Search identifier
+  13- 23 A11    ---     Name   Name in literature
+  25- 37 F13.6  d       Per    [2.06/100000] Orbital period
+  39- 50 E12.5  d     e_Per    [-63000/-5.3e-5] Lower uncertainty on Per
+  52- 63 E12.5  d     E_Per    [5.1e-5/170000] Upper uncertainty on Per
+  65- 70 F6.2   ---     K      [0.98/160] Radial velocity amplitude
+  72- 78 F7.2   ---   e_K      [-120/-0.13] Lower uncertainty on K
+  80- 85 F6.2   ---   E_K      [0.13/280] Upper uncertainty on K
+      87 A1     ---     Cause  Cause of false-positive label (1)
+--------------------------------------------------------------------------------
+Note (1): Causes as follows:
+   A = Long-period magnetic activity cycle (42 occurrences)
+   R = Stellar rotation (16 occurrences)
+   N = Annual and/or instrumental systematic (44 occurrences)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file:apf50.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5 I5     ---     Seq   [0/64846] Internal index number
+   7-  8 A2     ---     [hd]  [hd]
+   9- 14 A6     ---     Name  Stellar identifier
+      16 A1     ---     Comp  Component of stellar identifier
+  18- 27 F10.4  ---     MJD   [49094/57937] Modified Julian Date of observation
+  29- 36 F8.6   ---     NFlux [0.99/1.01] Normalized flux (1)
+--------------------------------------------------------------------------------
+Note (1): The APTs measure the flux in the Stromgren b and y bands. We combined
+   the differential b and y measurements into a single (b+y)/2 "passband" then
+   converted the differential magnitudes into a relative flux normalized to 1.0.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file:planets.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+  1-   3 I3     ---     Seq       [0/329] Internal index number
+  5-  13 A9     ---     CPS       Abbreviated California Planet Search
+                                   identifier
+      15 A1     ---     Status    Status (1)
+ 17-  19 F3.1   ---     Npl       [1/8] Planet index within a given system
+ 21-  33 F13.8  Mjup    Msini     [8.9e-3/1233.5] Planetary mass M sin(i) from
+                                   max-likelihood fit
+ 35-  47 F13.8  Mjup    MsiniMed  [8.8e-3/1405.2] Median mass value from MCMC
+ 49-  61 F13.8  Mjup  e_Msini     [-584.2/1358.7] Lower uncertainty in Msini
+ 63-  75 F13.8  Mjup  E_Msini     [9.7e-3/2684.9] Upper uncertainty in Msini
+ 77-  87 F11.8  AU      a         [0.015/37.3] Orbital axis from max-likelihood
+                                   fit
+ 89-  99 F11.8  AU      aMed      [0.015/71.7] Median axis value from MCMC
+101- 111 F11.8  AU    e_a         [0.015/30] Lower uncertainty in a
+113- 124 F12.8  AU    E_a         [0.016/137.3] Upper uncertainty in a
+126- 139 F14.8  d       Per       [0.73/80077] Orbital period from
+                                   max-likelihood fit
+141- 155 F15.8  d       PerMed    [0.73/293702] Median period value from MCMC
+157- 170 F14.8  d     e_Per       [0.73/58416.3] Lower uncertainty in Per
+172- 186 F15.8  d     E_Per       [0.73/783743] Upper uncertainty in Per
+188- 198 F11.3  K       Temp      [2.4e+6/2.5e+6] Equilibrium flux temperature
+                                   at semi-major axis from max-likelihood fit
+200- 210 F11.3  K       TempMed   [2.3e+6/2.5e+6] Median temperature value from
+                                   MCMC
+212- 222 F11.3  K     e_Temp      [2.3e+6/2.5e+6] Lower uncertainty in Temp
+224- 234 F11.3  K     E_Temp      [2.4e+6/2.6e+6] Upper uncertainty in Temp
+236- 246 F11.8  rad     omega     [-3.2/3.1] Argument of periastron from
+                                   max-likelihood fit
+248- 258 F11.8  rad     omegaMed  [-1.6/1.6] Median argument of periastron from
+                                   MCMC
+260- 270 F11.8  rad   e_omega     [-1.6/1.6] Lower uncertainty in omega
+272- 282 F11.8  rad   E_omega     [-1.6/1.6] Upper uncertainty in omega
+284- 297 F14.8  m/s     K         [1/10714] RV semi-amplitude from
+                                   max-likelihood fit
+299- 312 F14.8  m/s     KMed      [0.9/10714] Median RV semi-amplitude from
+                                   MCMC
+314- 327 F14.8  m/s   e_K         [0.8/10711] Lower uncertainty in K
+329- 342 F14.8  m/s   E_K         [1.1/11796] Upper uncertainty in K
+344- 353 F10.8  ---     e         [0/0.98] Eccentricity from max-likelihood fit
+355- 364 F10.8  ---     eMed      [1.9e-3/0.98] Median eccentricity from MCMC
+366- 375 F10.8  ---   e_e         [5.8e-4/0.98] Lower uncertainty in e
+377- 386 F10.8  ---   E_e         [3.9e-3/0.98] Upper uncertainty in e
+388- 392 F5.3   ---     emode     [0/0.99] Mode eccentricity
+394- 403 F10.8  ---   e_emode     [2.8e-3/0.98] 68% uncertainty eccentricity
+--------------------------------------------------------------------------------
+Note (1): Status as follows:
+   K = Known planet (163 occurrences)
+   C = New planet candidate (14 occurrences)
+   A = Long-period magnetic activity (42 occurrences)
+   R = Stellar rotation (17 occurrences)
+   N = Artifact due to systematic error (44 occurrences)
+   S = Stellar companion (50 occurrences)
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Rosenthal et al.   Paper I.     2021ApJS..255....8R   This catalog
+    Fulton et al.      Paper II.    2021ApJS..255...14F
+    Rosenthal et al.   Paper III.   2022ApJS..262....1R
+    Rosenthal et al.   Paper IV.    2024ApJS..270....1R
+    Isaacson et al.    Paper V.     2024ApJS..274...35I   J/ApJS/274/35
+================================================================================
+(End)                      Prepared by [AAS], Robin Leichtnam [CDS] 30-Apr-2026

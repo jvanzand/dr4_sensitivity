@@ -1,0 +1,3 @@
+host,companion,P_d,e_P_d,K_ms,e,omega_deg,Tp_bjd,msini_mj,a_au,mstar_msun,fit_type,table_ref,notes
+HIP 97233,b,1058.8,6.7,320.1,0.61,249.3,2455856.3,20.0,2.55,1.93,RV-only,"arXiv:1409.7429 (Jones+2015, A&A 573, A3) Table ""Orbital parameters of HIP 67851 b and HIP 97233 b"" (Mstar Table ""Stellar parameters"")",EXPRESS (FEROS + CHIRON; southern survey). Tp JD-2455000 in paper (JD). Likely in NASA Exoplanet Archive.
+HIP 67537,b,2556.5,97.05,112.7,0.59,119.6,2456290.6,11.1,4.91,2.41,RV-only,"arXiv:1612.06252 (Jones+2017, A&A 602, A58) Table ""Stellar properties and orbital elements""",EXPRESS (FEROS + CHIRON). Massive planet/BD boundary (11.1 +0.4/-1.1 MJ); a=4.91 AU near the 5 AU limit. Likely in NASA Exoplanet Archive.

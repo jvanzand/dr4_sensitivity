@@ -1,0 +1,2 @@
+host,companion,P_d,e_P_d,K_ms,e,omega_deg,Tp_bjd,msini_mj,a_au,mstar_msun,fit_type,table_ref,notes
+HD 167665,b,4385,64,609.8,0.337,225.0,2448140,50.3,5.47,1.09,RV-only,arXiv:0704.3418 Table 2 (Mstar Table 1),Keck/HIRES RVs (23 obs). Tp is JD (not BJD) in paper: JD-2440000 converted. a slightly above 5 AU (P~12 yr): borderline for target range. Possibly also in CLS I (Keck star); check overlap.

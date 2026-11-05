@@ -1,0 +1,17 @@
+# Environments and caches
+.CondaPkg/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# arXiv source bundles behind the literature tables (~250 MB of LaTeX, figures, and
+# archives). They stay on Judah's machine; the per-source build.py scripts need them to
+# regenerate <source>_orbits.csv, which is committed. Everything downstream
+# (literature.py --cached, census.py --cached, the plots, rv_data/) runs without them.
+sample/raw_lit/**/src_*/
+sample/raw_lit/**/src_*.gz
+sample/raw_lit/**/src_*.tar
+sample/raw_lit/**/arxiv_src/
+sample/raw_lit/**/*.src
+sample/raw_lit/**/src/

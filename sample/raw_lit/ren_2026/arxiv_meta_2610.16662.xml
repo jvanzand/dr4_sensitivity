@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/5AeCvlArXaslPvNEJ+vX6S0E5Lk</id>
+  <title>arXiv Query: search_query=&amp;id_list=2610.16662&amp;start=0&amp;max_results=10</title>
+  <updated>2026-10-26T17:21:19Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2610.16662" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2610.16662v1</id>
+    <title>An Intermediate-orbit Brown Dwarf Confirmed with Astrometry+Radial Velocity Joint Analysis, and the Eccentricity Distribution of Brown Dwarfs Across Different Locations</title>
+    <updated>2026-10-12T12:14:14Z</updated>
+    <link href="https://arxiv.org/abs/2610.16662v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.16662v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Intermediate-orbit ($\sim 1$ AU) brown dwarfs with absolute mass measurements are essential for understanding the evolution of substellar objects. Although such systems remain rare, their number is now being enlarged thanks to astrometry. Here, we present the absolute mass measurements for HD 203771B, a massive brown dwarf orbiting a K dwarf ($M_\ast=0.79\pm0.08\ M_\odot$) with a period of 1140 days on an eccentric ($e\approx0.5$) and inclined ($i\approx 130^{\circ}$) orbit. Through joint analysis of (1) radial velocities and Gaia two-body solution, as well as (2) radial velocities, Hipparcos Intermediate Astrometric Data and two-epoch Gaia astrometry, we obtain true companion masses of $74.20^{+3.46}_{-3.64} M_{\mathrm{J}}$ and $69.03^{+4.99}_{-4.95} M_{\mathrm{J}}$, respectively, agreeing with each other within $1σ$. Taking a sample of 159 brown dwarfs with absolute mass measurements from different detection techniques, we investigate their eccentricity distributions across different semi-major axis ranges by fitting a Beta distribution. We find that the peak of eccentricity distribution tends to gradually shift toward lower values from wide orbits ($a&gt;20$ AU) to intermediate ($1&lt;a&lt;20$ AU) and inner ($0.1&lt;a&lt;1$ AU) regions. Such trend is plausibly due to disk friction during orbital evolution. Together with obliquity studies showing that brown dwarfs are mostly aligned, our result suggests that brown dwarfs may migrate inward through quiescent coplanar disk-driven processes.</summary>
+    <category term="astro-ph.SR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.EP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-12T12:14:14Z</published>
+    <arxiv:comment>15 pages, 9 figures, 3 tables, accepted for publication in AJ</arxiv:comment>
+    <arxiv:primary_category term="astro-ph.SR"/>
+    <author>
+      <name>Lei Ren</name>
+    </author>
+    <author>
+      <name>Tianjun Gan</name>
+    </author>
+    <author>
+      <name>Yifan Xuan</name>
+    </author>
+    <author>
+      <name>Shude Mao</name>
+    </author>
+    <author>
+      <name>Shigeru Ida</name>
+    </author>
+    <author>
+      <name>Guang-yao Xiao</name>
+    </author>
+    <author>
+      <name>Fabo Feng</name>
+    </author>
+    <author>
+      <name>Enric Pallé</name>
+    </author>
+  </entry>
+</feed>

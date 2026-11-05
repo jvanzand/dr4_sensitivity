@@ -1,0 +1,3 @@
+host,companion,P_d,e_P_d,K_ms,e,omega_deg,Tp_bjd,msini_mj,a_au,mstar_msun,fit_type,table_ref,notes
+HD 191760,HD 191760 b,505.65,0.42,1047.83,0.63,200.37,2454835.65,38.17,1.35,1.28,RV-only,arXiv:0905.2985 Table 5 (mstar Table 1),"CHEPS/HARPS; T0 column labelled JD-2,450,000 (assumed time of periastron; paper does not say BJD); Sahlmann+2011 Hipparcos M2=185 +/- 94 MJ (low significance)"
+HD 154672,HD 154672 b,163.9,0.1,226.52,0.61,266,2454520,5.02,0.6,,RV-only,arXiv:0905.2985 Table 5,"Magellan + HARPS update of Lopez-Morales+2008 planet; T0 in JD-2,450,000; mstar not given in this paper; likely already in NASA Exoplanet Archive"

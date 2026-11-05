@@ -1,0 +1,12 @@
+# The project's Python environment (census and RV scripts). Create and activate it with:
+#     conda env create -f environment.yml
+#     conda activate gaia_dr4_sensitivity
+name: gaia_dr4_sensitivity
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.14
+  - pip
+  - pip:
+      - -r requirements.txt

@@ -1,0 +1,263 @@
+J/AJ/151/85           Companions to APOGEE stars. I.              (Troup+, 2016)
+================================================================================
+Companions to APOGEE stars.
+I. A Milky Way-spanning catalog of stellar and substellar companion candidates
+and their diverse hosts.
+    Troup N.W., Nidever D.L., De Lee N., Carlberg J., Majewski S.R.,
+    Fernandez M., Covey K., Chojnowski S.D., Pepper J., Nguyen D.T.,
+    Stassun K., Nguyen D.C., Wisniewski J.P., Fleming S.W., Bizyaev D.,
+    Frinchaboy P.M., Garcia-Hernandez D.A., Ge J., Hearty F., Meszaros S.,
+    Pan K., Allende Prieto C., Schneider D.P., Shetrone M.D., Skrutskie M.F.,
+    Wilson J., Zamora O.
+   <Astron. J., 151, 85 (2016)>
+   =2016AJ....151...85T    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Milky Way ; Stars, double and multiple ; Photometry, infrared ;
+              Proper motions ; Effective temperatures ; Stars, masses ;
+              Abundances, [Fe/H] ; Stars, distances ; Radial velocities
+Keywords: binaries: close - binaries: spectroscopic - brown dwarfs -
+          Galaxy: stellar content - planetary systems
+
+Abstract:
+    In its three years of operation, the Sloan Digital Sky Survey Apache
+    Point Observatory Galactic Evolution Experiment (APOGEE-1) observed
+    >14000 stars with enough epochs over a sufficient temporal baseline
+    for the fitting of Keplerian orbits. We present the custom orbit-fitting
+    pipeline used to create this catalog, which includes novel quality
+    metrics that account for the phase and velocity coverage of a fitted
+    Keplerian orbit. With a typical radial velocity precision of ~100-200 m/s,
+    APOGEE can probe systems with small separation companions down to a
+    few Jupiter masses. Here we present initial results from a catalog of
+    382 of the most compelling stellar and substellar companion candidates
+    detected by APOGEE, which orbit a variety of host stars in diverse
+    Galactic environments. Of these, 376 have no previously known small
+    separation companion. The distribution of companion candidates in this
+    catalog shows evidence for an extremely truncated brown dwarf (BD) desert
+    with a paucity of BD companions only for systems with a<0.1-0.2 AU,
+    with no indication of a desert at larger orbital separation. We propose
+    a few potential explanations of this result, some which invoke this
+    catalog's many small separation companion candidates found orbiting
+    evolved stars. Furthermore, 16 BD and planet candidates have been
+    identified around metal-poor ([Fe/H]<-0.5) stars in this catalog, which
+    may challenge the core accretion model for companions >10 M_Jup_.
+    Finally, we find all types of companions are ubiquitous throughout the
+    Galactic disk with candidate planetary-mass and BD companions to
+    distances of ~6 and ~16 kpc, respectively.
+
+Description:
+    All APOGEE-1 observations were taken using fibers connected to either
+    the Sloan 2.5 m telescope (Gunn et al. 2006AJ....131.2332G) or the NMSU
+    1 m telescope at Apache Point Observatory (APO; Majewski et al.
+    2017AJ....154...94M). In normal use on the Sloan 2.5 m telescope,
+    APOGEE employs a massively multiplexed, fiber-fed spectrograph capable
+    of recording 300 spectra at a time. Of the 146000 stars observed in
+    APOGEE-1, 14840 had at least eight visits; these stars were selected
+    for analysis here. APOGEE first light observations were obtained in
+    2011 May and APOGEE-1 observations concluded at the end of SDSS-III in
+    2014 July, providing a maximum temporal baseline of slightly more than
+    three years (~1000 days).
+    Using refined criteria, 382 stars (55% of the statistically significant
+    RV variable sample) were selected to be a part of the "gold sample,"
+    which represent the best-quality companion candidates detected by APOGEE.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table4.dat      3616      382   APOGEE DR12 Catalog of Companion Candidates
+--------------------------------------------------------------------------------
+
+See also:
+ II/246              : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+ V/147               : The SDSS Photometric Catalogue, Release 12 (Alam+, 2015)
+ J/ApJ/497/736       : The young cluster IC 348. (Herbig, 1998)
+ J/other/A+ARV/18.67 : Accurate masses and radii of normal stars (Torres+, 2010)
+ J/ApJS/215/19       : APOKASC catalog of Kepler red giants
+                                                           (Pinsonneault+, 2014)
+ J/MNRAS/460/3179    : APOGEE stars distance and extinction (Wang+, 2016)
+ https://filtergraph.com/apOrbitPub : Filtergraph portal homepage
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+    Bytes  Format   Units     Label    Explanations
+--------------------------------------------------------------------------------
+    1-  18  A18     ---       Name     TMASS-STYLE object name
+                                        (2MHHMMSSss+DDMMSSs) (APOGEE_ID)
+   20-  23  I4      ---       Fld-Loc  [4102/4586] APOGEE field location number
+                                        (LOCATION_ID)
+   25-  34  A10     ---       Fld-Name APOGEE field name (FIELD)
+   36-  37  I2      ---       NRV      [9/34] Number of radial velocity
+                                        measurements used in the fit (NVISITS)
+   39-  50  E12.6   ---       SNR      Median signal-to-noise ratio per pixel
+                                        in combined frame (at apStar sampling)
+                                        (SNR)
+   52-  57  F6.3    mag       Jmag     [8.646/15.631] 2MASS J-band magnitude (J)
+   59-  63  F5.3    mag     e_Jmag     [0.018/0.079] Uncertainty in Jmag (J_ERR)
+   65-  70  F6.3    mag       Hmag     [8.101/14.112] 2MASS H-band magnitude (H)
+   72-  76  F5.3    mag     e_Hmag     [0.016/0.055] Uncertainty in Hmag (H_ERR)
+   78-  83  F6.3    mag       Ksmag    [7.959/13.977] 2MASS K_s_-band magnitude
+                                        (K)
+   85-  89  F5.3    mag     e_Ksmag    [0.013/0.061] Uncertainty in Ksmag
+                                        (K_ERR)
+   91-  98  F8.6    mag       AK       K-band extinction adopted (AK)
+  100- 116  A17     ---       AKMeth   Method used to get targeting extinction
+                                        (AK_SRC)
+  118- 127  F10.6   deg       RAdeg    Right Ascension in decimal degrees
+                                        (J2000) (RA)
+  129- 138  F10.6   deg       DEdeg    Declination in decimal degrees (J2000)
+                                        (DEC)
+  140- 149  F10.6   deg       GLON     Galactic longitude (GLON)
+  151- 160  F10.6   deg       GLAT     Galactic latitude (GLAT)
+  162- 166  F5.1    mas/yr    pmRA     [-82/288] Proper motion along RA (PMRA)
+  168- 172  F5.1    mas/yr    pmDE     [-70/124] Proper motion along DE (PMDEC)
+  174- 180  A7      ---       pmCat    Catalog used for proper motion (PM_SRC)
+       182  I1      ---       Bitmask  [0/1] Bitmask that identifies main survey
+                                        target and other classe (EXTRATARG) (1)
+  184- 194  I11     ---       Bitwise1 [-2147483584/0] Bitwise OR of first
+                                        APOGEE target flag of all visits
+                                        (APOGEE_TARGET1) (1)
+  196- 206  I11     ---       Bitwise2 [-2147482624/0] Bitwise OR of second
+                                        APOGEE target flag of all visits
+                                        (APOGEE_TARGET2) (1)
+  208- 293  A86     ---       TargFlag Target flag in English (TARGFLAGS)
+  295- 300  I6      ---       StFlag   [0/136708] Flag for star condition taken
+                                        from bitwise OR of individual visits
+                                        (STARFLAG) (1)
+  302- 378  A77     ---       StFlags  Star flag in English (STARFLAGS)
+  380- 383  I4      ---       ASPCAP   [0/2176] Flag for ASPCAP analysis
+                                        (ASPCAPFLAG) (1)
+  385- 436  A52     ---       ASPCAPS  ASPCAP flag in English (ASPCAPFLAGS)
+  438- 446  F9.4    K         Teff     [3541.8/6532.8] Adopted effective
+                                        temperature for the primary star (TEFF)
+  448- 454  F7.4    K       e_Teff     [91.4667/91.5] Uncertainty in Teff
+                                        (TEFF_ERR)
+  456- 462  F7.5    [cm/s2]   logg     [1.12311/5.20282] Adopted surface gravity
+                                        for the primary star (in cgs units)
+                                        (LOGG)
+  464- 470  F7.5    [cm/s2] e_logg     [0.10689/0.11] Uncertainty in logg
+                                        (LOGG_ERR)
+  472- 480  F9.6    [-]       [Fe/H]   [-1.8122/0.43027] Adopted metallicity
+                                        [Fe/H] for the primary star (FE_H)
+  482- 489  F8.6    [-]     e_[Fe/H]   [0.030466/0.056803] Uncertainty in [Fe/H]
+                                        (FE_H_ERR)
+       491  I1      ---       Source   [1/2] Source of the stellar parameters
+                                        adopted (SPARAMTYPE) (2)
+  493- 495  A3      ---       Class    Classification applied to host star
+                                        (STARTYPE) (3)
+  497- 504  F8.6    Msun      M*       [0.382997/8.28768] Mass of the primary
+                                        based on the available stellar
+                                        parameters (MSTAR)
+  506- 514  F9.6    Msun    e_M*       [0.024512/35.632717] Uncertainty in M*
+                                        (MSTAR_ERR)
+  516- 527  E12.7   AU        Rad      Radius of the primary based on the
+                                        available stellar parameters (RSTAR)
+  529- 540  E12.7   AU      e_Rad      Uncertainty in Rad (RSTAR_ERR)
+  542- 551  F10.4   pc        Dist     Adopted distance of the primary star
+                                        (DIST)
+  553- 561  F9.4    pc      e_Dist     Uncertainty in Dist (DIST_ERR)
+       563  I1      ---       Meth     [0/5] Method of mass/radius/distance
+                                        estimation (MSTAR_SRC) (4)
+  565- 573  F9.5    m/s       Jitter   [1.37364/415.15521] Estimated intrinsic
+                                        radial velocity jitter of the star
+                                        (VJITTER)
+  575- 583  F9.4    d         Bmax     [22.8964/1116.9731] Maximum baseline of
+                                        radial velocity data included in fit
+                                        (BASELINE)
+  585- 594  F10.5   m/s       sigmanu  [35.95357/2024.13] Median of radial
+                                        velocity errors {sigma}_{nu}_ (SIGMA_V)
+  596- 604  F9.5    ---       Signi    [2.50459/505.59149] Significance of the
+                                        radial velocity variations (see
+                                        Section 3.1.2) (SIG_RVVAR)
+  605-1304  50F14.5 d         JD       ? Julian Date of observation included
+                                        in fit (JD)
+ 1305-2004  50F14.5 m/s       RV       ? Radial velocity of observation included
+                                        in fit (RV)
+ 2005-2554  50F11.5 m/s     e_RV       ? Uncertainty in RV (RV_ERR)
+ 2555-2954  50I8    m/s       RVMod    [-291933/129398]? Radial velocity of
+                                        best-fit orbital model (MODEL)
+ 2955-3404  50F9.2  m/s       Resid    [-2463.57/5302.25]? Residual of best-fit
+                                        orbital model (RESID)
+ 3406-3418  E13.8   d         Per      Best-fit orbital period of the system
+                                        (PERIOD)
+ 3420-3432  E13.8   d       e_Per      Uncertainty in Per (PERIOD_ERR)
+ 3434-3444  F11.5   m/s       K        Best-fit radial velocity semiamplitude
+                                        of the system (SEMIAMP)
+ 3446-3459  F14.5   m/s     e_K        ?=0 Uncertainty in K (SEMIAMP_ERR)
+ 3461-3471  E11.6   ---       e        Best-fit eccentricity of the system (ECC)
+ 3473-3483  E11.6   ---     e_e        Uncertainty in e (ECC_ERR)
+ 3485-3492  F8.5    deg       omega    [-3.13937/3.13865] Argument of periastron
+                                        {omega} (OMEGA)
+ 3494-3506  F13.5   d         T0       Epoch of transit, in Julian Date
+ 3508-3520  F13.5   d         Tperi    Epoch of periastron (TPERI)
+ 3522-3534  E13.8   m/s       V0       Intercept of the global trend applied to
+                                        the radial velocity (V0)
+ 3536-3543  F8.3    m/s/d     Slope    [-157.833/520.512] Slope of the global
+                                        trend applied to the radial velocity
+                                        (SLOPE)
+ 3545-3546  I2      ---       NIter    [5/49] Number of iterations used to
+                                        converge on a period (see Section 3.3.2)
+                                        (NITER)
+ 3548-3554  F7.3    ---       chi2     [0.374/622.205] {chi}^2^ (not reduced)
+                                        of the fit (CHI2)
+ 3556-3557  I2      ---       DOF      [4/29] Degrees of freedom of the fit
+                                        (DOF)
+ 3559-3568  F10.5   m/s       rms      [14.7466/2037.35] Root-mean-square of
+                                        the residual of the fit (FIT_RMS)
+ 3570-3576  F7.5    ---       PUI      [0.60977/0.99191] Phase Uniformity Index
+                                        (see Section 3.3.4) (PUI)
+ 3578-3584  F7.5    ---       VUI      [0.52988/0.97134] Velocity Uniformity
+                                        Index (see Section 3.3.4) (VUI)
+ 3586-3596  E11.6   Msun      fMass    Mass function of the system (MASSFN)
+ 3598-3608  E11.6   Msun      msini    Estimated msini of the companion
+                                        (see Section 3.3.3) (MSINI)
+ 3610-3616  F7.5    AU        a        [0.00589/3.59101] Estimated orbital
+                                        semimajor axis of the companion
+                                        (SEMIMAJ)
+--------------------------------------------------------------------------------
+Note (1): See http://www.sdss.org/dr12/algorithms/bitmasks/ for APOGEE bitmask
+          definitions.
+Note (2): Source as follows:
+  1 = Uncalibrated APOGEE Stellar Parameters and Chemical Abundances pipeline
+      (ASPCAP);
+  2 = RV mini-grid (see Section 3.2). The APOGEE reduction pipeline initially
+      selects, through {chi}^2^ minimization, an RV template from a coarse grid
+      of synthetic spectra (the "RV mini-grid").
+Note (3): We divide the stars in this sample into 5 classes defined by the
+          following crteria:
+  PMS = Pre-main Sequence: Stars flagged in APOGEE as young stellar cluster
+        members (IC 348 and Orion);
+   RC = Red Clump: Stars in the APOGEE RC Catalog (Bovy et al.
+        2014ApJ...790..127B);
+   RG = Red Giant: Stars not selected as RC or PMS stars with T_eff_<5500 K,
+        log g<3.7+0.1[Fe/H]. The second relation was derived by mapping the
+        log g of the base of the giant branch as a function of [Fe/H] from
+        Dartmouth isochrones (Chaboyer et al. 2008ApJS..178...89D) for typical
+        ages expected of APOGEE giants;
+   SG = Subgiant: Stars not selected as RC or PMS stars with T_eff_>4800 K,
+        log g>=3.7+0.1[Fe/H], log g<4-(7x10^-5^)(T_eff_-8000 K).
+        The second relation only applies for T_eff_<5500 K. The third relation
+        was determined by the log g at the highest T_eff_ of Dartmouth
+        isochrones at a variety of ages and [Fe/H], roughly mapping the
+        main-sequence turnoff (MSTO), and fitting a liner function to these
+        points;
+   MS = Dwarf: Any star that does not fit into any of the above categories are
+        classified as MS stars.
+Note (4): Method as follows:
+  0 = Torres et al. (2010, J/other/A+ARv/18.67) relation;
+  1 = APOGEE-Kepler catalog (APOKASC, Pinsonneault et al. 2014, J/ApJS/215/19);
+  2 = APOGEE RC Catalog (Bovy et al. 2014ApJ...790..127B);
+  3 = Spectrophotometric;
+  4 = TRILEGAL (Girardi et al. 2005A&A...436..895G) simulation;
+  5 = Young cluster distance. The six PMS stars in this sample are located in
+      the young cluster IC 348 (d=316+/-22 pc; Herbig 1998, J/ApJ/497/736), so
+      we adopt the distance to this cluster as the approximate distance to
+      these stars.
+--------------------------------------------------------------------------------
+
+History:
+    Prepared via OCR at CDS.
+    From electronic version of the journal
+
+================================================================================
+(End)                      Sylvain Guehenneux [CDS]                  10-Oct-2016
