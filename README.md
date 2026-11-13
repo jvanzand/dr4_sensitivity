@@ -19,8 +19,6 @@ companions in Gaia epoch astrometry without any prior knowledge of the planets.
 | `data_conversion/` | Gaia DR4 pre-release epoch astrometry for 12 stars |
 | `tests/` | tests |
 
-The science plan is in [PLAN.md](PLAN.md).
-
 ## Quick start: the blind companion search
 
 **1. Install** (conda; Python 3.14), from the repository root:
