@@ -67,7 +67,8 @@ reference fits as the answer. Gaia DR4 is released 2 December 2026.
   Sirius. The repo is local only for now (no remote yet).
 - Plots: load the project `matplotlibrc` with `matplotlib.rc_file`, large figures, and
   every figure self-explanatory (title, a legend entry for every marker, region, line).
-- Commit only when Judah asks.
+- Commit and push small changes (markdown, minor fixes) without asking (Judah, 2026-11-13); check first before a big overhaul
+  or anything risky (history rewrites, sensitive data on the public remote). Pull before pushing. Never push Jump exports.
 - **No new tests without asking (Judah, 2026-11-12).** Run the experiments he asked for; check with him before introducing any other test, variant or comparison (e.g. extra fake-noise models), even as a diagnostic.
 - **Define terms when you use them (Judah, 2026-11-11).** The first time a code name appears in a reply or note, say
   what kind of thing it is (function, class, module = a `.py` file, folder, script, image file) and where it lives
