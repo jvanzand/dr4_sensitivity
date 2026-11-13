@@ -89,7 +89,7 @@ ax.set_title('Astrometric signals of RV companions (NEA + RV survey literature)\
              pad=12)
 cb = fig.colorbar(sc, ax=ax)
 cb.set_label(r'Host $G$ [mag]')
-fig.savefig(os.path.join(HERE, 'alpha_vs_period.png'), dpi=150, bbox_inches='tight')
+fig.savefig(os.path.join(HERE, 'alpha_vs_period.png'), dpi=300, bbox_inches='tight')
 
 ## Figure 2: S/N vs. period in distance bins, colored by absolute G
 dist_bins = [(0, 30), (30, 100), (100, np.inf)]
@@ -133,7 +133,7 @@ fig.suptitle('Forecast Gaia DR4 signal-to-noise of RV companions (NEA + RV surve
              y=1.02, fontsize=30)
 cb = fig.colorbar(sc, ax=axes, pad=0.01)
 cb.set_label(r'Host absolute magnitude $M_G$')
-fig.savefig(os.path.join(HERE, 'snr_vs_period_by_distance.png'), dpi=120,
+fig.savefig(os.path.join(HERE, 'snr_vs_period_by_distance.png'), dpi=300,
             bbox_inches='tight')
 
 ## Numbers quoted in CENSUS.md

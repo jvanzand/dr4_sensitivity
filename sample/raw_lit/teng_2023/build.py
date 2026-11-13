@@ -25,7 +25,7 @@ SOURCES = {'src_2308.05343.gz': 'https://arxiv.org/e-print/2308.05343'}
 ARCHIVES = {'src_2308.05343.gz': 'src_2308.05343'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -91,6 +91,12 @@ def err(cell):
     return ''
 
 
+def err_nz(cell):
+    """err() but a published error of 0 (e.g. '-0.000, +0.000') becomes blank."""
+    e = err(cell)
+    return e if e and float(e) != 0 else ''
+
+
 def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
 
@@ -132,6 +138,8 @@ KEEP = {  # companion -> extra note (from the paper's discussion and cross-check
     'HD 14067 b': 'msini 8.8 MJ (massive planet) but joint RV+HGCA fit gives true mass 15.3 (+6.2/-4.5) MJ; '
                   'a=5.11 AU borderline.',
 }
+NOTE_ERR = (' e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma errors from the orbit table; asymmetric '
+            'errors averaged; blank where the table prints 0.')
 TABLE_REF = 'arXiv:2308.05343 (Teng+2023, PASJ) tab:orbpar_orbits (Mstar tab:star_pars)'
 
 
@@ -163,7 +171,8 @@ def main():
                          omega_deg='%.2f' % math.degrees(float(val(w))),
                          Tp_bjd=add_offset(Tp, 2450000),  # JD (not BJD) despite the column name
                          msini_mj=val(m), a_au=val(a), mstar_msun=mstar[host], fit_type='RV-only',
-                         table_ref=TABLE_REF, notes=NOTE + extra))
+                         table_ref=TABLE_REF, notes=NOTE + extra + NOTE_ERR,
+                         e_K_ms=err_nz(K), e_msini_mj=err_nz(m), e_e=err_nz(e), e_a_au=err_nz(a)))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

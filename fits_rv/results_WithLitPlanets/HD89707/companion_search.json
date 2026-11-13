@@ -1,0 +1,290 @@
+{
+ "rv_table": "rv_data/systems/3751763647996317056_HD89707.csv",
+ "system_id": "3751763647996317056",
+ "display_name": "HD89707",
+ "n_known": 1,
+ "literature_priors": [
+  {
+   "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+   "P0": 298.5,
+   "K0": 4189.5,
+   "e0": 0.9,
+   "omega0": 1.3055062804917585,
+   "lnP": [
+    5.698769932832657,
+    0.01
+   ],
+   "lnK": [
+    8.340336674053342,
+    0.13712686567164178
+   ],
+   "e": [
+    0.9,
+    0.1
+   ],
+   "notes": {
+    "P": "error published",
+    "e": "published",
+    "K": "published",
+    "K_width": "mass-error proxy"
+   }
+  }
+ ],
+ "final": {
+  "planets": [
+   {
+    "P_d": 298.2252282377272,
+    "K_ms": 4919.81761686749,
+    "e": 0.9445516357630394,
+    "omega_deg": 106.87225451408894,
+    "baseline_over_P": 47.541978884676375
+   },
+   {
+    "P_d": 1005.8162300223645,
+    "K_ms": 23.02125524320268,
+    "e": 0.3990751103197937,
+    "omega_deg": 268.56368116138776,
+    "baseline_over_P": 14.09623058422965
+   }
+  ],
+  "trend_order": 0,
+  "slope_ms_per_d": 0.0,
+  "curvature_ms_per_d2": 0.0,
+  "jitter_ms": {
+   "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 7.970791178152023,
+   "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 17.364037432880245,
+   "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 9.27227119723743,
+   "dace:CORAVEL:1979VA.....23..279B": 28.839221887561376
+  },
+  "jitter_at_bound": [],
+  "literature_fit": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "P_lit": 298.5,
+    "P_fit": 298.2252282377272,
+    "K_lit": 4189.5,
+    "K_fit": 4919.81761686749,
+    "e_lit": 0.9,
+    "e_fit": 0.9445516357630394,
+    "dBIC_drop": 19911.33742684147,
+    "supported": true
+   }
+  ]
+ },
+ "seconds": 29.777347087860107,
+ "steps": [
+  {
+   "step": 0,
+   "action": "baseline (offsets and jitter only)",
+   "n_planets": 0,
+   "trend_order": 0,
+   "lnL": -14977.602566203786,
+   "BIC": 29993.09471999473,
+   "dBIC": NaN,
+   "adopted": true,
+   "forced": false,
+   "theta": [
+    3.4011973816621555,
+    3.4011973816621555,
+    3.4011973816621555,
+    3.4011973816621555
+   ],
+   "tref": 2452138.5617814157,
+   "span": 14178.217503755819,
+   "n_rv": 114,
+   "datasets": [
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORAVEL:1979VA.....23..279B"
+   ],
+   "planets": [],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 30.000000000000004,
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 30.000000000000004,
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 30.000000000000004,
+    "dace:CORAVEL:1979VA.....23..279B": 30.000000000000004
+   },
+   "jitter_at_bound": [
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORAVEL:1979VA.....23..279B"
+   ]
+  },
+  {
+   "step": 1,
+   "action": "1 literature companions under Gaussian priors",
+   "n_planets": 1,
+   "trend_order": 0,
+   "lnL": -671.5085662575472,
+   "BIC": 1404.5877123442228,
+   "dBIC": 28588.507007650507,
+   "adopted": true,
+   "forced": true,
+   "theta": [
+    5.697816355536206,
+    8.491219635726859,
+    -0.3059361954479909,
+    0.9210016960756178,
+    0.9051625406533097,
+    2.5506042381708363,
+    3.013898193329711,
+    2.832412870179361,
+    3.373322720079138
+   ],
+   "tref": 2452138.5617814157,
+   "span": 14178.217503755819,
+   "n_rv": 114,
+   "datasets": [
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORAVEL:1979VA.....23..279B"
+   ],
+   "planets": [
+    {
+     "P_d": 298.2154928483485,
+     "K_ms": 4871.804277845941,
+     "e": 0.941841079859356,
+     "omega_deg": 108.37533489478982,
+     "baseline_over_P": 47.54353091563176
+    }
+   ],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 12.814844662058263,
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 20.366638475559032,
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 16.986397389087145,
+    "dace:CORAVEL:1979VA.....23..279B": 29.175307561743814
+   },
+   "jitter_at_bound": []
+  },
+  {
+   "step": 2,
+   "action": "add companion",
+   "n_planets": 2,
+   "trend_order": 0,
+   "lnL": -647.5577436703683,
+   "BIC": 1380.3670594118375,
+   "dBIC": 24.220652932385292,
+   "adopted": true,
+   "forced": false,
+   "theta": [
+    5.697849000488287,
+    8.501026739056874,
+    -0.2820774413774334,
+    0.9300451348343262,
+    0.8997181742590625,
+    6.913554660038738,
+    3.136417930182561,
+    -0.015834707930523717,
+    -0.6315254328564676,
+    0.7547341211842635,
+    2.0757837574049693,
+    2.8544012532102045,
+    2.227028354664648,
+    3.3617363317324322
+   ],
+   "tref": 2452138.5617814157,
+   "span": 14178.217503755819,
+   "n_rv": 114,
+   "datasets": [
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORAVEL:1979VA.....23..279B"
+   ],
+   "planets": [
+    {
+     "P_d": 298.2252282377272,
+     "K_ms": 4919.81761686749,
+     "e": 0.9445516357630394,
+     "omega_deg": 106.87225451408894,
+     "baseline_over_P": 47.541978884676375
+    },
+    {
+     "P_d": 1005.8162300223645,
+     "K_ms": 23.02125524320268,
+     "e": 0.3990751103197937,
+     "omega_deg": 268.56368116138776,
+     "baseline_over_P": 14.09623058422965
+    }
+   ],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 7.970791178152023,
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 17.364037432880245,
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 9.27227119723743,
+    "dace:CORAVEL:1979VA.....23..279B": 28.839221887561376
+   },
+   "jitter_at_bound": []
+  },
+  {
+   "step": 3,
+   "action": "raise trend order 0 -> 1",
+   "n_planets": 2,
+   "trend_order": 1,
+   "lnL": -646.981358426083,
+   "BIC": 1383.9504873716614,
+   "dBIC": -3.5834279598238936,
+   "adopted": false,
+   "forced": false,
+   "theta": [
+    5.6978443386502144,
+    8.50102839841792,
+    -0.2822560979027298,
+    0.9299859926612231,
+    0.8996630887253625,
+    6.912735306312133,
+    3.1364158731342466,
+    -0.015967949984767322,
+    -0.631832837753664,
+    0.7546111896153235,
+    -46.93653110551856,
+    2.0757907921227186,
+    2.854350692082983,
+    2.226974951935074,
+    3.361732410956513
+   ],
+   "tref": 2452138.5617814157,
+   "span": 14178.217503755819,
+   "n_rv": 114,
+   "datasets": [
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE",
+    "dace:CORAVEL:1979VA.....23..279B"
+   ],
+   "planets": [
+    {
+     "P_d": 298.22383796324453,
+     "K_ms": 4919.825780627974,
+     "e": 0.9445424513493558,
+     "omega_deg": 106.88334558174469,
+     "baseline_over_P": 47.54220051820021
+    },
+    {
+     "P_d": 1004.9924482764238,
+     "K_ms": 23.021207887417095,
+     "e": 0.3994677102905639,
+     "omega_deg": 268.5523046896228,
+     "baseline_over_P": 14.10778511626795
+    }
+   ],
+   "slope_ms_per_d": -0.003310467701111585,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 7.970847250615426,
+    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 17.3631595097691,
+    "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 9.271776045867481,
+    "dace:CORAVEL:1979VA.....23..279B": 28.83910881565634
+   },
+   "jitter_at_bound": []
+  }
+ ]
+}

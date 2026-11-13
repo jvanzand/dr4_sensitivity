@@ -41,7 +41,7 @@ gaia = mf.gaia_query([res[o['name']].get('gaia_dr3') for o in orbits], 'gaia_dr3
 tic = mf.tic_query([res[o['name']].get('tic') for o in orbits], 'tic_v8_query.csv')
 
 cols = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp', 'tp_system', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_e']
 allrows, keep = [], []
 for o in orbits:
     r = res[o['name']]
@@ -60,11 +60,16 @@ for o in orbits:
     notes.append('T0 listed as T0-2450000 without a stated time system (observation epochs in the paper are '
                  'labelled JD; velocities are barycentric); K in km/s converted to m/s')
     notes.append('SIMBAD %s (otype %s)' % (r.get('main_id', 'unresolved'), r.get('otype', '')))
+    notes.append('e_K_ms, e_e: rms uncertainties on K (km/s converted to m/s) and e as published in Table 3 '
+                 '(e_e blank where e was fixed); the paper gives no uncertainty on M2 sin i or a_min, so '
+                 'e_msini_mj and e_a_au are not provided')
     row = dict(host=o['name'], companion=o['name'] + ' B (Nidever+2002 SB1)', P_d=o['P'], e_P_d=o['eP'],
                K_ms=round(o['K'] * 1000, 1), e=o['e'], omega_deg=o['om'], Tp=o['T0'], tp_system='unknown',
                msini_mj=o['M2'], a_au=o['amin'], mstar_msun=o['M1'], fit_type='RV-only',
                table_ref='Nidever+2002 ApJS 141, 503, Table 3 (VizieR J/ApJS/141/503 table3; arXiv:astro-ph/0112477)',
-               notes='; '.join(notes))
+               notes='; '.join(notes),
+               e_K_ms=round(o['eK'] * 1000, 1) if o['eK'] else None,  # km/s -> m/s
+               e_e=float(o['ee']) if o['ee'] else None)
     allrows.append(row)
     if o['M2'] <= 80 and (o['amin'] <= 5 or o['P'] <= 4000):
         keep.append(row)

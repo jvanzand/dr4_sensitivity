@@ -28,7 +28,7 @@ TEX = 'Jenkins2015.tex'
 OUT = 'jenkins_2015_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes", "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 MJ_PER_MSUN = 1047.57    # M sin i in the text is in Msun -> MJ
 TP_OFFSET = 2450000.0    # Table 2 Tp column is labelled "JD-2450000"
@@ -48,6 +48,8 @@ HOSTS = [
      'OUT OF TARGET RANGE (a>5 AU); minimum-period solution of a partially covered orbit; Msini 0.06+/-0.01 Msun '
      'in text, converted at 1047.57 MJ/Msun; Tp column labelled JD-2450000'),
 ]
+NOTE_ERR = ('e_P_d, e_K_ms, e_e, e_a_au: published 1-sigma errors from Table 2; e_msini_mj: the published error on '
+            'M sin i from the text (Msun) converted to MJ at 1047.57 MJ/Msun like msini_mj')
 
 
 # ---------------------------------------------------------------- input handling
@@ -188,20 +190,24 @@ def main():
         r = orb[part][host]
         P, eP = parse_val(r[1])
         om, _ = parse_val(r[2])
-        e, _ = parse_val(r[3])
+        e, ee = parse_val(r[3])
         Tp, _ = parse_val(r[4])
-        K, _ = parse_val(r[5])
-        a, _ = parse_val(r[6])
+        K, eK = parse_val(r[5])
+        a, ea = parse_val(r[6])
         mstar = parse_val(prim[host][9])[0]
         # M sin i from the star's paragraph in Sect. 3, e.g. "{\it HD\,39213}: ... minimum mass of 0.07\,$\pm$\,0.01\,M$_{\sun}$"
         para = src[src.index('{\\it HD\\,%s}:' % host[3:]):]
         para = para[:para.index('{\\it HD', 10)]
         m = re.search(r'minimum mass of\s*([\d.]+)\\,\$\\pm\$\\,([\d.]+)\\,M\$_\{\\sun\}\$', para)
         msini_msun = float(m.group(1))
+        e_msini_msun = float(m.group(2))  # published error on M sin i, in Msun
         rows.append(dict(host=host, companion=host + ' b', P_d=P, e_P_d=eP, K_ms=K, e=e, omega_deg=om,
                          Tp_bjd=Tp + TP_OFFSET,  # JD-2450000 -> full JD
                          msini_mj=round(msini_msun * MJ_PER_MSUN, 1),  # Msun -> MJ
-                         a_au=a, mstar_msun=mstar, fit_type='RV-only', table_ref=tref, notes=notes))
+                         a_au=a, mstar_msun=mstar, fit_type='RV-only', table_ref=tref,
+                         notes=notes + '; ' + NOTE_ERR,
+                         e_K_ms=eK or None, e_e=ee or None, e_a_au=ea or None,
+                         e_msini_mj=round(e_msini_msun * MJ_PER_MSUN, 1) or None))  # Msun -> MJ, as msini_mj
     write_csv(rows)
 
 

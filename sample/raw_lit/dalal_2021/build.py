@@ -22,7 +22,7 @@ SOURCES = {'src_2105.09741.gz': 'https://arxiv.org/e-print/2105.09741'}
 ARCHIVES = {'src_2105.09741.gz': 'src_2105.09741'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -88,6 +88,12 @@ def err(cell):
     return ''
 
 
+def err_nz(cell):
+    """err() but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) != 0 else ''
+
+
 def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
 
@@ -126,6 +132,8 @@ NOTE = 'SOPHIE/SOPHIE+ RVs; Yorbit single-Keplerian fit; Tp is periastron (BJD-2
 NOTES_EXTRA = {  # from the paper's Sect. on HD 205521 (Hipparcos and Gaia DR1 analyses)
     'HD 205521': ' Hipparcos astrometric orbit (>3 sigma) gives Mc=0.48+/-0.04 Msun and Gaia DR1 excess-noise '
                  'analysis 0.20 Msun: likely stellar, not a BD.'}
+NOTE_ERR = (' e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma errors from Table 2 (those on M sin i and '
+            'a include the host-mass uncertainty, per the table note).')
 TABLE_REF = 'arXiv:2105.09741 Table 2 (BD orbits; Mstar Table A.2)'
 
 
@@ -162,7 +170,9 @@ def main():
                          omega_deg=val(om[k]),
                          Tp_bjd=add_offset(Tp[k], 2450000),  # Tp is given as BJD-2450000
                          msini_mj=val(msini[k]), a_au=val(a[k]), mstar_msun=mstar.get(n, ''),
-                         fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE + NOTES_EXTRA.get(n, '')))
+                         fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE + NOTES_EXTRA.get(n, '') + NOTE_ERR,
+                         e_K_ms=err_nz(K[k]), e_msini_mj=err_nz(msini[k]), e_e=err_nz(ecc[k]),
+                         e_a_au=err_nz(a[k])))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

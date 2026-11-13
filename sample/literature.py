@@ -211,6 +211,17 @@ EXCLUDED_HOSTS = {'sb9_tic': ['BPS CS 22169-0001', 'CPD-64 481']}
 EU_EXCLUDED_OTYPES = ('CV*', 'WD*', 'WD?', 'Psr', 'HS*')
 
 
+def optional_error(t, column, notes=None, pattern=None):
+    """An error column of an orbit table as numbers (NaN where blank or <= 0), falling
+    back to a regex on the notes column when the table has no such column or a row is
+    blank there."""
+    out = (pd.to_numeric(t[column], errors='coerce') if column in t
+           else pd.Series(np.nan, index=t.index))
+    if pattern is not None and notes is not None:
+        out = out.fillna(pd.to_numeric(notes.str.extract(pattern, expand=False), errors='coerce'))
+    return out.where(out > 0)
+
+
 def load_standard():
     """Orbit tables transcribed from papers into the standard format, one per source:
     raw_lit/<short_id>/<short_id>_orbits.csv with columns host, companion, P_d, e_P_d,
@@ -264,6 +275,15 @@ def load_standard():
             'fit_type': t.fit_type.str.strip(),
             'mass_mj': mass,
             'pl_orbper': t.P_d,
+            'period_err_d': pd.to_numeric(t.e_P_d, errors='coerce'),
+            ## Published 1-sigma errors on the other quantities, where the source gives
+            ## them (optional columns of the orbit tables; zero or blank = not published).
+            ## K errors may also sit in the notes ("e_K=12.3 m/s"). They fill in the mass
+            ## and SMA errors in census.add_errors.
+            'K_err': optional_error(t, 'e_K_ms', notes, r'e_K\s*=\s*([0-9.]+(?:[eE][-+]?\d+)?)'),
+            'mass_err_pub': optional_error(t, 'e_msini_mj'),
+            'ecc_err': optional_error(t, 'e_e', notes, r'e_e\s*=\s*([0-9.]+(?:[eE][-+]?\d+)?)'),
+            'sma_err_pub': optional_error(t, 'e_a_au'),
             'pl_orbsmax': t.a_au,
             'pl_orbeccen': t.e,
             'K_ms': t.K_ms,
@@ -348,6 +368,18 @@ if __name__ == '__main__':
     lit = pd.concat([load_cls(), load_kiefer(), load_standard()], ignore_index=True)
     ## CLS I and Kiefer+2019 (read from VizieR) are RV-only fits
     lit['fit_type'] = lit.fit_type.fillna('RV-only')
+    ## Published errors for those two (raw_lit/<source>/errors.py writes <source>_errors.csv)
+    for folder, name in (('cls_2021', 'cls_2021_errors.csv'), ('kiefer_2019', 'kiefer_2019_errors.csv')):
+        e = pd.read_csv(os.path.join(RAW_DIR, folder, name)).drop_duplicates('pl_name_key')
+        e = e.set_index('pl_name_key')
+        has = lit.pl_name.isin(e.index)
+        for col, src in (('period_err_d', 'e_P_d'), ('K_err', 'e_K_ms'),
+                         ('mass_err_pub', 'e_msini_mj'), ('ecc_err', 'e_e'),
+                         ('sma_err_pub', 'e_a_au')):
+            if col not in lit:
+                lit[col] = np.nan
+            vals = lit.loc[has, 'pl_name'].map(e[src])
+            lit.loc[has, col] = vals.where(vals > 0)
 
     ## Resolve hosts not already in the SIMBAD cache. Hosts that no lookup resolves are
     ## cached with an empty source_id, so --cached runs stay offline; a full run retries them.

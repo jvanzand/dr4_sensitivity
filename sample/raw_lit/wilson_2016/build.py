@@ -8,6 +8,8 @@ HD 50761 B (m2 sin i = 145 MJ) is excluded.
 
 The last two table rows (HD 160508 b, BD+24 4697 b) were missed by the first transcription (its script read a
 fixed line window, rv.tex lines 245-270, that stops just before them) and were appended by hand after an audit.
+Error columns (appended; published 1-sigma from the same Table 3 cell as the value, asymmetric errors averaged,
+a published 0 -> blank): e_K_ms, e_msini_mj (m2 sin i in M_Jup as printed), e_e, e_a_au.
 They are parsed here like the other rows; only their table_ref and notes are hand-written (AUDIT_ROWS).
 """
 import csv
@@ -27,7 +29,8 @@ SOURCES = {'src_1602.02749.gz': 'https://arxiv.org/e-print/1602.02749'}
 ARCHIVES = {'src_1602.02749.gz': 'src_1602.02749'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes',
+        'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -91,6 +94,12 @@ def err(cell):
     if m:
         return '%.6g' % ((abs(float(m.group(1))) + abs(float(m.group(2)))) / 2)
     return ''
+
+
+def perr(cell):
+    """err(), but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) > 0 else ''
 
 
 def cells(line):
@@ -184,7 +193,8 @@ def main():
                          omega_deg=val(c[3]),
                          Tp_bjd=add_offset(c[5], 2400000),  # T0 is given as BJD-2400000
                          msini_mj=val(c[11]), a_au=val(c[10]), mstar_msun=mstar.get(host, ''),
-                         fit_type='RV-only', table_ref=ref, notes=note))
+                         fit_type='RV-only', table_ref=ref, notes=note,
+                         e_K_ms=perr(c[4]), e_msini_mj=perr(c[11]), e_e=perr(c[2]), e_a_au=perr(c[10])))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

@@ -27,6 +27,7 @@ Usage (from the project root, in the gaia_dr4_sensitivity conda environment):
 
 import os
 import re
+import sys
 
 import numpy as np
 import pandas as pd
@@ -39,14 +40,24 @@ REJECT_SIGMA = 5.0
 INCONSISTENT_RATIO = 3.0
 MIN_PAIRS_TO_CHECK = 3
 SMALL_REMAINDER = 5
+## An RV with an error this large (m/s) is a placeholder, not a measurement (HD 43691 has a
+## SOPHIE row with RV 999001.8 and error 999000 from DACE, not flagged by its QC); it is
+## marked isjunk. A general outlier rule is still to be decided (QUESTIONS.md, 2026-11-06).
+PLACEHOLDER_ERR_MS = 1e5
+## Outlier rule (decided 2026-11-09): per system, center every dataset on its own median,
+## take the pooled MAD of those residuals as a robust sigma (1.4826 x median |deviation|;
+## equal to the standard deviation for Gaussian noise, but one wild value cannot inflate it),
+## and mark an RV isjunk if it lies more than OUTLIER_SIGMA of these from the median.
+OUTLIER_SIGMA = 10.0
+OUTLIER_MIN_N = 8       # smaller series have no meaningful MAD
 ## Jump's CPS programs that are public; any other CPS program may need permission
 PUBLIC_PROGRAMS = {'JUMP_LEGACY_PUBLIC', 'APF_PUBLIC'}
 
 ## Instrument families: every source's name for one spectrograph, all upgrade eras
 FAMILIES = {
-    'hires': ['hires_j', 'hires_k', 'HIRES'],
-    'apf': ['apf'],
-    'harps': ['HARPS03', 'HARPS15', 'harps03', 'harps15'],
+    'hires': ['hires_j', 'hires_k', 'HIRES', 'HIRES-PRE04', 'HIRES-POST04'],
+    'apf': ['apf', 'APF'],
+    'harps': ['HARPS03', 'HARPS15', 'harps03', 'harps15', 'HARPS'],
     'harpn': ['HARPN', 'harpn', 'HARPS-N'],
     'coralie': ['CORALIE', 'CORALIE98', 'CORALIE07', 'CORALIE14', 'coralie98', 'coralie07',
                 'coralie14'],
@@ -56,7 +67,9 @@ FAMILIES = {
     'espresso': ['ESPRESSO', 'ESPRESSO18', 'ESPRESSO19', 'espresso18', 'espresso19'],
     'mike': ['MIKE ECHELLE SPECTROGRAPH', 'mike'],
     'neid': ['neid', 'neid_era4', 'neid_era5', 'neid_era6', 'neid_era7'],
-    'hamilton': ['hamilton'],
+    'hamilton': ['hamilton', 'HAMILTON'],
+    'ucles': ['UCLES'],
+    'ces': ['CES'],
     'carmenes': ['carmenes_vis', 'CARMENES'],
 }
 FAMILY_OF = {name: fam for fam, names in FAMILIES.items() for name in names}
@@ -215,10 +228,66 @@ def resolve_duplicates(rv):
     return out, drop, checks, review, int(repeat.sum())
 
 
+def flag_outliers(rv, nsigma=OUTLIER_SIGMA):
+    """MAD outlier rule (see OUTLIER_SIGMA). Marks rows isjunk in place, appends the reason to
+    quality_flag, and returns (per-system statistics, the flagged rows)."""
+    stats, flagged = [], []
+    ok = ~rv.isjunk.astype(bool) & rv.rv_ms.notna() & rv.rv_err_ms.notna()
+    for sid, g in rv[ok].groupby('system_id'):
+        dev = g.rv_ms - g.groupby('dataset').rv_ms.transform('median')
+        center = np.median(dev)
+        sigma = 1.4826*np.median(np.abs(dev - center))
+        if len(g) < OUTLIER_MIN_N or not sigma > 0:
+            stats.append({'system_id': sid, 'target': g.target.iloc[0], 'n': len(g),
+                          'mad_sigma_ms': sigma, 'max_z': np.nan, 'n_flagged': 0})
+            continue
+        z = np.abs(dev - center)/sigma
+        bad = z.index[z > nsigma]
+        for i in bad:
+            rv.loc[i, 'isjunk'] = True
+            rv.loc[i, 'quality_flag'] = (str(rv.loc[i, 'quality_flag']).replace('nan', '')
+                                         + f'; outlier: {z[i]:.1f} MAD-sigma from the dataset '
+                                           f'median (limit {nsigma:g})')
+        flagged.append(rv.loc[bad, ['system_id', 'target', 'dataset', 'bjd_tcb', 'rv_ms',
+                                    'rv_err_ms']].assign(z_mad=z[bad].values))
+        stats.append({'system_id': sid, 'target': g.target.iloc[0], 'n': len(g),
+                      'mad_sigma_ms': sigma, 'max_z': float(z.max()), 'n_flagged': len(bad)})
+    return (pd.DataFrame(stats),
+            pd.concat(flagged) if flagged else pd.DataFrame(
+                columns=['system_id', 'target', 'dataset', 'bjd_tcb', 'rv_ms', 'rv_err_ms', 'z_mad']))
+
+
+def selftest():
+    """A clean Gaussian series with two offset datasets and one wild point."""
+    rng = np.random.default_rng(0)
+    n = 60
+    rv = pd.DataFrame({'system_id': 'x', 'target': 'x', 'dataset': ['a', 'b']*(n//2),
+                       'bjd_tcb': np.arange(n, dtype=float),
+                       'rv_ms': rng.normal(0, 5, n) + np.where(np.arange(n) % 2, 3e4, 0.0),
+                       'rv_err_ms': 2.0, 'isjunk': False, 'quality_flag': ''})
+    rv.loc[7, 'rv_ms'] += 400.0
+    stats, flagged = flag_outliers(rv)
+    assert list(flagged.index) == [7] and bool(rv.loc[7, 'isjunk']) and rv.isjunk.sum() == 1
+    print('selftest passed:', stats.iloc[0].to_dict())
+
+
 def main():
     rv = pd.concat([pd.read_csv(os.path.join(HERE, f), dtype={'system_id': str})
                     for f in SOURCES if os.path.exists(os.path.join(HERE, f))],
                    ignore_index=True)
+    placeholder = rv.rv_err_ms.abs() >= PLACEHOLDER_ERR_MS
+    rv.loc[placeholder, 'isjunk'] = True
+    rv.loc[placeholder, 'quality_flag'] = (
+        rv.loc[placeholder, 'quality_flag'].fillna('').astype(str)
+        + '; invalid: RV error >= 1e5 m/s (placeholder, not a measurement)')
+    print(f'{int(placeholder.sum())} placeholder RVs (error >= {PLACEHOLDER_ERR_MS:.0e} m/s) '
+          f'marked isjunk')
+    out_stats, out_rows = flag_outliers(rv)
+    out_stats.to_csv(os.path.join(HERE, 'rv_outlier_stats.csv'), index=False)
+    out_rows.to_csv(os.path.join(HERE, 'rv_outliers.csv'), index=False)
+    print(f'{len(out_rows)} outliers (> {OUTLIER_SIGMA:g} MAD-sigma) marked isjunk; per-system '
+          f'statistics in rv_outlier_stats.csv')
+    print(out_stats.to_string(index=False))
     out, drop, checks, review, n_repeat = resolve_duplicates(rv)
     accepted = drop
     drop.to_csv(os.path.join(HERE, 'rv_duplicates.csv'), index=False)
@@ -257,4 +326,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    selftest() if '--selftest' in sys.argv else main()

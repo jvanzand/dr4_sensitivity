@@ -79,7 +79,7 @@ if os.path.exists('tic_v8_by_gaiadr2_query.csv'):
             tic[x['tic']] = byg2[x['gaia_dr2']]
 
 cols = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp', 'tp_system', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 allrows, keep = [], []
 for x in excl:
     seq, o = x['sb9_seq'], x['orbit']
@@ -117,7 +117,11 @@ for x in excl:
         if ob.get(fl, '').strip():
             notes.append('SB9 flag %s on %s' % (ob[fl].strip(), lab))
     notes.append('a from Kepler III with M1+M2 sin i; SIMBAD %s (otype %s)' % (r.get('main_id', '-'), r.get('otype', '-')))
+    # SB9's published 1-sigma errors on K1 (e_K1, km/s -> m/s) and e (e_e); 0 or blank = none. M2 sin i and a are
+    # computed here (not published), so e_msini_mj and e_a_au stay blank.
+    ek, ee = fnum(ob['e_K1']), fnum(ob['e_e'])
     row = dict(host=host, companion='%s (SB9 %s.%s)' % (host, seq, o), P_d=P, e_P_d=ob['e_Per'],
+               e_K_ms=round(ek * 1000, 4) if ek else '', e_e=ob['e_e'] if ee else '',
                K_ms=round(K * 1000, 2), e=ob['e'], omega_deg=ob['omega'], Tp=tp, tp_system=tps,
                msini_mj=round(ms * mf.MJ_PER_MSUN, 2) if ms else '', a_au=round(a, 4) if a else '',
                mstar_msun=round(m1, 3) if m1 else '', fit_type='RV-only',

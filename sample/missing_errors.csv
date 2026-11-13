@@ -1,0 +1,150 @@
+pl_name,hostname,catalog,fit_type,mass_type,missing_errors,period_d,period_err_source,mass_mj,mass_err_source,K_ms,sma_au,sma_err_source
+HD 13507 [exoplanet_eu HD 13507 b],HD 13507,exoplanet_eu,RV-only,M sin i,orbit and mass,3029.5,none,20.0,none,,4.2,none
+2MASS J03202839-0446358 [exoplanet_eu 2MASS J0320-0446 b],2MASS J03202839-0446358,exoplanet_eu,RV-only,M sin i,mass,246.73,published,54.0,none,,0.395,derived from P and M_*
+GJ 508.2 b,GJ 508.2,NEA,RV-only,M sin i,orbit and mass,5300.0,none,1.85,none,33.0,4.85,none
+HIP 65040 [exoplanet_eu HIP 65040 Ab],HIP 65040,exoplanet_eu,RV-only,M sin i,mass,305.11,published,50.0,none,,0.88,derived from P and M_*
+Kepler-93 c,Kepler-93,NEA,RV+astrometry,true mass,orbit and mass,3650.0,none,8.5,none,,4.651983876895188,none
+EPIC 205207894 [stevenson_2023 EPIC 205207894 (BD)],EPIC 205207894,stevenson_2023,RV-only,M sin i,orbit,97.76,none,59.2,published,,0.32886848867947477,none
+EPIC 248847494 b,EPIC 248847494,NEA,transit+RV,true mass,mass,3650.0,published,13.0,none,,4.5,published
+LP 261-75 [stevenson_2023 LP 261-75 (BD)],LP 261-75,stevenson_2023,RV-only,M sin i,orbit,1.882,none,68.1,published,,0.021319865452132086,none
+G 65-52 [exoplanet_eu G 65-52 b],G 65-52,exoplanet_eu,RV-only,M sin i,mass,150.81,published,36.0,none,,0.519,derived from P and M_*
+HD 283750 [sb9_tic HD 283750 (SB9 258.1)],HD 283750,sb9_tic,RV-only,M sin i,orbit and mass,1.788,none,56.06,none,10600.0,0.0271,none
+G 178-27 [exoplanet_eu G 178-27 b],G 178-27,exoplanet_eu,RV-only,M sin i,mass,80.82,published,51.0,none,,0.4046,derived from P and M_*
+G 190-10 [exoplanet_eu G 190-10 b],G 190-10,exoplanet_eu,RV-only,M sin i,mass,30.1712,published,44.0,none,,0.186,derived from P and M_*
+NLTT 41135 [stevenson_2023 NLTT 41135 (BD)],NLTT 41135,stevenson_2023,RV-only,M sin i,orbit,2.889,none,33.7,published,,0.024043508065369583,none
+HIP 14844 [sb9 HIP 14844 (SB9 152.1)],HIP 14844,sb9,RV-only,M sin i,orbit and mass,11.665,none,72.99,none,4500.0,0.1241,none
+HD 71827 [stevenson_2023 HD 71827 (BD)],HD 71827,stevenson_2023,RV-only,M sin i,orbit and mass,15.05,none,26.3,none,,0.12411385662535047,none
+TOI-5217 [exoplanet_eu TOI-5217 Ac],TOI-5217,exoplanet_eu,RV-only,M sin i,orbit and mass,1761.0,none,13.0,none,,3.0,none
+HD 180777 [ma_ge_2014 HD 180777 b],HD 180777,ma_ge_2014,RV-only,M sin i,mass,28.44,published,25.0,none,,0.2186387416120437,derived from P and M_*
+tau Gem b,tau Gem,NEA,RV-only,M sin i,mass,305.5,published,20.6,none,350.2,1.17,derived from P and M_*
+TOI-811 [stevenson_2023 TOI-811 (BD)],TOI-811,stevenson_2023,RV-only,M sin i,orbit,25.17,none,59.9,published,,0.1870071981552071,none
+KOI-189 [stevenson_2023 KOI-189 (BD)],KOI-189,stevenson_2023,RV-only,M sin i,orbit,30.36,none,78.0,published,,0.17931143035126715,none
+HIP 78493 [sb9 HIP 78493 (SB9 878.1)],HIP 78493,sb9,RV-only,M sin i,orbit and mass,35.474,none,67.16,none,2300.0,0.312,none
+ADS 11163 A [exoplanet_eu ADS 11163 Ab],ADS 11163 A,exoplanet_eu,RV-only,M sin i,mass,4.63629,published,50.0,none,,0.057,derived from P and M_*
+HIP 63242 b,HIP 63242,NEA,RV-only,M sin i,orbit and mass,124.6,none,9.18,none,287.5,0.565,none
+HD 153252 A [exoplanet_eu HD 153252 Ab],HD 153252 A,exoplanet_eu,RV-only,M sin i,mass,5.526174,published,50.0,none,,0.0652,derived from P and M_*
+91 Aqr b,91 Aqr,NEA,RV-only,M sin i,mass,181.4,published,3.2,none,91.5,0.7,derived from P and M_*
+HD 135748 [exoplanet_eu mu Lup Cb],HD 135748,exoplanet_eu,RV-only,M sin i,mass,12.353,published,40.0,none,,0.14,derived from P and M_*
+TOI-148 [stevenson_2023 TOI-148 (BD)],TOI-148,stevenson_2023,RV-only,M sin i,orbit,4.87,none,77.1,published,,0.0609493754183622,none
+Kepler-419 c,Kepler-419,NEA,RV+astrometry,true mass,orbit and mass,677.5849539,none,7.69380029,none,,1.7026815603479262,none
+HD 7199 b,HD 7199,NEA,RV+astrometry,M sin i,orbit and mass,615.0,none,0.295,none,,1.2973976227523742,none
+EPIC 212036875 [stevenson_2023 EPIC 212036875 (BD)],EPIC 212036875,stevenson_2023,RV-only,M sin i,orbit,5.17,none,52.3,published,,0.06450992544778614,none
+NGTS-7A [stevenson_2023 NGTS-7A (BD)],NGTS-7A,stevenson_2023,RV-only,M sin i,orbit,0.676,none,75.5,published,,0.012366144590455798,none
+TOI-503 [stevenson_2023 TOI-503 (BD)],TOI-503,stevenson_2023,RV-only,M sin i,orbit,3.677,none,53.7,published,,0.05724766981557477,none
+2MASS J00283822+5833027 [troup_2016 b],2MASS J00283822+5833027,troup_2016,RV-only,M sin i,mass,86.519,published,13.58,none,967.3,0.3582,derived from P and M_*
+Parenago 2017 [exoplanet_eu ISOY J0535-0447 b],Parenago 2017,exoplanet_eu,RV-only,M sin i,mass,3.905625,published,49.989034173742276,none,,0.0465,derived from P and M_*
+Kepler-97 c,Kepler-97,NEA,RV+astrometry,true mass,orbit and mass,789.0,none,1.08,none,25.0,1.6375421005640551,none
+2MASS J19105197+2845422 [troup_2016 b],2MASS J19105197+2845422,troup_2016,RV-only,M sin i,mass,147.112,published,72.87,none,2835.1,0.6025,derived from P and M_*
+2MASS J15142280+0024103 [troup_2016 b],2MASS J15142280+0024103,troup_2016,RV-only,M sin i,mass,56.2745,published,23.0,none,1754.8,0.2598,derived from P and M_*
+EPIC 211946007 [stevenson_2023 EPIC 211946007 (BD)],EPIC 211946007,stevenson_2023,RV-only,M sin i,orbit,1.983,none,54.2,published,,0.021383802988567516,none
+WASP-128 [stevenson_2023 WASP-128 (BD)],WASP-128,stevenson_2023,RV-only,M sin i,orbit,2.209,none,37.2,published,,0.035230684704957854,none
+AU Mic b,AU Mic,NEA,RV-only,M sin i,mass,8.46321,published,0.18,none,28.0,0.066,published
+2MASS J19474741+2321103 [troup_2016 b],2MASS J19474741+2321103,troup_2016,RV-only,M sin i,mass,36.5239,published,26.0,none,2383.8,0.2513,derived from P and M_*
+HIP 65 A b,HIP 65 A,NEA,RV-only,M sin i,orbit,0.981,none,2.95,"derived from K (with P, e, M_* terms)",734.6,0.017,none
+TOI-263 [stevenson_2023 TOI-263 (BD)],TOI-263,stevenson_2023,RV-only,M sin i,orbit,0.56,none,61.6,published,,0.010544836992158992,none
+2MASS J17214931+4221402 [troup_2016 b],2MASS J17214931+4221402,troup_2016,RV-only,M sin i,mass,118.58,published,47.6,none,2431.5,0.4636,derived from P and M_*
+Kepler-419 b,Kepler-419,NEA,transit+RV,true mass,orbit and mass,69.7257768,none,3.25085788,none,,0.37352917162300187,none
+2MASS J19131944-0532048 [troup_2016 b],2MASS J19131944-0532048,troup_2016,RV-only,M sin i,mass,152.766,published,27.89,none,769.9,0.6546,derived from P and M_*
+XO-6 b,XO-6,NEA,transit+RV,true mass,mass,3.7650007,published,4.4,none,450.0,0.053905780732745386,derived from P and M_*
+KOI-351 h,KOI-351,NEA,RV-only,M sin i,orbit,331.6011081,none,0.74174671,published,20.34113,0.9702055452,none
+KELT-19 A b,KELT-19 A,NEA,transit+RV,M sin i,mass,4.6117093,published,4.05,none,352.0,0.0637,published
+KELT-20 b,KELT-20,NEA,transit+RV,M sin i,mass,3.4741085,published,3.372,none,311.3,0.0542,published
+2MASS J20564020+5021315 [troup_2016 b],2MASS J20564020+5021315,troup_2016,RV-only,M sin i,mass,19.5507,published,55.5,none,4526.1,0.1478,derived from P and M_*
+AU Mic c,AU Mic,NEA,transit+RV,true mass,orbit,18.859018,none,0.03649768,published,3.9,0.1169530059978975,none
+Kepler-62 f,Kepler-62,NEA,transit+RV,true mass,mass,267.291,published,0.11,none,,0.718,published
+HD 125595 b,HD 125595,NEA,RV+astrometry,M sin i,orbit and mass,9.674,none,0.04168,none,,0.05881612789682089,none
+Kepler-418 b,Kepler-418,NEA,transit+RV,true mass,orbit and mass,86.679,none,1.1,none,,0.4173785508713879,none
+Kepler-62 e,Kepler-62,NEA,transit+RV,true mass,mass,122.3874,published,0.113,none,,0.427,published
+Kepler-63 b,Kepler-63,NEA,transit+RV,true mass,mass,9.4341505,published,0.378,none,,0.08,published
+HD 212301 b,HD 212301,NEA,RV-only,M sin i,mass,2.245715,published,0.45,none,,0.036,derived from P and M_*
+HD 175607 b,HD 175607,NEA,RV+astrometry,M sin i,orbit and mass,29.03,none,0.02626,none,,0.1649158639532698,none
+HAT-P-7 b,HAT-P-7,NEA,transit+RV,true mass,orbit and mass,2.2,none,1.84,none,,0.03660337260491778,none
+2MASS J15182185+0147091 [troup_2016 b],2MASS J15182185+0147091,troup_2016,RV-only,M sin i,mass,31.4324,published,64.23,none,2887.3,0.2518,derived from P and M_*
+Kepler-103 c,Kepler-103,NEA,RV-only,M sin i,orbit,179.6076602,none,0.09578803,published,3.17306,0.6496719336,none
+PH1 b,PH1,NEA,transit+RV,true mass,mass,138.317,published,0.531,none,,0.652,published
+Kepler-139 c,Kepler-139,NEA,RV-only,M sin i,orbit,157.0654802,none,0.07317092,published,2.6217,0.5841619538,none
+Kepler-643 b,Kepler-643,NEA,transit+RV,true mass,orbit,15.227028613497433,none,1.01,published,,0.126,none
+Kepler-453 b,Kepler-453,NEA,transit+RV,true mass,mass,240.503,published,0.05034138,none,,0.7903,published
+2MASS J18563573-0353463 [troup_2016 b],2MASS J18563573-0353463,troup_2016,RV-only,M sin i,mass,104.617,published,14.9,none,547.4,0.564,derived from P and M_*
+Kepler-538 b,Kepler-538,NEA,RV-only,M sin i,orbit,81.73780699,none,0.03291019,published,1.67709,0.3533570881,none
+HD 179079 b,HD 179079,NEA,RV+astrometry,M sin i,orbit and mass,14.48,none,0.08378,none,,0.12145926903628478,none
+KOI-94 d,KOI-94,NEA,RV-only,M sin i,orbit,22.34296959,none,0.25045537,published,16.21251,0.1639177311,none
+K2-3 d,K2-3,NEA,transit+RV,true mass,mass,44.556456,published,0.00880979,none,,0.20757440085423132,derived from P and M_*
+K2-132 b,K2-132,NEA,transit+RV,true mass,orbit,8.862005316950443,none,0.49,published,,0.086,none
+Kepler-129 c,Kepler-129,NEA,RV-only,M sin i,orbit,82.2000105,none,0.07964592,published,3.23429,0.3969569574,none
+K2-229 c,K2-229,NEA,transit+RV,true mass,mass,8.32834,published,0.06701696,none,,0.07577,published
+Kepler-20 d,Kepler-20,NEA,RV-only,M sin i,orbit,77.6115987,none,0.04073508,published,2.01981,0.3490662851,none
+Kepler-10 c,Kepler-10,NEA,RV-only,M sin i,orbit,45.29431717,none,0.03797807,published,2.37424,0.2374880236,none
+HD 215152 e,HD 215152,NEA,RV+astrometry,M sin i,orbit and mass,25.2,none,0.009052,none,,0.15418379947279792,none
+Kepler-96 b,Kepler-96,NEA,RV-only,M sin i,orbit,16.23846777,none,0.04080035,published,3.24659,0.1260394106,none
+K2-141 c,K2-141,NEA,transit+RV,true mass,mass,7.7485,published,0.02517081,none,3.2,0.0683,published
+Kepler-25 c,Kepler-25,NEA,RV-only,M sin i,orbit,12.72037435,none,0.07571841,published,6.013,0.1116658582,none
+HD 215152 d,HD 215152,NEA,RV+astrometry,M sin i,orbit and mass,10.86,none,0.008816,none,,0.08796803498074429,none
+Kepler-9 c,Kepler-9,NEA,RV-only,M sin i,orbit,38.90787517,none,0.08584647,published,5.06829,0.226498247,none
+Kepler-62 d,Kepler-62,NEA,transit+RV,true mass,mass,18.16406,published,0.044,none,,0.12,published
+Kepler-48 d,Kepler-48,NEA,RV-only,M sin i,orbit,42.89605505,none,0.02797374,published,1.722,0.2329073769,none
+Kepler-91 b,Kepler-91,NEA,transit+RV,true mass,orbit,6.24658,none,0.46,published,,0.073,none
+Kepler-11 f,Kepler-11,NEA,RV-only,M sin i,orbit,46.6858024,none,0.05809261,published,3.30998,0.2525546526,none
+Kepler-102 e,Kepler-102,NEA,RV-only,M sin i,orbit,16.14569077,none,0.01491646,published,1.38842,0.1162026732,none
+Kepler-18 d,Kepler-18,NEA,RV-only,M sin i,orbit,14.85891269,none,0.07574894,published,6.33427,0.1176112981,none
+Kepler-131 c,Kepler-131,NEA,transit+RV,true mass,orbit,25.5169,none,0.026,published,3.58,0.17075052097112225,none
+Kepler-11 g,Kepler-11,NEA,RV-only,M sin i,orbit,118.378379,none,0.02776977,published,0.0136,0.4696205373,none
+Kepler-9 b,Kepler-9,NEA,RV-only,M sin i,orbit,19.27082403,none,0.08149941,published,6.08143,0.1417881795,none
+Kepler-20 c,Kepler-20,NEA,RV-only,M sin i,orbit,10.85409784,none,0.04263316,published,4.07256,0.0940486658,none
+Kepler-102 d,Kepler-102,NEA,RV-only,M sin i,orbit,10.31173752,none,0.01428113,published,1.54357,0.0861786325,none
+KOI-94 e,KOI-94,NEA,RV-only,M sin i,orbit,54.31998605,none,0.02546613,published,1.22596,0.2963728645,none
+HD 215152 c,HD 215152,NEA,RV+astrometry,M sin i,orbit and mass,7.282,none,0.005408,none,,0.06739145694201602,none
+HD 215152 b,HD 215152,NEA,RV+astrometry,M sin i,orbit and mass,5.76,none,0.00572,none,,0.05763939858965073,none
+Kepler-106 e,Kepler-106,NEA,RV-only,M sin i,orbit,43.84444353,none,0.02073643,published,0.07079,0.2399693421,none
+Kepler-131 b,Kepler-131,NEA,RV-only,M sin i,orbit,16.09197176,none,0.02156828,published,1.65357,0.1278252886,none
+Kepler-106 c,Kepler-106,NEA,RV-only,M sin i,orbit,13.57076622,none,0.04192028,published,3.67306,0.1098033606,none
+Kepler-68 b,Kepler-68,NEA,RV-only,M sin i,orbit,5.398753927,none,0.0265568,published,2.99353,0.0610601844,none
+Kepler-48 c,Kepler-48,NEA,RV-only,M sin i,orbit,9.673953474,none,0.03490021,published,3.52951,0.0862927556,none
+Kepler-103 b,Kepler-103,NEA,RV-only,M sin i,orbit,15.96533687,none,0.0437407,published,3.24665,0.1293986045,none
+Kepler-18 c,Kepler-18,NEA,RV-only,M sin i,orbit,7.641571533,none,0.06211373,published,6.48299,0.0754940651,none
+Kepler-19 b,Kepler-19,NEA,RV-only,M sin i,orbit,9.286968825,none,0.0232776,published,2.4092,0.0835766756,none
+KOI-142 b,KOI-142,NEA,RV-only,M sin i,orbit,10.91610834,none,0.03573249,published,3.307,0.0958216883,none
+Kepler-129 b,Kepler-129,NEA,RV-only,M sin i,orbit,15.79193725,none,0.03216289,published,2.26351,0.1321658061,none
+Kepler-25 b,Kepler-25,NEA,RV-only,M sin i,orbit,6.238534771,none,0.03397169,published,3.42095,0.0694451968,none
+Kepler-94 b,Kepler-94,NEA,RV-only,M sin i,orbit,2.508057352,none,0.03459928,published,5.93199,0.0337456161,none
+Kepler-62 b,Kepler-62,NEA,transit+RV,true mass,mass,5.714932,published,0.03,none,,0.0553,published
+Kepler-93 b,Kepler-93,NEA,RV-only,M sin i,orbit,4.726739475,none,0.01131049,published,1.49843,0.0527009089,none
+Kepler-11 e,Kepler-11,NEA,RV-only,M sin i,orbit,31.99550624,none,0.02501124,published,1.61636,0.1963171072,none
+Kepler-95 b,Kepler-95,NEA,RV-only,M sin i,orbit,11.52306995,none,0.03216113,published,2.75774,0.1022793919,none
+Kepler-454 b,Kepler-454,NEA,RV-only,M sin i,orbit,10.57375703,none,0.01663272,published,1.4815,0.0961305344,none
+Kepler-408 b,Kepler-408,NEA,transit+RV,true mass,orbit and mass,2.46502,none,0.01573168,none,,0.03664067055491027,none
+Kepler-11 d,Kepler-11,NEA,RV-only,M sin i,orbit,22.68714105,none,0.02628397,published,0.01712,0.156105667,none
+Kepler-113 b,Kepler-113,NEA,RV-only,M sin i,orbit,4.75400115,none,0.02368141,published,3.34392,0.0511942399,none
+Kepler-11 c,Kepler-11,NEA,RV-only,M sin i,orbit,13.02492819,none,0.03507001,published,3.05805,0.1078323443,none
+Kepler-62 c,Kepler-62,NEA,transit+RV,true mass,mass,12.4417,published,0.013,none,,0.0929,published
+Kepler-20 b,Kepler-20,NEA,RV-only,M sin i,orbit,3.696119675,none,0.02993117,published,4.09442,0.0458621244,none
+Kepler-139 b,Kepler-139,NEA,RV-only,M sin i,orbit,15.77111583,none,0.01663759,published,1.28255,0.1261985558,none
+Kepler-37 b,Kepler-37,NEA,transit+RV,true mass,mass,13.36702,published,0.00248562,none,0.25,0.1019,published
+Kepler-68 c,Kepler-68,NEA,RV-only,M sin i,orbit,9.60503867,none,0.00839928,published,0.78136,0.0896523824,none
+K2-12 b,K2-12,NEA,transit+RV,true mass,mass,8.28246,published,0.01636103,none,2.1,0.0792,published
+Kepler-100 c,Kepler-100,NEA,RV-only,M sin i,orbit,12.81588378,none,0.01259244,published,1.02819,0.1105370236,none
+Kepler-48 b,Kepler-48,NEA,RV-only,M sin i,orbit,4.778004028,none,0.02079473,published,2.66047,0.0539182783,none
+Kepler-18 b,Kepler-18,NEA,RV-only,M sin i,orbit,3.504687554,none,0.03997961,published,5.41092,0.0448976793,none
+Kepler-100 b,Kepler-100,NEA,RV-only,M sin i,orbit,6.88706037,none,0.01713162,published,1.72055,0.0730630817,none
+Kepler-99 b,Kepler-99,NEA,RV-only,M sin i,orbit,4.603578042,none,0.0119738,published,1.66984,0.0506922391,none
+KOI-94 c,KOI-94,NEA,RV-only,M sin i,orbit,10.42367777,none,0.01952013,published,1.62921,0.0986005466,none
+Kepler-100 d,Kepler-100,NEA,RV-only,M sin i,orbit,35.3330866,none,0.00557875,published,0.32486,0.2173350533,none
+Kepler-11 b,Kepler-11,NEA,RV-only,M sin i,orbit,10.30400497,none,0.02345445,published,2.21135,0.0922365099,none
+Kepler-65 d,Kepler-65,NEA,RV-only,M sin i,orbit,8.13122484,none,0.01336662,published,1.16488,0.0852245355,none
+Kepler-65 c,Kepler-65,NEA,RV-only,M sin i,orbit,5.859938722,none,0.01567884,published,1.52403,0.0685050697,none
+Kepler-139 d,Kepler-139,NEA,RV-only,M sin i,orbit,7.305699922,none,0.01465595,published,1.46015,0.0755533961,none
+Kepler-507 b,Kepler-507,NEA,RV-only,M sin i,orbit,3.568096926,none,0.01792452,published,2.17956,0.0477939532,none
+Kepler-1876 b,Kepler-1876,NEA,transit+RV,true mass,mass,6.99205,published,0.00755124,none,0.71,0.0758,published
+KOI-94 b,KOI-94,NEA,RV-only,M sin i,orbit,3.743175556,none,0.01805098,published,2.1196,0.0498148471,none
+Kepler-406 b,Kepler-406,NEA,RV-only,M sin i,orbit,2.426300839,none,0.01676985,published,2.44754,0.0359738651,none
+SWEEPS-4 b,SWEEPS-4,NEA,transit+RV,true mass,orbit and mass,4.2,none,3.8,none,,0.055,none
+Kepler-406 c,Kepler-406,NEA,transit+RV,true mass,orbit,4.62332,none,0.009,published,1.0,0.055552666238799155,none
+Kepler-113 c,Kepler-113,NEA,RV-only,M sin i,orbit,8.925076369,none,0.0033181,published,0.3798,0.0779093423,none
+Kepler-10 b,Kepler-10,NEA,RV-only,M sin i,orbit,0.837491331,none,0.01150885,published,2.72089,0.0166060414,none
+SWEEPS-11 b,SWEEPS-11,NEA,transit+RV,true mass,orbit,1.796,none,9.7,published,,0.03,none
+Kepler-97 b,Kepler-97,NEA,RV-only,M sin i,orbit,2.586638081,none,0.01066696,published,1.69303,0.0356181937,none
+Kepler-9 d,Kepler-9,NEA,RV-only,M sin i,orbit,1.59295975,none,0.026473,published,4.53474,0.0269056221,none
+CoRoT-24 b,CoRoT-24,NEA,transit+RV,true mass,mass,5.1134,published,0.018,none,2.1,0.056,published
+Kepler-65 b,Kepler-65,NEA,RV-only,M sin i,orbit,2.154909039,none,0.00772294,published,1.04781,0.0351625172,none
+Kepler-98 b,Kepler-98,NEA,RV-only,M sin i,orbit,1.541676628,none,0.0064503,published,1.13408,0.0261264299,none
+Kepler-407 b,Kepler-407,NEA,RV-only,M sin i,orbit,0.669309686,none,0.00525142,published,1.16854,0.0153019248,none

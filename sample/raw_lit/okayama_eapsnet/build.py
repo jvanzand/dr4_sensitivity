@@ -24,7 +24,7 @@ SOURCES = {'src_0906.3762.gz': 'https://arxiv.org/e-print/0906.3762'}
 ARCHIVES = {'src_0906.3762.gz': 'src_0906.3762'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -94,6 +94,12 @@ def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
 
 
+def err_nz(cell):
+    """err() but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) != 0 else ''
+
+
 def add_offset(cell, off):
     """Reduced date + offset (e.g. JD-2450000 -> JD), keeping the number of printed decimals."""
     v = val(cell)
@@ -151,6 +157,8 @@ TABLE_REF = ('arXiv:0906.3762 (Omiya+2009, PASJ 61, 825) Table "Orbital paramete
 NOTE = ('BOAO + OAO (Korean-Japanese EAPS-Net) RVs, 36 obs. T is periastron time in JD (not BJD). '
         'Massive (3.9 Msun) G6III host at 289 pc. Not in Teng+2023 revisit list.')
 
+NOTE_ERR = ' e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma errors from the orbit table.'
+
 
 def main():
     get_inputs()
@@ -163,7 +171,9 @@ def main():
                 e=val(pick(orb, r'^\$e\$')[0]), omega_deg=val(pick(orb, r'^\$\\omega\$')[0]),
                 Tp_bjd=val(pick(orb, r'^\$T\$ \(JD\)')[0]),  # JD despite the column name
                 msini_mj=val(pick(orb, r'^\$M_\{\\mathrm\{2\}\}')[0]), a_au=val(pick(orb, r'^\$a\$ \(AU\)')[0]),
-                mstar_msun=val(pick(star, r'^\$M\$')[0]), fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE)])
+                mstar_msun=val(pick(star, r'^\$M\$')[0]), fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE + NOTE_ERR,
+                e_K_ms=err_nz(pick(orb, r'^\$K_\{1\}\$')[0]), e_msini_mj=err_nz(pick(orb, r'^\$M_\{\\mathrm\{2\}\}')[0]),
+                e_e=err_nz(pick(orb, r'^\$e\$')[0]), e_a_au=err_nz(pick(orb, r'^\$a\$ \(AU\)')[0]))])
 
 
 if __name__ == '__main__':

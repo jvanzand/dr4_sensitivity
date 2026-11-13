@@ -108,7 +108,7 @@ ax.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.5, -0.08), ncol
           fontsize=17, frameon=False)
 ax.set_title(f'Sky positions of census hosts ({len(hosts)} hosts, {len(census)} '
              'companions), ICRS', pad=24, fontsize=24)
-fig.savefig(os.path.join(HERE, 'sky_positions.png'), dpi=110, bbox_inches='tight')
+fig.savefig(os.path.join(HERE, 'sky_positions.png'), dpi=300, bbox_inches='tight')
 
 ## Host counts by declination and RA band, to spot gaps
 print('Hosts per 15-deg declination band:')

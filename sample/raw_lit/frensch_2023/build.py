@@ -26,7 +26,7 @@ TEX = '46203.tex'
 OUT = 'frensch_2023_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes", "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 # T_P is given in "rBJD", which the paper does not define. Values such as 55738 only make sense as
 # BJD - 2400000 (the DACE convention), so that offset is assumed.
@@ -194,11 +194,11 @@ def main():
         host = norm_name(skey)
         P, eP = parse_val(t['$P$'][col])
         Tp, _ = parse_val(t['$T_P$'][col])
-        e, _ = parse_val(t['$e$'][col])
+        e, ee = parse_val(t['$e$'][col])
         om, _ = parse_val(t['$\\omega$'][col])
-        K, _ = parse_val(t['$K$'][col])
-        ms, _ = parse_val(t['$m_2\\sin i$'][col])
-        a, _ = parse_val(t['$a_2$'][col])
+        K, eK = parse_val(t['$K$'][col])
+        ms, ems = parse_val(t['$m_2\\sin i$'][col])
+        a, ea = parse_val(t['$a_2$'][col])
         m2cell = clean(t['$m_2$$^{(a)}$'][col]).replace(' ', '')
         mm = re.match(r'^\{([\d.]+)\}_\{-([\d.]+)\}\^\{\+([\d.]+)\}$', m2cell)
         m2, m2lo, m2hi = mm.group(1), mm.group(2), mm.group(3)
@@ -211,10 +211,12 @@ def main():
         if drift not in ('-', ''):
             notes.append('fit includes drift %g m/s/yr' % parse_val(drift)[0])
         notes.append(TPN)
+        notes.append('e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma Monte Carlo errors from Table 5; '
+                     'asymmetric errors averaged')
         first = False
         rows.append(dict(host=host, companion=norm_name(base) + ' ' + letter, P_d=P,
                          e_P_d=eP,  # asymmetric errors averaged
-                         K_ms=K, e=e, omega_deg=om,
+                         K_ms=K, e=e, omega_deg=om, e_K_ms=eK, e_msini_mj=ems, e_e=ee, e_a_au=ea,
                          Tp_bjd=Tp + TP_OFFSET,  # rBJD -> BJD (assumed offset, see TP_OFFSET)
                          msini_mj=ms, a_au=a, mstar_msun=mstar[skey], fit_type='RV-only',
                          table_ref=TABLE_REF, notes='; '.join(notes)))

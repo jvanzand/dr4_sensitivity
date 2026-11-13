@@ -1,0 +1,57 @@
+N_RV = 28, datasets = ['hires_j'], baseline span = 1219 d, period cap = 3657 d, blind-period floor = 90.3 d (2 x mean RV spacing of 45.1 d), 2 literature companions under priors
+  step 0: baseline (offsets and jitter only): dBIC = nan  ADOPTED  trend order 0  periods 
+  step 1: 2 literature companions under Gaussian priors: dBIC = 79.2  ADOPTED (forced)  trend order 0  periods 3.77, 388.24
+  (also tried: raise trend order 0 -> 1, dBIC = -3.3)
+  step 2: add companion: dBIC = 8.4  rejected  trend order 0  periods 3.77, 94.17, 387.65
+  literature TOI-1694 c: P 386.2 -> 388.2 d, dBIC for dropping it = 91.9
+  literature TOI-1694 b: P 3.77 -> 3.77 d, dBIC for dropping it = 45.1
+{
+ "planets": [
+  {
+   "P_d": 3.7696853479107246,
+   "K_ms": 13.574725161204837,
+   "e": 0.15707896581171166,
+   "omega_deg": 290.5942369219978,
+   "baseline_over_P": 323.35870977691235
+  },
+  {
+   "P_d": 388.2442675884309,
+   "K_ms": 32.46780006399512,
+   "e": 0.12965243858902606,
+   "omega_deg": 291.7876789682102,
+   "baseline_over_P": 3.139674406365056
+  }
+ ],
+ "trend_order": 0,
+ "slope_ms_per_d": 0.0,
+ "curvature_ms_per_d2": 0.0,
+ "jitter_ms": {
+  "hires_j": 2.836562703499099
+ },
+ "jitter_at_bound": [],
+ "literature_fit": [
+  {
+   "name": "TOI-1694 c",
+   "P_lit": 386.25,
+   "P_fit": 388.2442675884309,
+   "K_lit": 31.71,
+   "K_fit": 32.46780006399512,
+   "e_lit": 0.111,
+   "e_fit": 0.12965243858902606,
+   "dBIC_drop": 91.87294567196307,
+   "supported": true
+  },
+  {
+   "name": "TOI-1694 b",
+   "P_lit": 3.7701389,
+   "P_fit": 3.7696853479107246,
+   "K_lit": 13.26,
+   "K_fit": 13.574725161204837,
+   "e_lit": 0.122,
+   "e_fit": 0.15707896581171166,
+   "dBIC_drop": 45.12580035717829,
+   "supported": true
+  }
+ ]
+}
+steps written to /Users/judahvz/research/code/GitHub/gaia_dr4_rv_sensitivity/fits_rv/results/TOI1694/companion_search.json

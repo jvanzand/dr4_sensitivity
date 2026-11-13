@@ -7,6 +7,10 @@ Reads  src_2606.29001/aa57585-25.tex
        table:star-validated (Gaia DR3 IDs and SED stellar masses)
 Writes barbato_2026_orbits.csv
 
+Error columns (appended): published 1-sigma errors from the same table:rvfit cells as the values (asymmetric
+errors averaged by parse_val; a published 0 -> blank): e_K_ms, e_msini_mj (M_b sin i in M_Jup as tabulated),
+e_e, e_a_au. e_P_d is unchanged.
+
 The fits use mean longitude lambda_0, but the paper does not state its reference epoch,
 so Tp is left blank.
 """
@@ -18,7 +22,8 @@ HERE = Path(__file__).resolve().parent
 TEX = HERE / "src_2606.29001" / "aa57585-25.tex"
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp", "tp_system",
-        "msini_mj", "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "msini_mj", "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 NUM = r"[-+]?\d+(?:\.\d+)?"
 
@@ -49,6 +54,12 @@ def parse_val(cell):
     if m:
         return float(m.group(1)), 0.5 * (float(m.group(2)) + float(m.group(3)))
     raise ValueError(f"cannot parse {cell!r}")
+
+
+def perr(cell):
+    """Published error of a table:rvfit cell as a string; blank if it is 0."""
+    e = parse_val(cell)[1]
+    return f"{e:.3g}" if e > 0 else ""
 
 
 def table_rows(tex, label):
@@ -119,6 +130,10 @@ def main():
             "fit_type": "RV-only",
             "table_ref": "arXiv:2606.29001 Table table:rvfit (RV fit block); mstar table:star-validated",
             "notes": notes,
+            "e_K_ms": perr(K[i]),
+            "e_msini_mj": perr(MS[i]),
+            "e_e": perr(E[i]),
+            "e_a_au": perr(A[i]),
         })
 
     with open(HERE / "barbato_2026_orbits.csv", "w", newline="") as f:

@@ -81,7 +81,7 @@ EEM_URL = 'https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj', 'a_au',
-        'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 MJ_MSUN = 1 / 1047.57  # M_Jup / M_sun (IAU nominal masses: 1.8982e27 kg / 1.98847e30 kg)
 
 
@@ -570,8 +570,14 @@ def build_rows(cands, main, alias, flame, gast, sptm, absmag):
                 % (seq, o['o'], fm, src, o['Grade'] or 'none', mrow['Sp1'].strip() or 'none'))
         if flags:
             note += '; flags: ' + ', '.join(flags)
+        # SB9 publishes 1-sigma errors on P (e_Per, d), e (e_e) and K1 (e_K1, km/s -> m/s; K1 is used as K); 0 or blank
+        # means none. M2 sin i and a are computed here, not published, so e_msini_mj and e_a_au stay blank.
+        def sb9_err(col, scale=1):
+            v = fnum(o[col])
+            return fmt(v * scale, 6) if v else ''
         rows.append(dict(host=host, companion='%s (SB9 %s.%s)' % (host, seq, o['o']), P_d=fmt(P, 10),
-                         e_P_d=o['e_Per'], K_ms=fmt(K * 1000, 6), e=o['e'], omega_deg=o['omega'], Tp_bjd=o['T0'],
+                         e_P_d=o['e_Per'], K_ms=fmt(K * 1000, 6), e_K_ms=sb9_err('e_K1', 1000), e_e=sb9_err('e_e'),
+                         e=o['e'], omega_deg=o['omega'], Tp_bjd=o['T0'],
                          msini_mj=fmt(ms, 4), a_au=fmt(a_au(P, m1 + ms * MJ_MSUN), 4), mstar_msun=fmt(m1, 4),
                          fit_type='RV-only',
                          table_ref='SB9 (Pourbaix+2004; VizieR B/sb9, version 2024-04-22); orbit ref %s'

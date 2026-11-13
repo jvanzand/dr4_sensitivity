@@ -12,6 +12,9 @@ Tables used (labels in 15427.tex):
   tab:mass2sigma    (Table 7: Hipparcos-astrometry true masses)
   tab:target2sigma  (Table 8: spectroscopic elements of literature targets)
 Output: sahlmann_2011_orbits.csv
+Error columns (appended; published 1-sigma, asymmetric errors averaged, a published 0 -> blank):
+e_K_ms, e_e from Table 3 (Table 8 for the literature orbits); e_msini_mj, e_a_au from Table 4 (a_rel).
+Table 8 gives no M2 sin i error, so e_msini_mj is blank for those rows.
 """
 import argparse
 import csv
@@ -28,7 +31,8 @@ TEX = '15427.tex'
 OUT = 'sahlmann_2011_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 
 # ---------------------------------------------------------------- input handling
@@ -96,6 +100,11 @@ def parse_val(s):
     if m:
         return float(m.group(1)), None
     return None, None
+
+
+def pos(x):
+    """Published error -> keep only if > 0 (a published 0 is treated as no error)."""
+    return x if x else None
 
 
 def split_rows(body):
@@ -189,12 +198,12 @@ def main():
         if name in ('HD 4747', 'HD 211847') and fm != 'e':
             continue  # keep the best-fit solution only (d/f are the P range limits)
         P, eP = parse_val(r[3])
-        e, _ = parse_val(r[4])
-        K, _ = parse_val(r[5])
+        e, ee = parse_val(r[4])
+        K, eK = parse_val(r[5])
         T0, _ = parse_val(r[6])
         om, _ = parse_val(r[7])
-        a = parse_val(pr[10])[0] if pr else None
-        ms = parse_val(pr[11])[0] if pr else None
+        a, ea = parse_val(pr[10]) if pr else (None, None)
+        ms, ems = parse_val(pr[11]) if pr else (None, None)
         notes = []
         if name == 'HD 43848':
             # high-e values typed from Tables 3-4, rows HD 43848^h (Table 3) / HD 43848^g (Table 4)
@@ -217,6 +226,7 @@ def main():
         rows.append(dict(host=name, companion=name + ' b', P_d=P, e_P_d=eP, K_ms=K, e=e, omega_deg=om,
                          # T0 in Table 3 is BJD - 2400000 -> full BJD
                          Tp_bjd=(T0 + 2400000.0) if T0 is not None else None,
+                         e_K_ms=pos(eK), e_msini_mj=pos(ems), e_e=pos(ee), e_a_au=pos(ea),
                          msini_mj=ms, a_au=a, mstar_msun=mstar.get(name), fit_type='RV-only',
                          table_ref='arXiv:1009.5991 Tables 3-4 (stellar mass Table 2)',
                          notes='; '.join(notes)))
@@ -229,8 +239,8 @@ def main():
         nm = clean(r[0])
         host = norm_name(re.sub(r'c$', '', nm))  # 'HD 168443c' -> host HD 168443, companion c
         P, eP = parse_val(r[4])
-        e, _ = parse_val(r[5])
-        K, _ = parse_val(r[6])
+        e, ee = parse_val(r[5])
+        K, eK = parse_val(r[6])
         T0, _ = parse_val(r[7])
         om, _ = parse_val(r[8])
         ms = parse_val(r[3])[0]
@@ -241,7 +251,7 @@ def main():
         if mk:
             notes.append('Hipparcos-astrometry M2=%s +/- %.4g MJ (significance %s%%)' % (mk[0], mk[1], mk[2]))
         rows.append(dict(host=host, companion=host + (' c' if nm.endswith('c') else ' b'), P_d=P, e_P_d=eP,
-                         K_ms=K, e=e, omega_deg=om,
+                         K_ms=K, e=e, omega_deg=om, e_K_ms=pos(eK), e_e=pos(ee),
                          Tp_bjd=T0 + 2400000.0,  # T0 in Table 8 is BJD - 2400000 -> full BJD
                          msini_mj=ms, mstar_msun=parse_val(r[2])[0],
                          fit_type='RV-only', table_ref='arXiv:1009.5991 Table 8 (literature elements)',

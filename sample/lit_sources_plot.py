@@ -239,6 +239,6 @@ fig.suptitle(
     f'Example hosts in parentheses; NEA studies with < {MIN_COMPANIONS} companions and '
     'none recoverable are summed in "Other NEA studies"',
     y=0.99, fontsize=32)
-fig.savefig(os.path.join(HERE, 'lit_sources.png'), dpi=50, bbox_inches='tight')
+fig.savefig(os.path.join(HERE, 'lit_sources.png'), dpi=300, bbox_inches='tight')
 
 print(counts.sort_values(['family', 'n'], ascending=[True, False]).to_string(index=False))

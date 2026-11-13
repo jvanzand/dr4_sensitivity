@@ -1,0 +1,137 @@
+N_RV = 340, datasets = ['dace:CORAVEL:1979VA.....23..279B', 'dace:HARPS03:DRS-3.3.6-CCF_HARPS', 'dace:HARPS15:DRS-3.3.6-CCF_HARPS'], baseline span = 8645 d, period cap = 25936 d, blind-period floor = 51.0 d (2 x mean RV spacing of 25.5 d), 6 literature companions under priors
+  step 0: baseline (offsets and jitter only): dBIC = nan  ADOPTED  trend order 0  periods 
+  step 1: 6 literature companions under Gaussian priors: dBIC = 714.8  ADOPTED (forced)  trend order 0  periods 5.76, 16.35, 49.76, 122.74, 602.18, 2311.34
+  step 2: raise trend order 0 -> 1: dBIC = 26.4  ADOPTED  trend order 1  periods 5.76, 16.35, 49.76, 122.66, 607.14, 2326.41
+  (also tried: add companion, dBIC = -14.0)
+  (also tried: add companion and drop trend order 1 -> 0, dBIC = -17.0)
+  step 3: raise trend order 1 -> 2: dBIC = -4.3  rejected  trend order 2  periods 5.76, 16.35, 49.76, 122.65, 607.66, 2336.49
+  literature HD 10180 c: P 5.76 -> 5.759 d, dBIC for dropping it = 617.2
+  literature HD 10180 e: P 49.75 -> 49.76 d, dBIC for dropping it = 490.2
+  literature HD 10180 h: P 2205 -> 2326 d, dBIC for dropping it = 244.0
+  literature HD 10180 d: P 16.36 -> 16.35 d, dBIC for dropping it = 271.1
+  literature HD 10180 f: P 122.7 -> 122.7 d, dBIC for dropping it = 276.8
+  literature HD 10180 g: P 604.7 -> 607.1 d, dBIC for dropping it = 61.1
+{
+ "planets": [
+  {
+   "P_d": 5.7594060059492245,
+   "K_ms": 4.677297857586373,
+   "e": 0.0677640879841516,
+   "omega_deg": 326.3937690738514,
+   "baseline_over_P": 1501.0673774632899
+  },
+  {
+   "P_d": 16.35057397921285,
+   "K_ms": 2.7212064071842836,
+   "e": 0.09773022713687124,
+   "omega_deg": 286.85433883159163,
+   "baseline_over_P": 528.7433016166643
+  },
+  {
+   "P_d": 49.76045499173033,
+   "K_ms": 4.330991693890617,
+   "e": 0.05485260167733174,
+   "omega_deg": 169.97484290418782,
+   "baseline_over_P": 173.7374883435707
+  },
+  {
+   "P_d": 122.6636966211514,
+   "K_ms": 2.9619221798404665,
+   "e": 0.10323309082716814,
+   "omega_deg": 341.55496291788296,
+   "baseline_over_P": 70.47934072782367
+  },
+  {
+   "P_d": 607.1435987820573,
+   "K_ms": 1.7345320256202819,
+   "e": 0.26168517108131545,
+   "omega_deg": 332.79646582354826,
+   "baseline_over_P": 14.23922855554944
+  },
+  {
+   "P_d": 2326.413190300722,
+   "K_ms": 2.8541509498090156,
+   "e": 0.16809313978265128,
+   "omega_deg": 196.1850092490208,
+   "baseline_over_P": 3.716131126293606
+  }
+ ],
+ "trend_order": 1,
+ "slope_ms_per_d": 0.0005047419456683929,
+ "curvature_ms_per_d2": 0.0,
+ "jitter_ms": {
+  "dace:CORAVEL:1979VA.....23..279B": 1.9184862364696886,
+  "dace:HARPS03:DRS-3.3.6-CCF_HARPS": 1.341261997643817,
+  "dace:HARPS15:DRS-3.3.6-CCF_HARPS": 3.3044287338206177
+ },
+ "jitter_at_bound": [],
+ "literature_fit": [
+  {
+   "name": "HD 10180 c",
+   "P_lit": 5.75969,
+   "P_fit": 5.7594060059492245,
+   "K_lit": 4.545,
+   "K_fit": 4.677297857586373,
+   "e_lit": 0.073,
+   "e_fit": 0.0677640879841516,
+   "dBIC_drop": 617.2451529016344,
+   "supported": true
+  },
+  {
+   "name": "HD 10180 e",
+   "P_lit": 49.748,
+   "P_fit": 49.76045499173033,
+   "K_lit": 4.283,
+   "K_fit": 4.330991693890617,
+   "e_lit": 0.051,
+   "e_fit": 0.05485260167733174,
+   "dBIC_drop": 490.1944900189653,
+   "supported": true
+  },
+  {
+   "name": "HD 10180 h",
+   "P_lit": 2205.0,
+   "P_fit": 2326.413190300722,
+   "K_lit": 3.117,
+   "K_fit": 2.8541509498090156,
+   "e_lit": 0.095,
+   "e_fit": 0.16809313978265128,
+   "dBIC_drop": 243.98467644694915,
+   "supported": true
+  },
+  {
+   "name": "HD 10180 d",
+   "P_lit": 16.357,
+   "P_fit": 16.35057397921285,
+   "K_lit": 2.935,
+   "K_fit": 2.7212064071842836,
+   "e_lit": 0.131,
+   "e_fit": 0.09773022713687124,
+   "dBIC_drop": 271.08357361683125,
+   "supported": true
+  },
+  {
+   "name": "HD 10180 f",
+   "P_lit": 122.744,
+   "P_fit": 122.6636966211514,
+   "K_lit": 2.862,
+   "K_fit": 2.9619221798404665,
+   "e_lit": 0.119,
+   "e_fit": 0.10323309082716814,
+   "dBIC_drop": 276.7596104678971,
+   "supported": true
+  },
+  {
+   "name": "HD 10180 g",
+   "P_lit": 604.67,
+   "P_fit": 607.1435987820573,
+   "K_lit": 1.754,
+   "K_fit": 1.7345320256202819,
+   "e_lit": 0.263,
+   "e_fit": 0.26168517108131545,
+   "dBIC_drop": 61.12746491709322,
+   "supported": true
+  }
+ ]
+}
+steps written to /Users/judahvz/research/code/GitHub/gaia_dr4_rv_sensitivity/fits_rv/results/HD10180/companion_search.json

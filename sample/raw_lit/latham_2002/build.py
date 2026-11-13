@@ -36,6 +36,7 @@ for fn, kind in [('table4.dat', 'robust'), ('table5.dat', 'preliminary')]:
                  om=fnum(line[100:106]), t0=fnum(line[114:123]), et0=fnum(line[124:132]),
                  asini=fnum(line[133:141]), fm=fnum(line[152:163]), efm=fnum(line[164:172]),
                  nobs=line[173:176].strip(), MA=fnum(line[196:200]), MBmin=fnum(line[201:206]))
+        o['ee'] = fnum(line[93:99])  # e_e, published uncertainty on e
         o['ra'] = line[9:19].strip()
         o['dec'] = line[20:29].strip()
         orbits.append(o)
@@ -71,7 +72,7 @@ gaia = mf.gaia_query([o['res'].get('gaia_dr3') for o in orbits], 'gaia_dr3_query
 tic = mf.tic_query([o['res'].get('tic') for o in orbits], 'tic_v8_query.csv')
 
 cols = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp', 'tp_system', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_e']
 allrows, keep = [], []
 for o in orbits:
     r = o['res']
@@ -98,6 +99,9 @@ for o in orbits:
     notes += flags
     notes.append('Tp = HJD of periastron (VizieR t0 + 2400000); K and gamma on CfA native system; '
                  'Nobs=%s; SIMBAD %s (otype %s)' % (o['nobs'], r.get('main_id', 'unresolved'), r.get('otype', '')))
+    notes.append('e_K_ms, e_e: published uncertainties on K (km/s converted to m/s) and e (blank when 0); '
+                 'e_msini_mj and e_a_au are blank because M2 sin i and a here are solved from f(M) and the '
+                 'adopted M1, not published (paper gives only e_f(M), quoted above)')
     if not r:
         notes.append('SIMBAD/Sesame did not resolve %s' % cands[o['name']])
     row = dict(host=host, companion=host + ' B (Latham+2002 SB1)', P_d=o['P'], e_P_d=o['eP'],
@@ -105,7 +109,9 @@ for o in orbits:
                Tp=round(o['t0'] + 2400000, 3) if o['t0'] is not None else '',
                tp_system='HJD', msini_mj=round(ms * mf.MJ_PER_MSUN, 2) if ms else '',
                a_au=round(a, 4) if a else '', mstar_msun=round(m1, 3) if m1 else '', fit_type='RV-only',
-               table_ref='Latham+2002 AJ 124, 1144; VizieR J/AJ/124/1144 ' + tab, notes='; '.join(notes))
+               table_ref='Latham+2002 AJ 124, 1144; VizieR J/AJ/124/1144 ' + tab, notes='; '.join(notes),
+               e_K_ms=round(o['eK'] * 1000, 1) if o['eK'] else None,  # km/s -> m/s
+               e_e=o['ee'] if o['ee'] else None)
     allrows.append(row)
     if ms and ms * mf.MJ_PER_MSUN <= 80 and (a <= 5 or o['P'] <= 4000):
         keep.append(row)

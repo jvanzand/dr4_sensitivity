@@ -23,7 +23,7 @@ SOURCES = {'src_1111.1168.gz': 'https://arxiv.org/e-print/1111.1168'}
 ARCHIVES = {'src_1111.1168.gz': 'src_1111.1168'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -89,6 +89,12 @@ def err(cell):
     return ''
 
 
+def err_nz(cell):
+    """err() but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) != 0 else ''
+
+
 def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
 
@@ -133,6 +139,8 @@ NOTES_EXTRA = {  # from the paper's table footnotes and per-object discussion
     'HD137510': 'Fit combines SOPHIE with McDonald, TLS and Lick RVs (Endl+2004 discovery). Hipparcos constrains Mc to 0.019-0.057 Msun (99.7%); so a BD.',
     'HD16702': 'Hipparcos astrometric orbit: Mc = 0.35-0.45 Msun (99.7%): low-mass star, not BD.',
 }
+NOTE_ERR = (' e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma errors from Table 5; where the table gives '
+            'asymmetric errors, the two sides are averaged.')
 TABLE_REF = 'arXiv:1111.1168 Table 5 (Mstar Table 3)'
 SKIP = {'HD167215'}  # Mc sin i = 92 MJ
 
@@ -176,7 +184,9 @@ def main():
                          e=val(p[ke]), omega_deg=val(p[kw]),
                          Tp_bjd=add_offset(p[kT0], 2454000),  # T0 is given as BJD-2454000
                          msini_mj=val(p[kM]), a_au=val(p[ka]), mstar_msun=val(M[n]['$M_\\textrm{s}$']),
-                         fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE + NOTES_EXTRA.get(n, '')))
+                         fit_type='RV-only', table_ref=TABLE_REF, notes=NOTE + NOTES_EXTRA.get(n, '') + NOTE_ERR,
+                         e_K_ms=err_nz(p[kK]), e_msini_mj=err_nz(p[kM]), e_e=err_nz(p[ke]),
+                         e_a_au=err_nz(p[ka])))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

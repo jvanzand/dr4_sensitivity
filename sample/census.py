@@ -32,6 +32,13 @@ NEA_PS_FILE = os.path.join(RAW_DIR, 'nea_ps_rv.csv')
 GAIA_FILE = os.path.join(RAW_DIR, 'gaia_dr3_hosts.csv')
 GAIA_CONE_FILE = os.path.join(RAW_DIR, 'gaia_dr3_cone_no_id.csv')
 GAIA_FLAME_FILE = os.path.join(RAW_DIR, 'gaia_dr3_flame_mass.csv')
+## Error columns added 2026-11-06 (kept in separate files so the 2026-10-30 NEA snapshot
+## stays as it was): eccentricity, RV semi-amplitude, and stellar-mass errors per NEA
+## solution, the composite table's stellar-mass errors, and Gaia FLAME mass bounds
+NEA_PS_ERR_FILE = os.path.join(RAW_DIR, 'nea_ps_errors.csv')
+NEA_COMP_ERR_FILE = os.path.join(RAW_DIR, 'nea_pscomppars_st_mass_err.csv')
+FLAME_BOUNDS_FILE = os.path.join(RAW_DIR, 'gaia_dr3_flame_bounds.csv')
+STANDIN_FILE = os.path.join(HERE, 'st_mass_err_standin.csv')
 LIT_FILE = os.path.join(HERE, 'raw_lit', 'literature_companions.csv')
 REVIEW_FILE = os.path.join(HERE, 'raw_lit', 'review_planet_regime.csv')
 
@@ -84,6 +91,21 @@ PS_COLUMNS = ['pl_name', 'default_flag', 'pl_pubdate', 'pl_refname', 'soltype',
               'pl_msinijerr1', 'pl_msinijerr2', 'pl_bmassj', 'pl_bmassjerr1',
               'pl_bmassjerr2', 'pl_bmassprov', 'st_mass', 'pl_rvamp', 'pl_orblper',
               'pl_orbtper', 'pl_tsystemref']
+
+PS_ERR_KEY = ['pl_name', 'pl_refname', 'pl_pubdate', 'soltype']
+PS_ERR_COLUMNS = PS_ERR_KEY + ['pl_orbeccenerr1', 'pl_orbeccenerr2', 'pl_rvamperr1',
+                               'pl_rvamperr2', 'st_masserr1', 'st_masserr2']
+
+## Precision rule (decided 2026-10-27; missing errors pass, 2026-11-06): a companion is
+## "precisely characterized" if its orbit (P, or SMA when P has no error) and its mass
+## are measured at >= this many sigma. A missing or zero error never excludes a companion
+## ("innocent until proven guilty"); such companions are flagged instead.
+PRECISION_SIGMA = 3.0
+
+## Stellar-mass bins (M_sun) for the stand-in fractional error given to stars without
+## a published error
+STANDIN_BINS = [0, 0.6, 0.9, 1.2, 1.6, 3.0, np.inf]
+STANDIN_MIN_STARS = 10
 
 ## NEA time-reference labels for the epoch of periastron, mapped to the labels used for
 ## literature sources (see literature.py)
@@ -162,6 +184,34 @@ def query_gaia(ids):
     return pd.concat(rows), pd.concat(flame)
 
 
+ERR_SOURCES = {
+    os.path.basename(NEA_PS_ERR_FILE): f'{NEA_TAP}: ps, rv_flag = 1 (e, K, M_* errors)',
+    os.path.basename(NEA_COMP_ERR_FILE): f'{NEA_TAP}: pscomppars, rv_flag = 1 (M_* errors)',
+    os.path.basename(FLAME_BOUNDS_FILE): f'{GAIA_TAP}: gaiadr3.astrophysical_parameters '
+                                         '(mass_flame_lower, mass_flame_upper)',
+}
+
+
+def fetch_error_columns():
+    """Download the error columns of ERR_SOURCES for any that the cache lacks. The NEA
+    keys are matched to the cached solutions on planet, reference, date, and solution
+    type; rows the archive added since the snapshot are ignored."""
+    if not os.path.exists(NEA_PS_ERR_FILE):
+        tap_query(NEA_TAP, f"select {', '.join(PS_ERR_COLUMNS)} from ps "
+                           "where rv_flag = 1").to_csv(NEA_PS_ERR_FILE, index=False)
+    if not os.path.exists(NEA_COMP_ERR_FILE):
+        tap_query(NEA_TAP, 'select pl_name, st_masserr1, st_masserr2 from pscomppars '
+                           'where rv_flag = 1').to_csv(NEA_COMP_ERR_FILE, index=False)
+    if not os.path.exists(FLAME_BOUNDS_FILE):
+        ids = pd.read_csv(GAIA_FLAME_FILE, dtype={'source_id': str}).source_id.tolist()
+        chunks = [tap_query(GAIA_TAP, 'select source_id, mass_flame_lower, mass_flame_upper '
+                                      'from gaiadr3.astrophysical_parameters where source_id '
+                                      f"in ({', '.join(ids[i:i+200])})")
+                  for i in range(0, len(ids), 200)]
+        pd.concat(chunks).to_csv(FLAME_BOUNDS_FILE, index=False)
+    record_snapshot(RAW_DIR, {**RAW_SOURCES, **ERR_SOURCES})
+
+
 def add_missing_gaia():
     """For a cached rebuild: fetch Gaia rows only for literature hosts that the cached
     Gaia files lack (e.g., after adding a literature source), append them, and update
@@ -214,6 +264,10 @@ def download():
         cones.append(cone)
     pd.concat(cones).to_csv(GAIA_CONE_FILE, index=False)
     record_snapshot(RAW_DIR, RAW_SOURCES)
+    for f in (NEA_PS_ERR_FILE, NEA_COMP_ERR_FILE, FLAME_BOUNDS_FILE):
+        if os.path.exists(f):
+            os.remove(f)
+    fetch_error_columns()
 
 
 def match_by_position(comp):
@@ -261,6 +315,14 @@ def sigma_fov_gaiamock(G):
     return 1e3*np.interp(G, G_vals, sigma_ccd_mas)/np.sqrt(8)
 
 
+def sym_err(e1, e2):
+    """Symmetrized archive error: the mean absolute value of the two sides (one side
+    alone if the other is missing). Zero or missing errors (fixed or derived values)
+    become NaN."""
+    err = pd.concat([e1.abs(), e2.abs()], axis=1).mean(axis=1)
+    return err.where(err > 0)
+
+
 def solution_candidates(ps, comp):
     """Every usable solution for each planet, labeled with its fit type.
 
@@ -289,6 +351,14 @@ def solution_candidates(ps, comp):
     err = (cand.pl_orbpererr1.abs() + cand.pl_orbpererr2.abs())/2
     cand['period_err_d'] = err.where(err > 0)
     cand['frac_p_err'] = cand.period_err_d/cand.pl_orbper
+    ## Errors on the other quantities (symmetrized; zero or missing -> NaN)
+    cand['mass_err_pub'] = np.where(cand.pl_msinij.notna(),
+                                    sym_err(cand.pl_msinijerr1, cand.pl_msinijerr2),
+                                    sym_err(cand.pl_bmassjerr1, cand.pl_bmassjerr2))
+    cand['sma_err_pub'] = sym_err(cand.pl_orbsmaxerr1, cand.pl_orbsmaxerr2)
+    cand['ecc_err'] = sym_err(cand.pl_orbeccenerr1, cand.pl_orbeccenerr2)
+    cand['K_err'] = sym_err(cand.pl_rvamperr1, cand.pl_rvamperr2)
+    cand['st_mass_err_sol'] = sym_err(cand.st_masserr1, cand.st_masserr2)
     cand['ref'] = cand.pl_refname.str.extract(r'refstr=(\S+)', expand=False)
     return cand.merge(comp[['pl_name', 'hostname']], on='pl_name')
 
@@ -424,10 +494,122 @@ def tp_to_bjd_tdb(tp, system, ra, dec):
     return bjd, flag
 
 
+def add_errors(df):
+    """Uncertainties on stellar mass, SMA, and mass, and the 3-sigma precision flags.
+
+    Stellar mass: the error that goes with the mass actually used (the orbit source's, the
+    NEA composite's, or Gaia FLAME's half-interval). Stars without one get a stand-in
+    fractional error: the median among stars in the same mass bin that have a published
+    error (STANDIN_FILE records the medians). Stand-in errors are labeled as such.
+
+    SMA: the published error where the published SMA is kept; otherwise derived from the
+    period error and the stellar-mass error (a^3 ~ M P^2, so
+    sigma_a/a = sqrt((2 sigma_P/P)^2 + (sigma_M/M)^2)/3).
+
+    Mass: the published error; else, for an M sin i with a published K error, derived from
+    M sin i ~ K sqrt(1 - e^2) P^(1/3) M_*^(2/3), adding in quadrature the relative errors of
+    K, P (1/3 power), M_* (2/3 power), and e (e sigma_e/(1 - e^2)), each used where known
+    and treated as independent. Companions with neither get no mass error.
+
+    Precision (PRECISION_SIGMA): orbit sigma is P/sigma_P, else the published SMA over its
+    published error. A missing error counts as passing, and the companion is flagged
+    precision_unverified. Returns the table and the stand-in table."""
+    fb = (pd.read_csv(FLAME_BOUNDS_FILE, dtype={'source_id': str})
+          .drop_duplicates('source_id'))
+    fb['st_mass_err_flame'] = (fb.mass_flame_upper - fb.mass_flame_lower)/2
+    df = df.merge(fb[['source_id', 'st_mass_err_flame']], on='source_id', how='left')
+
+    ## Stellar mass
+    src = df.st_mass_source
+    published = pd.Series(np.select([src == 'orbit source', src == 'NEA composite',
+                                     src == 'Gaia FLAME'],
+                                    [df.st_mass_err_sol, df.st_mass_err_comp,
+                                     df.st_mass_err_flame], np.nan), index=df.index)
+    published = published.where(published > 0)
+    stars = (df.assign(frac=published/df.st_mass).dropna(subset=['frac'])
+             .drop_duplicates('hostname'))
+    overall = stars.frac.median()
+    idx = pd.cut(stars.st_mass, STANDIN_BINS, labels=False)
+    standin = pd.DataFrame({
+        'st_mass_lo': STANDIN_BINS[:-1], 'st_mass_hi': STANDIN_BINS[1:],
+        'n_stars': [int((idx == i).sum()) for i in range(len(STANDIN_BINS) - 1)],
+        'median_frac_err': [stars.frac[idx == i].median()
+                            if (idx == i).sum() >= STANDIN_MIN_STARS else overall
+                            for i in range(len(STANDIN_BINS) - 1)]})
+    standin['overall_median_frac_err'] = overall
+    row_bin = pd.cut(df.st_mass, STANDIN_BINS, labels=False)
+    frac = row_bin.map(standin.median_frac_err)
+    df['st_mass_err'] = published.fillna(frac*df.st_mass)
+    df['st_mass_err_source'] = np.select(
+        [published.notna(), df.st_mass_err.notna()],
+        [np.where(src == 'orbit source', 'published (orbit source)',
+                  np.where(src == 'NEA composite', 'published (NEA composite)',
+                           'Gaia FLAME bounds')), 'stand-in (median fractional error)'],
+        'none')
+
+    ## Period error: published, else from the published SMA error (sigma_P/P =
+    ## 1.5 sigma_a/a at fixed mass). period_err_d itself stays as published, since the
+    ## 2x period-precision rule that picks the NEA solutions uses it.
+    P, M, sM = df.period_d, df.st_mass, df.st_mass_err
+    pub_sma = (df.sma_source == 'published') & df.sma_err_pub.notna()
+    p_from_sma = 1.5*P*df.sma_err_pub/df.pl_orbsmax
+    sP = df.period_err_d.where(df.period_err_d.notna(), p_from_sma.where(pub_sma))
+    df['period_err_filled_d'] = sP
+    df['period_err_source'] = np.select(
+        [df.period_err_d.notna(), sP.notna()], ['published', 'derived from SMA error'], 'none')
+
+    ## SMA
+    derived_sma = df.sma_au*np.sqrt((2*sP/P)**2 + (sM/(M + df.mass_mj*MJUP_MSUN))**2)/3
+    df['sma_err_au'] = np.where(pub_sma, df.sma_err_pub, derived_sma)
+    df['sma_err_source'] = np.select(
+        [pub_sma, np.isfinite(derived_sma)], ['published', 'derived from P and M_*'], 'none')
+
+    ## Mass
+    K = df.K_ms
+    rel2 = ((df.K_err/K)**2 + (2/3*sM/M)**2 + ((sP/P)/3).fillna(0)**2
+            + (df.pl_orbeccen*df.ecc_err/(1 - df.pl_orbeccen**2)).fillna(0)**2)
+    ## An M sin i, or a transiting planet's mass (sin i ~ 1); not an RV+astrometry true
+    ## mass, whose inclination uncertainty K cannot supply
+    can_derive = (df.mass_err_pub.isna()
+                  & ((df.mass_type == 'M sin i') | (df.fit_type == 'transit+RV'))
+                  & (K > 0) & (df.K_err > 0) & sM.notna())
+    derived_mass = df.mass_mj*np.sqrt(rel2)
+    df['mass_err_mj'] = np.where(df.mass_err_pub.notna(), df.mass_err_pub,
+                                 np.where(can_derive, derived_mass, np.nan))
+    df['mass_err_source'] = np.select(
+        [df.mass_err_pub.notna(), can_derive],
+        ['published', 'derived from K (with P, e, M_* terms)'], 'none')
+    df['msini_err_from_K'] = df.mass_err_source.str.startswith('derived')
+
+    ## Precision
+    df['p_sigma'] = P/sP
+    df['orbit_sigma'] = df.p_sigma.where(df.p_sigma.notna(), df.pl_orbsmax/df.sma_err_pub)
+    df['mass_sigma'] = df.mass_mj/df.mass_err_mj
+    ## Errors that no route (published, derived from a related quantity, literature) could
+    ## supply. These are concerning: the paper gave neither the quantity's error nor a
+    ## related one's (K, M sin i, P, SMA).
+    df['missing_errors'] = np.select(
+        [df.orbit_sigma.isna() & df.mass_sigma.isna(), df.orbit_sigma.isna(),
+         df.mass_sigma.isna()], ['orbit and mass', 'orbit', 'mass'], '')
+    df['orbit_precise'] = df.orbit_sigma.isna() | (df.orbit_sigma >= PRECISION_SIGMA)
+    df['mass_precise'] = df.mass_sigma.isna() | (df.mass_sigma >= PRECISION_SIGMA)
+    df['precise'] = df.orbit_precise & df.mass_precise
+    df['precision_unverified'] = df.precise & (df.orbit_sigma.isna() | df.mass_sigma.isna())
+    return df, standin
+
+
 def build_census():
     comp = pd.read_csv(NEA_COMP_FILE)
     ps = pd.read_csv(NEA_PS_FILE)
     gaia = pd.read_csv(GAIA_FILE, dtype={'source_id': str})
+    ## Error columns (fetch_error_columns): matched to the cached solutions by key
+    n_ps = len(ps)
+    ps = ps.merge(pd.read_csv(NEA_PS_ERR_FILE).drop_duplicates(PS_ERR_KEY),
+                  on=PS_ERR_KEY, how='left')
+    assert len(ps) == n_ps
+    cerr = pd.read_csv(NEA_COMP_ERR_FILE).drop_duplicates('pl_name')
+    comp = comp.merge(cerr.assign(st_mass_err_comp=sym_err(cerr.st_masserr1, cerr.st_masserr2))
+                      [['pl_name', 'st_mass_err_comp']], on='pl_name', how='left')
 
     sol = pick_solution(ps, comp)
     sol = sol.rename(columns={'st_mass': 'st_mass_sol', 'pl_rvamp': 'K_ms',
@@ -438,7 +620,8 @@ def build_census():
                'solution_rule', 'step1_ref', 'step1_period_d', 'step1_period_err_d',
                'pl_refname', 'pl_pubdate', 'pl_orbper', 'period_err_d',
                'pl_orbsmax', 'pl_orbeccen', 'K_ms', 'omega_deg', 'tp_raw', 'tp_system',
-               'st_mass_sol']]
+               'st_mass_sol', 'mass_err_pub', 'sma_err_pub', 'ecc_err', 'K_err',
+               'st_mass_err_sol']]
     df = comp.merge(sol, on='pl_name', how='left')
     df['pl_refname'] = df.pl_refname.str.extract(r'refstr=(\S+)', expand=False)
 
@@ -500,6 +683,9 @@ def build_census():
          f'Kepler (published SMA off by > {SMA_KEPLER_TOL:.0%})'], 'published')
     df['sma_au'] = np.where(df.sma_source == 'published', df.pl_orbsmax, kepler_sma)
     df['p_over_T'] = df.period_d/365.25/T_BASELINE_YR
+    df['period_err_d'] = df.period_err_d.where(df.period_err_d > 0)
+    df, standin = add_errors(df)
+    standin.to_csv(STANDIN_FILE, index=False)
 
     ## Periastron times in a common system, BJD_TDB
     df['Tp_bjd_tdb'], df['tp_flag'] = tp_to_bjd_tdb(
@@ -539,7 +725,13 @@ def build_census():
                 'dist_source', 'G', 'abs_G',
                 'G_source', 'gaia_match', 'source_id', 'ruwe', 'non_single_star', 'sy_gaiamag',
                 'sy_vmag', 'parallax', 'sy_plx', 'alpha_min_uas', 'sigma_fov_uas', 'snr',
-                'snr_lw', 'recoverable']
+                'snr_lw', 'recoverable',
+                ## Added 2026-11-06: errors, how each was obtained, and precision flags
+                'period_err_filled_d', 'period_err_source', 'missing_errors',
+                'st_mass_err', 'st_mass_err_source', 'sma_err_au', 'sma_err_source',
+                'mass_err_mj', 'mass_err_source', 'msini_err_from_K', 'p_sigma',
+                'orbit_sigma', 'mass_sigma', 'orbit_precise', 'mass_precise', 'precise',
+                'precision_unverified']
     sample = sample[out_cols].sort_values('snr', ascending=False)
     ## Full precision, since periods and periastron times need more than a few digits
     sample.to_csv(os.path.join(HERE, 'census_table.csv'), index=False)
@@ -583,6 +775,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.cached:
+        fetch_error_columns()
         add_missing_gaia()
     else:
         download()

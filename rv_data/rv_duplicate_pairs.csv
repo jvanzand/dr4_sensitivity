@@ -1,4 +1,22 @@
 target,dataset,kept_dataset,n_pairs,n_rejected,fraction_of_dataset,evidence,offset_ms,scatter_ms,expected_ms,max_abs_dt_s,max_candidates,flags
+70 Vir,dace:ELODIE:2004A&A...414..351N,dace:ELODIE:TACOS,35,0,1.0,E2 time,-0.89,7.65,9.95,0.0,1,
+70 Vir,dace:HAMILTON:2006ApJ...646..505B,dace:HAMILTON:2014ApJS..210....5F,60,0,0.81,E2 time,-95.58,3.77,5.9,893.4,3,
+70 Vir,dace:HAMILTON:2006ApJ...646..505B,dace:HAMILTON:2021ApJS..255....8R,1,0,0.01,E2 time,-22.26,0.0,6.74,18.1,1,fewer than 3 pairs: unvalidated
+70 Vir,dace:HAMILTON:2021ApJS..255....8R,dace:HAMILTON:2014ApJS..210....5F,168,0,0.99,E2 time,-66.9,4.36,5.88,0.9,3,small remainder (1 RVs; offset to dace:HAMILTON:2014ApJS..210....5F -66.9 m/s)
+70 Vir,dace:HIRES:2017arXiv1702.03571,dace:HIRES-POST04:2021ApJS..255....8R,67,0,1.0,E2 time,36.23,2.94,1.83,892.5,4,
+HD 160691,dace:HARPS:2007A&A...462..769P,dace:HARPS03:DRS-3.3.6-CCF_HARPS,86,0,1.0,E2 time,-13.06,1.99,1.0,169.2,18,
+HD 160691,dace:UCLES:2001ApJ...555..410B,dace:UCLES:2002MNRAS.337.1170J,1,0,1.0,E2 time,6.9,0.0,7.85,60.5,1,fewer than 3 pairs: unvalidated
+HD 160691,dace:UCLES:2002MNRAS.337.1170J,dace:UCLES:2006ApJ...646..505B,1,0,0.5,E2 time,-34165.4,0.0,2200.0,48.4,1,fewer than 3 pairs: unvalidated; small remainder (1 RVs; offset to dace:UCLES:2006ApJ...646..505B -34165.4 m/s)
+HD 160691,dace:UCLES:2004ApJ...617..575M,dace:UCLES:2006ApJ...646..505B,43,0,0.96,E2 time,-9797.2,24142.81,2600.0,65.7,1,scatter > 3x expected: review; small remainder (2 RVs; offset to dace:UCLES:2006ApJ...646..505B -9797.2 m/s)
+HD 168443,dace:HIRES-POST04:2021ApJS..255....8R,dace:HIRES:2017arXiv1702.03571,31,0,0.69,E2 time,112.47,2.22,2.23,491.6,1,
+HD 168443,dace:HIRES-PRE04:2021ApJS..255....8R,dace:HIRES:2009ApJ...693.1084W,1,0,0.01,E2 time,88.88,0.0,1.68,0.0,1,fewer than 3 pairs: unvalidated; small remainder (2 RVs; offset to dace:HIRES:2009ApJ...693.1084W 88.9 m/s)
+HD 168443,dace:HIRES-PRE04:2021ApJS..255....8R,dace:HIRES:2017arXiv1702.03571,108,2,0.99,E2 time,112.84,3.4,1.84,0.0,2,small remainder (2 RVs; offset to dace:HIRES:2017arXiv1702.03571 112.8 m/s)
+HD 168443,dace:HIRES:1999ApJ...520..239M,dace:HIRES:2017arXiv1702.03571,2,0,1.0,E2 time,24.99,2.79,6.17,220.3,2,fewer than 3 pairs: unvalidated
+HD 168443,dace:HIRES:2001ApJ...555..418M,dace:HIRES:2009ApJ...693.1084W,1,0,0.02,E2 time,-24.27,0.0,2.86,2.6,1,fewer than 3 pairs: unvalidated
+HD 168443,dace:HIRES:2001ApJ...555..418M,dace:HIRES:2017arXiv1702.03571,59,0,0.98,E2 time,-3.24,4.33,2.94,200.4,2,
+HD 168443,dace:HIRES:2006ApJ...646..505B,dace:HIRES:2017arXiv1702.03571,7,0,1.0,E2 time,51.99,2.55,2.26,197.9,2,
+HD 168443,dace:HIRES:2009ApJ...693.1084W,dace:HIRES:2017arXiv1702.03571,111,2,0.99,E2 time,23.6,3.31,1.85,172.8,2,small remainder (3 RVs; offset to dace:HIRES:2017arXiv1702.03571 23.6 m/s)
+HD 39091,dace:UCLES:2002MNRAS.333..871J,dace:UCLES:2006ApJ...646..505B,28,0,1.0,E2 time,-107.8,5.86,7.83,109.7,1,
 HD 43691,dace:ELODIE:2007A&A...473..323D,dace:ELODIE:TACOS,22,0,1.0,E2 time,-3.95,12.08,20.73,0.0,1,
 HD 43691,dace:HIRES:2017arXiv1702.03571,hires_j,14,0,0.78,E2 time,27.47,3.07,2.35,522.7,1,
 HD 43691,dace:HIRES:2017arXiv1702.03571,hires_k,4,0,0.22,E2 time,31.13,4.64,3.23,512.6,1,

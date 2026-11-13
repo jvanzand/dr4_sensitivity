@@ -195,7 +195,7 @@ ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
 ax.set_ylabel('Number of hosts or companions', fontsize=32)
 ax.set_title('Provenance of host and companion parameters in the census '
              f'({len(census)} companions around {len(hosts)} hosts)', pad=16, fontsize=36)
-fig.savefig(os.path.join(HERE, 'provenance.png'), dpi=100, bbox_inches='tight')
+fig.savefig(os.path.join(HERE, 'provenance.png'), dpi=300, bbox_inches='tight')
 
 for label, values, order in bars:
     print(label.replace('\n', ' '), values.value_counts().to_dict())

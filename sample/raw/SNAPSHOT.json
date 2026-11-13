@@ -28,5 +28,23 @@
     "retrieved_utc": "2026-10-26T17:17:03+00:00",
     "lines": 1154,
     "sha256": "34227e71a47e8de0a74577327b94069b45ee001e1931d16cebfdc0ad2ff8c111"
+  },
+  "nea_ps_errors.csv": {
+    "source": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync: ps, rv_flag = 1 (e, K, M_* errors)",
+    "retrieved_utc": "2026-11-06T19:58:32+00:00",
+    "lines": 10494,
+    "sha256": "87b11ea5412a223112a2d5f2e0fd3f50c094e0c1d919c1622060a047d24d5e72"
+  },
+  "nea_pscomppars_st_mass_err.csv": {
+    "source": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync: pscomppars, rv_flag = 1 (M_* errors)",
+    "retrieved_utc": "2026-11-06T19:58:32+00:00",
+    "lines": 2548,
+    "sha256": "14f45c3b92f665e4ec8c0948447d02eeb812898a65c0ea36044a9ee3bf8a35ab"
+  },
+  "gaia_dr3_flame_bounds.csv": {
+    "source": "https://gea.esac.esa.int/tap-server/tap/sync: gaiadr3.astrophysical_parameters (mass_flame_lower, mass_flame_upper)",
+    "retrieved_utc": "2026-11-06T19:58:32+00:00",
+    "lines": 1583,
+    "sha256": "df41f87c67ad55d608b8f4bf0e8a1f0565ed0de85f64c8f3b068fb998ce72357"
   }
 }

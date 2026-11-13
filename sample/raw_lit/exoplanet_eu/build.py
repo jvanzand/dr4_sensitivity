@@ -7,6 +7,10 @@ OEC oec_continuity job converts http://exoplanet.eu/catalog/csv/ to OEC XML ever
   ../oec/systems-exoplaneteu.xml.gz
       https://github.com/OpenExoplanetCatalogue/oec_gzip/raw/master/systems-exoplaneteu.xml.gz
       (downloaded 2026-10-24; a fresh download is a newer snapshot and will change the table)
+Uncertainties: the mirror carries errorminus/errorplus on period, eccentricity, semi-major axis and mass (no K, so
+no e_K_ms). e_P_d is the larger side (original rule); new columns e_msini_mj (on the same "mass" as msini_mj),
+e_e and e_a_au are the mean of the two sides; blank when a side is missing or 0. These are exoplanet.eu's
+compiled values, taken from the paper cited there.
 The mirror keeps P, e, omega, a, i, mass, star mass, discovery method and alternate names. It drops K, Tp,
 mass_detection_type and the separate M sin i column. Its "mass" is exoplanet.eu's true mass when one exists, else
 M sin i; msini_mj is that "mass", and the notes say "inclination X deg listed" when an inclination is given
@@ -54,7 +58,7 @@ TABLE_REF = ('exoplanet.eu via OpenExoplanetCatalogue/oec_gzip systems-exoplanet
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj', 'a_au',
-        'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 MJ_MSUN = 1 / 1047.57  # M_Jup / M_sun (IAU nominal masses: 1.8982e27 kg / 1.98847e30 kg)
 
 
@@ -432,13 +436,21 @@ def build_rows(cands, nea):
     for p in nea:
         nk |= nea_row_keys(p)
 
-    def err(el):  # symmetric error = larger of the two one-sided errors
+    def err(el):  # symmetric error = larger of the two one-sided errors (the original e_P_d column)
         if el is None:
             return ''
         a, b = fnum(el.get('errorminus')), fnum(el.get('errorplus'))
         if a is None or b is None:
             return ''
         return fmt(max(a, b), 4)
+
+    def err_avg(el):  # new e_* columns: mean of the two one-sided errors; blank if either is missing or 0
+        if el is None:
+            return ''
+        a, b = fnum(el.get('errorminus')), fnum(el.get('errorplus'))
+        if a is None or b is None or a <= 0 or b <= 0:
+            return ''
+        return fmt((a + b) / 2, 4)
 
     rows = []
     for pl, star, snames, sysnames in cands:
@@ -465,8 +477,11 @@ def build_rows(cands, nea):
                  'alt names: %s' % '; '.join(pnames[1:5]) if len(pnames) > 1 else '',
                  'no K or Tp in this mirror (fetch from exoplanet.eu or the discovery paper)',
                  'fit_type not given by exoplanet.eu; RV-only assumed']
+        # e_P_d: original rule (larger side); where that is blank (a side missing or 0), the mean-of-sides rule
         rows.append(dict(host=snames[0] if snames else sysnames[0], companion=pnames[0], P_d=fmt(P, 10),
-                         e_P_d=err(pl.find('period')), K_ms='', e=fmt(fnum(pl.findtext('eccentricity')), 6),
+                         e_P_d=err(pl.find('period')) or err_avg(pl.find('period')),
+                         e_msini_mj=err_avg(pl.find('mass')), e_e=err_avg(pl.find('eccentricity')),
+                         e_a_au=err_avg(pl.find('semimajoraxis')), K_ms='', e=fmt(fnum(pl.findtext('eccentricity')), 6),
                          omega_deg=fmt(fnum(pl.findtext('periastron')), 6), Tp_bjd='', msini_mj=fmt(m, 6),
                          a_au=fmt(a, 6), mstar_msun=fmt(fnum(star.findtext('mass')), 4), fit_type='RV-only',
                          table_ref=TABLE_REF, notes='; '.join(n for n in notes if n)))

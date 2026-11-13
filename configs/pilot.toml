@@ -1,0 +1,54 @@
+# Run configuration for fits_rv/run_fit.jl. Every setting that a run depends on lives here;
+# `--test` overrides the sampler section with a few-minute run (see run_fit.jl).
+# Decisions dated 2026-11-06 (PLAN.md, Step 3).
+
+[priors]
+# Period (days), log-uniform. The floor for the companions the literature reports is below
+# the census minimum (0.07 d) so hot companions are modeled; extra companions are searched
+# down to 1 d (companion_search.py).
+period_min_known_d = 0.05
+period_max_yr = 200.0
+# Mass ratio q = M_p / M_*, log-uniform (the G23H default)
+q_min = 1e-5
+q_max = 1.0
+e_max = 0.99
+# Per-dataset RV white-noise jitter (m/s), log-uniform. Watch it in every fit: a ballooned
+# jitter often masks a poor match to the data. The offset is marginalized analytically.
+jitter_min = 0.1
+jitter_max = 30.0
+# A jitter posterior median above this multiple of the dataset's median formal error, or
+# pressed against jitter_max, is flagged
+jitter_flag_factor = 3.0
+
+[astrometry]
+# "none" (RVs only) or "g23h" (RVs + Hipparcos IAD, HGCA, Gaia DR2/DR3 via G23H;
+# local copy in data/g23h/, downloaded 2026-11-06 with the user's go-ahead)
+mode = "none"
+freeze_epochs = true
+# Local G23H tables (git-ignored; ~14.5 GB + ~0.3 GB from CANFAR, DOI 10.11570/26.0002 and
+# 26.0016), relative to the project root
+g23h_catalog = "data/g23h/G23H-v1.0.feather"
+g23h_dr2_transits = "data/g23h/G23H-v1.0.dr2_matched_observations.feather"
+
+[sampler]
+# NUTS (Octofitter's `octofit`); Pigeons only if needed (PLAN.md, Step 4 notes)
+adaptation = 1000
+iterations = 1000
+n_chains = 4
+target_accept = 0.8
+max_depth = 12
+seed = 1
+# After a failed convergence check, rerun with doubled iterations, up to this many times
+max_escalations = 2
+
+[convergence]
+# Checked after every fit (Gelman-Rubin and effective sample size as in RadVel's checks;
+# a dynamic early-stopping loop is a later option)
+rhat_max = 1.01
+ess_bulk_min = 400
+ess_tail_min = 400
+# Effective independent draws per chain (the analogue of RadVel's autocorrelation-time factor)
+indep_per_chain_min = 40
+max_divergent_frac = 0.01
+max_treedepth_frac = 0.1
+ebfmi_min = 0.3

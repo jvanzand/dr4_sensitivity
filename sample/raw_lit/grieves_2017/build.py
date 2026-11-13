@@ -5,6 +5,8 @@ Inputs: src_1702.01784.gz (arXiv LaTeX source), unpacked into src_1702.01784/.
   - Orbits: table tab:compar ("Table 2", two stacked tabulars: M sin i, P, e, K; then a, Tp, omega, gamma,
     dv/dt, fit rms, chi2) in grieves2017_arxiv.tex.
   - Host masses: table tab:starpar ("Table 1") in grieves2017_arxiv.tex.
+Error columns (appended; published 1-sigma from the same Table 2 cell as the value, a published 0 -> blank):
+e_K_ms, e_msini_mj (M sin i in M_Jup as printed), e_e, e_a_au. All Table 2 errors are symmetric (+/-).
 MARVELS-14b (100.2 MJ) and MARVELS-15b (97.6 MJ) are excluded (M sin i > 85 MJ).
 (arxiv_1702.01784.src and arxiv_src/ in this directory are an identical earlier download of the same e-print;
 they are not used.)
@@ -26,7 +28,8 @@ SOURCES = {'src_1702.01784.gz': 'https://arxiv.org/e-print/1702.01784'}
 ARCHIVES = {'src_1702.01784.gz': 'src_1702.01784'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes',
+        'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -90,6 +93,12 @@ def err(cell):
     if m:
         return '%.6g' % ((abs(float(m.group(1))) + abs(float(m.group(2)))) / 2)
     return ''
+
+
+def perr(cell):
+    """err(), but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) > 0 else ''
 
 
 def cells(line):
@@ -173,7 +182,8 @@ def main():
                          omega_deg=val(w),
                          Tp_bjd=add_offset(Tp, 2450000),  # Tp is given as JD-2450000
                          msini_mj=val(msini), a_au=val(a), mstar_msun=ms[star], fit_type='RV-only',
-                         table_ref=TABLE_REF, notes=note + NOTE_END))
+                         table_ref=TABLE_REF, notes=note + NOTE_END,
+                         e_K_ms=perr(K), e_msini_mj=perr(msini), e_e=perr(ecc), e_a_au=perr(a)))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

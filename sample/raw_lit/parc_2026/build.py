@@ -27,7 +27,8 @@ TEX = 'aa62811-26.tex'
 OUT = 'parc_2026_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 # The table gives omega in radians (converted to degrees below) and the mean anomaly M0 at an epoch
 # the text does not state, so Tp is left blank (M0 is quoted in notes). M* is only in the online table.
@@ -174,11 +175,11 @@ def main():
             col = 1 + k
             P, eP = parse_val(t['$P_c$'][col])
             M0, _ = parse_val(t['$M_{0,c}$'][col])
-            K, _ = parse_val(t['$K_c$'][col])
-            e, _ = parse_val(t['$e_c$'][col])
+            K, eK = parse_val(t['$K_c$'][col])
+            e, ee = parse_val(t['$e_c$'][col])
             om, _ = parse_val(t['$\\omega_c$'][col])
-            ms, _ = parse_val(t['$M_c\\sin i_c$'][col])
-            a, _ = parse_val(t['$a_c$'][col])
+            ms, ems = parse_val(t['$M_c\\sin i_c$'][col])
+            a, ea = parse_val(t['$a_c$'][col])
             if ms < 5:
                 continue
             n = ([OUT_A] if a > 5 else []) + [
@@ -190,9 +191,11 @@ def main():
                 alt = [parse_val(r[1])[0] for r in tab_rows('tab:wasp34') if r[0].strip().startswith('$M\\sin i$')]
                 n.append('paper table tab:wasp34 gives alternative models (1 Kep + trend or 2 Kep) with Msini %s or '
                          '%s MJ; 1-Keplerian row listed here' % (alt[1], alt[2]))
+            n.append('e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published asymmetric 1-sigma (posterior) errors, '
+                     'upper and lower sides averaged')
             rows.append(dict(host=host, companion=host + ' c', P_d=P,
                              e_P_d=eP,  # asymmetric errors averaged
-                             K_ms=K, e=e,
+                             K_ms=K, e=e, e_K_ms=eK, e_msini_mj=ems, e_e=ee, e_a_au=ea,
                              omega_deg=round(math.degrees(om), 2),  # rad -> deg
                              msini_mj=ms, a_au=a, fit_type='RV-only', table_ref=TABLE_REF, notes='; '.join(n)))
     write_csv(rows)

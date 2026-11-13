@@ -11,6 +11,10 @@ Tables used (labels in main_full.tex):
   tab:rvonlyMCMC          (Table 3: RV-only MCMC; -> fit_type RV-only rows)
   tab:jointMCMC           (Table 4: joint Gaia DR3 + RV MCMC; -> fit_type RV+astrometry rows)
 Output: unger_2023_orbits.csv
+Error columns (appended; published 1-sigma, asymmetric errors averaged): e_P_d, e_K_ms, e_msini_mj, e_e,
+e_a_au, all from the same table row as the value (Table 3 for RV-only rows, Table 4 for joint rows;
+in Table 4 the msini error is that of the RV-only Msini column and e_a_au is the error on a_r, the
+relative semi-major axis, which is the a_au value stored).
 """
 import argparse
 import csv
@@ -27,7 +31,10 @@ TEX = 'main_full.tex'
 OUT = 'unger_2023_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
+# Optional published 1-sigma errors (columns appended after the original ones); blank = not published.
+# Asymmetric errors are averaged (parse_val); no error is estimated or propagated here.
 
 # Tp in Tables 3 and 4 is relative to the Gaia DR3 epoch 2016.0 = BJD 2457389.0 (stated in the
 # Table 4 note, main_full.tex line ~1826). Table 3 states no epoch; the same reference was assumed
@@ -180,13 +187,13 @@ def main():
         if len(r) < 8:
             continue
         h = uname(r[0])
-        K, _ = parse_val(r[1])
+        K, eK = parse_val(r[1])
         P, eP = parse_val(r[2])
-        a, _ = parse_val(r[3])
+        a, ea = parse_val(r[3])
         Tp, _ = parse_val(r[4])
-        e, _ = parse_val(r[5])
+        e, ee = parse_val(r[5])
         om, _ = parse_val(r[6])
-        ms, _ = parse_val(r[7])
+        ms, ems = parse_val(r[7])
         rv[h] = ms
         notes = []
         if ms is not None and ms < 5:
@@ -201,6 +208,7 @@ def main():
         rows.append(dict(host=h, companion=h + ' b', P_d=P, e_P_d=eP, K_ms=K, e=e, omega_deg=om,
                          Tp_bjd=Tp + REF if Tp is not None else None,  # relative Tp -> full BJD
                          msini_mj=ms, a_au=a,
+                         e_K_ms=eK, e_msini_mj=ems, e_e=ee, e_a_au=ea,
                          mstar_msun=mstar.get(h, mstar.get(h + 'A')), fit_type='RV-only',
                          table_ref='arXiv:2310.02758 Table 3 (RV-only MCMC); mstar Table 1',
                          notes='; '.join(notes)))
@@ -215,13 +223,13 @@ def main():
             continue
         h = uname(r[0])
         M1 = parse_val(r[2])[0]
-        ms = parse_val(r[3])[0]
+        ms, ems = parse_val(r[3])
         M2, eM2 = parse_val(r[4])
-        K, _ = parse_val(r[5])
-        a, _ = parse_val(r[6])
+        K, eK = parse_val(r[5])
+        a, ea = parse_val(r[6])
         P, eP = parse_val(r[7])
         Tp, _ = parse_val(r[8])
-        e, _ = parse_val(r[9])
+        e, ee = parse_val(r[9])
         om, _ = parse_val(r[10])
         Om, _ = parse_val(r[11])
         inc, _ = parse_val(r[12])
@@ -236,6 +244,7 @@ def main():
         rows.append(dict(host=host, companion=host + ' b', P_d=P, e_P_d=eP, K_ms=K, e=e, omega_deg=om,
                          Tp_bjd=Tp + REF if Tp is not None else None,  # relative Tp -> full BJD
                          msini_mj=ms, a_au=a, mstar_msun=M1,
+                         e_K_ms=eK, e_msini_mj=ems, e_e=ee, e_a_au=ea,
                          fit_type='RV+astrometry', table_ref='arXiv:2310.02758 Table 4 (joint Gaia DR3+RV MCMC)',
                          notes='; '.join(notes)))
     write_csv(rows)

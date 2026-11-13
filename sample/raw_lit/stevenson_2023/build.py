@@ -48,7 +48,7 @@ TABLE_REF = ('Stevenson et al. 2023 (MNRAS, accepted 2023; arXiv:2310.02695) BD 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj', 'a_au',
-        'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 MJ_MSUN = 1 / 1047.57  # M_Jup / M_sun (IAU nominal masses: 1.8982e27 kg / 1.98847e30 kg)
 
 
@@ -363,6 +363,15 @@ def finalize(rows, cache, nea, lit, alt, drop_nea_lt13=False):
 # ------------------------------------------------------------------------------- end of shared helpers ----
 
 
+def err_avg(r, col):
+    """Mean of the catalogue's p_<col> and m_<col> uncertainties; '' unless both are present and > 0 (the
+    catalogue uses 0 for 'no error' and 1000/0 as an unconstrained placeholder)."""
+    a, b = fnum(r.get('p_' + col)), fnum(r.get('m_' + col))
+    if a is None or b is None or a <= 0 or b <= 0:
+        return ''
+    return fmt((a + b) / 2, 5)
+
+
 def build_rows(src):
     rows = []
     for r in src:
@@ -382,7 +391,12 @@ def build_rows(src):
                 'no msini given; true mass only' if (ms is None and meth != 'transit') else '',
                 'source DOI: %s' % r['source'], 'catalog host name: %s' % r['host_star'],
                 'no K, omega, Tp or a in this catalogue', 'mstar from catalogue']
-        rows.append(dict(host=host, companion=host + ' (BD)', P_d=r['period'], e_P_d=r['p_period'], e=r['ecc'],
+        # e_P_d: catalogue p_period as before; where blank, the mean of p_ and m_ (new columns: means of p_ and m_,
+        # blank if either is missing or 0). e_msini_mj is on the msini_mj value: p/m_msini, or p/m_mass when
+        # msini_mj was filled from the transit true mass. No K or a errors exist in the catalogue.
+        e_ms = err_avg(r, 'msini') if ms is not None else (err_avg(r, 'mass') if meth == 'transit' else '')
+        rows.append(dict(host=host, companion=host + ' (BD)', P_d=r['period'], e_P_d=r['p_period'] or err_avg(r, 'period'),
+                         e=r['ecc'], e_msini_mj=e_ms, e_e=err_avg(r, 'ecc'),
                          msini_mj=fmt(msini_out, 5) if msini_out is not None else '', mstar_msun=r['Mstar'],
                          fit_type='RV-only' if meth in ('rv', 'transit') else 'RV+astrometry',
                          table_ref=TABLE_REF, notes='; '.join(x for x in note if x)))

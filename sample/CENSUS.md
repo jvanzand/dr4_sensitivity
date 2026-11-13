@@ -174,6 +174,29 @@ and Gaia-5 b were discovered by Gaia astrometry.
 - 105 are brown dwarfs, 49 of them at 50-80 M_J.
 - Distances: 10th, 50th, and 90th percentiles are 17, 49, and 138 pc.
 
+## Error columns and precision flags (added 2026-11-06)
+
+`census_table.csv` ends with columns that record each companion's uncertainties and how
+they were obtained. All of them are derived, so they never change which companions are in
+the census. Every place the table is shown should say which values are derived.
+
+| Column | Meaning |
+|---|---|
+| `period_err_d` | Period error as published (the NEA's or the literature source's). `period_err_filled_d` and `period_err_source` add one derived from the published SMA error where the period has none. |
+| `st_mass_err`, `st_mass_err_source` | Stellar-mass error and where it came from: published (orbit source or NEA composite), Gaia FLAME bounds, or a **stand-in** fractional error (the median among stars of similar mass that have one, from `st_mass_err_standin.csv`). |
+| `sma_err_au`, `sma_err_source` | SMA error: published, or **derived from P and M_\***. |
+| `mass_err_mj`, `mass_err_source`, `msini_err_from_K` | Mass (or M sin i) error: published (the NEA's, or the source paper's), or **derived from K** (with P, e, and M_* terms) where only a K error exists; `msini_err_from_K` marks those. |
+| `p_sigma`, `orbit_sigma`, `mass_sigma` | P/σ_P; the orbit measure used (P, else the published SMA over its error); mass/σ_mass. |
+| `orbit_precise`, `mass_precise`, `precise` | At >= 3σ. **A missing or zero error passes** ("innocent until proven guilty"). |
+| `precision_unverified`, `missing_errors` | Passed only because an error is missing; and which error (orbit, mass, or both) no route could supply (listed in `missing_errors.csv`). |
+
+Counts (2026-11-06, after the source papers' errors went in): 2435 of 2667 companions are
+`precise`, 105 of them unverified. Mass errors: 2449 published, 152 derived from K, 66
+missing. SMA errors: 2105 published, 455 derived, 107 missing. Period errors: 2535
+published, 25 derived from the SMA error, 107 missing. 149 companions lack an orbit or
+mass error that no route could supply (`missing_errors.csv`). Systems selected for the
+study (stage 1, stage 2, resonance flag): `catalog.py` and PLAN.md, Step 1b.
+
 ## Why some "easy" companions aren't recoverable
 
 246 companions have P ≤ 5.5 yr and α_min above the best-case threshold (69 µas, for

@@ -6,6 +6,8 @@ Run:  python -I build.py [--download] [--refresh]   (from anywhere; paths are re
 Raw input:
   src/RAA-2022-0418.tex   arXiv LaTeX source (https://arxiv.org/e-print/2303.12409, member RAA-2022-0418.tex);
       table "Posteriors of RV Companions" (labels Tab:orbparas ... Tabcc, two parts). (src/*.bbl is not read.)
+Uncertainties: every posterior cell prints +/- (16th/84th percentile) errors. e_P_d keeps the original rule (larger
+side); new columns e_msini_mj (on the tabulated M sin i), e_e and e_a_au are the mean of the two sides; no K error.
 Columns used: Mp [MJ], i [deg], a [AU], e, P [yr], omega [deg], Tp [JD-2450000], M sin i [MJ]; no K is tabulated.
 
 Selection: M sin i <= 80 MJ and (P <= 4000 d or a <= 5 AU). P is converted from years (x 365.25), Tp by adding
@@ -44,7 +46,7 @@ OUT = 'xiao_2023_orbits.csv'
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj', 'a_au',
-        'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 MJ_MSUN = 1 / 1047.57  # M_Jup / M_sun (IAU nominal masses: 1.8982e27 kg / 1.98847e30 kg)
 
 
@@ -371,6 +373,14 @@ def v(s):
     return val, err
 
 
+def err_mean(s):
+    """Mean of the two printed sides of a '{x}_{-lo}^{+hi}' cell; '' unless both are > 0."""
+    m = re.search(r'_\{?-?([0-9.]+)\}?\^\{?\+?([0-9.]+)\}?', s)
+    if not m or float(m.group(1)) <= 0 or float(m.group(2)) <= 0:
+        return ''
+    return fmt((float(m.group(1)) + float(m.group(2))) / 2, 4)
+
+
 def build_rows():
     with open(here('src/RAA-2022-0418.tex'), encoding='utf-8') as fh:
         tex = fh.read()
@@ -400,7 +410,8 @@ def build_rows():
         rows.append(dict(
             host=host, companion=name, P_d=fmt(P, 6), e_P_d=fmt(ePyr * 365.25, 3) if ePyr else '', e=fmt(e, 4),
             omega_deg=fmt(om, 5), Tp_bjd=fmt(Tp + 2450000, 9) if Tp is not None else '', msini_mj=fmt(msini, 4),
-            a_au=fmt(a, 4), fit_type='RV+astrometry',
+            a_au=fmt(a, 4), fit_type='RV+astrometry', e_msini_mj=err_mean(c[11]), e_e=err_mean(c[5]),
+            e_a_au=err_mean(c[4]),
             table_ref='Xiao et al. 2023, RAA (accepted; arXiv:2303.12409), Table "Posteriors of RV Companions" '
                       '(LaTeX source)',
             notes='orvara joint fit of literature RVs + HGCA (Hipparcos-Gaia EDR3); true mass Mp=%s MJ, i=%s or %s '

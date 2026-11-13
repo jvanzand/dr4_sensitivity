@@ -9,6 +9,9 @@ Inputs (in this directory):
 Table used: deluxetable tab:catalog (Table 1, \\startdata ... \\enddata) and its \\tablerefs
 (reference numbers -> citation keys). Columns: Object, Mc, Mc sin i, Period, e, M*, Teff, log g,
 [Fe/H], References. No K, omega or Tp. All rows are kept (compilation; a pointer list).
+Uncertainties: the table prints +/- errors on Mc sin i, Period and e (asymmetric ones are averaged; a printed
+0.000 or a missing error is blank). e_msini_mj is the error on the Mc sin i cell (the msini_mj value; for HD 30501 that
+cell is the Hipparcos true mass, see below), e_e the error on e. No errors on K or a (not tabulated).
 Output: ma_ge_2014_orbits.csv
 """
 import argparse
@@ -26,7 +29,7 @@ TEX = 'twopopulation_Feb18.tex'
 OUT = 'ma_ge_2014_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes", "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 # Hand-written host-name normalizations (paper spelling -> SIMBAD-style name)
 HOST_FIX = {'11Com': '11 Com', 'BD+202457': 'BD+20 2457', 'TYC 3130-160': 'TYC 3130-160-1',
@@ -177,9 +180,9 @@ def main():
             continue
         nm = clean(r[0]).replace('$-$', '-').strip()
         Mc, _ = parse_val(r[1])
-        ms, _ = parse_val(r[2])
+        ms, e_ms = parse_val(r[2])
         P, eP = parse_val(r[3])
-        e, _ = parse_val(r[4])
+        e, e_e = parse_val(r[4])
         Ms, _ = parse_val(r[5])
         rr = [x.strip() for x in clean(r[9]).split(',') if x.strip()]
         m = re.match(r'^(.*?)(\s?[bc])$', nm)  # 'KOI-423b' / 'HD 38529 c' -> host + letter
@@ -205,7 +208,7 @@ def main():
             n.append('e fixed in source')
         rows.append(dict(host=host, companion=comp, P_d=P,
                          e_P_d=eP,  # asymmetric errors averaged
-                         e=e, msini_mj=ms, mstar_msun=Ms, fit_type='RV-only',
+                         e=e, msini_mj=ms, e_msini_mj=e_ms if e_ms else None, e_e=e_e if e_e else None, mstar_msun=Ms, fit_type='RV-only',
                          table_ref='arXiv:1303.6442 Table 1 (compilation)', notes='; '.join(n)))
     write_csv(rows)
 

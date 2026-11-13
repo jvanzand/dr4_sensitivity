@@ -28,7 +28,7 @@ SOURCES = {'src_0906.1804.gz': 'https://arxiv.org/e-print/0906.1804',
 ARCHIVES = {'src_0906.1804.gz': 'src_0906.1804', 'src_2101.10410.gz': 'src_2101.10410'}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes', 'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -96,6 +96,12 @@ def err(cell):
 
 def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
+
+
+def err_nz(cell):
+    """err() but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) != 0 else ''
 
 
 def add_offset(cell, off):
@@ -174,6 +180,8 @@ NOTES = {
     'BD+02 3313 b': 'HET/HRS + TNG/HARPS-N RVs (29 epochs). msini > 30 MJ so not in NASA Exoplanet Archive scope.',
     'TYC 434-4538-1 b': 'Massive planet (6.1 MJ); likely in NASA Exoplanet Archive.',
 }
+NOTE_ERR = (' e_P_d, e_K_ms, e_msini_mj, e_e, e_a_au: published 1-sigma errors from the orbit table; asymmetric '
+            'errors averaged; blank where none is printed (Niedzielski+2009 gives no error on M sin i or a).')
 KEEP21 = ['HD 4760', 'BD+02 3313', 'TYC 434-4538-1']
 
 
@@ -182,7 +190,9 @@ def orbit(host, comp, col, rows, mstar, ref):
     return dict(host=host, companion=comp, P_d=val(c(r'^\$?P\$?[~ ]')), e_P_d=err(c(r'^\$?P\$?[~ ]')), K_ms=val(c(r'^\$?K')),
                 e=val(c(r'^\$?e\$?$')), omega_deg=val(c(r'omega')), Tp_bjd=mjd_to_jd(c(r'T_0')),
                 msini_mj=val(c(r'm_2\\sin')), a_au=val(c(r'^\$a\$')), mstar_msun=mstar, fit_type='RV-only',
-                table_ref=ref, notes=NOTES['%s %s' % (host, comp)] + T0NOTE)
+                table_ref=ref, notes=NOTES['%s %s' % (host, comp)] + T0NOTE + NOTE_ERR,
+                e_K_ms=err_nz(c(r'^\$?K')), e_msini_mj=err_nz(c(r'm_2\\sin')), e_e=err_nz(c(r'^\$?e\$?$')),
+                e_a_au=err_nz(c(r'^\$a\$')))
 
 
 def main():

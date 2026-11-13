@@ -17,6 +17,12 @@ The first transcription typed these values by hand; they are now parsed from the
 Unit conversions: K in km/s -> m/s (Fleming+2010, Fleming+2012, Ma+2013); omega in radians -> degrees
 (Fleming+2010, Ma+2013, De Lee+2013, Ma+2016); De Lee+2013 Tp from BJD_TDB-2450000 to full BJD_TDB.
 Tp is left blank where the paper gives only a time of conjunction (Fleming+2010, Fleming+2012).
+Error columns (appended; published 1-sigma errors printed next to the values above; asymmetric errors averaged;
+a published 0 -> blank): e_K_ms (km/s errors x1000 like K, Fleming+2010/2012, Ma+2013), e_msini_mj, e_e, e_a_au
+(only where a_au is given: Ma+2013, Ma+2016). Two msini errors are not in an orbit table: Fleming+2012 (+/-3.0 MJ
+from the Sect. 4.2 equation that gives M_2,min = 68.1 +/- 3.0 MJ) and Jiang+2013 (+/-2.9 MJ, abstract and Sect. 3:
+M_min = 65.0 +/- 2.9 MJ for sin i = 1; Table 4 prints 65.0 without an error). Jiang+2013 and De Lee+2013 give no
+a_au, so e_a_au stays blank there. e_P_d is unchanged. No error is estimated or propagated.
 """
 import csv
 import gzip
@@ -44,7 +50,8 @@ SOURCES = {
 ARCHIVES = {fn: fn[:-3] for fn in SOURCES}
 
 COLS = ['host', 'companion', 'P_d', 'e_P_d', 'K_ms', 'e', 'omega_deg', 'Tp_bjd', 'msini_mj',
-        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes']
+        'a_au', 'mstar_msun', 'fit_type', 'table_ref', 'notes',
+        'e_K_ms', 'e_msini_mj', 'e_e', 'e_a_au']
 
 
 # ---------------------------------------------------------------- inputs
@@ -110,6 +117,12 @@ def err(cell):
     return ''
 
 
+def perr(cell):
+    """err(), but a published error of 0 becomes blank."""
+    e = err(cell)
+    return e if e and float(e) > 0 else ''
+
+
 def cells(line):
     return [c.strip() for c in line.split('\\\\')[0].split('&')]
 
@@ -171,6 +184,14 @@ def kms_to_ms(cell):
     return '%.*f' % (max(nd - 3, 0), Decimal(v) * 1000)
 
 
+def kms_err_to_ms(e):
+    """Error in km/s (printed string) -> m/s (x1000), keeping the printed precision; blank stays blank."""
+    if not e or float(e) <= 0:
+        return ''
+    nd = len(e.split('.')[1]) if '.' in e else 0
+    return '%.*f' % (max(nd - 3, 0), Decimal(e) * 1000)
+
+
 def rad_to_deg(cell):
     """omega in radians -> degrees, rounded to 0.1 deg."""
     return '%.1f' % math.degrees(float(val(cell)))
@@ -209,6 +230,9 @@ NOTES = {
 }
 
 
+JIANG_MSINI_ERR = '2.9'  # Jiang+2013: "M_min = 65.0 +/- 2.9 M_Jup" (abstract, Sect. 3); not in Table 4
+
+
 def row(host, comp, key, **kw):
     r = dict(host=host, companion=comp, P_d='', e_P_d='', K_ms='', e='', omega_deg='', Tp_bjd='', msini_mj='',
              a_au='', mstar_msun='', fit_type='RV-only', table_ref=REF[key[:3]], notes=NOTES[key])
@@ -229,7 +253,10 @@ def main():
                     K_ms=kms_to_ms(get(t, 'K (km')[1]),            # km/s -> m/s
                     e=get(t, '$e$')[1],
                     omega_deg=rad_to_deg(get(t, '$\\omega$ (rad)')[1]),  # rad -> deg
-                    msini_mj=get(t, '$m_{\\rm{min}}')[1], mstar_msun=get(st, '$M_{primary}$')[1]))
+                    msini_mj=get(t, '$m_{\\rm{min}}')[1], mstar_msun=get(st, '$M_{primary}$')[1],
+                    e_K_ms=kms_err_to_ms(get(t, 'K (km')[2]),
+                    e_msini_mj=get(t, '$m_{\\rm{min}}')[2],  # plain-number uncertainty column (3.0)
+                    e_e=perr(get(t, '$e$')[2])))     # '$^{+0.0019} _{-0.0017}$' -> mean
 
     # Fleming+2012: columns Parameter, median, sigma(low), sigma(high). omega has no unit (degrees).
     L = read('src_1206.5514', 'tyc2930.tex')
@@ -237,11 +264,15 @@ def main():
     st = table(L, 'stellarprops')
     P = get(t, '$P$')
     # M2,min appears only in the Sect. 4.2 equation "M_{2,\rm min}= 68.1 \pm 3.0 ~ \rm{M_{Jup}} = ..." (eqn:m2min).
-    msini = re.search(r'M_\{2,\\rm min\}=\s*(' + NUM + ')', '\n'.join(L)).group(1)
+    mm = re.search(r'M_\{2,\\rm min\}=\s*(' + NUM + r')\s*\\pm\s*(' + NUM + ')', '\n'.join(L))
+    msini, e_msini = mm.group(1), mm.group(2)
     rows.append(row('TYC 2930-872-1', 'b', 'f12', P_d=P[1], e_P_d=lo_hi_err(P[2], P[3]),
                     K_ms=kms_to_ms(get(t, '$K$')[1]),              # km/s -> m/s
                     e=get(t, '$e$')[1], omega_deg=get(t, '$\\omega$')[1], msini_mj=msini,
-                    mstar_msun=get(st, '$M_{*}$')[1]))
+                    mstar_msun=get(st, '$M_{*}$')[1],
+                    e_K_ms=kms_err_to_ms(lo_hi_err(get(t, '$K$')[2], get(t, '$K$')[3])),
+                    e_msini_mj=e_msini if float(e_msini) > 0 else '',
+                    e_e=lo_hi_err(get(t, '$e$')[2], get(t, '$e$')[3])))
 
     # Ma+2013: columns Parameter, MARVELS+TNG (used), MARVELS. Tp is full HJD_UTC.
     L = read('src_1211.6140', 'MC12_arxiv.tex')
@@ -253,7 +284,9 @@ def main():
                     e=val(get(t, '$e$')[1]),
                     omega_deg=rad_to_deg(get(t, '$w$')[1]),         # rad -> deg
                     Tp_bjd=val(get(t, '$T_{\\rm periastron}')[1]), msini_mj=val(get(t, 'Minimum Mass')[1]),
-                    a_au=val(get(t, '$a$')[1]), mstar_msun=val(get(st, 'Mass')[1])))
+                    a_au=val(get(t, '$a$')[1]), mstar_msun=val(get(st, 'Mass')[1]),
+                    e_K_ms=kms_err_to_ms(err(get(t, '$K$')[1])), e_msini_mj=perr(get(t, 'Minimum Mass')[1]),
+                    e_e=perr(get(t, '$e$')[1]), e_a_au=perr(get(t, '$a$')[1])))
 
     # Jiang+2013: columns Parameter, Units, Value. Tp is full HJD; omega in degrees.
     L = read('src_1307.3308', 'ms.tex')
@@ -264,7 +297,9 @@ def main():
     rows.append(row('HIP 67526', 'b', 'j13', P_d=val(P), e_P_d=err(P), K_ms=val(get(t, '$K$')[2]),
                     e=val(get(t, '$e$')[2]), omega_deg=val(get(t, '$\\omega$')[2]),
                     Tp_bjd=val(get(t, '$T_0$')[2]), msini_mj=val(get(mt, 'None')[1]),
-                    mstar_msun=val(get(st, '$M_{\\star}$')[1])))
+                    mstar_msun=val(get(st, '$M_{\\star}$')[1]),
+                    e_K_ms=perr(get(t, '$K$')[2]), e_e=perr(get(t, '$e$')[2]),
+                    e_msini_mj=JIANG_MSINI_ERR))   # +/-2.9 from abstract/Sect. 3 text (Table 4 has none)
 
     # De Lee+2013: columns Parameter, Units, Value. Tp in BJD_TDB-2450000; omega in radians.
     L = read('src_1304.2815', 'ms.tex')
@@ -275,7 +310,9 @@ def main():
                     e=val(get(t, '$e$')[2]),
                     omega_deg=rad_to_deg(get(t, '$\\omega$')[2]),   # rad -> deg
                     Tp_bjd=add_offset(get(t, '$T_P$')[2], 2450000),  # BJD_TDB - 2450000 -> BJD_TDB
-                    msini_mj=val(get(t, '$M_b')[2]), mstar_msun=val(get(st, 'M$_{*}$')[1])))
+                    msini_mj=val(get(t, '$M_b')[2]), mstar_msun=val(get(st, 'M$_{*}$')[1]),
+                    e_K_ms=perr(get(t, '$K$')[2]), e_msini_mj=perr(get(t, '$M_b')[2]),
+                    e_e=perr(get(t, '$e$')[2])))
 
     # Ma+2016: columns Parameter, HD 87646 b, HD 87646 c. Tp is full JD_UTC; omega in radians.
     L = read('src_1608.03597', 'tyc1415_201608_aj.tex')
@@ -287,7 +324,9 @@ def main():
                         e=val(get(t, '$e$')[k]),
                         omega_deg=rad_to_deg(get(t, '$\\omega$ (radians)')[k]),  # rad -> deg
                         Tp_bjd=val(get(t, '$T_{\\rm periastron}')[k]), msini_mj=val(get(t, 'Minimum Mass')[k]),
-                        a_au=val(get(t, '$a$')[k]), mstar_msun=val(get(st, 'Mass')[1])))
+                        a_au=val(get(t, '$a$')[k]), mstar_msun=val(get(st, 'Mass')[1]),
+                        e_K_ms=perr(get(t, '$K$')[k]), e_msini_mj=perr(get(t, 'Minimum Mass')[k]),
+                        e_e=perr(get(t, '$e$')[k]), e_a_au=perr(get(t, '$a$')[k])))
 
     with open(OUT, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLS)

@@ -1,0 +1,60 @@
+N_RV = 349, datasets = ['apf', 'hires_j'], baseline span = 1892 d, period cap = 5675 d, blind-period floor = 10.9 d (2 x mean RV spacing of 5.4 d), 2 literature companions under priors
+  step 0: baseline (offsets and jitter only): dBIC = nan  ADOPTED  trend order 0  periods 
+  step 1: 2 literature companions under Gaussian priors: dBIC = 5928.8  ADOPTED (forced)  trend order 0  periods 7.07, 552.21
+  step 2: raise trend order 0 -> 1: dBIC = 1188.1  ADOPTED  trend order 1  periods 7.08, 571.10
+  (also tried: add companion and drop trend order 1 -> 0, dBIC = -259.9)
+  (also tried: raise trend order 1 -> 2, dBIC = -4.5)
+  step 3: add companion: dBIC = 14.5  rejected  trend order 1  periods 7.08, 57.14, 570.99
+  literature TOI-1736 c: P 571.2 -> 571.1 d, dBIC for dropping it = 6943.3
+  literature TOI-1736 b: P 7.073 -> 7.077 d, dBIC for dropping it = 44.6
+{
+ "planets": [
+  {
+   "P_d": 7.076764686596971,
+   "K_ms": 4.084628775722233,
+   "e": 0.17051264433718363,
+   "omega_deg": 358.4809427482966,
+   "baseline_over_P": 267.30462139036894
+  },
+  {
+   "P_d": 571.097085202356,
+   "K_ms": 197.90601036202122,
+   "e": 0.36988894566254643,
+   "omega_deg": 162.10448756462617,
+   "baseline_over_P": 3.312312309472338
+  }
+ ],
+ "trend_order": 1,
+ "slope_ms_per_d": -0.17885844064991946,
+ "curvature_ms_per_d2": 0.0,
+ "jitter_ms": {
+  "apf": 6.302715490461558,
+  "hires_j": 4.051362906631938
+ },
+ "jitter_at_bound": [],
+ "literature_fit": [
+  {
+   "name": "TOI-1736 c",
+   "P_lit": 571.25,
+   "P_fit": 571.097085202356,
+   "K_lit": 197.55,
+   "K_fit": 197.90601036202122,
+   "e_lit": 0.3685,
+   "e_fit": 0.36988894566254643,
+   "dBIC_drop": 6943.274915373997,
+   "supported": true
+  },
+  {
+   "name": "TOI-1736 b",
+   "P_lit": 7.073088,
+   "P_fit": 7.076764686596971,
+   "K_lit": 4.1,
+   "K_fit": 4.084628775722233,
+   "e_lit": 0.21,
+   "e_fit": 0.17051264433718363,
+   "dBIC_drop": 44.64688758054854,
+   "supported": true
+  }
+ ]
+}
+steps written to /Users/judahvz/research/code/GitHub/gaia_dr4_rv_sensitivity/fits_rv/results/TOI1736/companion_search.json

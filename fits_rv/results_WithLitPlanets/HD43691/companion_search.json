@@ -1,0 +1,232 @@
+{
+ "rv_table": "rv_data/systems/959971546241608576_HD43691.csv",
+ "system_id": "959971546241608576",
+ "display_name": "HD43691",
+ "n_known": 1,
+ "literature_priors": [
+  {
+   "name": "HD 43691 b",
+   "P0": 36.9987,
+   "K0": 130.06,
+   "e0": 0.0796,
+   "omega0": 5.108578720587403,
+   "lnP": [
+    3.610882776891836,
+    0.01
+   ],
+   "lnK": [
+    4.867995882441006,
+    0.13333333333333336
+   ],
+   "e": [
+    0.0796,
+    0.1
+   ],
+   "notes": {
+    "P": "error published",
+    "e": "published",
+    "K": "published",
+    "K_width": "mass-error proxy"
+   }
+  }
+ ],
+ "final": {
+  "planets": [
+   {
+    "P_d": 36.998587568891196,
+    "K_ms": 130.56989205736843,
+    "e": 0.08176219454098939,
+    "omega_deg": 285.5798633013038,
+    "baseline_over_P": 164.4695762031155
+   }
+  ],
+  "trend_order": 0,
+  "slope_ms_per_d": 0.0,
+  "curvature_ms_per_d2": 0.0,
+  "jitter_ms": {
+   "dace:ELODIE:TACOS": 15.771787593878852,
+   "dace:SOPHIE:HR_DRS-3.1": 12.69268154318577,
+   "dace:SOPHIE:HR_DRS-3.1b": 12.912427405732368,
+   "hires_j": 5.450076928168912,
+   "hires_k": 7.48631620975326
+  },
+  "jitter_at_bound": [],
+  "literature_fit": [
+   {
+    "name": "HD 43691 b",
+    "P_lit": 36.9987,
+    "P_fit": 36.998587568891196,
+    "K_lit": 130.06,
+    "K_fit": 130.56989205736843,
+    "e_lit": 0.0796,
+    "e_fit": 0.08176219454098939,
+    "dBIC_drop": 877.1680795724307,
+    "supported": true
+   }
+  ]
+ },
+ "seconds": 13.77620792388916,
+ "steps": [
+  {
+   "step": 0,
+   "action": "baseline (offsets and jitter only)",
+   "n_planets": 0,
+   "trend_order": 0,
+   "lnL": -787.3686515282059,
+   "BIC": 1619.5106712011939,
+   "dBIC": NaN,
+   "adopted": true,
+   "forced": false,
+   "theta": [
+    3.4011973816621555,
+    3.4011973816621555,
+    3.4011973816621555,
+    3.4011973816621555,
+    3.4011973816621555
+   ],
+   "tref": 2456057.5725147226,
+   "span": 6085.142017569393,
+   "n_rv": 88,
+   "datasets": [
+    "dace:ELODIE:TACOS",
+    "dace:SOPHIE:HR_DRS-3.1",
+    "dace:SOPHIE:HR_DRS-3.1b",
+    "hires_j",
+    "hires_k"
+   ],
+   "planets": [],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:ELODIE:TACOS": 30.000000000000004,
+    "dace:SOPHIE:HR_DRS-3.1": 30.000000000000004,
+    "dace:SOPHIE:HR_DRS-3.1b": 30.000000000000004,
+    "hires_j": 30.000000000000004,
+    "hires_k": 30.000000000000004
+   },
+   "jitter_at_bound": [
+    "dace:ELODIE:TACOS",
+    "dace:SOPHIE:HR_DRS-3.1",
+    "dace:SOPHIE:HR_DRS-3.1b",
+    "hires_j",
+    "hires_k"
+   ]
+  },
+  {
+   "step": 1,
+   "action": "1 literature companions under Gaussian priors",
+   "n_planets": 1,
+   "trend_order": 0,
+   "lnL": -337.59126970579507,
+   "BIC": 742.3425916287632,
+   "dBIC": 877.1680795724307,
+   "adopted": true,
+   "forced": true,
+   "theta": [
+    3.6108797381018345,
+    4.871908654716446,
+    0.07679837656846926,
+    -0.27543457280711325,
+    2.265413850839342,
+    2.7582227486332207,
+    2.541025570922923,
+    2.558190212415035,
+    1.6956297238358842,
+    2.0130768487388595
+   ],
+   "tref": 2456057.5725147226,
+   "span": 6085.142017569393,
+   "n_rv": 88,
+   "datasets": [
+    "dace:ELODIE:TACOS",
+    "dace:SOPHIE:HR_DRS-3.1",
+    "dace:SOPHIE:HR_DRS-3.1b",
+    "hires_j",
+    "hires_k"
+   ],
+   "planets": [
+    {
+     "P_d": 36.998587568891196,
+     "K_ms": 130.56989205736843,
+     "e": 0.08176219454098939,
+     "omega_deg": 285.5798633013038,
+     "baseline_over_P": 164.4695762031155
+    }
+   ],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:ELODIE:TACOS": 15.771787593878852,
+    "dace:SOPHIE:HR_DRS-3.1": 12.69268154318577,
+    "dace:SOPHIE:HR_DRS-3.1b": 12.912427405732368,
+    "hires_j": 5.450076928168912,
+    "hires_k": 7.48631620975326
+   },
+   "jitter_at_bound": []
+  },
+  {
+   "step": 2,
+   "action": "add companion",
+   "n_planets": 2,
+   "trend_order": 0,
+   "lnL": -322.7907483761411,
+   "BIC": 735.1282330418463,
+   "dBIC": 7.214358586916887,
+   "adopted": false,
+   "forced": false,
+   "theta": [
+    3.6109381390728723,
+    4.860644364704402,
+    0.09010234417678127,
+    -0.2755638953120607,
+    2.2297630809795494,
+    5.4936376855800475,
+    2.261320435932252,
+    -0.16078681849833104,
+    0.928462068648259,
+    -3.117344532955717,
+    2.7225584170864,
+    2.42055764304341,
+    2.6139041166481793,
+    1.1167204254206375,
+    1.8316140383568449
+   ],
+   "tref": 2456057.5725147226,
+   "span": 6085.142017569393,
+   "n_rv": 88,
+   "datasets": [
+    "dace:ELODIE:TACOS",
+    "dace:SOPHIE:HR_DRS-3.1",
+    "dace:SOPHIE:HR_DRS-3.1b",
+    "hires_j",
+    "hires_k"
+   ],
+   "planets": [
+    {
+     "P_d": 37.00074838542853,
+     "K_ms": 129.1073675407873,
+     "e": 0.08405389282570751,
+     "omega_deg": 288.1064205601901,
+     "baseline_over_P": 164.4599713006296
+    },
+    {
+     "P_d": 243.14006721664572,
+     "K_ms": 9.595751380023065,
+     "e": 0.8878942139214197,
+     "omega_deg": 99.8247804570767,
+     "baseline_over_P": 25.02731074820068
+    }
+   ],
+   "slope_ms_per_d": 0.0,
+   "curvature_ms_per_d2": 0.0,
+   "jitter_ms": {
+    "dace:ELODIE:TACOS": 15.219209564542478,
+    "dace:SOPHIE:HR_DRS-3.1": 11.252132238959641,
+    "dace:SOPHIE:HR_DRS-3.1b": 13.65224690689469,
+    "hires_j": 3.054819249542378,
+    "hires_k": 6.2439565150850695
+   },
+   "jitter_at_bound": []
+  }
+ ]
+}

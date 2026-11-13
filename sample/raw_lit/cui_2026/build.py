@@ -8,6 +8,9 @@ Writes cui_2026_all.csv     (all 55 rows, with an in_range flag)
 The table gives true mass m (MJ), q, e, a (au), P (yr), inclination I (deg) and Omega (deg)
 from joint RV + Hipparcos-Gaia fits (posteriors of Feng et al. 2022). No K, omega or Tp.
 M sin i is computed here as m * sin(I).
+Uncertainties: the table prints +/- errors on m, e, a and P (all averaged over the two sides; 0 or '0.00' -> blank).
+e_msini_mj = mean(+/- error on m) * sin(I), i.e. the printed true-mass error converted the same way as the mass
+(the inclination error is not folded in); e_e, e_a_au are the printed errors on e and a. No K error (no K).
 """
 import csv
 import math
@@ -19,7 +22,8 @@ TEX = HERE / "src_2603.01808" / "BDdesert.tex"
 DAYS_PER_YR = 365.25
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp", "tp_system",
-        "msini_mj", "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "msini_mj", "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 NUM = r"[-+]?\d+(?:\.\d+)?(?:E[-+]?\d+)?"
 
@@ -55,14 +59,17 @@ def main():
         assert len(cells) == 10, line
         host = host_name(cells[0])
         m, mp, mm = parse_cell(cells[3])
-        e, _, _ = parse_cell(cells[5])
-        a, _, _ = parse_cell(cells[6])
+        e, ep, em = parse_cell(cells[5])
+        a, ap_, am = parse_cell(cells[6])
         p_yr, pp, pm = parse_cell(cells[7])
         inc, _, _ = parse_cell(cells[8])
         msini = m * math.sin(math.radians(inc))
         p_d = p_yr * DAYS_PER_YR
         # The table rounds P errors to 0.01 yr; a printed 0.00 means < 0.005 yr, not zero.
         e_p_d = 0.5 * (pp + pm) * DAYS_PER_YR if (pp + pm) > 0 else None
+        def mean_err(x, y):
+            return f"{0.5 * (x + y):.4g}" if x > 0 and y > 0 else ""
+        e_msini = (mean_err(mp, mm) and f"{0.5 * (mp + mm) * math.sin(math.radians(inc)):.4g}")
         in_range = (msini <= 80.0) and (a <= 5.0 or p_d <= 4000.0)
         notes = (
             f"Cui+2026 Table S-catalog (tab:sample): true mass m={m:g} (+{mp:g}/-{mm:g}) MJ, "
@@ -89,6 +96,7 @@ def main():
             "msini_mj": f"{msini:.2f}",
             "a_au": f"{a:g}",
             "mstar_msun": "",
+            "e_K_ms": "", "e_msini_mj": e_msini, "e_e": mean_err(ep, em), "e_a_au": mean_err(ap_, am),
             "fit_type": "RV+astrometry",
             "table_ref": "arXiv:2603.01808 SI Table 'Catalog of companions' (tab:sample)",
             "notes": notes,

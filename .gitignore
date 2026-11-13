@@ -15,3 +15,12 @@ sample/raw_lit/**/src_*.tar
 sample/raw_lit/**/arxiv_src/
 sample/raw_lit/**/*.src
 sample/raw_lit/**/src/
+
+# Fit outputs (chains are large; keep only on the machine that ran them)
+fits_rv/results/
+
+# Compiled Kepler solver (built on first use by fits_rv/kepler_c.py)
+fits_rv/_build/
+
+# Large external catalogs (G23H, ~14.8 GB); downloaded by hand, never committed
+/data/

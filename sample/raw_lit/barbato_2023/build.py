@@ -9,6 +9,9 @@ Inputs (in this directory):
   arxiv_src/) is kept for reference only: its Table 2 is truncated, so nothing is parsed from it.
 Selection: every table2 record with RV-only M sin i <= 80 MJ (29 of 221). The rows use the RV-only
 columns; the RV+PMa (orvara) solution goes in `notes`.
+Error columns (appended): published RV-only 1-sigma errors from table2.dat, upper (E_*) and lower (e_*)
+errors averaged, a printed error of 0 -> blank: e_K_ms (E_Krv, e_Krv; km/s -> m/s), e_msini_mj (E_Msini,
+e_Msini; M_Jup as tabulated), e_e (E_erv, e_erv), e_a_au (E_arv, e_arv). e_P_d is unchanged.
 Output: barbato_2023_orbits.csv
 """
 import argparse
@@ -28,7 +31,8 @@ ARCHIVE = 'arxiv_2303.16717.src'  # not parsed (see above)
 OUT = 'barbato_2023_orbits.csv'
 
 COLS = ["host", "companion", "P_d", "e_P_d", "K_ms", "e", "omega_deg", "Tp_bjd", "msini_mj",
-        "a_au", "mstar_msun", "fit_type", "table_ref", "notes"]
+        "a_au", "mstar_msun", "fit_type", "table_ref", "notes",
+        "e_K_ms", "e_msini_mj", "e_e", "e_a_au"]
 
 # Barbato+2023 give the mean longitude lambda0 (l0rv) instead of Tp and do not state its reference
 # epoch. BJD 2455500 (the DACE convention) was inferred and checked: Tp computed from it matches 16
@@ -154,6 +158,16 @@ def f(x):
     return None if x == '---' else float(x)
 
 
+def avg_err(t, i, scale=1.0):
+    """Mean of the upper (token i+1) and lower (token i+2) published errors of the value at token i;
+    None when either is missing or the mean is 0 (a printed 0 is treated as no error)."""
+    up, lo = f(t[i + 1]), f(t[i + 2])
+    if up is None or lo is None:
+        return None
+    m = round((abs(up) + abs(lo)) / 2 * scale, 6)
+    return m if m > 0 else None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--download', action='store_true', help='fetch missing inputs listed in SOURCES')
@@ -211,6 +225,8 @@ def main():
                          e_P_d=(Pu + Pl) / 2,  # asymmetric P errors averaged
                          K_ms=round(K, 3), e=e, omega_deg=om, Tp_bjd=round(tp, 3), msini_mj=ms, a_au=a,
                          mstar_msun=mstar.get(star), fit_type='RV-only',
+                         e_K_ms=avg_err(t, 4, 1000), e_msini_mj=avg_err(t, 16), e_e=avg_err(t, 7),
+                         e_a_au=avg_err(t, 22),
                          table_ref='VizieR J/A+A/674/A114 table2.dat (RV-only columns); mstar table1.dat',
                          notes='; '.join(notes)))
     write_csv(rows)
