@@ -167,7 +167,9 @@ a known failure mode. See the end of [blind_search/README.md](blind_search/READM
   astrometry (Delta-BIC periodogram, simulated detection threshold, injection/recovery map,
   reliability tests); [blind_search/README.md](blind_search/README.md) describes the algorithm,
   modules and results. `tests/test_blind_search.py` tests it.
-- `rv_data/`: RV collection (PLAN.md, Step 2). `build_targets.py` (identities and
+- `rv_data/`: RV collection (PLAN.md, Step 2). The Jump exports (`jump_raw/`, `jump_rvs.csv`) are not in
+  the public repository (kept on Judah's machine, listed in `.gitignore`); `rvs_merged.csv` and the system tables
+  carry the Jump-sourced rows (access flagged public) with their provenance. `build_targets.py` (identities and
   aliases), `jump_queries.sql` (run by Judah in Jump's SQL Explorer; exports kept in
   `jump_raw/`), `ingest_jump.py`,
   `pull_dace.py`, and `merge_rvs.py` (one table per system in `rv_data/systems/`), with
