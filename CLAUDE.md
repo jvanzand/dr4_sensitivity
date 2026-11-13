@@ -36,7 +36,7 @@ reference fits as the answer. Gaia DR4 is released 2 December 2026.
   2026-11-13), `make_flowchart.py` (the detailed developer flowchart, `search_flowchart_detailed.png`; update its box texts when the code
   changes) and `make_flowchart_simple.py` (the simple README flowchart, `search_flowchart.png`).
   Tests: `tests/test_blind_search.py` (`--quick` skips the noise calibration). `blind_search/README.md` describes
-  the tool for users and `blind_search/DEVELOPER_NOTES.md` holds the details; `blind_search/FIGURES.md` lists the figure code. Docstrings are wrapped at 80 columns (Judah,
+  the tool for users; `blind_search/FIGURES.md` lists the figure code. Docstrings are wrapped at 80 columns (Judah,
   2026-11-13; keep new ones that way).
   **Core figures only (Judah, 2026-11-13):** the step figure, the injection map and the flowchart. Testing and
   comparison figures were removed (new ones may be added later and pruned again). Removed 2026-11-13 as unused,
@@ -76,8 +76,9 @@ reference fits as the answer. Gaia DR4 is released 2 December 2026.
   (e.g. "`plot_step`, a function in `blind_search/plots.py` that draws one search step's figure"). Define any other jargon
   at first use too (e.g. "stride 4"), and add new terms to the glossary in `QUESTIONS.md`.
 - **READMEs stay short and human-readable (Judah, 2026-11-13).** `README.md` and `blind_search/README.md` are for users:
-  succinct, with images, no developer detail. Developer detail goes to `DEVELOPER_NOTES.md` and
-  `blind_search/DEVELOPER_NOTES.md`; update those, not the READMEs, when recording details.
+  succinct, with images, no developer detail. There are no DEVELOPER_NOTES files: Judah does not want raw notes public (2026-11-13), so
+  `DEVELOPER_NOTES.md` and `blind_search/DEVELOPER_NOTES.md` are gitignored. Record details in PLAN.md, QUESTIONS.md and
+  CLAUDE.md (note: those are tracked and public on GitHub) or keep them out of the repository.
 - **Terminology (Judah, 2026-11-13).** A *model+noise dataset* is a dataset built as a known model plus noise (e.g. the
   zero-planet model plus white noise at the formal errors; stands in for real data in tests: reliability test T1 uses
   N = 45, the injection map 2000). A *noise-sampled dataset* is one of the M datasets sampled from the model fitted to a

@@ -28,3 +28,7 @@ fits_rv/_build/
 # Jump RV exports and the table ingested from them: kept on Judah's machine, never pushed (stripped from history 2026-11-13)
 rv_data/jump_raw/
 rv_data/jump_rvs.csv
+
+# Developer notes are never published (Judah, 2026-11-13)
+DEVELOPER_NOTES.md
+**/DEVELOPER_NOTES.md

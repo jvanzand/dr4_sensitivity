@@ -66,6 +66,3 @@ injection/recovery map.
 - The noise is assumed white; correlated noise would raise the false-alarm rate.
 - The injection map uses one circular-orbit companion per star.
 - A companion can be missed if an earlier one was fitted poorly.
-
-Terminology, module descriptions, compute costs, detailed test results and known issues
-are in [DEVELOPER_NOTES.md](DEVELOPER_NOTES.md).
