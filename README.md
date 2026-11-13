@@ -1,30 +1,25 @@
 # Gaia DR4 sensitivity from known RV giant planets
 
-*Did Gaia find the planets we think it should?* Gaia DR4 (released 2 December 2026)
-will contain the epoch astrometry of every source. This project asks how reliably
-DR4 alone recovers giant planets that radial velocities (RVs) already know about, and
-turns the answer into an empirical sensitivity map. It also contains a standalone
-tool, [`blind_search/`](blind_search/README.md), that finds companions blindly in
-Gaia epoch astrometry.
-
-![Project overview: three lanes feeding four comparisons](sample/project_flowchart.png)
-
-*Project overview (draft): a census of RV companions, RV fits, synthetic and real DR4
-fits, and the four comparisons (A-D) between them.*
+Gaia's fourth data release (DR4, due 2 December 2026) will publish the measured
+position of every star at each Gaia transit (its epoch astrometry). A giant planet
+pulls its star around a small orbit, so these positions can reveal it. This
+repository measures how reliably DR4 alone recovers giant planets that radial-velocity
+(RV) surveys already know, and turns the result into an empirical map of which planets
+DR4 can detect. Its main tool, [`blind_search/`](blind_search/README.md), finds
+companions in Gaia epoch astrometry without any prior knowledge of the planets.
 
 ## What is in the repository
 
 | folder | contents |
 |---|---|
-| `sample/` | the census of RV companions (about 2700) and the study sample |
-| `rv_data/` | RV collection from public archives, merged per system |
-| `fits_rv/`, `configs/` | RV companion search and Octofitter fit pipeline |
-| `data_conversion/` | Gaia DR4 pre-release epoch astrometry (12 sources) and converter |
-| `blind_search/` | the blind companion search for Gaia astrometry (this page's quick start) |
+| `blind_search/` | the blind companion search (quick start below) |
+| `sample/` | catalog of known giant planets and brown dwarfs found by RV surveys |
+| `rv_data/` | the RV measurements of those systems, from public archives |
+| `fits_rv/`, `configs/` | fits of the RV measurements |
+| `data_conversion/` | Gaia DR4 pre-release epoch astrometry for 12 stars |
 | `tests/` | tests |
 
-The science plan is in [PLAN.md](PLAN.md); open questions and decisions are in
-[QUESTIONS.md](QUESTIONS.md); developer details are in
+The science plan is in [PLAN.md](PLAN.md) and developer details are in
 [DEVELOPER_NOTES.md](DEVELOPER_NOTES.md).
 
 ## Quick start: the blind companion search

@@ -1,5 +1,7 @@
 """Draw the flowchart of the blind-search algorithm as a PNG
-(blind_search/search_flowchart.png).
+(blind_search/search_flowchart_detailed.png): the developer
+version with the mathematics and background. The simple version for the README
+is drawn by make_flowchart_simple.py.
 
 Left column: the steps of one loop iteration (what each step does, its inputs
 and outputs, the decision). Right column (grey): the background needed to
@@ -308,7 +310,7 @@ def render(out):
 
 
 def main():
-    out = '/tmp/search_flowchart_test.png' if '--test' in sys.argv else os.path.join(HERE, 'search_flowchart.png')
+    out = '/tmp/search_flowchart_test.png' if '--test' in sys.argv else os.path.join(HERE, 'search_flowchart_detailed.png')
     render(out)
     print('wrote', out)
 

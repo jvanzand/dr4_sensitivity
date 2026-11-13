@@ -74,10 +74,11 @@ and asks whether a k-th companion is warranted.
 | `plots.py` | `plot_step_sim`: the per-step figure written by `run_search(out_dir=...)` |
 | `injection_map.py` | injection/recovery map on the Gaia-4 epochs (`run`, `plot`, `--method sim\|efap`) |
 | `reliability_tests.py` | the reliability tests below |
-| `make_flowchart.py` | draws `search_flowchart.png`, the algorithm flowchart (needs TeX) |
+| `make_flowchart_simple.py` | draws `search_flowchart.png`, the simple flowchart shown in the README |
+| `make_flowchart.py` | draws `search_flowchart_detailed.png`, the detailed flowchart with the mathematics (needs TeX) |
 
 Outputs: `results/` (JSON and JSON-lines results), `figures_search/` (the maps
-and example step figures), `search_flowchart.png`. [FIGURES.md](FIGURES.md)
+and example step figures), `search_flowchart.png`, `search_flowchart_detailed.png`. [FIGURES.md](FIGURES.md)
 lists the figure code and what was removed.
 
 ## Running

@@ -10,7 +10,8 @@ testing figures will be added later and pruned again when the time is right.
 |---|---|---|
 | `plots.plot_step_sim`, called by `search.run_search(out_dir=..., label=...)` | one search step: the real Delta-BIC periodogram with example noise-sampled periodograms and the simulated threshold; the histogram of the noise-sampled datasets' highest peaks with the Gumbel fit; the residuals before and after adding the detected companion | `<out_dir>/<label>_step<k>.png` |
 | `injection_map.py plot` (`plot_map`) | the injection/recovery map: every injection (recovered or not) with smoothed completeness contours, and the smoothed completeness image | `figures_search/<results-file-stem>.png` |
-| `make_flowchart.py` | the algorithm flowchart (needs TeX) | `search_flowchart.png` |
+| `make_flowchart_simple.py` | the simple algorithm flowchart used in the README | `search_flowchart.png` |
+| `make_flowchart.py` | the detailed developer flowchart with the mathematics (needs TeX) | `search_flowchart_detailed.png` |
 
 ## Figure files kept
 
@@ -19,7 +20,7 @@ testing figures will be added later and pruned again when the time is right.
   50 and 100 noise-sampled datasets; eFAP threshold, same injections).
 - `figures_search/gaia4_real_step1.png`, `gaia4_real_step2.png`: the step
   figure on the real Gaia-4 data (step 1 finds Gaia-4 b; step 2 finds nothing).
-- `search_flowchart.png`.
+- `search_flowchart.png` (simple), `search_flowchart_detailed.png` (developer).
 
 ## Removed (copies of the code and figures are in
 `../../gaia_dr4_sensitivity_blind_search_backup_2026-11-13.tar.gz`)

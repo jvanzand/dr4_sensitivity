@@ -33,7 +33,8 @@ reference fits as the answer. Gaia DR4 is released 2 December 2026.
   (physical companions, Gaia-4 b), `plots.py` (`plot_step_sim`, the step figure), `injection_map.py`
   (injection/recovery map on the Gaia-4 epochs, `--method sim|efap`; QUESTIONS.md 'Plan 2026-11-12'),
   `reliability_tests.py` (noise-only calibration, detection, multi-companion and real-data tests; QUESTIONS.md
-  2026-11-13), `make_flowchart.py` (draws `search_flowchart.png`; update its box texts when the code changes).
+  2026-11-13), `make_flowchart.py` (the detailed developer flowchart, `search_flowchart_detailed.png`; update its box texts when the code
+  changes) and `make_flowchart_simple.py` (the simple README flowchart, `search_flowchart.png`).
   Tests: `tests/test_blind_search.py` (`--quick` skips the noise calibration). `blind_search/README.md` describes
   the tool for users and `blind_search/DEVELOPER_NOTES.md` holds the details; `blind_search/FIGURES.md` lists the figure code. Docstrings are wrapped at 80 columns (Judah,
   2026-11-13; keep new ones that way).
