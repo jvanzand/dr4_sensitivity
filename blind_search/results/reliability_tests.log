@@ -1,0 +1,22 @@
+PASS  T1 noise only: false-alarm rate consistent with FAP 0.1   [2 of 45 = 0.044 (expected 4.5), 95% interval [0.005, 0.151]]
+PASS  T1 noise only: false-alarm rate consistent with FAP 0.01   [0 of 45 = 0.000 (expected 0.5), 95% interval [0.000, 0.079]]
+PASS  T1 noise only: the p-values of the highest peaks are uniform   [KS statistic 0.170, p = 0.13, 259 s]
+   SNR 0-2: n = 113, detected 0.000, recovered 0.000
+   SNR 2-4: n = 275, detected 0.004, recovered 0.000
+   SNR 4-6: n = 219, detected 0.096, recovered 0.009
+   SNR 6-8: n = 173, detected 0.653, recovered 0.324
+   SNR 8-12: n = 200, detected 0.980, recovered 0.645
+   SNR 12-20: n = 309, detected 1.000, recovered 0.838
+   SNR 20-40: n = 353, detected 1.000, recovered 0.864
+   SNR 40-inf: n = 358, detected 1.000, recovered 0.953
+PASS  T2a signals: at most 2% of injections with SNR < 4 are detected   [1 of 388]
+PASS  T2a signals: every injection with SNR >= 12 is detected   [1020 of 1020]
+PASS  T2a signals: at least 80% of injections with SNR >= 12 are recovered (period and mass within 25%)   [0.887]
+PASS  T2b regression: the first 5 injections reproduce the stored map results (peak, threshold, detection, recovery)   [identical]
+PASS  T3 no companion: nothing found (all 3 noise draws)   [companions found per draw: [0, 0, 0]; spurious: [0, 0, 0]]
+PASS  T3 Gaia-4 b alone: found, then stops (all 3 noise draws)   [companions found per draw: [1, 1, 1]; spurious: [0, 0, 0]]
+PASS  T3 Gaia-4 b + 200 d companion: both found, then stops (all 3 noise draws)   [companions found per draw: [2, 2, 2]; spurious: [0, 0, 0]]
+PASS  T3 faint companion (SNR 3): not detected (all 3 noise draws)   [companions found per draw: [0, 0, 0]; spurious: [0, 0, 0]]
+PASS  T4 real Gaia-4 data: Gaia-4 b found at 571.3 d (within 3%), nothing more   [{'n_found': 1, 'n_matched': 1, 'n_spurious': 0, 'missed': []}; peaks [181.3, -13.6] vs thresholds [14.3, 16.9]]
+
+12 passed, 0 failed (492 s); wrote /Users/judahvz/research/code/GitHub/gaia_dr4_rv_sensitivity/blind_search/results/reliability_tests.json

@@ -48,7 +48,7 @@ and includes every real-data effect.
      known answer. **The whole system is modeled** (revised 2026-10-27): every companion the
      literature reports, including marginal detections and trends, not only the precisely
      measured ones that put the system in the sample. Companions are added iteratively by a
-     stated criterion (to be defined), so the RV fit also says how many companions the RVs
+     stated criterion (Delta-BIC >= 20 on RV maximum-likelihood fits; Step 3), so the RV fit also says how many companions the RVs
      support. With the same data and similar software we should get roughly the same answer
      as the literature, so any disagreement is investigated, and heavy disagreements are
      flagged.
@@ -151,6 +151,13 @@ Pilot systems chosen by Judah (2026-11-04): TOI-1694 (Jump data), HD 111232, HD 
 (multi-planet), TOI-1736 (subgiant host), and HD 43691 (= HIP 30057; giant host,
 1.38 M_sun).
 
+Second batch of five (chosen 2026-11-09 from the stage-2 fit set, public DACE RVs only, so
+no Jump export is needed): pi Men (HD 39091; three companions including an 11 M_J outer one,
+max astrometric SNR 19.7), HD 89707 (54 M_J brown dwarf, e ~ 0.9, SNR 21), HD 147513
+(bright host, one 1.2 M_J planet, SNR 0.98, near threshold), HD 10180 (six low-signal
+companions, SNR 0.25), and HD 168443 (7.9 M_J + 18 M_J, SNR 20, mixed HIRES/APF/HARPS/CORALIE
+data). Alternates with RV tables built but not searched: 70 Vir, HD 94340, mu Ara.
+
 Choose systems that span the outcomes, not the best cases. Start with the two pre-release
 systems that have converted data (Gaia-4 and HD 114762), whose real DR4 epoch astrometry
 lets the pilot test the real format instead of only simulations. Judah has already run joint
@@ -198,7 +205,7 @@ threshold (S/N 0.5-1.5). (Earlier on 2026-10-30, archive defaults: 2627 companio
 recoverable.) The "recoverable" flag is descriptive only; no companion is
 cut by it. (2026-10-26, RV-only: 2616 companions, 184 recoverable.)
 
-### Step 1b: the study sample (rules decided 2026-10-27; not yet built)
+### Step 1b: the study sample (rules decided 2026-10-27; built 2026-11-06)
 
 The goal is to test Gaia against RV orbits that are trusted. The rules:
 
@@ -239,11 +246,42 @@ Two stages of cuts (decided 2026-10-27):
   they are flagged, not removed from the snapshot catalog.
 - **Source IDs:** use Gaia's DR3-DR4 correspondence once it is published.
 
-To build it, the census needs uncertainties it doesn't have yet:
-- The cached NEA download (`sample/raw/nea_ps_rv.csv`) has no error columns. Re-query it with
-  the errors on P, SMA, and M sin i or mass.
-- The literature tables carry only `e_P_d`. M sin i errors must be added from the papers.
-  Where only K errors are published, derive the M sin i error from them, and say so.
+**Built 2026-11-06** (`sample/catalog.py`; results in `sample/stage1_catalog.csv`,
+`stage1_systems.csv`, and `resonance_candidates.csv`):
+- *Errors.* (Correction: the cached NEA download does carry P, SMA, and mass errors; the
+  census just didn't pass them on.) `census.py` now carries them, adds the NEA's
+  eccentricity, K, and stellar-mass errors (new cache files, so the 2026-10-30 snapshot is
+  unchanged) and Gaia FLAME mass bounds, and records how each error was obtained. The
+  source papers' errors on P, K, M sin i, e, and SMA were added to the 40 literature
+  orbit tables (new optional columns `e_K_ms`, `e_msini_mj`, `e_e`, `e_a_au`; CLS I and
+  Kiefer+2019 through `raw_lit/<source>/errors.py`), only where a paper prints them.
+- *Filling missing errors, in this order* (2026-11-06): the published error; a derivation
+  from a related published error; the source paper. SMA error from the period and
+  stellar-mass errors (σ_a/a = sqrt((2σ_P/P)² + (σ_M/M)²)/3); period error from the SMA error
+  (σ_P/P = 1.5 σ_a/a); M sin i (or a transiting planet's mass) from the K error, with
+  the relative errors of K, P (1/3 power), M_* (2/3 power), and e's term, in quadrature,
+  each where known, flagged `msini_err_from_K`. Stellar-mass errors: published, else a
+  stand-in fractional error (the median among stars in the same mass bin with an error,
+  ~5%; `sample/st_mass_err_standin.csv`), labeled in `st_mass_err_source`. If no route
+  works (the paper gives neither the quantity's error nor a related one's), the error is
+  omitted, the companion passes the cut ("innocent until proven guilty"), and it is
+  flagged `precision_unverified` and listed in `sample/missing_errors.csv`: 149
+  companions (112 NEA, 37 literature), which is concerning. The orbit test uses P/σ_P (else
+  the published SMA error).
+- *Result.* Of 2667 census companions, 2435 pass the precision cut (105 only because an
+  error is missing). Stage 1: 1989 systems, 2503 companions. Stage 2 at `SNR_MIN` = 0.1:
+  686 systems, 888 companions.
+- *Resonance* (2026-11-06): resonant companions are poorly described by independent
+  Keplerians, and adopting literature orbits would defeat the purpose of refitting. But
+  the proxy available (two census companions within 1% of 2:1, 3:2, 4:3, 5:4, 5:3, 5:2,
+  or 3:1) is crude (it flags HD 191939), so it is a second-tier check, to be consulted
+  after a system gives cause for concern (e.g., a Keplerian fit that will not converge).
+  Nothing is dropped now. Flagged companions are marked (`resonance_member`), counted (70
+  stage-1 companions in 34 systems; 22 in 11 fit-set systems), and plotted
+  (`sample/stage1_resonance.png`). The intended rule, `--resonance-policy exclude`:
+  resonant companions stay in the model, so the non-resonant ones fit well, but are not
+  scored as recoveries; a system whose companions are all resonant is not fit (15 stage-1
+  systems, 6 in the fit set).
 
 ### Step 2: RV data assembly
 
@@ -349,6 +387,68 @@ To build it, the census needs uncertainties it doesn't have yet:
 - Model the whole system: precise companions, marginal detections, and trends, with
   companions added iteratively by a stated criterion (Section 2.6). Per-instrument offsets
   and jitter.
+- **Settings decided 2026-11-06** (code in `fits_rv/`, configuration in
+  `configs/pilot.toml`):
+  - *Astrometry:* G23H (it already includes Hipparcos IAD, the HGCA, and Gaia DR2/DR3
+    proper motions; ~14 GB catalog, first use needs approval). `freeze_epochs` is a config
+    switch (fast and approximate vs. production).
+  - *Priors:* P log-uniform, 0.05 d to 200 yr for the literature companions (below the
+    census minimum of 0.07 d, so hot companions are modeled) and a 1 d floor for extra
+    ones; q = M_p/M_* log-uniform 1e-5 to 1; e uniform 0 to 0.99; i isotropic (`Sine()`),
+    Ω and M0 uniform; stellar mass Gaussian from the census mass and its error; per-dataset
+    jitter log-uniform 0.1 to 30 m/s; offsets marginalized analytically
+    (`MarginalizedRVObs`). RV-only fits use edge-on orbits, so `mass` is M sin i. Keep an
+    eye on jitter: ballooned jitter often masks a poor match. The fit flags a dataset whose
+    median jitter exceeds 3x its formal errors or presses the upper bound.
+  - *Sampler:* NUTS (`octofit`), 4 independent chains. Pigeons is for posteriors that turn
+    out to be multimodal. A dynamic, RadVel-style loop is a later option (QUESTIONS.md):
+    `octofit` has fixed iterations and no resume, so stopping early needs a custom loop on
+    AdvancedHMC. For now every fit is checked afterward (R-hat <= 1.01; bulk and tail
+    ESS >= 400; >= 40 independent draws per chain, the analogue of RadVel's
+    autocorrelation factor; divergences <= 1%; tree-depth saturation <= 10%; E-BFMI >= 0.3)
+    and rerun with doubled iterations (up to twice) on failure.
+  - *Number of companions* (`fits_rv/companion_search.py`): RVs only, maximum likelihood,
+    no MCMC. Start with the N literature companions, found blindly (periodogram peak of the
+    residuals, then a joint refit); then repeatedly test one more and adopt it if
+    Delta-BIC >= 20 (5 parameters per Keplerian, N = RV count, per-dataset offsets and
+    jitter in every model). The trend is a polynomial of order 0, 1 (linear), or 2
+    (quadratic). At every step it is first simplified if its top term no longer earns
+    Delta-BIC 20; then the candidates are add a companion, add a companion while lowering
+    the trend order (a companion that replaces a trend), and raise the trend order; the
+    best one with Delta-BIC >= 20 is adopted. So a signal that could be either is not
+    decided by test order. A blind companion's period is capped at 2x the RV baseline (3x
+    until 2026-11-09; at least half an orbit covered), so longer-period signals can only be
+    a trend or curvature. The search is blind by default (literature companions are an
+    optional toggle, decided 2026-11-09); `fits_rv/recovery.py` scores how many literature
+    companions it recovers. A blind
+    companion's period must also be at least 2x the mean RV spacing, span/(N-1) (decided
+    2026-11-09), since sparser sampling cannot constrain a shorter period, and its
+    eccentricity is capped at 0.7 (decided 2026-11-09; literature companions keep 0.99 and
+    their prior), because e ~ 0.99 long-period "companions" with periastron in a data gap
+    mimic curvature (HD 111232). While the N
+    literature companions are being found, trend moves are free (not counted toward N) and
+    come first at each step once one companion exists; without them, TOI-1736's curvature
+    was fit as a spiky high-eccentricity "second companion" (found in the 2026-11-06
+    pilot runs).
+  - *Periodogram:* a generalized Lomb-Scargle (linear in the amplitudes and offsets,
+    fast) used only to rank trial periods, on a grid uniform in frequency with spacing
+    1/(5 x baseline): a peak's width in frequency is about 1/baseline whatever its period,
+    so five points per width keep the sampling loss small, and a uniform-in-period grid
+    would waste points at long periods and miss peaks at short ones. Grid sizes: 0.4-1.2 s
+    per periodogram for a 1 d floor (9,500 to 61,000 trial periods for the pilots),
+    6-24 s for the 0.05 d floor of the known companions. The threshold is fixed rather
+    than calibrated to each system's noise.
+  - *Self-test* (`--selftest`): recovers injected planets, a linear trend, and a quadratic
+    trend without a long-period companion; no false additions in 10 noise-only datasets.
+  - *Kepler solver:* was 40-58% of the likelihood time. Switched (2026-11-06) to a C
+    implementation, `fits_rv/kepler.c` (Halley iteration from a series start, folded to
+    M in [0, pi], cos and sin of the true anomaly from E without an arctangent, one fused
+    pass over the times). It matches the numpy solver to ~1e-13 and makes the whole
+    likelihood 1.2x (1 companion) to 1.8x (6 companions) faster; a Julia version of the
+    solver alone ran at the same speed as the C one, and compile flags (-O3, -march=native,
+    -ffast-math, sincos) changed nothing, since the time is in libm's sin and cos. It is
+    compiled on first use (`kepler_c.py`), with a numpy fallback.
+  - *Resonance:* a second-tier check (Step 1b); nothing is dropped now.
 - Only after fitting, compare to the published solution (P, K, e, M sin i). Disagreement
   calls for investigation, since the same data and similar software should give roughly
   the same answer. Assign a ground-truth tier:
@@ -541,3 +641,54 @@ gaia_dr4_rv_sensitivity/
   paper/            figures and draft
   matplotlibrc
 ```
+
+**Draft flowchart file (2026-11-06).** `sample/project_flowchart.png`, made by
+`sample/plot_flowchart.py` from the text above (reconstruction; replace with the original
+sketch if it differs). Comparisons are labeled A (RV vs. real DR4), B (RV vs. literature),
+C (Epochalypse truth vs. our fits), D (synthetic vs. real DR4).
+
+**Blind-search tool (decided 2026-11-10; details in QUESTIONS.md, "Proposed/Update 2026-11-10").**
+A standalone, Octofitter-free Python search (`blind_search/`): linear periodogram, joint refit,
+eFAP threshold and BIC model selection; it writes a Julia model script for vanilla Octofitter v9.
+Tests use Octofitter. Final-fit priors: log-uniform P, uniform sqrt(e)cos(omega) and sqrt(e)sin(omega),
+isotropic inclination. Data channels are selectable (DR4 epochs, Hipparcos IAD, RVs per instrument).
+Required outputs include per-step periodogram plots and the eFAP log-histogram tail fit.
+
+Decision 2026-11-11: no special handling of trial periods near 1 yr (degenerate with parallax) or at P >~ the baseline
+(degenerate with proper motion). The search lets those signals be fit; whether they are reliable is judged later.
+Algorithm flowchart: `blind_search/search_flowchart.png` (drawn by `blind_search/make_flowchart.py`).
+
+## 2026-11-11: simulated per-step threshold (replacing eFAP) - approved plan and success metrics
+Idea (Judah approved): at step k, fit the null model (reference motion + the k-1 companions found + jitter) to the real data,
+simulate M fake datasets from it (real epochs/scan angles, Gaussian noise at sqrt(err^2 + s^2)), run the same pipeline on each
+(refit known companions, Step A periodogram), record each highest peak, and take the threshold from those maxima. Start with
+M = 200 and a Gumbel (extreme-value) tail fit to the maxima to reach FAP = 1e-3; also report the direct 0.99 quantile.
+Module: `blind_search/simthreshold.py`. Judah was away for about 2 hours; the plan below was written to run unattended.
+Success metrics (Judah: 1, 2, 5, 6 matter most; do not agonise over 3, 4, 7):
+ 1. Independence: step-2 threshold with an unmodelled companion (SNR 9, 12, 16) within 5 dBIC of the noise-only threshold.
+ 2. Detection: lone companion (step 1) and second companion (step 2) at SNR 9 and 12: at least 14 of 16 draws.
+ 3. Accuracy: simulated 95th/99th percentiles for 10 noise-only datasets within 3 dBIC of the 150-draw reference (-2.8, 1.3),
+    scatter between datasets under 3.
+ 4. Convergence: bootstrap uncertainty of the threshold under 2 dBIC at M = 200 (compare M = 50, 100, 200).
+ 5. No false extra companions: at most 1 of 20 noise-only datasets (Gaia-4 b injected) exceed the simulated threshold at FAP 0.01.
+ 6. Real data: Gaia-4 and HD 114762: known planet detected at step 1 and nothing at step 2.
+ 7. Red noise (sinusoids, OU): record false alarms; not pass/fail.
+Stages: 0 build + time one threshold; 1 metrics 3, 4, 6 (about 20 min); 2 metrics 1, 2, 5 (about 35 min); 3 metric 7 (about 5 min).
+If a stage runs more than 1.5x its estimate, cut sample sizes (e.g. 8 draws) and say so.
+On failure (try in this order, one change at a time, record each result):
+ - 3 or 5 fail (threshold off or too many false alarms): (a) simulate noise with formal errors only instead of the fitted jitter;
+   (b) M = 400; (c) direct 0.99 quantile instead of the Gumbel extrapolation; (d) skip the refit in the simulations (also a speed test).
+ - 4 fails: M = 400, report the direct quantile at a looser FAP.
+ - 1 fails (threshold rises with the signal): the inflated fitted jitter is the suspect; try the formal-error noise or a jitter
+   fixed at the noise-only value; report both.
+ - 2 fails: split misses into peak below threshold versus wrong period; report at FAP 0.01 as well as 1e-3.
+ - 6 fails: compare the real step-2 peak with the simulated maxima (its percentile); check whether the real residuals are white.
+ - If 1, 2, 5, 6 pass: write up, update the flowchart (Step B becomes the simulation), keep eFAP and fixed dBIC >= 20 as options,
+   and stop. Do not commit. Do not spawn subagents. Stop and report if a bug is found.
+
+Decision 2026-11-12: the simulated threshold keeps Gaussian white noise for the fake datasets; Gaia noise harmonics are handled later. Comparison results: QUESTIONS.md "Results 2026-11-12".
+
+Note 2026-11-12: the simulated threshold keeps white-noise fakes for now; the merits of a noise model for the fakes (correlated noise, Gaia harmonics; costs in sensitivity) are recorded in QUESTIONS.md "Settled 2026-11-12 (white-noise fakes for now ...)".
+
+## 2026-11-13: blind_search cleanup and reliability tests
+Unused code and non-core figures removed, docstrings wrapped at 80 columns, `blind_search/README.md` and a quick-start in the top-level README written, M = 50 made the default, and `blind_search/reliability_tests.py` added (12 of 12 checks pass: noise-only calibration with 45 model+noise datasets, detection versus SNR, multi-companion search, real Gaia-4; terms "model+noise" and "noise-sampled" datasets defined in CLAUDE.md). Details and numbers in QUESTIONS.md ("Decision 2026-11-13", "Result 2026-11-13").

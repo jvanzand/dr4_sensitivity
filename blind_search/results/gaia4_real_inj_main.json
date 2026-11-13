@@ -1,0 +1,129 @@
+{
+ "info": {
+  "P2": 1428.25,
+  "mass_mj": 9.82216386156629,
+  "snr_injected": 56.629831141656744,
+  "snr_gaia4b_catalogue": 37.75322075952679,
+  "a_star_uas": 419.7199109449862,
+  "inc_deg": 65.0,
+  "omega": 0.8,
+  "Omega": 1.4,
+  "M0": 3.0
+ },
+ "truth": [
+  571.3,
+  1428.25
+ ],
+ "tol": 0.03,
+ "efap": {
+  "summary": {
+   "n_found": 2,
+   "n_matched": 2,
+   "n_spurious": 0,
+   "missed": []
+  },
+  "steps": [
+   {
+    "step": 1,
+    "peak": 93.3,
+    "P": 1586.4,
+    "thr": 90.5,
+    "detected": true,
+    "matched": 1428.25,
+    "spurious": false
+   },
+   {
+    "step": 2,
+    "peak": 129.8,
+    "P": 562.3,
+    "thr": 102.6,
+    "detected": true,
+    "matched": 571.3,
+    "spurious": false
+   },
+   {
+    "step": 3,
+    "peak": -11.0,
+    "P": 42.1,
+    "thr": 39.9,
+    "detected": false,
+    "matched": null,
+    "spurious": false
+   }
+  ]
+ },
+ "sim": {
+  "summary": {
+   "n_found": 2,
+   "n_matched": 2,
+   "n_spurious": 0,
+   "missed": []
+  },
+  "steps": [
+   {
+    "step": 1,
+    "peak": 93.3,
+    "P": 1586.4,
+    "thr": 13.7,
+    "detected": true,
+    "matched": 1428.25,
+    "spurious": false
+   },
+   {
+    "step": 2,
+    "peak": 129.8,
+    "P": 562.3,
+    "thr": 15.6,
+    "detected": true,
+    "matched": 571.3,
+    "spurious": false
+   },
+   {
+    "step": 3,
+    "peak": -11.0,
+    "P": 42.1,
+    "thr": 8.3,
+    "detected": false,
+    "matched": null,
+    "spurious": false
+   }
+  ]
+ },
+ "floor": {
+  "summary": {
+   "n_found": 2,
+   "n_matched": 2,
+   "n_spurious": 0,
+   "missed": []
+  },
+  "steps": [
+   {
+    "step": 1,
+    "peak": 93.3,
+    "P": 1586.4,
+    "thr": 20.0,
+    "detected": true,
+    "matched": 1428.25,
+    "spurious": false
+   },
+   {
+    "step": 2,
+    "peak": 129.8,
+    "P": 562.3,
+    "thr": 20.0,
+    "detected": true,
+    "matched": 571.3,
+    "spurious": false
+   },
+   {
+    "step": 3,
+    "peak": -11.0,
+    "P": 42.1,
+    "thr": 20.0,
+    "detected": false,
+    "matched": null,
+    "spurious": false
+   }
+  ]
+ }
+}

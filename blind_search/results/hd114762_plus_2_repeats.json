@@ -1,0 +1,105 @@
+[
+ {
+  "seed": 300,
+  "snr": [
+   13.6,
+   3.6
+  ],
+  "n_found": 2,
+  "n_matched": 1,
+  "n_spurious": 1,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1,
+   387.2
+  ]
+ },
+ {
+  "seed": 301,
+  "snr": [
+   12.7,
+   5.0
+  ],
+  "n_found": 1,
+  "n_matched": 1,
+  "n_spurious": 0,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1
+  ]
+ },
+ {
+  "seed": 302,
+  "snr": [
+   8.6,
+   4.0
+  ],
+  "n_found": 1,
+  "n_matched": 1,
+  "n_spurious": 0,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1
+  ]
+ },
+ {
+  "seed": 303,
+  "snr": [
+   8.6,
+   5.1
+  ],
+  "n_found": 1,
+  "n_matched": 1,
+  "n_spurious": 0,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1
+  ]
+ },
+ {
+  "seed": 304,
+  "snr": [
+   7.7,
+   5.4
+  ],
+  "n_found": 1,
+  "n_matched": 1,
+  "n_spurious": 0,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1
+  ]
+ },
+ {
+  "seed": 305,
+  "snr": [
+   10.4,
+   4.1
+  ],
+  "n_found": 1,
+  "n_matched": 1,
+  "n_spurious": 0,
+  "missed": [
+   400.0,
+   1095.0
+  ],
+  "detected_periods": [
+   84.1
+  ]
+ }
+]
