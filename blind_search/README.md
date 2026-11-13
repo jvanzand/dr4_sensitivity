@@ -3,8 +3,8 @@
 A standalone Python tool (no Octofitter, no MCMC) that decides, from a star's
 Gaia DR4 epoch astrometry (and optionally RVs), how many companions the data
 support and at which periods. It was built to answer: *what detection threshold
-decides when to add a planet, so that we neither miss real signals nor invent
-false ones?* DR4 is released on 2026-12-02; until then the tool runs on the
+decides when to add a planet, so that we neither miss real signals nor accept weak
+ ones?* DR4 is released on 2026-12-02; until then the tool runs on the
 12-source pre-release epoch data in `data_conversion/` (Gaia-4, HD 114762) and
 on simulated data with the same epochs and errors.
 

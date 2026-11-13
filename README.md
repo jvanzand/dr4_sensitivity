@@ -1,10 +1,4 @@
-# Gaia DR4 sensitivity from known RV giant planets (planning folder)
-
-Working title: *Did Gaia find the planets we think it should? An empirical DR4 sensitivity
-map from radial-velocity giant planets.*
-
-This folder holds the plan and the DR4 pre-release template. It becomes a repo once the
-plan is firm.
+# Gaia DR4 sensitivity from known RV giant planets
 
 ## Quick start: the blind companion search
 
