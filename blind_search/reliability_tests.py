@@ -277,8 +277,12 @@ def main():
     t0 = time.time()
     with ProcessPoolExecutor(max(1, (os.cpu_count() or 2) - 1)) as ex:
         null_rows, null_out = test_null(n_null, M_null, ex)
-        table, rows = test_detection_curve()
-        test_regression(rows, n_reg, ex)
+        if os.path.exists(MAP_FILE):
+            table, rows = test_detection_curve()
+            test_regression(rows, n_reg, ex)
+        else:  # results/ is not in git: make the map with injection_map.py
+            table = None
+            print(f'T2 skipped: no stored map at {MAP_FILE}')
         scen = test_scenarios(n_draws, M_s, ex)
         real = test_real(M_s, ex)
     json.dump(dict(results=results, null=null_out, null_datasets=null_rows,

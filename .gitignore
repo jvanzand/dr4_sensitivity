@@ -37,3 +37,8 @@ DEVELOPER_NOTES.md
 PLAN.md
 QUESTIONS.md
 CLAUDE.md
+HANDOFF.md
+
+# Run outputs stay local; keep the repo minimal (Judah, 2026-11-16)
+blind_search/results/*
+!blind_search/results/.gitkeep

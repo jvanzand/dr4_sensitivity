@@ -301,7 +301,7 @@ def match_by_position(comp):
 
 def sigma_fov_lw(G):
     """Lammers & Winn (2025) per-FOV-transit error [uas]: flat for G < 14."""
-    return 53.89888779*np.maximum(1.0, 10**(0.2*(G - 14.0)))
+    return 54.0*np.maximum(1.0, 10**(0.2*(G - 14.0)))
 
 
 def sigma_fov_gaiamock(G):

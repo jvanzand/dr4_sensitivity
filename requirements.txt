@@ -1,20 +1,26 @@
 # Python packages of the gaia_dr4_sensitivity conda environment (Python 3.14.3), built
 # 2026-11-04. environment.yml installs them; the census and RV scripts run in it.
-astropy==8.0.2
+# gaiamock (and healpy, joblib, cloudpickle) added 2026-11-16 for the synthetic DR4 epochs;
+# its scanning-law data (984 MB) is fetched separately with `gaiamock-download`.
 astropy-iers-data==0.2026.11.2.0.34.55
+astropy==8.0.2
 astroquery==0.4.11
 beautifulsoup4==4.15.0
 certifi==2026.10.23
 charset-normalizer==3.5.2
+cloudpickle==3.1.2
 contourpy==1.4.0
 cycler==0.12.1
 dace-query==3.0.2
 fonttools==4.68.0
+gaiamock==1.0.0
+healpy==1.20.1
 html5lib==1.1
 idna==3.20
 jaraco.classes==3.4.0
 jaraco.context==6.1.2
 jaraco.functools==4.6.0
+joblib==1.6.0
 keyring==25.7.0
 kiwisolver==1.5.1
 matplotlib==3.11.2
