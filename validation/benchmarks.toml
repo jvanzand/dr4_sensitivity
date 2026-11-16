@@ -1,0 +1,42 @@
+# Benchmark set for the blind astrometric search (validation/benchmark.py).
+#
+# Each system is a known RV system; its synthetic Gaia DR4 datasets (one per seed) are
+# frozen in validation/benchmarks/ and never regenerated, so every version of the search
+# is tested on identical data. Systems chosen by Judah on 2026-11-10.
+
+[search]                  # settings of search.run_search used for every benchmark
+M = 50                    # noise-sampled datasets per simulated threshold
+fap = 1e-3                # false-alarm probability per decision
+pmin_d = 20.0             # shortest trial period (d); longest = 2 x the DR4 span
+max_companions = 4
+match_tol = 0.25          # a detection matches an injected companion if |P/P_true - 1| < this
+
+[[system]]
+name = "HD39091"
+label = "pi Men"
+seeds = [1]
+purpose = "strong long-period companion (b, 2089 d); inner c (6.3 d) and d (121 d) must not be claimed"
+
+[[system]]
+name = "HD111232"
+label = "HD 111232"
+seeds = []
+purpose = "moderate signal (b, 7.2 M_J, 1169 d; forecast SNR 8.7)"
+
+[[system]]
+name = "HD168443"
+label = "HD 168443"
+seeds = []
+purpose = "strong c (17.8 M_J, 1750 d); inner b (58 d, SNR 0.94) is a stress test"
+
+[[system]]
+name = "HD89707"
+label = "HD 89707"
+seeds = []
+purpose = "high eccentricity (b, 54 M_J, e = 0.9): beyond the search's e <= 0.7 cap"
+
+[[system]]
+name = "TOI1736"
+label = "TOI-1736"
+seeds = []
+purpose = "optional: weak signal (c, forecast SNR 2.4)"

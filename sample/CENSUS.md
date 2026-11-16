@@ -33,7 +33,7 @@ Outputs:
 - `no_rv_only_solution.csv`: the 94 NEA planets that lacked an RV-only solution under the
   earlier RV-only rule. It is no longer regenerated; 28 of them are now in the census.
 - Printed summaries: `census_output.txt`, `census_plot_output.txt`, `sky_output.txt` (written by
-  `build_all.py`).
+  `build_all.py`; not in git).
 
 Raw downloads are in `raw/` (NEA, Gaia) and `raw_lit/` (literature tables, SIMBAD IDs). The
 literature search is summarized in [lit_search/README.md](lit_search/README.md).

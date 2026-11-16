@@ -40,5 +40,7 @@ CLAUDE.md
 HANDOFF.md
 
 # Run outputs stay local; keep the repo minimal (Judah, 2026-11-16)
-blind_search/results/*
-!blind_search/results/.gitkeep
+injection/results/
+validation/results/
+fits_rv/results_WithLitPlanets/
+sample/*_output.txt

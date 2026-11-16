@@ -13,6 +13,8 @@ companions in Gaia epoch astrometry without any prior knowledge of the planets.
 | folder | contents |
 |---|---|
 | `blind_search/` | the blind companion search (quick start below) |
+| `injection/` | injection/recovery: what the search can find |
+| `validation/` | benchmarks and reliability tests of the search |
 | `sample/` | catalog of known giant planets and brown dwarfs found by RV surveys |
 | `rv_data/` | the RV measurements of those systems, from public archives |
 | `fits_rv/`, `configs/` | fits of the RV measurements |
@@ -67,7 +69,7 @@ companion 1: P = 577.4 d, e = 0.40
 Gaia-4 b is found at step 1; nothing more is found at step 2. Each step also writes a
 figure to `my_results/`:
 
-![One search step on Gaia-4](blind_search/figures_search/gaia4_real_step1.png)
+![One search step on Gaia-4](blind_search/docs/gaia4_real_step1.png)
 
 *Top: the real periodogram (blue) against 20 of the noise-sampled periodograms (grey)
 and the detection threshold (orange). Bottom left: how the threshold is built. Bottom
@@ -77,13 +79,22 @@ right: residuals before and after adding the companion.*
 injections, resumable):
 
 ```bash
-python -I blind_search/injection_map.py run --n 2000 --out blind_search/results/my_map.jsonl
-python -I blind_search/injection_map.py plot --out blind_search/results/my_map.jsonl
+python -I injection/injection_map.py run --n 2000 --out injection/results/my_map.jsonl
+python -I injection/injection_map.py plot --out injection/results/my_map.jsonl
 ```
 
-![Injection/recovery map on the Gaia-4 epochs](blind_search/figures_search/injection_map_M50.png)
+![Injection/recovery map on the Gaia-4 epochs](injection/figures/injection_map_M50.png)
 
 *Each dot is an injected planet (blue: recovered, orange: not). Contours show the
 fraction recovered.*
 
-More in [blind_search/README.md](blind_search/README.md).
+**4. Rerun the benchmarks** (synthetic DR4 data of known RV systems, frozen in
+`validation/benchmarks/`) and compare with the stored reference:
+
+```bash
+python -I validation/benchmark.py run
+python -I validation/benchmark.py compare
+```
+
+More in [blind_search/README.md](blind_search/README.md),
+[injection/README.md](injection/README.md) and [validation/README.md](validation/README.md).

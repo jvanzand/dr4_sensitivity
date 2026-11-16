@@ -1,39 +1,30 @@
-# Figures in blind_search (2026-11-13)
+# Figures
 
-Only the figures that belong to core usage are kept. Testing, validation and
-method-comparison figures were removed on 2026-11-13 (Judah's decision); new
-testing figures will be added later and pruned again when the time is right.
+Only figures that belong to core usage are kept in git. Testing and comparison figures
+are written to the gitignored `results/` folders and can be redrawn from saved files.
 
-## Core figure code
+## Figure code
 
 | Code | What it draws | Output |
 |---|---|---|
-| `plots.plot_step_sim`, called by `search.run_search(out_dir=..., label=...)` | one search step: the real Delta-BIC periodogram with example noise-sampled periodograms and the simulated threshold; the histogram of the noise-sampled datasets' highest peaks with the Gumbel fit; the residuals before and after adding the detected companion | `<out_dir>/<label>_step<k>.png` |
-| `injection_map.py plot` (`plot_map`) | the injection/recovery map: every injection (recovered or not) with smoothed completeness contours, and the smoothed completeness image | `figures_search/<results-file-stem>.png` |
-| `make_flowchart_simple.py` | the simple algorithm flowchart used in the README | `search_flowchart.png` |
-| `make_flowchart.py` | the detailed developer flowchart with the mathematics (needs TeX) | `search_flowchart_detailed.png` |
+| `plots.plot_step_sim`, called by `search.run_search(out_dir=..., label=...)` | one search step: the real ΔBIC periodogram with example noise-sampled periodograms and the simulated threshold; the histogram of the noise-sampled datasets' highest peaks with the Gumbel fit; the residuals before and after adding the detected companion | `<out_dir>/<label>_step<k>.png` |
+| `plots.redraw_step` | the same figure, redrawn from a step saved by `search.run_search(save_dir=...)` (no search) | any path |
+| `figtools.legend_clear`, `figtools.check_legends` | legends placed where they cover no data, and the check run before every save | (helpers) |
+| `injection/injection_map.py plot` (`plot_map`) | the injection/recovery map: every injection with smoothed completeness contours | `injection/figures/<results-file-stem>.png` |
+| `validation/synthetic_dr4.py` (`process_figure`) | how a benchmark dataset is made: RVs and reference fit, ground truth, zero-planet model, injected data | `validation/results/figures/synthetic_<system>_seed<k>.png` |
+| `validation/benchmark.py run` / `redraw` | the step figures of every benchmark dataset | `validation/results/<system>_seed<k>/` |
+| `docs/make_flowchart_simple.py` | the simple algorithm flowchart used in the README | `docs/search_flowchart.png` |
+| `docs/make_flowchart.py` | the detailed developer flowchart with the mathematics (needs TeX) | `docs/search_flowchart_detailed.png` |
 
-## Figure files kept
+## Figure files in git
 
-- `figures_search/injection_map_M50.png`, `injection_map_M100.png`,
-  `injection_map_efap.png`: the 2000-injection maps (simulated threshold with
-  50 and 100 noise-sampled datasets; eFAP threshold, same injections).
-- `figures_search/gaia4_real_step1.png`, `gaia4_real_step2.png`: the step
-  figure on the real Gaia-4 data (step 1 finds Gaia-4 b; step 2 finds nothing).
-- `search_flowchart.png` (simple), `search_flowchart_detailed.png` (developer).
+- `docs/gaia4_real_step1.png`, `gaia4_real_step2.png`: the step figure on the real
+  Gaia-4 data (step 1 finds Gaia-4 b; step 2 finds nothing).
+- `docs/search_flowchart.png` (simple), `docs/search_flowchart_detailed.png` (developer).
+- `../injection/figures/injection_map_M50.png`, `injection_map_M100.png`,
+  `injection_map_efap.png`: the 2000-injection maps (simulated threshold with 50 and 100
+  noise-sampled datasets; eFAP threshold, same injections).
 
-## Removed (copies of the code and figures are in
-`../../gaia_dr4_sensitivity_blind_search_backup_2026-11-13.tar.gz`)
-
-Code: `make_figures.py`, `make_sim_figures.py`, `make_method_diagram.py`,
-`make_slide_figures.py`, `make_threshold_comparison_figure.py`,
-`run_injection_tests.py`, `run_threshold_comparison.py`,
-`injection_map_compare.py`, `injection_map_compare_methods.py`,
-`plots.plot_step` (the eFAP step figure) and `plots.plot_injection`; the
-figure in `reliability_tests.py`. Figure folders `figures/`, `figures_compare/`,
-`figures_sim/`, `figures_slides/` and the other files of `figures_search/`.
-The result files in `results/` (JSON and JSON-lines) were not touched.
-`search.run_search` now writes step figures only for the simulated threshold,
-and the options that existed only for the removed scripts (the fixed-floor
-detection rule and the arguments `floor`, `truth_info`, `title_prefix`,
-`resolution_tol`) are gone. The eFAP detection rule remains (`method='efap'`).
+Removed code and figures are kept in the backup archives next to the repository
+(`gaia_dr4_sensitivity_blind_search_backup_2026-11-13.tar.gz`,
+`gaia_dr4_sensitivity_backup_2026-11-16.tar.gz`).

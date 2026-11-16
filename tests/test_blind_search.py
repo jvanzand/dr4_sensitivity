@@ -17,6 +17,7 @@ import numpy as np
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 sys.path.insert(0, os.path.join(ROOT, 'blind_search'))
+sys.path.insert(0, os.path.join(ROOT, 'injection'))
 import data  # noqa: E402
 import efap as ef  # noqa: E402
 import model  # noqa: E402

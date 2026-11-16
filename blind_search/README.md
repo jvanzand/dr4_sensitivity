@@ -24,15 +24,15 @@ The search adds companions one at a time. At each step it:
   there, refits all companions together, and repeats. Otherwise it stops and reports
   the companions found.
 
-<img src="search_flowchart.png" width="560" alt="Flowchart of the blind search">
+<img src="docs/search_flowchart.png" width="560" alt="Flowchart of the blind search">
 
 ## What it can find
 
 The injection/recovery map injects one planet at a time into noise with the epochs and
 errors of Gaia-4 (a star with a known giant planet) and records whether the search
-recovers its period and mass.
+recovers its period and mass (code in [`injection/`](../injection/README.md)).
 
-![Injection/recovery map](figures_search/injection_map_M50.png)
+![Injection/recovery map](../injection/figures/injection_map_M50.png)
 
 Among 2000 injected planets (0.5-20 Jupiter masses, 0.5-5 AU), the search detects
 every planet with a signal-to-noise ratio (SNR) above 12 and half of those at SNR 6.4.
@@ -41,7 +41,7 @@ SNR 16 for the same 50%.
 
 ## Reliability tests
 
-`python -I blind_search/reliability_tests.py` (about 8 minutes) runs 12 checks; all
+`python -I validation/reliability_tests.py` (about 8 minutes) runs 12 checks; all
 passed on 2026-11-13.
 
 | test | what it checks | result |
@@ -55,7 +55,8 @@ passed on 2026-11-13.
 
 ```bash
 python -I tests/test_blind_search.py --quick      # unit tests, about 1.5 minutes
-python -I blind_search/reliability_tests.py       # reliability tests, about 8 minutes
+python -I validation/reliability_tests.py         # reliability tests, about 8 minutes
+python -I validation/benchmark.py run             # benchmark systems
 ```
 
 The root [README](../README.md) shows how to search your own data and how to build an

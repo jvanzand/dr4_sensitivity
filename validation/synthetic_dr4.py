@@ -1,0 +1,671 @@
+"""Synthetic Gaia DR4 epoch astrometry of a known RV system, written in the
+archive CSV layout that `data.load_gaia_dr4` reads.
+
+Steps (`make_system`):
+  1. Reference RV fit (`reference_rv_fit`): the system's literature companions
+     fitted to its RVs (rv_data/systems/) by maximum likelihood, with a
+     polynomial trend, per-dataset offsets (profiled) and jitters, using the
+     likelihood of fits_rv/companion_search.py. The literature-prior fit seeds
+     it; the final fit has no priors. Its uncertainties come from the Laplace
+     approximation: a Gaussian with covariance = inverse Hessian of -lnL at the
+     best fit, in parameters (ln P, ln K, sqrt(e) cos w, sqrt(e) sin w, mean
+     longitude M0 + w) per companion, trend coefficients and ln jitters.
+  2. Ground truth (`draw_truth`): ONE draw from that Gaussian gives the
+     RV-based parameters (P, K, e, omega, M0); the unknown ones are drawn at
+     random: cos i uniform in [-1, 1] (isotropic, i in [0, 180] deg) and Omega
+     uniform in [0, 360) deg. The true mass follows from K, P, e, i and the
+     host mass (dark companion: the photocentre is the star).
+  3. DR4 epochs (`scan_epochs`): gaiamock's scanning law
+     (`get_gost_one_position`, El-Badry et al. 2024) at the star's position,
+     DR4 window; a random 10% of transits removed, as gaiamock does.
+  4. Astrometry: the star's along-scan position = position and proper motion
+     (Gaia DR3, reference epoch J2016.0) + parallax x along-scan parallax
+     factor + the companions' orbits, plus noise: per CCD, white noise at
+     gaiamock's per-CCD error sigma_ccd(G) (Holl et al. 2023 "EDR3 adjusted"
+     curve); per transit, gaiamock's extra unmodelled noise for G < 13 (one
+     sigma per dataset, uniform in [0, 0.04] mas, not in the formal errors).
+     Each transit has 9 CCD rows (8 on CCD row 4), matching the pre-release
+     DR4 data of Gaia-4 and HD 114762 (9 used CCDs per transit; 8 in about
+     1/7 of transits).
+The zero-planet dataset uses the same epochs and noise draw as the dataset
+with the companions, so the two differ only by the injected orbits.
+
+Conventions are those of orbit.py and injection.py: omega is the star's (the
+RV omega), Thiele-Innes constants of the star's orbit. The sign link between
+the RV direction and the sky orientation is not verified (injection.py), which
+does not matter while i and Omega are drawn at random.
+
+Outputs (validation/benchmarks/, in git: the frozen benchmark inputs):
+<name>_seed<k>.csv (with companions), <name>_seed<k>_noplanet.csv,
+<name>_seed<k>_truth.json. An existing dataset is never overwritten (`force`).
+Figure (`process_figure`): validation/results/figures/synthetic_<name>_seed<k>.png
+(not in git); legends
+are placed by figtools.legend_clear so they cover no data. `--figure-only`
+redraws it from the saved files (the truth JSON keeps the fit's theta).
+
+Run:        python -I validation/synthetic_dr4.py --system HD39091 --seed 1
+            (usually through validation/benchmark.py generate)
+Test mode:  python -I validation/synthetic_dr4.py --test
+"""
+
+import argparse
+import json
+import math
+import os
+import sys
+
+import numpy as np
+import pandas as pd
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+for _d in ('blind_search', 'injection', 'fits_rv'):   # core, injection, RV likelihood
+    sys.path.insert(0, os.path.join(ROOT, _d))
+sys.path.insert(0, HERE)
+import companion_search as cs   # noqa: E402
+import data as bsdata          # noqa: E402
+import figtools                # noqa: E402
+import injection               # noqa: E402
+import orbit                   # noqa: E402
+
+BJD_MJD = 2400000.5
+J2016_MJD = 57388.5            # Gaia DR3 reference epoch J2016.0 (TCB)
+GAIA_CACHE = os.path.join(ROOT, 'data', 'gaia_dr3_astrometry.csv')
+OUT_DIR = os.path.join(HERE, 'benchmarks')           # benchmark inputs (in git)
+FIG_DIR = os.path.join(HERE, 'results', 'figures')   # not in git
+REJECT_FRAC = 0.10             # gaiamock: a random 10% of transits removed
+EXTRA_NOISE_MAX = 0.04         # mas; gaiamock's unmodelled noise, G < 13
+N_CCD, N_CCD_ROW4 = 9, 8
+
+
+# ---- inputs --------------------------------------------------------------------------
+
+def host_astrometry(source_id):
+    """Gaia DR3 position, parallax, proper motion and G of one source, cached
+    in data/gaia_dr3_astrometry.csv (fetched from the Gaia archive once)."""
+    sid = int(source_id)
+    if os.path.exists(GAIA_CACHE):
+        c = pd.read_csv(GAIA_CACHE)
+        if sid in set(c.source_id):
+            return c[c.source_id == sid].iloc[0].to_dict()
+    from astroquery.gaia import Gaia
+    r = Gaia.launch_job(
+        'select source_id, ra, dec, parallax, pmra, pmdec, ref_epoch, phot_g_mean_mag '
+        f'from gaiadr3.gaia_source where source_id = {sid}').get_results().to_pandas()
+    r.columns = [x.lower() for x in r.columns]
+    os.makedirs(os.path.dirname(GAIA_CACHE), exist_ok=True)
+    old = pd.read_csv(GAIA_CACHE) if os.path.exists(GAIA_CACHE) else None
+    pd.concat([old, r]).to_csv(GAIA_CACHE, index=False)
+    return r.iloc[0].to_dict()
+
+
+def rv_table(system):
+    """Path of the system's RV table (rv_data/systems/<source_id>_<name>.csv)."""
+    d = os.path.join(ROOT, 'rv_data', 'systems')
+    hits = [f for f in os.listdir(d) if f.endswith(f'_{system}.csv')]
+    if len(hits) != 1:
+        raise FileNotFoundError(f'{system}: {hits}')
+    return os.path.join(d, hits[0])
+
+
+# ---- 1. reference RV fit ---------------------------------------------------------------
+
+def axis_steps(f, x, hold=()):
+    """Per parameter, the step along which f rises by about 0.5 (one sigma),
+    by central differences. A parameter along which f stays flat (rise < 0.05
+    even at a step of 1e3), or one listed in `hold`, is listed in `flat`.
+    Returns (steps, flat)."""
+    n, f0 = len(x), f(x)
+    h = np.full(n, 1e-3)
+    flat = list(hold)
+    for i in range(n):
+        if i in flat:
+            continue
+        e = np.zeros(n)
+        for _ in range(40):
+            e[i] = h[i]
+            d = 0.5*(f(x + e) + f(x - e)) - f0
+            if d < 0.05 and h[i] < 1e3:
+                h[i] *= 3
+            elif d > 2:
+                h[i] /= 3
+            else:
+                break
+        if d < 0.05:
+            flat.append(i)
+    return h, flat
+
+
+def polish_scaled(f, x, hold=(), rounds=3):
+    """Minimize f in coordinates scaled by `axis_steps` (each parameter in
+    units of its own one-sigma step), so that parameters whose scales differ
+    by orders of magnitude (ln P of a short-period planet vs a jitter)
+    converge together. Flat and `hold` parameters stay fixed."""
+    from scipy.optimize import minimize
+    for _ in range(rounds):
+        h, flat = axis_steps(f, x, hold)
+        free = np.array([i for i in range(len(x)) if i not in flat])
+        x0 = x.copy()
+
+        def g(z):
+            y = x0.copy()
+            y[free] += z*h[free]
+            return f(y)
+        r = minimize(g, np.zeros(len(free)), method='BFGS', options={'gtol': 1e-5, 'maxiter': 5000})
+        x = x0.copy()
+        x[free] += r.x*h[free]
+    return x
+
+
+def laplace_cov(f, x, hold=()):
+    """Inverse Hessian of f at x by central differences, with the steps of
+    `axis_steps`. A flat parameter (e.g. the jitter of a dataset whose errors
+    dwarf it) and any parameter in `hold` is held fixed: zero variance.
+    Returns (cov, indices held fixed)."""
+    n, f0 = len(x), f(x)
+    h, flat = axis_steps(f, x, hold)
+    keep = [i for i in range(n) if i not in flat]
+    H = np.zeros((n, n))
+    for a, i in enumerate(keep):
+        ei = np.zeros(n)
+        ei[i] = h[i]
+        H[i, i] = (f(x + ei) + f(x - ei) - 2*f0)/h[i]**2
+        for j in keep[:a]:
+            ej = np.zeros(n)
+            ej[j] = h[j]
+            H[i, j] = H[j, i] = (f(x + ei + ej) - f(x + ei - ej) - f(x - ei + ej)
+                                 + f(x - ei - ej))/(4*h[i]*h[j])
+    Hk = H[np.ix_(keep, keep)]
+    if np.min(np.linalg.eigvalsh(Hk)) <= 0:
+        raise RuntimeError('Hessian not positive definite: not at a maximum')
+    cov = np.zeros((n, n))
+    cov[np.ix_(keep, keep)] = np.linalg.inv(Hk)
+    return cov, flat
+
+
+def to_lambda(theta, npl):
+    """Replace each companion's M0 by the mean longitude lambda0 = M0 + omega
+    (well defined as e -> 0, where omega and M0 are degenerate)."""
+    phi = np.array(theta, float)
+    for j in range(npl):
+        k = cs.PARAMS_PER_PLANET*j
+        phi[k + 4] = theta[k + 4] + math.atan2(theta[k + 3], theta[k + 2])
+    return phi
+
+
+def from_lambda(phi, npl):
+    theta = np.array(phi, float)
+    for j in range(npl):
+        k = cs.PARAMS_PER_PLANET*j
+        theta[k + 4] = phi[k + 4] - math.atan2(phi[k + 3], phi[k + 2])
+    return theta
+
+
+def reference_rv_fit(system, trend_order=1):
+    """Maximum-likelihood fit of the literature companions (+ trend of order
+    `trend_order`) to the system's RVs, and its Laplace covariance. Returns a
+    dict with the data, the literature priors (names, order), theta, lnL, cov."""
+    path = rv_table(system)
+    sid = os.path.basename(path).split('_')[0]
+    rv = cs.load_system(path)
+    lit = cs.literature_priors(sid)
+    th, _ = cs.fit_literature(rv, lit, cs.initial_theta(0, 0, rv))
+    if trend_order:
+        th, _ = cs.rebuild_with_trend(rv, lit, th, 0, trend_order)
+    n = len(lit)
+    from scipy.optimize import minimize
+    bnds = cs.bounds_for(n, trend_order, rv.nds, [cs.P_MIN_KNOWN_D]*n, rv.pmax,
+                         [max(rv.pmax, 2*L['P0']) for L in lit])
+    f = lambda x: cs.neg_lnL(x, rv, n, trend_order)   # noqa: E731
+    for _ in range(3):                                  # no priors: maximum likelihood
+        th = minimize(f, th, method='L-BFGS-B', bounds=bnds,
+                      options={'maxiter': 2000, 'maxfun': 50000}).x
+    ## A jitter below 10% of its dataset's median error has no effect on the
+    ## likelihood (e.g. the 5 CORAVEL RVs of pi Men, errors 290 m/s): held at
+    ## its bounded best-fit value.
+    k = cs.PARAMS_PER_PLANET*n + trend_order
+    jit = np.exp(th[k:])
+    hold = [k + d for d in range(rv.nds) if jit[d] < 0.1*np.median(rv.err[rv.ds == d])]
+    fl = lambda p: f(from_lambda(p, n))                # noqa: E731
+    phi = polish_scaled(fl, to_lambda(th, n), hold)
+    cov, flat = laplace_cov(fl, phi, hold)
+    return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
+                theta=from_lambda(phi, n), phi=phi, lnL=-fl(phi), cov=cov, held_fixed=flat)
+
+
+def planet_rows(theta, cov, fit):
+    """Per companion (literature order): P, K, e, omega (star), M0 at the RV
+    tref, Tp, and 1-sigma errors from 4000 draws of the Laplace Gaussian
+    (`cov`, in the mean-longitude parameters of `to_lambda`)."""
+    rng = np.random.default_rng(0)
+    draws = None
+    if cov is not None:
+        draws = np.array([from_lambda(p, fit['npl']) for p in
+                          rng.multivariate_normal(to_lambda(theta, fit['npl']), cov, 4000)])
+    out = []
+    for j, L in enumerate(fit['lit']):
+        k = cs.PARAMS_PER_PLANET*j
+
+        def conv(p):
+            lnP, lnK, s1, s2, M0 = p[..., k], p[..., k + 1], p[..., k + 2], p[..., k + 3], p[..., k + 4]
+            P = np.exp(lnP)
+            return dict(P=P, K=np.exp(lnK), e=np.minimum(s1**2 + s2**2, cs.E_MAX),
+                        omega=np.mod(np.arctan2(s2, s1), 2*np.pi), M0=np.mod(M0, 2*np.pi),
+                        Tp=fit['rv'].tref - np.mod(M0, 2*np.pi)*P/(2*np.pi))
+        v = {kk: float(x) for kk, x in conv(theta).items()}
+        if draws is not None:
+            d = conv(draws)
+            for kk in list(v):
+                x = d[kk]
+                if kk in ('omega', 'M0'):          # circular: spread about the value
+                    x = np.angle(np.exp(1j*(x - v[kk])))
+                    v[f'{kk}_err'] = float(np.std(x))
+                else:
+                    v[f'{kk}_err'] = float(np.std(x))
+        v['name'] = L['name']
+        out.append(v)
+    return out
+
+
+# ---- 2. ground truth -------------------------------------------------------------------
+
+def true_mass_mj(P, e, K, inc, mstar):
+    """Companion mass (M_J) that gives K at inclination inc (dark companion)."""
+    from scipy.optimize import brentq
+    return brentq(lambda m: injection.k_from_mass(P, e, inc, m, mstar) - K, 1e-8, 1e6, xtol=1e-12)
+
+
+def draw_truth(fit, host, mstar, rng):
+    """One ground-truth system: RV-based parameters drawn from the reference
+    fit's Laplace Gaussian, inclination and Omega drawn at random, derived
+    masses and astrometric sizes, and the fixed host values."""
+    while True:
+        th = from_lambda(rng.multivariate_normal(fit['phi'], fit['cov']), fit['npl'])
+        pl = cs.unpack(th, fit['npl'], fit['tord'], fit['rv'].nds)[0]
+        if all(p[2]**2 + p[3]**2 < cs.E_MAX for p in pl):
+            break
+    rows = planet_rows(th, None, fit)
+    tref_mjd = fit['rv'].tref - BJD_MJD
+    comps = []
+    for r in rows:
+        inc = math.acos(rng.uniform(-1, 1))
+        Omega = rng.uniform(0, 2*np.pi)
+        m = true_mass_mj(r['P'], r['e'], r['K'], inc, mstar)
+        msini = true_mass_mj(r['P'], r['e'], r['K'], np.pi/2, mstar)
+        m_sun = m*injection.GM_JUP/injection.GM_SUN
+        a_au = ((mstar + m_sun)*(r['P']/365.25)**2)**(1/3)
+        a_star = a_au*host['parallax']*m_sun/(mstar + m_sun)
+        comps.append(dict(
+            name=r['name'],
+            rv_based=dict(P_d=r['P'], K_ms=r['K'], e=r['e'], omega_star_deg=math.degrees(r['omega']),
+                          M0_deg=math.degrees(r['M0']), Tp_bjd_tcb=r['Tp'] + 0.0),
+            random=dict(inc_deg=math.degrees(inc), Omega_deg=math.degrees(Omega)),
+            derived=dict(mass_mj=m, msini_mj=msini, a_au=a_au, a_star_mas=a_star,
+                         thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, r['omega'], Omega))),
+            tref_mjd=tref_mjd))
+    k = cs.PARAMS_PER_PLANET*fit['npl']
+    trend = [float(c) for c in th[k:k + fit['tord']]]
+    return dict(companions=comps, rv_trend_coefs=trend,
+                fixed=dict(mstar_msun=mstar, ra_deg=host['ra'], dec_deg=host['dec'],
+                           parallax_mas=host['parallax'], pmra_masyr=host['pmra'],
+                           pmdec_masyr=host['pmdec'], G=host['phot_g_mean_mag'],
+                           ref_epoch_mjd=J2016_MJD))
+
+
+# ---- 3-4. epochs and astrometry --------------------------------------------------------
+
+def scan_epochs(ra, dec, rng):
+    """DR4 transits from gaiamock's scanning law: MJD (TCB), scan angle (rad),
+    along-scan parallax factor, CCD row. A random REJECT_FRAC removed."""
+    from gaiamock import gaiamock as gm
+    tab = gm.get_gost_one_position(ra, dec, data_release='dr4')
+    tab = tab[rng.uniform(0, 1, len(tab)) > REJECT_FRAC]
+    psi, fal, jd, row = gm.fetch_table_element(
+        ['scanAngle[rad]', 'parallaxFactorAlongScan',
+         'ObservationTimeAtBarycentre[BarycentricJulianDateInTCB]', 'CcdRow[1-7]'], tab)
+    o = np.argsort(jd)
+    return (np.asarray(jd)[o] - BJD_MJD, np.asarray(psi)[o], np.asarray(fal)[o],
+            np.asarray(row)[o].astype(int))
+
+
+def sigma_ccd_mas(G):
+    from gaiamock import gaiamock as gm
+    return float(gm.al_uncertainty_per_ccd_interp(G))
+
+
+def baseline_al(t, psi, fal, fixed):
+    """Along-scan position (mas) of the barycentre: proper motion from the
+    J2016.0 position, plus parallax."""
+    dt = (t - fixed['ref_epoch_mjd'])/365.25
+    return (fixed['pmra_masyr']*dt*np.sin(psi) + fixed['pmdec_masyr']*dt*np.cos(psi)
+            + fixed['parallax_mas']*fal)
+
+
+def companion_sky(t, comp):
+    """The star's offset (dRA*, dDec) in mas due to one companion."""
+    rb = comp['rv_based']
+    M = orbit.mean_anomaly(t, rb['P_d'], math.radians(rb['M0_deg']), comp['tref_mjd'])
+    X, Y = orbit.xy(M, rb['e'])
+    A, B, F, G = comp['derived']['thiele_innes_ABFG_mas']
+    return B*X + G*Y, A*X + F*Y
+
+
+def companions_al(t, psi, comps):
+    out = np.zeros_like(t)
+    for c in comps:
+        x, y = companion_sky(t, c)
+        out += x*np.sin(psi) + y*np.cos(psi)
+    return out
+
+
+def write_csv(path, t, psi, fal, row, al_ccd, sig):
+    """Archive layout (one row per CCD), as data_conversion/ writes it."""
+    n_ccd = np.where(row == 4, N_CCD_ROW4, N_CCD)
+    tid = np.repeat(np.arange(len(t)) + 1, n_ccd)
+    df = pd.DataFrame(dict(transit_id=tid, epoch=np.repeat(t, n_ccd),
+                           scan_pos_angle=np.repeat(np.degrees(psi), n_ccd),
+                           centroid_pos_al=al_ccd, centroid_pos_error_al=sig,
+                           ipd_error_al=sig, parallax_factor_al=np.repeat(fal, n_ccd),
+                           used_by_agis_al=True, outlier_flag=0))
+    df.to_csv(path)
+
+
+def make_astrometry(truth, rng):
+    """Epochs, the per-CCD measurements with and without the companions (same
+    noise), and the noise settings."""
+    fx = truth['fixed']
+    t, psi, fal, row = scan_epochs(fx['ra_deg'], fx['dec_deg'], rng)
+    sig = sigma_ccd_mas(fx['G'])
+    extra = rng.uniform(0, EXTRA_NOISE_MAX) if fx['G'] < 13 else 0.0
+    n_ccd = np.where(row == 4, N_CCD_ROW4, N_CCD)
+    noise = (np.repeat(extra*rng.standard_normal(len(t)), n_ccd)
+             + sig*rng.standard_normal(n_ccd.sum()))
+    base = np.repeat(baseline_al(t, psi, fal, fx), n_ccd)
+    orb = np.repeat(companions_al(t, psi, truth['companions']), n_ccd)
+    return dict(t=t, psi=psi, fal=fal, row=row, sig=np.full(n_ccd.sum(), sig),
+                noplanet=base + noise, planets=base + orb + noise,
+                noise=dict(sigma_ccd_mas=sig, extra_transit_sigma_mas=extra,
+                           n_transits=int(len(t)), n_ccd_rows=int(n_ccd.sum()),
+                           reject_frac=REJECT_FRAC))
+
+
+def make_system(system, seed, trend_order=1, fig=True, force=False):
+    stem = os.path.join(OUT_DIR, f'{system}_seed{seed}')
+    if os.path.exists(f'{stem}_truth.json') and not force:
+        raise FileExistsError(f'{stem}_truth.json exists: benchmark inputs are frozen (force=True to replace)')
+    rng = np.random.default_rng(seed)
+    fit = reference_rv_fit(system, trend_order)
+    host = host_astrometry(fit['source_id'])
+    cat = pd.read_csv(cs.CATALOG, dtype={'system_id': str}, low_memory=False)
+    mstar = float(cat[cat.system_id == fit['source_id']].st_mass.iloc[0])
+    truth = draw_truth(fit, host, mstar, rng)
+    ast = make_astrometry(truth, rng)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    write_csv(f'{stem}.csv', ast['t'], ast['psi'], ast['fal'], ast['row'], ast['planets'], ast['sig'])
+    write_csv(f'{stem}_noplanet.csv', ast['t'], ast['psi'], ast['fal'], ast['row'], ast['noplanet'],
+              ast['sig'])
+    rows = planet_rows(fit['theta'], fit['cov'], fit)
+    _, coefs, jit = cs.unpack(fit['theta'], fit['npl'], fit['tord'], fit['rv'].nds)
+    truth.update(system=system, seed=seed, noise=ast['noise'],
+                 reference_fit=dict(planets=rows, lnL=fit['lnL'], trend_order=fit['tord'],
+                                    trend_coefs=[float(c) for c in coefs],
+                                    jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
+                                    rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
+                                    laplace_held_fixed=[int(i) for i in fit['held_fixed']],
+                                    theta=[float(x) for x in fit['theta']],
+                                    method='maximum likelihood; errors from the Laplace approximation'))
+    json.dump(truth, open(f'{stem}_truth.json', 'w'), indent=1)
+    print(f'wrote {stem}.csv, _noplanet.csv, _truth.json')
+    if fig:
+        process_figure(fit, truth, f'{stem}.csv', f'{stem}_noplanet.csv',
+                       os.path.join(FIG_DIR, f'synthetic_{system}_seed{seed}.png'))
+    return fit, truth
+
+
+def fit_from_truth(truth):
+    """The reference fit as saved in a _truth.json (theta, no covariance),
+    with its RV data: enough to redraw the figure without refitting."""
+    ref = truth['reference_fit']
+    path = rv_table(truth['system'])
+    rv = cs.load_system(path)
+    lit = cs.literature_priors(os.path.basename(path).split('_')[0])
+    return dict(rv=rv, lit=lit, npl=len(lit), tord=ref['trend_order'],
+                theta=np.array(ref['theta']), held_fixed=ref['laplace_held_fixed'])
+
+
+def redraw(system, seed):
+    stem = os.path.join(OUT_DIR, f'{system}_seed{seed}')
+    truth = json.load(open(f'{stem}_truth.json'))
+    process_figure(fit_from_truth(truth), truth, f'{stem}.csv', f'{stem}_noplanet.csv',
+                   os.path.join(FIG_DIR, f'synthetic_{system}_seed{seed}.png'))
+
+
+# ---- figure ----------------------------------------------------------------------------
+
+def _pretty(name):
+    return name.replace('HD 39091', r'$\pi$ Men').replace('pi Men', r'$\pi$ Men')
+
+
+def process_figure(fit, truth, csv_planets, csv_noplanet, out):
+    """Four rows: the RVs with the reference fit; the ground-truth values (RV-
+    based vs random vs derived vs fixed); the zero-planet model with the DR4
+    epochs and errors; the synthetic data with the companions injected."""
+    import matplotlib
+    matplotlib.rc_file(os.path.join(ROOT, 'matplotlibrc'))
+    import matplotlib.pyplot as plt
+    rv, th, n, tord = fit['rv'], fit['theta'], fit['npl'], fit['tord']
+    rows = truth['reference_fit']['planets']
+    legs = []                      # (axes, legend kwargs), placed by figtools at the end
+    fx, comps = truth['fixed'], truth['companions']
+    name = _pretty(comps[0]['name'].rsplit(' ', 1)[0])
+
+    fig = plt.figure(figsize=(20, 34))
+    gs = fig.add_gridspec(6, 2, height_ratios=[1.25, 0.5, 0.95, 1.0, 0.45, 1.0], hspace=0.42, wspace=0.22)
+
+    # Row 1: RVs and the reference fit
+    ax = fig.add_subplot(gs[0, :])
+    nll, off, _ = cs.neg_lnL(th, rv, n, tord, True)
+    jit = cs.unpack(th, n, tord, rv.nds)[2]
+    yr = lambda t: 2000 + (t - 2451544.5)/365.25   # noqa: E731
+    for d, nm in enumerate(rv.names):
+        m = rv.ds == d
+        lab = nm.split(':')[1] if ':' in nm else nm
+        k = cs.PARAMS_PER_PLANET*n + tord + d
+        jl = (f'jitter {jit[d]:.1f} m/s (held fixed: errors {np.median(rv.err[m]):.0f} m/s)'
+              if k in fit['held_fixed'] else f'jitter {jit[d]:.1f} m/s')
+        ax.errorbar(yr(rv.t[m]), rv.rv[m] - off[d], np.hypot(rv.err[m], jit[d]), fmt='o', ms=4,
+                    color=f'C{d % 10}', alpha=0.7, lw=1, label=f'{lab}: {m.sum()} RVs, {jl}')
+    tt = np.linspace(rv.t.min() - 200, rv.t.max() + 200, 30000)
+    grid = cs.RVData(tt, np.zeros_like(tt), np.ones_like(tt), np.zeros(len(tt)))
+    grid.tref, grid.span = rv.tref, rv.span
+    ax.plot(yr(tt), cs.model_rv(th, grid, n, tord), 'k-', lw=1.2, zorder=5,
+            label='reference fit (maximum likelihood):')
+    for r in rows:
+        ax.plot([], [], ' ', label=(f"{_pretty(r['name'])}: P = {r['P']:.4g} $\\pm$ {r['P_err']:.2g} d, "
+                                    f"K = {r['K']:.3g} $\\pm$ {r['K_err']:.2g} m/s, "
+                                    f"e = {r['e']:.3f} $\\pm$ {r['e_err']:.3f}, "
+                                    f"$\\omega_\\star$ = {math.degrees(r['omega']):.1f} $\\pm$ "
+                                    f"{math.degrees(r['omega_err']):.2g}$^\\circ$, "
+                                    f"T$_p$ = BJD {r['Tp']:.0f} $\\pm$ {r['Tp_err']:.2g}"))
+    if tord:
+        ax.plot([], [], ' ', label=f'linear trend {truth["reference_fit"]["trend_coefs"][0]/rv.span*365.25:.3f} m/s/yr'
+                + ('' if tord == 1 else ' + quadratic'))
+    ax.set_xlabel('year')
+    ax.set_ylabel('RV $-$ offset (m/s)')
+    ax.set_title(f'1. {name}: RVs and the reference fit (offsets and jitters per dataset; errors include jitter)',
+                 fontsize=22)
+    hl = ax.get_legend_handles_labels()
+    ax = fig.add_subplot(gs[1, :])
+    ax.axis('off')
+    ax.legend(*hl, fontsize=13, ncol=2, loc='upper left', frameon=False)
+
+    # Row 2: ground truth list
+    ax = fig.add_subplot(gs[2, :])
+    ax.axis('off')
+    ax.set_title('2. Ground truth for the synthetic DR4 data (one draw)', fontsize=22, loc='left')
+    lines = [('RV-based: one draw from the reference fit (Laplace Gaussian)', 'C0'),]
+    for c in comps:
+        rb = c['rv_based']
+        lines.append((f"   {_pretty(c['name'])}:  P = {rb['P_d']:.5g} d,  K = {rb['K_ms']:.4g} m/s,  "
+                      f"e = {rb['e']:.3f},  $\\omega_\\star$ = {rb['omega_star_deg']:.1f}$^\\circ$,  "
+                      f"T$_p$ = BJD {rb['Tp_bjd_tcb']:.1f}", 'C0'))
+    lines.append(('Random: isotropic inclination (cos i uniform), $\\Omega$ uniform in [0, 360)$^\\circ$', 'C3'))
+    for c in comps:
+        rd = c['random']
+        lines.append((f"   {_pretty(c['name'])}:  i = {rd['inc_deg']:.1f}$^\\circ$,  "
+                      f"$\\Omega$ = {rd['Omega_deg']:.1f}$^\\circ$", 'C3'))
+    lines.append(('Derived (from the above and the host mass)', '0.3'))
+    for c in comps:
+        dv = c['derived']
+        lines.append((f"   {_pretty(c['name'])}:  M = {dv['mass_mj']:.4g} M$_J$ (M sin i = "
+                      f"{dv['msini_mj']:.4g}),  a = {dv['a_au']:.3f} AU,  star's astrometric "
+                      f"semi-major axis = {dv['a_star_mas']*1e3:.4g} $\\mu$as", '0.3'))
+    nz = truth['noise']
+    lines.append((f"Fixed: M$_\\star$ = {fx['mstar_msun']} M$_\\odot$ (catalog);  Gaia DR3 (J2016.0): "
+                  f"$\\varpi$ = {fx['parallax_mas']:.3f} mas, $\\mu_{{\\alpha*}}$ = {fx['pmra_masyr']:.2f}, "
+                  f"$\\mu_\\delta$ = {fx['pmdec_masyr']:.2f} mas/yr, G = {fx['G']:.2f}", 'k'))
+    lines.append((f"Noise: $\\sigma_{{CCD}}$ = {nz['sigma_ccd_mas']:.3f} mas (gaiamock), "
+                  f"extra per-transit noise {nz['extra_transit_sigma_mas']*1e3:.1f} $\\mu$as (not in the "
+                  f"formal errors);  {nz['n_transits']} transits after removing "
+                  f"{nz['reject_frac']:.0%}", 'k'))
+    for i, (s, col) in enumerate(lines):
+        ax.text(0.0, 1 - i/len(lines), s, color=col, fontsize=16, transform=ax.transAxes, va='top',
+                fontweight='bold' if not s.startswith('   ') else 'normal')
+
+    # Rows 3-5: astrometry (per transit, as the search sees it)
+    g0 = bsdata.load_gaia_dr4(csv_noplanet)
+    g1 = bsdata.load_gaia_dr4(csv_planets)
+    psi = np.arctan2(g0.sinpsi, g0.cospsi)
+    base = baseline_al(g0.t, psi, g0.fal, fx)
+    t_yr = lambda t: 2000 + (t - 51544.5)/365.25   # noqa: E731
+    tg = np.linspace(g0.t.min() - 30, g0.t.max() + 30, 4000)
+    dtg = (tg - fx['ref_epoch_mjd'])/365.25
+    # the parallax ellipse needs both parallax factors: the sky track is drawn by
+    # interpolating the transits' (dRA*, dDec) parallax displacement, so only the
+    # proper motion part is drawn continuously
+    ax = fig.add_subplot(gs[3, 0])
+    ax.plot(fx['pmra_masyr']*dtg, fx['pmdec_masyr']*dtg, '-', color='0.6', lw=1.5,
+            label='proper motion alone')
+    dt0 = (g0.t - fx['ref_epoch_mjd'])/365.25
+    # position at each transit: proper motion + along-scan parallax shift (the
+    # only component Gaia measures), drawn along the scan direction
+    x0, y0 = fx['pmra_masyr']*dt0, fx['pmdec_masyr']*dt0
+    s = fx['parallax_mas']*g0.fal
+    ax.plot(x0 + s*g0.sinpsi, y0 + s*g0.cospsi, 'o', color='C0', ms=6,
+            label=f'DR4 transits ({len(g0)}): proper motion + along-scan parallax shift')
+    ax.set_xlabel(r'$\Delta\alpha*$ from J2016.0 (mas)')
+    ax.set_ylabel(r'$\Delta\delta$ from J2016.0 (mas)')
+    ax.set_title('3a. Zero-planet model: sky motion over DR4', fontsize=20)
+    legs.append((ax, dict(fontsize=13)))
+
+    ax = fig.add_subplot(gs[3, 1])
+    pm_part = base - fx['parallax_mas']*g0.fal
+    ax.errorbar(t_yr(g0.t), g0.y - pm_part, g0.err, fmt='o', color='C0', ms=5, lw=1,
+                label=f'zero-planet synthetic data, minus proper motion (median error '
+                      f'{np.median(g0.err)*1e3:.0f} $\\mu$as)')
+    ax.plot(t_yr(g0.t), fx['parallax_mas']*g0.fal, 'x', color='k', ms=7,
+            label=r'model: $\varpi$ $\times$ along-scan parallax factor')
+    ax.set_xlabel('year')
+    ax.set_ylabel('along-scan position (mas)')
+    ax.set_title('3b. Zero-planet model: along-scan parallax signal', fontsize=20)
+    legs.append((ax, dict(fontsize=13)))
+
+    ax = fig.add_subplot(gs[4, :])
+    ax.errorbar(t_yr(g0.t), (g0.y - base)*1e3, g0.err*1e3, fmt='o', color='C0', ms=5, lw=1,
+                label='zero-planet synthetic data minus the true zero-planet model (noise only)')
+    ax.axhline(0, color='k', lw=1)
+    ax.set_xlabel('year')
+    ax.set_ylabel(r'residual ($\mu$as)')
+    ax.set_title('3c. Zero-planet synthetic data: realistic DR4 epochs and errors', fontsize=20)
+    legs.append((ax, dict(fontsize=13)))
+
+    ax = fig.add_subplot(gs[5, 0])
+    sig_al = companions_al(g1.t, psi, comps)
+    ax.errorbar(t_yr(g1.t), g1.y - base, g1.err, fmt='o', color='C1', ms=5, lw=1,
+                label='synthetic data with companions, minus the zero-planet model')
+    ax.plot(t_yr(g1.t), sig_al, 'x', color='k', ms=7, label='injected companion signal (along scan)')
+    ax.axhline(0, color='0.5', lw=1)
+    ax.set_xlabel('year')
+    ax.set_ylabel('along-scan offset (mas)')
+    ax.set_title('4a. Synthetic data with the companions injected', fontsize=20)
+    legs.append((ax, dict(fontsize=13)))
+
+    ax = fig.add_subplot(gs[5, 1])
+    for c in comps:
+        P = c['rv_based']['P_d']
+        tf = np.linspace(0, P, 2000) + g1.t.min()
+        x, y = companion_sky(tf, c)
+        a = c['derived']['a_star_mas']
+        ax.plot(x, y, '--', lw=1.2, label=f"{_pretty(c['name'])}: full orbit (semi-major axis "
+                f"{a:.3g} mas)" if a >= 0.1 else f"{_pretty(c['name'])}: full orbit (semi-major axis "
+                f"{a*1e3:.3g} $\\mu$as)")
+    x = sum(companion_sky(tg, c)[0] for c in comps)
+    y = sum(companion_sky(tg, c)[1] for c in comps)
+    ax.plot(x, y, 'k-', lw=1.5, label='star over the DR4 window (all companions)')
+    xs = sum(companion_sky(g1.t, c)[0] for c in comps)
+    ys = sum(companion_sky(g1.t, c)[1] for c in comps)
+    ax.plot(xs, ys, 'o', color='C1', ms=5, label='at the DR4 transits')
+    ax.plot(0, 0, '+', color='k', ms=14, mew=2, label='barycentre')
+    ax.set_aspect('equal', 'datalim')
+    ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
+    ax.set_ylabel(r'$\Delta\delta$ (mas)')
+    ax.set_title("4b. The star's injected orbit on the sky", fontsize=20)
+    legs.append((ax, dict(fontsize=12)))
+
+    for a_, kw in legs:            # legends placed where they cover no data
+        figtools.legend_clear(a_, **kw)
+    figtools.check_legends(fig)
+    fig.suptitle(f'Synthetic Gaia DR4 astrometry of {name} (seed {truth["seed"]})', fontsize=28, y=0.91)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    fig.savefig(out, dpi=80, bbox_inches='tight')
+    plt.close(fig)
+    print(f'wrote {out}')
+
+
+# ---- test ------------------------------------------------------------------------------
+
+def selftest():
+    """A Gaia-4 b-like companion at pi Men's sky position (no RV fit): the CSV
+    loads, and a least-squares fit at the true (P, e, M0) recovers the
+    injected Thiele-Innes constants and parallax within 5 sigma."""
+    import tempfile
+    rng = np.random.default_rng(3)
+    fx = dict(mstar_msun=1.0, ra_deg=84.2995, dec_deg=-80.4645, parallax_mas=20.0, pmra_masyr=100.0,
+              pmdec_masyr=-50.0, G=9.0, ref_epoch_mjd=J2016_MJD)
+    ti = orbit.ti_from_elements(0.5, 1.0, 0.3, 2.0)
+    comp = dict(name='test b', rv_based=dict(P_d=571.3, e=0.3, M0_deg=40.0), tref_mjd=57800.0,
+                derived=dict(thiele_innes_ABFG_mas=list(ti)))
+    truth = dict(fixed=fx, companions=[comp])
+    ast = make_astrometry(truth, rng)
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, 't.csv')
+        write_csv(p, ast['t'], ast['psi'], ast['fal'], ast['row'], ast['planets'], ast['sig'])
+        g = bsdata.load_gaia_dr4(p)
+    assert len(g) == ast['noise']['n_transits'], (len(g), ast['noise'])
+    dt = (g.t - fx['ref_epoch_mjd'])/365.25
+    M = orbit.mean_anomaly(g.t, 571.3, math.radians(40.0), 57800.0)
+    X = np.column_stack([g.sinpsi, dt*g.sinpsi, g.cospsi, dt*g.cospsi, g.fal,
+                         orbit.astro_columns(M, 0.3, g.sinpsi, g.cospsi)])
+    w = 1/g.err
+    coef, *_ = np.linalg.lstsq(X*w[:, None], g.y*w, rcond=None)
+    cov = np.linalg.inv((X*w[:, None]).T @ (X*w[:, None]))
+    want = np.array([0, 100.0, 0, -50.0, 20.0, *ti])
+    z = (coef - want)/np.sqrt(np.diag(cov))
+    assert np.all(np.abs(z) < 5), z
+    print(f'synthetic_dr4.py test passed: {len(g)} transits, max |z| = {np.max(np.abs(z)):.1f}')
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--system', default='HD39091')
+    ap.add_argument('--seed', type=int, default=1)
+    ap.add_argument('--trend-order', type=int, default=1)
+    ap.add_argument('--test', action='store_true')
+    ap.add_argument('--figure-only', action='store_true', help='redraw from the saved files')
+    a = ap.parse_args()
+    if a.test:
+        selftest()
+    elif a.figure_only:
+        redraw(a.system, a.seed)
+    else:
+        make_system(a.system, a.seed, a.trend_order)

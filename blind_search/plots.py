@@ -15,6 +15,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+import figtools  # noqa: E402
 
 
 def _plt():
@@ -48,11 +49,27 @@ def _residual_panels(fig, cell, stack, residual_models):
         if q == len(residual_models) - 1:
             ax3.set_xlabel('time - mid-baseline (d, MJD)')
         if q == 0:
-            ax3.legend(fontsize=10, frameon=False)
+            figtools.legend_clear(ax3, fontsize=10, frameon=False)
+
+
+def redraw_step(stack, path, out):
+    """Redraw one search step's figure from its saved products
+    (`search.save_step`), without searching again. `stack` is the same data
+    the search ran on."""
+    import search
+    dec, meta, a, sim = search.load_step(path)
+    if sim is None:
+        raise ValueError(f'{path}: no simulated threshold saved (method {dec["method"]!r})')
+    known = a['known_before']
+    models = [known] + ([a['known_after']] if dec['detected'] else [])
+    return plot_step_sim(stack, a['periods'], a['dbic'], sim, known, meta['pmin'], meta['pmax'], out,
+                         search.step_title(meta['label'], dec['step'], len(known)),
+                         truth=meta['truth'], truth_label=meta['truth_label'],
+                         residual_models=models, fap=meta['fap'])
 
 
 def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, truth=(), truth_label=None,
-                  residual_models=None, fap=1e-3, nshow=20):
+                  residual_models=None, fap=1e-3, nshow=20, stat=None):
     """One search step with the simulated threshold
     (simthreshold.simulated_threshold): top, the real data's Delta-BIC
     periodogram, `nshow` of the simulated no-further-companion periodograms
@@ -61,7 +78,9 @@ def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, tr
     dataset, the Gumbel fit and the thresholds, with the real data's highest
     peak); bottom right, the residuals of the models in `residual_models`. `sim`
     is the dict returned by simulated_threshold(..., keep=nshow); `planets` are
-    the companions already in the model."""
+    the companions already in the model. `stat` is the statistic compared with
+    the threshold when it is not the periodogram's highest peak (rv_search.py:
+    the larger of that peak and the trend gain)."""
     from scipy.stats import gumbel_r
     plt = _plt()
     residual_models = [planets] if residual_models is None else residual_models
@@ -69,6 +88,8 @@ def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, tr
     M, ex = len(maxima), sim['examples'][:nshow]
     k = int(np.argmax(dbic))
     peak = float(dbic[k])
+    stat = peak if stat is None else float(stat)
+    unit = 'm/s' if stack.has_rv and not stack.has_astro else 'mas'
     jit = float(np.sqrt(sim['jitter2'][0]))
     fig = plt.figure(figsize=(20, 15.5))
     gs = fig.add_gridspec(2, 2, height_ratios=[1.1, 1], hspace=0.62)
@@ -104,9 +125,9 @@ def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, tr
     ax.set_xscale('log')
     ax.set_xlim(pmin, pmax)
     ax.set_xlabel('trial period (d)')
-    nge = int(np.sum(maxima >= peak))
-    verdict = ('DETECTED' if peak > thr else 'NOT DETECTED')
-    ax.set_title(f'{title}\n{verdict}: highest peak $\\Delta$BIC = {peak:.1f} {">" if peak > thr else "<"} threshold {thr:.1f}; '
+    nge = int(np.sum(maxima >= stat))
+    verdict = ('DETECTED' if stat > thr else 'NOT DETECTED')
+    ax.set_title(f'{title}\n{verdict}: {"highest peak" if stat == peak else "trend gain"} $\\Delta$BIC = {stat:.1f} {">" if stat > thr else "<"} threshold {thr:.1f}; '
                  f'{nge} of {M} noise-sampled datasets have a highest peak at or above the real one', fontsize=15)
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.17), ncol=2, fontsize=12, frameon=True, framealpha=0.95)
 
@@ -127,25 +148,26 @@ def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, tr
             ax2.annotate(f"threshold, FAP = {f_:g}: {sim['thr'][f_]:.1f}", xy=(sim['thr'][f_], 0.5*ytop), xytext=(-7, 0),
                          textcoords='offset points', rotation=90, color='C1', ha='right', va='center', fontsize=12,
                          fontweight='bold')
-    if peak <= top:
-        ax2.axvline(peak, color='C3', ls='-', lw=2.8)
-        ax2.annotate(f'highest peak of the real data: {peak:.1f}', xy=(peak, 0.68*ytop), xytext=(7, 0), textcoords='offset points',
+    if stat <= top:
+        ax2.axvline(stat, color='C3', ls='-', lw=2.8)
+        ax2.annotate(f'highest peak of the real data: {stat:.1f}', xy=(stat, 0.68*ytop), xytext=(7, 0), textcoords='offset points',
                      rotation=90, color='C3', ha='left', va='center', fontsize=12, fontweight='bold')
     else:
-        ax2.annotate(f'real data:\n{peak:.0f}, off scale', xy=(top, 0.5*ytop),
+        ax2.annotate(f'real data:\n{stat:.0f}, off scale', xy=(top, 0.5*ytop),
                      xytext=(bins[0] + 0.665*(top - bins[0]), 0.80*ytop), fontsize=12, color='C3', fontweight='bold', ha='left',
                      arrowprops=dict(arrowstyle='-|>', color='C3', lw=2.5))
     ax2.set_xlim(bins[0], top)
     ax2.set_xlabel('highest $\\Delta$BIC of one periodogram')
     ax2.set_ylabel('number of noise-sampled datasets')
     ax2.set_title('how the threshold is built: each noise-sampled dataset contributes its highest peak;\nFAP = fraction of noise-sampled datasets whose highest peak exceeds the threshold', fontsize=12.5)
-    ax2.legend(fontsize=10.5, frameon=False, loc='upper left')
 
     _residual_panels(fig, gs[1, 1], stack, residual_models)
-    sub = (f'Noise-sampled datasets: at every real transit, the predicted position of the fitted {len(planets)}-companion model plus Gaussian '
-           f'noise of standard deviation $\\sqrt{{\\sigma_i^2+s^2}}$ (formal error $\\sigma_i$, fitted jitter $s$ = {jit:.3f} mas); each is refit '
+    figtools.legend_clear(ax2, fontsize=10.5, frameon=False)   # after all panels exist
+    sub = (f'Noise-sampled datasets: at every real transit, the predicted value of the fitted {len(planets)}-companion model plus Gaussian '
+           f'noise of standard deviation $\\sqrt{{\\sigma_i^2+s^2}}$ (formal error $\\sigma_i$, fitted jitter $s$ = {jit:.3f} {unit}); each is refit '
            f'and searched like the real data; only its highest peak is kept (grey dots).')
     fig.text(0.5, 0.012, sub, ha='center', fontsize=12.5)
+    figtools.check_legends(fig)          # no legend may cover data
     fig.savefig(out, dpi=130, bbox_inches='tight')
     plt.close(fig)
     return out
