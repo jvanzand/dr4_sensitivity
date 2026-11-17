@@ -108,6 +108,29 @@ def host_astrometry(source_id):
     return r.iloc[0].to_dict()
 
 
+EXCLUDED_RVS = os.path.join(HERE, 'excluded_rvs.csv')   # log of RVs left out, per system (in git)
+
+
+def load_rvs(path, system):
+    """The system's RVs (companion_search.load_system: junk flags applied)
+    minus the points listed for it in validation/excluded_rvs.csv (matched by
+    dataset and BJD_TCB within 1e-4 d). Returns (RVData, number excluded)."""
+    t = pd.read_csv(path, low_memory=False)
+    t = t[~t.isjunk.astype(bool) & t.rv_ms.notna() & t.rv_err_ms.notna()]
+    n_ex = 0
+    if os.path.exists(EXCLUDED_RVS):
+        ex = pd.read_csv(EXCLUDED_RVS)
+        ex = ex[ex.system == system]
+        drop = np.zeros(len(t), bool)
+        for _, r in ex.iterrows():
+            hit = (t.dataset.to_numpy() == r.dataset) & (np.abs(t.bjd_tcb.to_numpy() - r.bjd_tcb) < 1e-4)
+            if hit.sum() != 1:
+                raise ValueError(f'{system}: excluded RV at BJD {r.bjd_tcb} matches {hit.sum()} rows')
+            drop |= hit
+        t, n_ex = t[~drop], int(drop.sum())
+    return cs.RVData(t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy()), n_ex
+
+
 def rv_table(system):
     """Path of the system's RV table (rv_data/systems/<source_id>_<name>.csv)."""
     d = os.path.join(ROOT, 'rv_data', 'systems')
@@ -308,6 +331,25 @@ def select_trend(rv, lit):
     return theta, tord, steps
 
 
+def profile_jitters(f, th, k, nds, lo, hi, rounds=3):
+    """Each dataset's ln jitter set to its maximum of -f with everything else
+    held (bounded 1-D search in [lo, hi]), `rounds` times over all datasets.
+    L-BFGS-B can leave a jitter at its upper bound far from its maximum (e.g.
+    HD 168443 HIRES: 30 m/s with 6 m/s residuals; found 2026-11-16)."""
+    from scipy.optimize import minimize_scalar
+    th = th.copy()
+    for _ in range(rounds):
+        for d in range(nds):
+            def g(v, d=d):
+                x = th.copy()
+                x[k + d] = v
+                return f(x)
+            r = minimize_scalar(g, bounds=(lo, hi), method='bounded', options={'xatol': 1e-4})
+            if r.fun < f(th):
+                th[k + d] = r.x
+    return th
+
+
 def reference_rv_fit(system):
     """Fit of the literature companions (+ a trend chosen by `select_trend`) to
     the system's RVs, and its Laplace covariance. Maximum likelihood (no priors)
@@ -316,13 +358,14 @@ def reference_rv_fit(system):
     ridge), the literature-prior fit is used instead: the maximum of the
     likelihood times companion_search's Gaussian priors on ln P, ln K and e
     around the published values (they enter only this RV reference model).
-    Jitters stay within their bounds; a jitter that has no effect (below 10%
-    of its dataset's median error) or sits at a bound is held fixed.
+    Jitters stay within their bounds and are profiled to their maxima
+    (`profile_jitters`); a jitter that has no effect (below 10% of its
+    dataset's median error) or still sits at a bound is held fixed.
     Returns a dict with the data, the literature priors (names, order),
     theta, data lnL, cov, held_fixed and `kind` (which fit was used)."""
     path = rv_table(system)
     sid = os.path.basename(path).split('_')[0]
-    rv = cs.load_system(path)
+    rv, n_ex = load_rvs(path, system)
     lit = literature_sorted(sid)
     th0, trend_order, trend_steps = select_trend(rv, lit)
     n = len(lit)
@@ -340,15 +383,25 @@ def reference_rv_fit(system):
             th = minimize(f, th, method='L-BFGS-B', bounds=bnds,
                           options={'maxiter': 2000, 'maxfun': 50000}).x
         jit = np.exp(th[k:])
+        # During the polish only jitters without effect or at the LOWER bound are
+        # held; one at the upper bound may only reflect a poor starting model
+        # (HD 168443 HIRES: 30 m/s from a start at -lnL 2003; 6 m/s at the
+        # maximum), so it stays free, and the jitters are profiled between polishes.
         hold = [k + d for d in range(rv.nds)
-                if jit[d] < 0.1*np.median(rv.err[rv.ds == d]) or not lo + 0.01 < th[k + d] < hi - 0.01]
+                if jit[d] < 0.1*np.median(rv.err[rv.ds == d]) or th[k + d] <= lo + 0.01]
 
         def fl(p, f=f):
             x = from_lambda(p, n)
             x[k:] = np.clip(x[k:], lo, hi)                 # jitters stay within bounds
             return f(x)
         phi = polish_scaled(fl, to_lambda(th, n), hold)
+        for _ in range(2):
+            x = from_lambda(phi, n)
+            x[k:] = np.clip(x[k:], lo, hi)
+            x = profile_jitters(f, x, k, rv.nds, lo, hi)
+            phi = polish_scaled(fl, to_lambda(x, n), hold)
         phi[k:] = np.clip(phi[k:], lo, hi)
+        # Laplace step: a jitter still at either bound is held (no curvature there)
         hold = sorted(set(hold) | {k + d for d in range(rv.nds) if not lo + 0.01 < phi[k + d] < hi - 0.01})
         try:
             cov, flat = laplace_cov(fl, phi, hold)
@@ -360,7 +413,7 @@ def reference_rv_fit(system):
     theta = from_lambda(phi, n)
     return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
                 theta=theta, phi=phi, lnL=-data_nll(theta), cov=cov, held_fixed=flat, kind=kind,
-                trend_steps=trend_steps)
+                trend_steps=trend_steps, n_rv_excluded=n_ex)
 
 
 def planet_rows(theta, cov, fit):
@@ -632,12 +685,17 @@ def rng_for(system, seed):
     return np.random.default_rng([seed, zlib.crc32(system.encode())])
 
 
+_FIT_CACHE = {}
+
+
 def make_system(system, seed, fig=True, force=False):
     stem = os.path.join(OUT_DIR, f'{system}_seed{seed}')
     if os.path.exists(f'{stem}_truth.json') and not force:
         raise FileExistsError(f'{stem}_truth.json exists: benchmark inputs are frozen (force=True to replace)')
     rng = rng_for(system, seed)
-    fit = reference_rv_fit(system)
+    if system not in _FIT_CACHE:                       # one reference fit per system and process
+        _FIT_CACHE[system] = reference_rv_fit(system)
+    fit = _FIT_CACHE[system]
     host = host_astrometry(fit['source_id'])
     cat = pd.read_csv(cs.CATALOG, dtype={'system_id': str}, low_memory=False)
     mstar = float(cat[cat.system_id == fit['source_id']].st_mass.iloc[0])
@@ -653,6 +711,7 @@ def make_system(system, seed, fig=True, force=False):
                  reference_fit=dict(planets=rows, lnL=fit['lnL'], trend_order=fit['tord'],
                                     trend_coefs=[float(c) for c in coefs],
                                     trend_steps=fit['trend_steps'],
+                                    n_rv_excluded=fit['n_rv_excluded'],
                                     jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
                                     rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
                                     laplace_held_fixed=[int(i) for i in fit['held_fixed']],
@@ -672,7 +731,7 @@ def fit_from_truth(truth):
     with its RV data: enough to redraw the figure without refitting."""
     ref = truth['reference_fit']
     path = rv_table(truth['system'])
-    rv = cs.load_system(path)
+    rv = load_rvs(path, truth['system'])[0]
     lit = literature_sorted(os.path.basename(path).split('_')[0])
     return dict(rv=rv, lit=lit, npl=len(lit), tord=ref['trend_order'],
                 theta=np.array(ref['theta']), held_fixed=ref['laplace_held_fixed'])

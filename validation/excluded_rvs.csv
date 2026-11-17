@@ -1,0 +1,5 @@
+system,dataset,bjd_tcb,rv_ms,rv_err_ms,reason,decided
+HD111232,dace:MIKE_ECHELLE_SPECTROGRAPH:2009ApJ...693.1424M,2451042.759222,90.000000,7.800000,residual +5.1 robust sigma (1.4826 MAD) from the dataset median at the reference fit; cutoff 5,"Judah, 2026-11-16 (case by case; a general rule may follow)"
+HD111232,dace:MIKE_ECHELLE_SPECTROGRAPH:2009ApJ...693.1424M,2451127.739924,123.600000,3.300000,residual +10.3 robust sigma (1.4826 MAD) from the dataset median at the reference fit; cutoff 5,"Judah, 2026-11-16 (case by case; a general rule may follow)"
+HD111232,dace:MIKE_ECHELLE_SPECTROGRAPH:2009ApJ...693.1424M,2451455.815229,108.000000,3.200000,residual +20.2 robust sigma (1.4826 MAD) from the dataset median at the reference fit; cutoff 5,"Judah, 2026-11-16 (case by case; a general rule may follow)"
+HD111232,dace:MIKE_ECHELLE_SPECTROGRAPH:2009ApJ...693.1424M,2451542.533130,-6.800000,3.500000,residual +12.9 robust sigma (1.4826 MAD) from the dataset median at the reference fit; cutoff 5,"Judah, 2026-11-16 (case by case; a general rule may follow)"
