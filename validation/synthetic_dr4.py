@@ -873,20 +873,24 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     legs.append((ax, dict(fontsize=13)))
 
     ax = fig.add_subplot(gs[5, 1])
-    # Each companion's offset over the DR4 window, and their sum, minus its
-    # linear motion (best-fit position and proper motion over the DR4 transits:
-    # a straight line in each coordinate, least squares), which the 5-parameter
-    # fit absorbs (Judah, 2026-11-16: the linear motion is proper motion and is
-    # subtracted; the quadratic and cubic terms are astrophysical and kept).
-    # The injected signal holds no parallax. Removing a line is linear, so the
-    # sum of the parts is the drawn total.
+    # Each companion's offset over the DR4 window, and their sum. Planets: their
+    # reflex orbits about the barycentre as they are (an orbit adds no net
+    # motion, and removing a fitted line from one whose period is close to the
+    # window shears it open: pi Men b). Trend companion: minus its linear
+    # motion (best-fit position and proper motion over the DR4 transits, least
+    # squares), which cannot be told apart from the star's proper motion
+    # (Judah, 2026-11-16: the linear term is proper motion and is subtracted;
+    # the quadratic and cubic terms are astrophysical and kept). The injected
+    # signal holds no parallax.
     A = np.column_stack([np.ones_like(g1.t), g1.t - g1.t.mean()])
 
     def minus_line(c):
-        xs, ys = companion_sky(g1.t, c)
+        xs, ys = companion_sky(g1.t, c, full=True)
+        x, y = companion_sky(tg, c, full=True)
+        if c.get('role') != 'trend':
+            return x, y, xs, ys
         lin = [np.linalg.lstsq(A, v, rcond=None)[0] for v in (xs, ys)]
         at = lambda t, k: lin[k][0] + lin[k][1]*(t - g1.t.mean())     # noqa: E731
-        x, y = companion_sky(tg, c)
         return x - at(tg, 0), y - at(tg, 1), xs - at(g1.t, 0), ys - at(g1.t, 1)
     parts = [minus_line(c) for c in comps]
     for k, (c, (x, y, _, _)) in enumerate(zip(comps, parts)):
@@ -902,11 +906,12 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     xs, ys = sum(p[2] for p in parts), sum(p[3] for p in parts)
     ax.plot(x, y, '-', color='0.55', lw=5, zorder=1, label='sum')
     ax.plot(xs, ys, 'o', color='C1', ms=5, zorder=4, label='sum at the DR4 transits')
+    ax.plot(0, 0, '+', color='k', ms=14, mew=2, zorder=5, label='barycentre')
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')
-    ax.set_title("4b. The star's motion due to its companions over DR4, minus its proper motion\n"
-                 "(each companion alone: its period; the largest extent of its track)", fontsize=16)
+    ax.set_title("4b. The star's motion due to its companions over DR4 (trend companion: minus its\n"
+                 "linear motion, i.e. proper motion; each companion alone: period, largest extent)", fontsize=16)
     legs.append((ax, dict(fontsize=11)))
 
     # 4c-d: the same curves as 4b, each coordinate against time. Gaia measures
