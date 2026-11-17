@@ -37,7 +37,8 @@ def _densify(xy, step=3.0):
 
 def data_points(ax):
     """Display coordinates (N, 2) of everything drawn in `ax` with data:
-    lines (densified), markers, error bars and filled regions."""
+    lines (densified), markers, error bars, filled regions and text labels
+    (annotations; a grid over each label's box). Needs a drawn canvas."""
     pts = []
     for ln in ax.get_lines():
         xy = np.asarray(ln.get_xydata(), float)
@@ -62,6 +63,13 @@ def data_points(ax):
         v = pa.get_path().vertices
         if len(v):
             pts.append(_densify(pa.get_transform().transform(v)))
+    for t in ax.texts:
+        if not t.get_visible() or not t.get_text().strip():
+            continue
+        bb = t.get_window_extent()
+        gx, gy = np.meshgrid(np.linspace(bb.x0, bb.x1, max(2, int(bb.width/3))),
+                             np.linspace(bb.y0, bb.y1, max(2, int(bb.height/3))))
+        pts.append(np.column_stack([gx.ravel(), gy.ravel()]))
     if not pts:
         return np.zeros((0, 2))
     p = np.concatenate([q for q in pts if len(q)])

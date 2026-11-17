@@ -3,18 +3,27 @@ archive CSV layout that `data.load_gaia_dr4` reads.
 
 Steps (`make_system`):
   1. Reference RV fit (`reference_rv_fit`): the system's literature companions
-     fitted to its RVs (rv_data/systems/) by maximum likelihood, with a
+     fitted to its RVs (rv_data/systems/) by maximum likelihood (or, where
+     that has no proper maximum, with the literature priors), with a
      polynomial trend, per-dataset offsets (profiled) and jitters, using the
-     likelihood of fits_rv/companion_search.py. The literature-prior fit seeds
-     it; the final fit has no priors. Its uncertainties come from the Laplace
-     approximation: a Gaussian with covariance = inverse Hessian of -lnL at the
-     best fit, in parameters (ln P, ln K, sqrt(e) cos w, sqrt(e) sin w, mean
-     longitude M0 + w) per companion, trend coefficients and ln jitters.
+     likelihood of fits_rv/companion_search.py. The trend order (none by
+     default, linear or quadratic) is chosen step by step (`select_trend`):
+     tested before any companion is in the model, and re-checked after each
+     companion is added (a term that stops paying Delta-BIC >= 20 is
+     dropped). The literature-prior fit seeds the final fit, which has no
+     priors. Its uncertainties come from the Laplace approximation: a
+     Gaussian with covariance = inverse Hessian of -lnL at the best fit, in
+     parameters (ln P, ln K, sqrt(e) cos w, sqrt(e) sin w, mean longitude
+     M0 + w) per companion, trend coefficients and ln jitters.
   2. Ground truth (`draw_truth`): ONE draw from that Gaussian gives the
      RV-based parameters (P, K, e, omega, M0); the unknown ones are drawn at
      random: cos i uniform in [-1, 1] (isotropic, i in [0, 180] deg) and Omega
      uniform in [0, 360) deg. The true mass follows from K, P, e, i and the
-     host mass (dark companion: the photocentre is the star).
+     host mass (dark companion: the photocentre is the star). If the fit has
+     a trend, a trend companion is drawn to reproduce it
+     (`draw_trend_companion`) and its acceleration is injected too: it stands
+     in for the long-term motion that real DR4 data will carry, and is not a
+     target of the search.
   3. DR4 epochs (`scan_epochs`): gaiamock's scanning law
      (`get_gost_one_position`, El-Badry et al. 2024) at the star's position,
      DR4 window; a random 10% of transits removed, as gaiamock does.
@@ -102,7 +111,8 @@ def host_astrometry(source_id):
 def rv_table(system):
     """Path of the system's RV table (rv_data/systems/<source_id>_<name>.csv)."""
     d = os.path.join(ROOT, 'rv_data', 'systems')
-    hits = [f for f in os.listdir(d) if f.endswith(f'_{system}.csv')]
+    key = system.replace('-', '')                       # TOI1736 matches ..._TOI-1736.csv
+    hits = [f for f in os.listdir(d) if f.replace('-', '').endswith(f'_{key}.csv')]
     if len(hits) != 1:
         raise FileNotFoundError(f'{system}: {hits}')
     return os.path.join(d, hits[0])
@@ -157,29 +167,64 @@ def polish_scaled(f, x, hold=(), rounds=3):
     return x
 
 
+def _hessian_in_basis(f, x, B):
+    """Second derivatives of f at x with respect to c, where x = x0 + B c (the
+    columns of B are the step vectors), by central differences with unit
+    steps in c."""
+    m, f0 = B.shape[1], f(x)
+    H = np.zeros((m, m))
+    for a in range(m):
+        ba = B[:, a]
+        H[a, a] = f(x + ba) + f(x - ba) - 2*f0
+        for b in range(a):
+            bb = B[:, b]
+            H[a, b] = H[b, a] = (f(x + ba + bb) - f(x + ba - bb) - f(x - ba + bb) + f(x - ba - bb))/4
+    return H
+
+
+def _scale_direction(f, x, d, f0):
+    """Step length along direction d at which f rises by about 0.5 (None if
+    f stays flat up to a length of 1e4)."""
+    s = 1.0
+    for _ in range(60):
+        r = 0.5*(f(x + s*d) + f(x - s*d)) - f0
+        if r < 0.05 and s < 1e4:
+            s *= 3
+        elif r > 2:
+            s /= 3
+        else:
+            return s if r >= 0.05 else None
+    return s
+
+
 def laplace_cov(f, x, hold=()):
-    """Inverse Hessian of f at x by central differences, with the steps of
-    `axis_steps`. A flat parameter (e.g. the jitter of a dataset whose errors
-    dwarf it) and any parameter in `hold` is held fixed: zero variance.
-    Returns (cov, indices held fixed)."""
+    """Inverse Hessian of f at x by central differences. First pass: steps
+    along each parameter axis (`axis_steps`). Strongly correlated parameters
+    (e.g. K, e, omega and phase of a highly eccentric orbit) make that matrix
+    ill-conditioned, so a second pass measures the curvature along the
+    first-pass eigen-directions, each with its own step (rise of about 0.5).
+    A flat parameter (e.g. the jitter of a dataset whose errors dwarf it) and
+    any parameter in `hold` are held fixed: zero variance. Raises if a
+    direction stays flat or the Hessian is not positive definite. Returns
+    (cov, indices held fixed)."""
     n, f0 = len(x), f(x)
     h, flat = axis_steps(f, x, hold)
     keep = [i for i in range(n) if i not in flat]
-    H = np.zeros((n, n))
+    B = np.zeros((n, len(keep)))
     for a, i in enumerate(keep):
-        ei = np.zeros(n)
-        ei[i] = h[i]
-        H[i, i] = (f(x + ei) + f(x - ei) - 2*f0)/h[i]**2
-        for j in keep[:a]:
-            ej = np.zeros(n)
-            ej[j] = h[j]
-            H[i, j] = H[j, i] = (f(x + ei + ej) - f(x + ei - ej) - f(x - ei + ej)
-                                 + f(x - ei - ej))/(4*h[i]*h[j])
-    Hk = H[np.ix_(keep, keep)]
-    if np.min(np.linalg.eigvalsh(Hk)) <= 0:
+        B[i, a] = h[i]
+    w, V = np.linalg.eigh(_hessian_in_basis(f, x, B))
+    D = B @ V                                          # eigen-directions in parameter space
+    for a in range(D.shape[1]):
+        s = (1/np.sqrt(w[a])) if w[a] > 1e-6 else _scale_direction(f, x, D[:, a], f0)
+        if s is None:
+            raise RuntimeError('Hessian not positive definite: a direction is flat')
+        D[:, a] *= s
+    Hc = _hessian_in_basis(f, x, D)
+    if np.min(np.linalg.eigvalsh(Hc)) <= 0:
         raise RuntimeError('Hessian not positive definite: not at a maximum')
     cov = np.zeros((n, n))
-    cov[np.ix_(keep, keep)] = np.linalg.inv(Hk)
+    cov[np.ix_(keep, keep)] = (D @ np.linalg.inv(Hc) @ D.T)[np.ix_(keep, keep)]
     return cov, flat
 
 
@@ -201,36 +246,121 @@ def from_lambda(phi, npl):
     return theta
 
 
-def reference_rv_fit(system, trend_order=1):
-    """Maximum-likelihood fit of the literature companions (+ trend of order
-    `trend_order`) to the system's RVs, and its Laplace covariance. Returns a
-    dict with the data, the literature priors (names, order), theta, lnL, cov."""
+def literature_sorted(source_id):
+    """The system's literature companions (companion_search priors), largest K
+    first: the order in which the reference fit adds them, and the order of
+    the companions in its theta."""
+    return sorted(cs.literature_priors(source_id), key=lambda L: -(L['K0'] or 0.0))
+
+
+def select_trend(rv, lit):
+    """Trend order of the reference fit, chosen step by step (Judah,
+    2026-11-16): no trend by default; with no companions yet, a linear and
+    then a quadratic term are each adopted if they lower BIC by >=
+    cs.DELTA_BIC (20). The literature companions are then added one at a time
+    (largest K first), and after each the trend is re-checked: its top term
+    is dropped if it is worth < DELTA_BIC, and the order raised if that gains
+    >= DELTA_BIC. Fits are companion_search's (literature priors on the
+    companions, BIC from the data lnL). Returns (theta, order, steps)."""
+    steps = []
+    floors = lambda n: [cs.P_MIN_KNOWN_D]*n        # noqa: E731
+
+    def settle(theta, lnL, n, tord):
+        for _ in range(2*cs.MAX_TREND_ORDER + 2):
+            cur = cs.bic(lnL, n, tord, rv)
+            if tord > 0:
+                th, ll = cs.fit(cs.set_trend_order(theta, n, tord, tord - 1), rv, n, tord - 1,
+                                floors(n), lit[:n])
+                d = cur - cs.bic(ll, n, tord - 1, rv)
+                if d > -cs.DELTA_BIC:
+                    steps.append(dict(n_companions=n, action=f'drop trend term {tord} -> {tord - 1}',
+                                      worth_dBIC=float(-d)))
+                    theta, lnL, tord = th, ll, tord - 1
+                    continue
+            if tord < cs.MAX_TREND_ORDER:
+                th, ll = cs.fit(cs.seed_trend(theta, n, tord, tord + 1, rv), rv, n, tord + 1,
+                                floors(n), lit[:n])
+                if n:                                  # second start: companions refit with the trend
+                    th2, ll2 = cs.rebuild_with_trend(rv, lit[:n], theta, tord, tord + 1)
+                    if ll2 - cs.prior_penalty(th2, lit[:n]) > ll - cs.prior_penalty(th, lit[:n]):
+                        th, ll = th2, ll2
+                d = cur - cs.bic(ll, n, tord + 1, rv)
+                if d >= cs.DELTA_BIC:
+                    steps.append(dict(n_companions=n, action=f'raise trend order {tord} -> {tord + 1}',
+                                      dBIC=float(d)))
+                    theta, lnL, tord = th, ll, tord + 1
+                    continue
+                steps.append(dict(n_companions=n, action=f'keep trend order {tord}',
+                                  dBIC_of_raising=float(d)))
+            else:
+                steps.append(dict(n_companions=n, action=f'keep trend order {tord}',
+                                  top_term_worth_dBIC=float(-d)))
+            break
+        return theta, lnL, tord
+
+    theta, lnL = cs.fit(cs.initial_theta(0, 0, rv), rv, 0, 0, [])
+    theta, lnL, tord = settle(theta, lnL, 0, 0)
+    for j in range(len(lit)):
+        theta = cs.seed_literature_planet(theta, j, rv, lit, tord)
+        theta, lnL = cs.polish_literature(theta, j + 1, tord, rv, lit[:j + 1])
+        steps.append(dict(n_companions=j + 1, action=f"add {lit[j]['name']}"))
+        theta, lnL, tord = settle(theta, lnL, j + 1, tord)
+    return theta, tord, steps
+
+
+def reference_rv_fit(system):
+    """Fit of the literature companions (+ a trend chosen by `select_trend`) to
+    the system's RVs, and its Laplace covariance. Maximum likelihood (no priors)
+    by default. If that has no proper maximum (Hessian not positive definite,
+    e.g. HD 89707 b: with periastron barely sampled, e and K trade off along a
+    ridge), the literature-prior fit is used instead: the maximum of the
+    likelihood times companion_search's Gaussian priors on ln P, ln K and e
+    around the published values (they enter only this RV reference model).
+    Jitters stay within their bounds; a jitter that has no effect (below 10%
+    of its dataset's median error) or sits at a bound is held fixed.
+    Returns a dict with the data, the literature priors (names, order),
+    theta, data lnL, cov, held_fixed and `kind` (which fit was used)."""
     path = rv_table(system)
     sid = os.path.basename(path).split('_')[0]
     rv = cs.load_system(path)
-    lit = cs.literature_priors(sid)
-    th, _ = cs.fit_literature(rv, lit, cs.initial_theta(0, 0, rv))
-    if trend_order:
-        th, _ = cs.rebuild_with_trend(rv, lit, th, 0, trend_order)
+    lit = literature_sorted(sid)
+    th0, trend_order, trend_steps = select_trend(rv, lit)
     n = len(lit)
     from scipy.optimize import minimize
     bnds = cs.bounds_for(n, trend_order, rv.nds, [cs.P_MIN_KNOWN_D]*n, rv.pmax,
                          [max(rv.pmax, 2*L['P0']) for L in lit])
-    f = lambda x: cs.neg_lnL(x, rv, n, trend_order)   # noqa: E731
-    for _ in range(3):                                  # no priors: maximum likelihood
-        th = minimize(f, th, method='L-BFGS-B', bounds=bnds,
-                      options={'maxiter': 2000, 'maxfun': 50000}).x
-    ## A jitter below 10% of its dataset's median error has no effect on the
-    ## likelihood (e.g. the 5 CORAVEL RVs of pi Men, errors 290 m/s): held at
-    ## its bounded best-fit value.
     k = cs.PARAMS_PER_PLANET*n + trend_order
-    jit = np.exp(th[k:])
-    hold = [k + d for d in range(rv.nds) if jit[d] < 0.1*np.median(rv.err[rv.ds == d])]
-    fl = lambda p: f(from_lambda(p, n))                # noqa: E731
-    phi = polish_scaled(fl, to_lambda(th, n), hold)
-    cov, flat = laplace_cov(fl, phi, hold)
+    lo, hi = np.log(cs.JITTER_BOUNDS)
+    data_nll = lambda x: cs.neg_lnL(x, rv, n, trend_order)      # noqa: E731
+    for kind, f in (('maximum likelihood', data_nll),
+                    ('literature-prior fit (maximum likelihood had no proper maximum)',
+                     lambda x: data_nll(x) + cs.prior_penalty(x, lit))):
+        th = th0.copy()
+        for _ in range(3):
+            th = minimize(f, th, method='L-BFGS-B', bounds=bnds,
+                          options={'maxiter': 2000, 'maxfun': 50000}).x
+        jit = np.exp(th[k:])
+        hold = [k + d for d in range(rv.nds)
+                if jit[d] < 0.1*np.median(rv.err[rv.ds == d]) or not lo + 0.01 < th[k + d] < hi - 0.01]
+
+        def fl(p, f=f):
+            x = from_lambda(p, n)
+            x[k:] = np.clip(x[k:], lo, hi)                 # jitters stay within bounds
+            return f(x)
+        phi = polish_scaled(fl, to_lambda(th, n), hold)
+        phi[k:] = np.clip(phi[k:], lo, hi)
+        hold = sorted(set(hold) | {k + d for d in range(rv.nds) if not lo + 0.01 < phi[k + d] < hi - 0.01})
+        try:
+            cov, flat = laplace_cov(fl, phi, hold)
+            break
+        except RuntimeError:
+            if f is not data_nll:
+                raise
+            print(f'{system}: maximum-likelihood Hessian not positive definite; using the literature-prior fit')
+    theta = from_lambda(phi, n)
     return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
-                theta=from_lambda(phi, n), phi=phi, lnL=-fl(phi), cov=cov, held_fixed=flat)
+                theta=theta, phi=phi, lnL=-data_nll(theta), cov=cov, held_fixed=flat, kind=kind,
+                trend_steps=trend_steps)
 
 
 def planet_rows(theta, cov, fit):
@@ -275,6 +405,83 @@ def true_mass_mj(P, e, K, inc, mstar):
     return brentq(lambda m: injection.k_from_mass(P, e, inc, m, mstar) - K, 1e-8, 1e6, xtol=1e-12)
 
 
+TREND_A_MAX_AU = 100.0         # trend companion: widest separation drawn
+TREND_M_MAX_MSUN = 0.3         # trend companion: heaviest mass kept (dark-companion model)
+TREND_DLNL_MAX = 1.0           # trend companion: largest lnL loss vs the polynomial trend
+TREND_MAX_DRAWS = 20000
+
+
+def draw_trend_companion(fit, th, host, mstar, rng, name):
+    """A companion that reproduces the RV trend of the drawn reference model
+    `th` (decided 2026-11-16): the trend's astrometric counterpart, to test
+    whether long-term motion confuses the search; its parameters are not
+    meant to be recovered. Circular orbit; period log-uniform from the
+    longest period the RV search fits as a companion (2 x the RV baseline)
+    to a separation of TREND_A_MAX_AU; cos i uniform; Omega uniform. For a
+    quadratic trend, K and the phase follow from the trend's slope and
+    curvature at the RV reference time; for a linear trend the phase is
+    uniform and K follows from the slope (the curvature is then limited by
+    the lnL test only; fixing it at zero pins the draws to the mass cap, e.g.
+    HD 111232). A draw is kept if its mass is <= TREND_M_MAX_MSUN and the
+    RVs fit it nearly as well as the polynomial (data lnL lower by <
+    TREND_DLNL_MAX, offsets reprofiled). Returns the companion entry (role
+    'trend') or None when there is no trend."""
+    import copy
+    rv, n, tord = fit['rv'], fit['npl'], fit['tord']
+    if tord == 0:
+        return None
+    k = cs.PARAMS_PER_PLANET*n
+    coefs = th[k:k + tord]
+    slope = coefs[0]/rv.span                                    # m/s/d at rv.tref
+    curv = 2*coefs[1]/rv.span**2 if tord == 2 else 0.0          # m/s/d^2
+    nll_poly = cs.neg_lnL(th, rv, n, tord)
+    th0 = np.delete(th, np.s_[k:k + tord])                     # same planets and jitters, no trend
+    p_lo = cs.PERIOD_CAP_BASELINES*rv.span
+    p_hi = 365.25*math.sqrt(TREND_A_MAX_AU**3/mstar)
+    m_cap = TREND_M_MAX_MSUN*injection.GM_SUN/injection.GM_JUP
+    for i in range(TREND_MAX_DRAWS):
+        P = math.exp(rng.uniform(math.log(p_lo), math.log(p_hi)))
+        inc = math.acos(rng.uniform(-1, 1))
+        Omega = rng.uniform(0, 2*np.pi)
+        nu = 2*np.pi/P                       # v = K cos(nu (t - tref) + phase): v' = -K nu sin(phase)
+        if tord == 2:                        # v'(tref) = slope, v''(tref) = -K nu^2 cos(phase) = curv
+            K, phase = math.hypot(slope, curv/nu)/nu, math.atan2(-slope, -curv/nu)
+        else:
+            phase = rng.uniform(0, 2*np.pi)
+            if math.sin(phase)*slope > 0:    # sign of the slope set by the phase
+                phase = -phase
+            K = abs(slope/(nu*math.sin(phase)))
+        try:
+            m = true_mass_mj(P, 0.0, K, inc, mstar)
+        except ValueError:
+            continue
+        if m > m_cap:
+            continue
+        rv2 = copy.copy(rv)
+        rv2.rv = rv.rv - K*np.cos(nu*(rv.t - rv.tref) + phase)
+        dlnl = nll_poly - cs.neg_lnL(th0, rv2, n, 0)
+        if dlnl < -TREND_DLNL_MAX:
+            continue
+        m_sun = m*injection.GM_JUP/injection.GM_SUN
+        a_au = ((mstar + m_sun)*(P/365.25)**2)**(1/3)
+        a_star = a_au*host['parallax']*m_sun/(mstar + m_sun)
+        M0 = phase % (2*np.pi)
+        return dict(
+            name=name, role='trend',
+            rv_based=dict(P_d=P, K_ms=K, e=0.0, omega_star_deg=0.0, M0_deg=math.degrees(M0),
+                          Tp_bjd_tcb=rv.tref - M0*P/(2*np.pi)),
+            random=dict(inc_deg=math.degrees(inc), Omega_deg=math.degrees(Omega)),
+            derived=dict(mass_mj=m, msini_mj=true_mass_mj(P, 0.0, K, np.pi/2, mstar), a_au=a_au,
+                         a_star_mas=a_star,
+                         thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, 0.0, Omega))),
+            trend=dict(order=int(tord), slope_ms_per_yr=float(slope*365.25),
+                       curvature_ms_per_yr2=float(curv*365.25**2), period_range_d=[p_lo, p_hi],
+                       dlnL_vs_polynomial=float(dlnl), n_draws=i + 1,
+                       injected='orbit minus its offset and velocity at J2016.0 (see companion_sky)'),
+            tref_mjd=rv.tref - BJD_MJD)
+    raise RuntimeError(f'no trend companion consistent with the RVs in {TREND_MAX_DRAWS} draws')
+
+
 def draw_truth(fit, host, mstar, rng):
     """One ground-truth system: RV-based parameters drawn from the reference
     fit's Laplace Gaussian, inclination and Omega drawn at random, derived
@@ -303,6 +510,11 @@ def draw_truth(fit, host, mstar, rng):
             derived=dict(mass_mj=m, msini_mj=msini, a_au=a_au, a_star_mas=a_star,
                          thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, r['omega'], Omega))),
             tref_mjd=tref_mjd))
+    import re
+    host_name = re.sub(r'^.*\[\S+ (.+)\]$', r'\1', rows[0]['name']).rsplit(' ', 1)[0]
+    tc = draw_trend_companion(fit, th, host, mstar, rng, f'{host_name} trend companion')
+    if tc is not None:
+        comps.append(tc)
     k = cs.PARAMS_PER_PLANET*fit['npl']
     trend = [float(c) for c in th[k:k + fit['tord']]]
     return dict(companions=comps, rv_trend_coefs=trend,
@@ -341,13 +553,36 @@ def baseline_al(t, psi, fal, fixed):
             + fixed['parallax_mas']*fal)
 
 
-def companion_sky(t, comp):
-    """The star's offset (dRA*, dDec) in mas due to one companion."""
-    rb = comp['rv_based']
-    M = orbit.mean_anomaly(t, rb['P_d'], math.radians(rb['M0_deg']), comp['tref_mjd'])
-    X, Y = orbit.xy(M, rb['e'])
-    A, B, F, G = comp['derived']['thiele_innes_ABFG_mas']
-    return B*X + G*Y, A*X + F*Y
+def companion_sky(t, comp, full=False):
+    """The star's offset (dRA*, dDec) in mas due to one companion. For the
+    trend companion (role 'trend'), its offset and velocity at J2016.0 are
+    subtracted unless `full`: the Gaia DR3 position and proper motion used
+    for the barycentre are the star's apparent ones, which already contain
+    them, so what is injected is the change in its motion (acceleration and
+    higher orders). A position + proper-motion fit absorbs the subtracted
+    part, so the search sees the same data either way."""
+    def sky(t):
+        rb = comp['rv_based']
+        M = orbit.mean_anomaly(t, rb['P_d'], math.radians(rb['M0_deg']), comp['tref_mjd'])
+        X, Y = orbit.xy(M, rb['e'])
+        A, B, F, G = comp['derived']['thiele_innes_ABFG_mas']
+        return np.array([B*X + G*Y, A*X + F*Y])
+    t = np.asarray(t, float)
+    out = sky(t)
+    if comp.get('role') == 'trend' and not full:
+        h = 1.0                                             # d
+        x0 = sky(np.array([J2016_MJD]))
+        v0 = (sky(np.array([J2016_MJD + h])) - sky(np.array([J2016_MJD - h])))/(2*h)
+        out = out - x0 - v0*(t - J2016_MJD)
+    return out[0], out[1]
+
+
+def grid_for(t, rv):
+    """An RVData on times `t` with the reference time and span of `rv`, to
+    evaluate the RV model on a grid."""
+    g = cs.RVData(t, np.zeros_like(t), np.ones_like(t), np.zeros(len(t)))
+    g.tref, g.span = rv.tref, rv.span
+    return g
 
 
 def companions_al(t, psi, comps):
@@ -389,12 +624,20 @@ def make_astrometry(truth, rng):
                            reject_frac=REJECT_FRAC))
 
 
-def make_system(system, seed, trend_order=1, fig=True, force=False):
+def rng_for(system, seed):
+    """Random generator of one benchmark dataset, seeded by the seed AND the
+    system name, so different systems with the same seed get independent
+    draws (from 2026-11-16; HD39091_seed1 was made with the seed alone)."""
+    import zlib
+    return np.random.default_rng([seed, zlib.crc32(system.encode())])
+
+
+def make_system(system, seed, fig=True, force=False):
     stem = os.path.join(OUT_DIR, f'{system}_seed{seed}')
     if os.path.exists(f'{stem}_truth.json') and not force:
         raise FileExistsError(f'{stem}_truth.json exists: benchmark inputs are frozen (force=True to replace)')
-    rng = np.random.default_rng(seed)
-    fit = reference_rv_fit(system, trend_order)
+    rng = rng_for(system, seed)
+    fit = reference_rv_fit(system)
     host = host_astrometry(fit['source_id'])
     cat = pd.read_csv(cs.CATALOG, dtype={'system_id': str}, low_memory=False)
     mstar = float(cat[cat.system_id == fit['source_id']].st_mass.iloc[0])
@@ -409,11 +652,13 @@ def make_system(system, seed, trend_order=1, fig=True, force=False):
     truth.update(system=system, seed=seed, noise=ast['noise'],
                  reference_fit=dict(planets=rows, lnL=fit['lnL'], trend_order=fit['tord'],
                                     trend_coefs=[float(c) for c in coefs],
+                                    trend_steps=fit['trend_steps'],
                                     jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
                                     rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
                                     laplace_held_fixed=[int(i) for i in fit['held_fixed']],
                                     theta=[float(x) for x in fit['theta']],
-                                    method='maximum likelihood; errors from the Laplace approximation'))
+                                    kind=fit['kind'],
+                                    method=f"{fit['kind']}; errors from the Laplace approximation"))
     json.dump(truth, open(f'{stem}_truth.json', 'w'), indent=1)
     print(f'wrote {stem}.csv, _noplanet.csv, _truth.json')
     if fig:
@@ -428,7 +673,7 @@ def fit_from_truth(truth):
     ref = truth['reference_fit']
     path = rv_table(truth['system'])
     rv = cs.load_system(path)
-    lit = cs.literature_priors(os.path.basename(path).split('_')[0])
+    lit = literature_sorted(os.path.basename(path).split('_')[0])
     return dict(rv=rv, lit=lit, npl=len(lit), tord=ref['trend_order'],
                 theta=np.array(ref['theta']), held_fixed=ref['laplace_held_fixed'])
 
@@ -443,6 +688,10 @@ def redraw(system, seed):
 # ---- figure ----------------------------------------------------------------------------
 
 def _pretty(name):
+    """Figure label of a companion: 'HD 89707 [sahlmann_2011 HD 89707 b]' (a
+    catalog name with its source tag) -> 'HD 89707 b'; pi Men in Greek."""
+    import re
+    name = re.sub(r'^.*\[\S+ (.+)\]$', r'\1', name)
     return name.replace('HD 39091', r'$\pi$ Men').replace('pi Men', r'$\pi$ Men')
 
 
@@ -457,7 +706,7 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     rows = truth['reference_fit']['planets']
     legs = []                      # (axes, legend kwargs), placed by figtools at the end
     fx, comps = truth['fixed'], truth['companions']
-    name = _pretty(comps[0]['name'].rsplit(' ', 1)[0])
+    name = _pretty(comps[0]['name']).rsplit(' ', 1)[0]      # host name
 
     fig = plt.figure(figsize=(20, 34))
     gs = fig.add_gridspec(6, 2, height_ratios=[1.25, 0.5, 0.95, 1.0, 0.45, 1.0], hspace=0.42, wspace=0.22)
@@ -478,8 +727,9 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     tt = np.linspace(rv.t.min() - 200, rv.t.max() + 200, 30000)
     grid = cs.RVData(tt, np.zeros_like(tt), np.ones_like(tt), np.zeros(len(tt)))
     grid.tref, grid.span = rv.tref, rv.span
+    kind = truth['reference_fit'].get('kind', 'maximum likelihood')
     ax.plot(yr(tt), cs.model_rv(th, grid, n, tord), 'k-', lw=1.2, zorder=5,
-            label='reference fit (maximum likelihood):')
+            label=f'reference fit ({kind}):')
     for r in rows:
         ax.plot([], [], ' ', label=(f"{_pretty(r['name'])}: P = {r['P']:.4g} $\\pm$ {r['P_err']:.2g} d, "
                                     f"K = {r['K']:.3g} $\\pm$ {r['K_err']:.2g} m/s, "
@@ -487,9 +737,25 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
                                     f"$\\omega_\\star$ = {math.degrees(r['omega']):.1f} $\\pm$ "
                                     f"{math.degrees(r['omega_err']):.2g}$^\\circ$, "
                                     f"T$_p$ = BJD {r['Tp']:.0f} $\\pm$ {r['Tp_err']:.2g}"))
+    tcs = [c for c in comps if c.get('role') == 'trend']
     if tord:
-        ax.plot([], [], ' ', label=f'linear trend {truth["reference_fit"]["trend_coefs"][0]/rv.span*365.25:.3f} m/s/yr'
-                + ('' if tord == 1 else ' + quadratic'))
+        cf = truth['reference_fit']['trend_coefs']
+        lab = (f"trend ({'linear' if tord == 1 else 'quadratic'}; chosen step by step, "
+               f"$\\Delta$BIC $\\geq$ {cs.DELTA_BIC:g}): {cf[0]/rv.span*365.25:.3g} m/s/yr")
+        if tord == 2:
+            lab += f", curvature {2*cf[1]/rv.span**2*365.25**2:.3g} m/s/yr$^2$"
+        tt2 = np.linspace(rv.t.min(), rv.t.max(), 3000)
+        ax.plot(yr(tt2), cs.trend_model(np.array(cf), grid_for(tt2, rv)), '--', color='0.4', lw=2,
+                zorder=4, label=lab + ' (dashed)')
+    else:
+        ax.plot([], [], ' ', label=f'no trend (raising the order gains $\\Delta$BIC < {cs.DELTA_BIC:g})')
+    for c in tcs:
+        rb = c['rv_based']
+        tt2 = np.linspace(rv.t.min(), rv.t.max(), 3000)
+        v = rb['K_ms']*np.cos(2*np.pi*(tt2 - rv.tref)/rb['P_d'] + math.radians(rb['M0_deg']))
+        ax.plot(yr(tt2), v - rb['K_ms']*math.cos(math.radians(rb['M0_deg'])), ':', color='C3', lw=2.5,
+                zorder=4, label="trend companion's RV, drawn to match the trend (dotted; injected "
+                                "into the astrometry)")
     ax.set_xlabel('year')
     ax.set_ylabel('RV $-$ offset (m/s)')
     ax.set_title(f'1. {name}: RVs and the reference fit (offsets and jitters per dataset; errors include jitter)',
@@ -503,23 +769,38 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     ax = fig.add_subplot(gs[2, :])
     ax.axis('off')
     ax.set_title('2. Ground truth for the synthetic DR4 data (one draw)', fontsize=22, loc='left')
+    targets = [c for c in comps if c.get('role') != 'trend']
     lines = [('RV-based: one draw from the reference fit (Laplace Gaussian)', 'C0'),]
-    for c in comps:
+    for c in targets:
         rb = c['rv_based']
         lines.append((f"   {_pretty(c['name'])}:  P = {rb['P_d']:.5g} d,  K = {rb['K_ms']:.4g} m/s,  "
                       f"e = {rb['e']:.3f},  $\\omega_\\star$ = {rb['omega_star_deg']:.1f}$^\\circ$,  "
                       f"T$_p$ = BJD {rb['Tp_bjd_tcb']:.1f}", 'C0'))
     lines.append(('Random: isotropic inclination (cos i uniform), $\\Omega$ uniform in [0, 360)$^\\circ$', 'C3'))
-    for c in comps:
+    for c in targets:
         rd = c['random']
         lines.append((f"   {_pretty(c['name'])}:  i = {rd['inc_deg']:.1f}$^\\circ$,  "
                       f"$\\Omega$ = {rd['Omega_deg']:.1f}$^\\circ$", 'C3'))
     lines.append(('Derived (from the above and the host mass)', '0.3'))
-    for c in comps:
+    for c in targets:
         dv = c['derived']
         lines.append((f"   {_pretty(c['name'])}:  M = {dv['mass_mj']:.4g} M$_J$ (M sin i = "
                       f"{dv['msini_mj']:.4g}),  a = {dv['a_au']:.3f} AU,  star's astrometric "
                       f"semi-major axis = {dv['a_star_mas']*1e3:.4g} $\\mu$as", '0.3'))
+    for c in tcs:
+        rb, rd, dv, tr = c['rv_based'], c['random'], c['derived'], c['trend']
+        lines.append(('Trend companion (reproduces the RV trend; injected, not a target): circular, '
+                      f'P log-uniform from 2x the RV baseline to {TREND_A_MAX_AU:g} AU', 'C2'))
+        lines.append((f"   cos i, $\\Omega${', phase' if tr['order'] == 1 else ''} uniform; K"
+                      f"{'' if tr['order'] == 1 else ' and phase'} set by the trend; kept if M $\\leq$ "
+                      f"{TREND_M_MAX_MSUN:g} M$_\\odot$ and the RVs fit it as well as the polynomial "
+                      f"($\\Delta$lnL > $-${TREND_DLNL_MAX:g}); its J2016.0 offset and velocity are in the "
+                      f"DR3 position and proper motion, so only its acceleration is injected", 'C2'))
+        lines.append((f"   P = {rb['P_d']/365.25:.4g} yr,  K = {rb['K_ms']:.4g} m/s,  i = {rd['inc_deg']:.1f}"
+                      f"$^\\circ$,  $\\Omega$ = {rd['Omega_deg']:.1f}$^\\circ$,  M = {dv['mass_mj']:.4g} M$_J$,  "
+                      f"a = {dv['a_au']:.3g} AU,  star's astrometric semi-major axis = "
+                      f"{dv['a_star_mas']:.4g} mas;  $\\Delta$lnL = {tr['dlnL_vs_polynomial']:.2f} "
+                      f"(draw {tr['n_draws']})", 'C2'))
     nz = truth['noise']
     lines.append((f"Fixed: M$_\\star$ = {fx['mstar_msun']} M$_\\odot$ (catalog);  Gaia DR3 (J2016.0): "
                   f"$\\varpi$ = {fx['parallax_mas']:.3f} mas, $\\mu_{{\\alpha*}}$ = {fx['pmra_masyr']:.2f}, "
@@ -591,7 +872,7 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     legs.append((ax, dict(fontsize=13)))
 
     ax = fig.add_subplot(gs[5, 1])
-    for c in comps:
+    for c in targets:
         P = c['rv_based']['P_d']
         tf = np.linspace(0, P, 2000) + g1.t.min()
         x, y = companion_sky(tf, c)
@@ -605,7 +886,8 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     xs = sum(companion_sky(g1.t, c)[0] for c in comps)
     ys = sum(companion_sky(g1.t, c)[1] for c in comps)
     ax.plot(xs, ys, 'o', color='C1', ms=5, label='at the DR4 transits')
-    ax.plot(0, 0, '+', color='k', ms=14, mew=2, label='barycentre')
+    ax.plot(0, 0, '+', color='k', ms=14, mew=2,
+            label="barycentre + the trend companion's J2016.0 offset and motion" if tcs else 'barycentre')
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')
@@ -659,7 +941,6 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--system', default='HD39091')
     ap.add_argument('--seed', type=int, default=1)
-    ap.add_argument('--trend-order', type=int, default=1)
     ap.add_argument('--test', action='store_true')
     ap.add_argument('--figure-only', action='store_true', help='redraw from the saved files')
     a = ap.parse_args()
@@ -668,4 +949,4 @@ if __name__ == '__main__':
     elif a.figure_only:
         redraw(a.system, a.seed)
     else:
-        make_system(a.system, a.seed, a.trend_order)
+        make_system(a.system, a.seed)

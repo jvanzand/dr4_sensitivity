@@ -30,7 +30,7 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
                seed=0, keep=20, noise='fitted', truth=(), label='',
                out_dir=None, pmin=20.0, tol=0.03,
                truth_label='injected / published period', verbose=True,
-               method='sim', save_dir=None):
+               method='sim', save_dir=None, e_max=None):
     """Run the search on `stack`. Returns dict(known, steps, periods): `steps`
     is one dict per search step with the peak, its period, the threshold,
     detected, matched (the truth period it matches, or None), spurious, the
@@ -42,8 +42,11 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
     datasets, 'efap' = RVSearch's empirical FAP threshold (no figure). A
     detection matches a truth period p if |P/p - 1| < tol. With `save_dir`
     every step's arrays are saved (`save_step`), so `plots.redraw_step` can
-    redraw its figure without searching again."""
+    redraw its figure without searching again. `e_max` sets the eccentricity
+    cap of every refit (`fit.set_e_max`; default 0.7, `fit.E_MAX`)."""
     import plots
+    if e_max is not None:
+        fit.set_e_max(e_max)
     pmax = 2*stack.span
     per = pg.period_grid(stack.span, pmin, pmax)
     truth_plot = list(truth)

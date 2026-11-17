@@ -9,10 +9,12 @@ Modes:
   generate   make the listed datasets that do not exist yet (never overwrites);
              `--system NAME --seed K` makes one (then add K to the toml)
   run        search every dataset (or `--system NAME`) with the toml settings;
-             saves every step's products, step figures and a summary.json in
-             validation/results/<NAME>_seed<K>/ (not in git)
+             saves every step's products, step figures, a summary.json and the
+             known-vs-recovered summary figure in validation/results/<NAME>_seed<K>/
+             (not in git)
   redraw     redraw every figure from the saved products (no search): step
-             figures and the synthetic-data process figure
+             figures, the known-vs-recovered summary figure and the
+             synthetic-data process figure
   compare    table of the current results against the stored reference
              (validation/benchmarks/reference.json, in git);
              `--update-reference` replaces the reference with the current
@@ -102,7 +104,10 @@ def found_orbits(stack, known):
 
 def match(found, truth, tol):
     """Pair injected companions with detections (nearest period first, within
-    tol). Returns (rows per injected companion, unmatched detections)."""
+    tol). The trend companion (role 'trend', which stands in for the RV
+    trend) is matched too, but it is not a target: finding it is neither a
+    recovery nor a false alarm. Returns (rows per injected companion,
+    unmatched detections)."""
     left = list(range(len(found)))
     rows = []
     for c in sorted(truth['companions'], key=lambda c: -c['derived']['a_star_mas']):
@@ -111,7 +116,7 @@ def match(found, truth, tol):
         i = min(cand, key=lambda i: abs(found[i]['P_d']/P - 1)) if cand else None
         if i is not None:
             left.remove(i)
-        rows.append(dict(name=c['name'], P_true=P, e_true=c['rv_based']['e'],
+        rows.append(dict(name=c['name'], role=c.get('role', 'target'), P_true=P, e_true=c['rv_based']['e'],
                          a_star_true_mas=c['derived']['a_star_mas'], inc_true_deg=c['random']['inc_deg'],
                          found=found[i] if i is not None else None))
     return rows, [found[i] for i in left]
@@ -129,7 +134,8 @@ def run(system=None):
               f'{[round(p, 2) for p in periods]}', flush=True)
         res = search.run_search(stack, M=s['M'], fap=s['fap'], pmin=s['pmin_d'],
                                 max_companions=s['max_companions'], truth=periods, tol=s['match_tol'],
-                                label=stem, out_dir=out, save_dir=out, truth_label='injected period')
+                                label=stem, out_dir=out, save_dir=out, truth_label='injected period',
+                                e_max=s.get('e_max'))
         found = found_orbits(stack, res['known'])
         rows, spurious = match(found, truth, s['match_tol'])
         steps = [{k: v for k, v in st.items() if k not in ('dbic', 'maxima', 'known_before', 'known_after')}
@@ -146,6 +152,152 @@ def run(system=None):
                      if f else 'not found'))
         for f in spurious:
             print(f"  SPURIOUS: P = {f['P_d']:.2f} d, a_star = {f['a_star_mas']:.3g} mas")
+        print('wrote', summary_figure(stem))
+
+
+def _angle_diff(a, b):
+    return (a - b + 180) % 360 - 180
+
+
+def summary_figure(stem):
+    """Known (injected, from the RV reference fit) versus blindly recovered
+    companions of one benchmark dataset, from its saved summary.json (no
+    search): (left) star's astrometric semi-major axis versus period, with
+    the searched period range and the median per-transit error; (right) the
+    star's sky orbit, injected versus recovered; (bottom) a table of the orbit
+    elements. Written to validation/results/<stem>/<stem>_summary.png."""
+    import matplotlib
+    matplotlib.rc_file(os.path.join(ROOT, 'matplotlibrc'))
+    import matplotlib.pyplot as plt
+    import figtools
+    import synthetic_dr4 as sd
+    s = json.load(open(os.path.join(RESULTS, stem, 'summary.json')))
+    stack, truth = load(stem)
+    cfg = s['settings']
+    pmin, pmax = cfg['pmin_d'], 2*stack.span
+    sig = float(np.median(stack.err))
+    comps = {c['name']: c for c in truth['companions']}
+    rows = s['companions']
+    targets = [r for r in rows if r.get('role', 'target') == 'target']
+    n_found = sum(r['found'] is not None for r in targets)
+
+    fig = plt.figure(figsize=(22, 17))
+    gs = fig.add_gridspec(2, 2, width_ratios=[1.35, 1], height_ratios=[1, 0.42], hspace=0.3, wspace=0.25)
+
+    # left: a_star versus period
+    ax = fig.add_subplot(gs[0, 0])
+    ax.axvspan(1e-3, pmin, color='0.85', zorder=0, label=f'not searched (P < {pmin:g} d)')
+    ax.axvspan(pmax, 1e7, color='0.85', zorder=0)
+    ax.axvline(stack.span, color='0.4', ls=':', lw=2, label=f'DR4 time span ({stack.span:.0f} d)')
+    ax.axhline(sig, color='C2', ls='--', lw=2, label=f'median per-transit error ({sig*1e3:.0f} $\\mu$as)')
+    for k, r in enumerate(rows):
+        f = r['found']
+        trend = r.get('role') == 'trend'
+        if trend and r['P_true'] > pmax and not f:     # beyond the searched periods: listed, not drawn
+            ax.plot([], [], 's', ms=14, mfc='none', mec='k', mew=2.5,
+                    label=(f"trend companion (not a target): P = {r['P_true']/365.25:.0f} yr,\n"
+                           f"beyond the searched periods (not drawn)"))
+            continue
+        ax.plot(r['P_true'], r['a_star_true_mas'], 's' if trend else 'o', ms=20, mfc='none', mec='k', mew=2.5,
+                label=('trend companion (reproduces the RV trend; not a target)' if trend else
+                       'known companion (injected; from the RV fit)' if r is targets[0] else None), zorder=4)
+        ax.annotate(f"{sd._pretty(r['name'])}\n{('found' if trend else 'recovered') if f else ('not found' if trend else 'not recovered')}",
+                    (r['P_true'], r['a_star_true_mas']), xytext=(16, 8), textcoords='offset points',
+                    fontsize=17, color='C0' if f else 'C3', va='bottom')
+        if f:
+            ax.annotate('', (f['P_d'], f['a_star_mas']), (r['P_true'], r['a_star_true_mas']),
+                        arrowprops=dict(arrowstyle='-', color='C0', lw=1.5))
+    fx = [r['found'] for r in rows if r['found']]
+    if fx:
+        ax.plot([f['P_d'] for f in fx], [f['a_star_mas'] for f in fx], '*', color='C0', ms=22, zorder=5,
+                label='blindly recovered from DR4 astrometry alone')
+    if s['spurious']:
+        ax.plot([f['P_d'] for f in s['spurious']], [f['a_star_mas'] for f in s['spurious']], 'X', color='C3',
+                ms=18, zorder=5, label='spurious detection (no known companion)')
+    drawn = [r for r in rows if not (r.get('role') == 'trend' and r['P_true'] > pmax and not r['found'])]
+    allP = [r['P_true'] for r in drawn] + [f['P_d'] for f in fx + s['spurious']] + [pmin, pmax]
+    alla = [r['a_star_true_mas'] for r in drawn] + [f['a_star_mas'] for f in fx + s['spurious']] + [sig]
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlim(min(allP)/2.5, max(allP)*2.5)
+    ax.set_ylim(min(alla)/10, max(alla)*10)
+    ax.set_xlabel('period (d)')
+    ax.set_ylabel("star's astrometric semi-major axis (mas)")
+    ax.set_title(f"Known vs recovered: {n_found} of {len(targets)} known companions recovered, "
+                 f"{len(s['spurious'])} spurious", fontsize=20)
+    legs = [(ax, dict(fontsize=14, markerscale=0.6, grow=8))]
+
+    # right: sky orbits of matched companions
+    ax2 = fig.add_subplot(gs[0, 1])
+    for k, r in enumerate(rows):
+        f = r['found']
+        if not f:
+            continue
+        c = comps[r['name']]
+        tt = np.linspace(0, c['rv_based']['P_d'], 3000) + stack.t.min()
+        x, y = sd.companion_sky(tt, c)
+        ax2.plot(x, y, '--', color=f'C{k}', lw=2.5, label=f"{sd._pretty(r['name'])}: injected orbit")
+        A, B, F, G = orbit.ti_from_elements(f['a_star_mas'], np.radians(f['inc_deg']),
+                                            np.radians(f['omega_deg']), np.radians(f['Omega_deg']))
+        tf = np.linspace(0, f['P_d'], 3000) + stack.t.min()
+        X, Y = orbit.xy(orbit.mean_anomaly(tf, f['P_d'], np.radians(f['M0_deg']), stack.tref), f['e'])
+        ax2.plot(B*X + G*Y, A*X + F*Y, '-', color=f'C{k}', lw=1.5, label=f"{sd._pretty(r['name'])}: recovered orbit")
+    ax2.plot(0, 0, '+', color='k', ms=16, mew=2, label='barycentre')
+    ax2.set_aspect('equal', 'datalim')
+    ax2.set_xlabel(r'$\Delta\alpha*$ (mas)')
+    ax2.set_ylabel(r'$\Delta\delta$ (mas)')
+    ax2.set_title("The star's orbit on the sky", fontsize=20)
+    legs.append((ax2, dict(fontsize=13)))
+
+    # bottom: element table
+    ax3 = fig.add_subplot(gs[1, :])
+    ax3.axis('off')
+    head = ['companion', 'P (d)', 'e', "star's a (mas)", 'i (deg)', r'$\omega_\star$ (deg)', r'$\Omega$ (deg)']
+    cells, colors = [], []
+    for r in rows:
+        c, f = comps[r['name']], r['found']
+        tr = [c['rv_based']['P_d'], c['rv_based']['e'], c['derived']['a_star_mas'], c['random']['inc_deg'],
+              c['rv_based']['omega_star_deg'] % 360, c['random']['Omega_deg'] % 360]
+        trend = r.get('role') == 'trend'
+        cells.append(['trend companion' if trend else sd._pretty(r['name']) + ' (injected)', f'{tr[0]:.2f}', f'{tr[1]:.3f}', f'{tr[2]:.3g}',
+                      f'{tr[3]:.1f}', f'{tr[4]:.1f}', f'{tr[5]:.1f}'])
+        colors.append(['w']*7)
+        if f:
+            w, Om = f['omega_deg'], f['Omega_deg']
+            if abs(_angle_diff(Om, tr[5])) > 90:          # the (omega, Omega) + 180 deg twin: same sky orbit
+                w, Om = (w + 180) % 360, (Om + 180) % 360
+            cells.append(['   recovered', f"{f['P_d']:.2f} ({f['P_d']/tr[0] - 1:+.1%})", f"{f['e']:.3f}",
+                          f"{f['a_star_mas']:.3g} ({f['a_star_mas']/tr[2] - 1:+.1%})", f"{f['inc_deg']:.1f}",
+                          f'{w:.1f} ({_angle_diff(w, tr[4]):+.1f})', f'{Om:.1f} ({_angle_diff(Om, tr[5]):+.1f})'])
+            colors.append(['#dbe9f6']*7)
+        elif trend:
+            cells.append(['   not found (not a target)'] + ['-']*6)
+            colors.append(['0.93']*7)
+        else:
+            cells.append(['   not recovered'] + ['-']*6)
+            colors.append(['#f8dcdc']*7)
+    for f in s['spurious']:
+        cells.append(['spurious', f"{f['P_d']:.2f}", f"{f['e']:.3f}", f"{f['a_star_mas']:.3g}", f"{f['inc_deg']:.1f}",
+                      f"{f['omega_deg']:.1f}", f"{f['Omega_deg']:.1f}"])
+        colors.append(['#f8dcdc']*7)
+    tab = ax3.table(cellText=cells, colLabels=head, cellColours=colors, loc='upper center', cellLoc='center')
+    tab.auto_set_font_size(False)
+    tab.set_fontsize(15)
+    tab.scale(1, 2.2)
+    ax3.set_title('Orbit elements: injected vs recovered (differences in brackets; recovered angles shown on the '
+                  r'($\omega$, $\Omega$) or ($\omega$+180, $\Omega$+180) branch nearer the truth: same sky orbit)',
+                  fontsize=15)
+
+    for a_, kw in legs:
+        figtools.legend_clear(a_, **kw)
+    figtools.check_legends(fig)
+    fig.suptitle(f"{s['label']} ({stem}): blind search of synthetic DR4 astrometry, {s['n_transits']} transits; "
+                 f"M = {cfg['M']}, FAP {cfg['fap']:g}, match within {cfg['match_tol']:.0%} in period; "
+                 f"code {s['code_version']}", fontsize=19, y=0.95)
+    out = os.path.join(RESULTS, stem, f'{stem}_summary.png')
+    fig.savefig(out, dpi=80, bbox_inches='tight')
+    plt.close(fig)
+    return out
 
 
 def redraw(system=None):
@@ -160,6 +312,8 @@ def redraw(system=None):
             print('wrote', plots.redraw_step(stack, os.path.join(out, f'step{k}.npz'),
                                              os.path.join(out, f'{stem}_step{k}.png')))
             k += 1
+        if os.path.exists(os.path.join(out, 'summary.json')):
+            print('wrote', summary_figure(stem))
         synthetic_dr4.redraw(name, seed)
 
 

@@ -6,7 +6,10 @@ Checks that the blind search behaves as intended, on data whose answer is known.
 
 Synthetic Gaia DR4 data of known RV systems. For each system, the planets' RV orbits
 (period, eccentricity, phase, semi-amplitude) are drawn from a fit to the real RVs; the
-inclination and node are drawn at random. Gaia's scanning law and error model
+inclination and node are drawn at random. Where the RVs need a long-term trend (linear or quadratic,
+tested before and after each planet is added), a distant companion that reproduces it is
+drawn and its acceleration added: real DR4 data will carry such motion on top of the
+planets. It is not a target of the search. Gaia's scanning law and error model
 (`gaiamock`) give realistic epochs and noise. The datasets are frozen in `benchmarks/`,
 so every version of the search runs on identical data.
 
@@ -14,11 +17,11 @@ so every version of the search runs on identical data.
 
 | system | what it tests |
 |---|---|
-| π Men | strong long-period planet; the two inner planets must not be claimed |
-| HD 111232 | moderate signal |
-| HD 168443 | strong outer planet; a weak inner planet as a stress test |
-| HD 89707 | very high eccentricity (e = 0.9) |
-| TOI-1736 | weak signal (optional) |
+| π Men | strong long-period planet; the two inner planets must not be claimed; no trend |
+| HD 111232 | moderate signal; linear trend |
+| HD 168443 | strong outer planet; a weak inner planet as a stress test; quadratic trend |
+| HD 89707 | very high eccentricity (e = 0.9); quadratic trend |
+| TOI-1736 | weak signal (optional); linear trend |
 
 The list and the search settings are in `benchmarks.toml`.
 

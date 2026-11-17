@@ -22,7 +22,17 @@ from scipy.optimize import minimize
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-E_MAX = 0.7        # blind eccentricity cap (as in the RV search)
+## Blind eccentricity cap (as in the RV search). `set_e_max` changes it here and in
+## the environment, so worker processes (the noise-sampled datasets) use the same cap.
+E_MAX = float(os.environ.get('BLIND_SEARCH_E_MAX', 0.7))
+
+
+def set_e_max(e_max):
+    """Set the eccentricity cap for this process and for worker processes
+    started after this call (they read BLIND_SEARCH_E_MAX on import)."""
+    global E_MAX
+    E_MAX = float(e_max)
+    os.environ['BLIND_SEARCH_E_MAX'] = repr(E_MAX)
 
 
 def _unpack(th, n):
