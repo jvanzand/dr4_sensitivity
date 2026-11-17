@@ -934,7 +934,7 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     figtools.check_legends(fig)
     fig.suptitle(f'Synthetic Gaia DR4 astrometry of {name} (seed {truth["seed"]})', fontsize=28, y=0.91)
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    fig.savefig(out, dpi=80, bbox_inches='tight')
+    fig.savefig(out, dpi=200, bbox_inches='tight')
     plt.close(fig)
     print(f'wrote {out}')
 

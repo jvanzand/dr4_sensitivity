@@ -342,7 +342,7 @@ def summary_figure(stem):
                  f"final model: {('no trend', 'acceleration', 'acceleration + jerk')[s.get('trend', 0)]}; "
                  f"code {s['code_version']}", fontsize=19, y=0.95)
     out = os.path.join(RESULTS, stem, f'{stem}_summary.png')
-    fig.savefig(out, dpi=80, bbox_inches='tight')
+    fig.savefig(out, dpi=200, bbox_inches='tight')
     plt.close(fig)
     return out
 

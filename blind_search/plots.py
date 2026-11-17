@@ -171,7 +171,7 @@ def plot_step_sim(stack, periods, dbic, sim, planets, pmin, pmax, out, title, tr
            f'and searched like the real data; only its highest peak is kept (grey dots).')
     fig.text(0.5, 0.012, sub, ha='center', fontsize=12.5)
     figtools.check_legends(fig)          # no legend may cover data
-    fig.savefig(out, dpi=130, bbox_inches='tight')
+    fig.savefig(out, dpi=200, bbox_inches='tight')
     plt.close(fig)
     return out
 
