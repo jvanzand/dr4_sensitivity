@@ -128,6 +128,9 @@ def run(system=None):
     cfg = config()
     s = cfg['search']
     for name, label, seed, stem in datasets(cfg, system):
+        if not os.path.exists(os.path.join(BENCH, f'{stem}.csv')):
+            print(f'{stem}: no dataset yet (run generate); skipped', flush=True)
+            continue
         stack, truth = load(stem)
         out = os.path.join(RESULTS, stem)
         if os.path.isdir(out):                 # a previous run's steps must not outlive it (redraw reads them all)

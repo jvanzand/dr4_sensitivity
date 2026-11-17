@@ -33,11 +33,22 @@ run serially); results are appended to a JSON-lines file, so a run can be
 stopped and resumed. The map is the kernel-smoothed recovered fraction in (log
 a, log m) with all injections shown.
 
+Options (2026-11-16): `--epochs STEM` runs on the epochs, errors and host
+(mass, parallax) of a benchmark dataset (validation/benchmarks/STEM.csv and
+its truth JSON) instead of Gaia-4; `--max-trend K` lets the detection step
+carry trend terms as the search does (trend.py: acceleration then jerk adopted
+if warranted before the periodogram, which may drop them; at a detection the
+trend order is chosen by BIC over the circular refits at orders 0..current).
+The injected data hold no trend: the map shows what allowing trends costs.
+Both settings go through the environment (INJ_EPOCHS, INJ_MAX_TREND), so the
+worker processes see them.
+
 Usage:
   python -I injection/injection_map.py --test                       checks of
       the pieces (draws, mass inversion, map machinery); no search is run
   python -I injection/injection_map.py run [--n 2000] [--M 50] [--method
-      sim|efap] [--out PATH]    run (or resume) the injections
+      sim|efap] [--epochs STEM] [--max-trend K] [--out PATH]    run (or
+      resume) the injections
       (--method efap: same injections and noise, RVSearch's empirical FAP
       threshold; no noise-sampled datasets, M unused)
   python -I injection/injection_map.py plot [--out PATH]            draw the
@@ -66,6 +77,28 @@ import model  # noqa: E402
 import orbit  # noqa: E402
 import periodogram as pg  # noqa: E402
 import simthreshold as st  # noqa: E402
+import trend as tr  # noqa: E402
+
+
+def configure(epochs=None, max_trend=None):
+    """Set the epochs/host and trend options here and in the environment (for
+    worker processes started afterwards)."""
+    if epochs is not None:
+        os.environ['INJ_EPOCHS'] = epochs
+    if max_trend is not None:
+        os.environ['INJ_MAX_TREND'] = str(int(max_trend))
+    g = globals()
+    g['EPOCHS'] = os.environ.get('INJ_EPOCHS') or None
+    g['MAX_TREND'] = int(os.environ.get('INJ_MAX_TREND', 0))
+    if g['EPOCHS']:
+        bench = os.path.join(ROOT, 'validation', 'benchmarks')
+        fx = json.load(open(os.path.join(bench, f"{g['EPOCHS']}_truth.json")))['fixed']
+        g.update(EPOCH_CSV=os.path.join(bench, f"{g['EPOCHS']}.csv"), MS=float(fx['mstar_msun']),
+                 PLX=float(fx['parallax_mas']), HOST=g['EPOCHS'])
+    else:
+        g.update(EPOCH_CSV=GAIA4_CSV, MS=injection.GAIA4B['mstar'], PLX=injection.GAIA4B['plx'], HOST='Gaia-4')
+    g['P_MAX'] = 365.25*np.sqrt(A_RANGE[1]**3/(g['MS'] + M_RANGE[0]*MSUN_PER_MJ))
+
 
 GAIA4_CSV = os.path.join(ROOT, 'data_conversion/GaiaDR4_data_Gaia4.csv')
 MS, PLX = injection.GAIA4B['mstar'], injection.GAIA4B['plx']
@@ -79,6 +112,7 @@ REFIT_WINDOW = 0.5          # the refit may move the period by a factor 1.5 eith
 FAP = 1e-3
 DEFAULT_OUT = os.path.join(HERE, 'results/injection_map.jsonl')
 P_MAX = 365.25*np.sqrt(A_RANGE[1]**3/(MS + M_RANGE[0]*MSUN_PER_MJ))     # longest period in the injection range (d); the periodogram reaches it
+configure()                  # INJ_EPOCHS / INJ_MAX_TREND from the environment, if set
 
 
 def draw_injection(i, seed):
@@ -125,7 +159,7 @@ _G = {}
 def _init():
     if _G:
         return
-    g = data.load_gaia_dr4(GAIA4_CSV)
+    g = data.load_gaia_dr4(EPOCH_CSV)
     s0 = model.Stack([g])
     _G.update(g=g, per=pg.period_grid(s0.span, 20.0, P_MAX), span=s0.span)
 
@@ -148,6 +182,9 @@ def run_one(args):
     t.y = signal
     snr = float(np.sqrt(max(t.fit([], z)[2] - t.fit([c['planet']], z)[2], 0.0)))      # noise-free signal, formal errors, baseline refitted
     s.y = signal + rng.normal(0.0, s.err)
+    trend_log = []
+    if MAX_TREND:                                          # trend terms as in the search (trend.py)
+        s, trend_log = tr.raise_trend(s.with_trend(0), [], FAP, MAX_TREND)
     d = pg.delta_bic(s, [], None, _G['per'])
     k = int(np.argmax(d))
     Pk, peak = float(_G['per'][k]), float(d[k])
@@ -160,14 +197,25 @@ def run_one(args):
         thr = float(r['thr'][FAP])
     detected = peak > thr
     P_peak = Pk
-    if detected:                                           # optimise the detected signal as usual (circular refit of the period)
+    if detected and s.trend:                               # trend order chosen by BIC over circular refits
+        best = None
+        for tau in range(s.trend, -1, -1):
+            s_t = s.with_trend(tau)
+            d_t = pg.delta_bic(s_t, [], None, _G['per'], drop_trend=False)
+            P_t, l_t = fit.refit_circular(s_t, [], float(_G['per'][int(np.argmax(d_t))]), REFIT_WINDOW)
+            b = -2*l_t + s_t.n_params(1)*np.log(s_t.n)
+            if best is None or b < best[0]:
+                best = (b, s_t, P_t)
+        _, s, Pk = best
+    elif detected:                                         # optimise the detected signal as usual (circular refit of the period)
         Pk = fit.refit_circular(s, [], Pk, REFIT_WINDOW)[0]
     X = np.hstack([s.baseline, s.companion_columns(Pk, 0.0, 0.0)])
     amps = s.fit_free_jitter(X)[0][s.k_base:s.k_base + 4]
     m_rec = mass_from_astar(orbit.elements_from_ti(*amps)[0], Pk)
     p_ok = abs(Pk/inj['P'] - 1) < TOL
     m_ok = abs(m_rec/inj['mass_mj'] - 1) < TOL
-    return dict(inj, M=M, method=method, snr=snr, astar_uas=float(c['a_star_mas']*1e3), peak=peak, P_peak=P_peak, P_rec=Pk, m_rec=float(m_rec), thr=thr,
+    return dict(inj, M=M, method=method, epochs=HOST, max_trend=MAX_TREND, trend_final=int(s.trend),
+                trend_tests=[(x['action'], x['fap'], x['adopted']) for x in trend_log], snr=snr, astar_uas=float(c['a_star_mas']*1e3), peak=peak, P_peak=P_peak, P_rec=Pk, m_rec=float(m_rec), thr=thr,
                 jitter=float(np.sqrt(r['jitter2'][0])), detected=bool(detected), p_ok=bool(p_ok), m_ok=bool(m_ok),
                 recovered=bool(detected and p_ok and m_ok), time=time.time() - t0)
 
@@ -250,7 +298,9 @@ def plot_map(rows, out, bw=0.12):
     ax.contour(10**ga, 10**gm, fm, levels=[0.1, 0.5, 0.9], colors='w', linewidths=2)
     ax.set_title('smoothed completeness (recovered = detected AND period and mass within 25%); blank where fewer than 3 effective injections', fontsize=13)
     ax.legend(loc='lower left', fontsize=15, frameon=True, framealpha=0.7, facecolor='white', edgecolor='0.3')
-    fig.suptitle('Injection/recovery map: Gaia-4 epochs and errors, host 0.644 M$_\\odot$, 13.58 mas; Delta-BIC periodogram, no full fits', fontsize=18, y=0.995)
+    tr_txt = f'; trend terms allowed (up to order {MAX_TREND})' if MAX_TREND else '; no trend terms'
+    fig.suptitle(f'Injection/recovery map: {HOST} epochs and errors, host {MS:.3g} M$_\\odot$, {PLX:.4g} mas; '
+                 f'Delta-BIC periodogram, no full fits{tr_txt}', fontsize=18, y=0.995)
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     fig.savefig(out, dpi=110)
     return out
@@ -288,7 +338,11 @@ def selftest():
 
 
 if __name__ == '__main__':
-    out = sys.argv[sys.argv.index('--out') + 1] if '--out' in sys.argv else DEFAULT_OUT
+    configure(sys.argv[sys.argv.index('--epochs') + 1] if '--epochs' in sys.argv else None,
+              sys.argv[sys.argv.index('--max-trend') + 1] if '--max-trend' in sys.argv else None)
+    default = (DEFAULT_OUT if not (EPOCHS or MAX_TREND) else
+               os.path.join(HERE, f"results/injection_map_{EPOCHS or 'Gaia4'}_trend{MAX_TREND}.jsonl"))
+    out = sys.argv[sys.argv.index('--out') + 1] if '--out' in sys.argv else default
     if '--test' in sys.argv:
         selftest()
     elif 'run' in sys.argv:
@@ -300,6 +354,7 @@ if __name__ == '__main__':
         _init()
         rows = [json.loads(l) for l in open(out)]
         stem = os.path.splitext(os.path.basename(out))[0]
-        print('wrote', plot_map(rows, os.path.join(HERE, 'figures/%s.png' % stem)))
+        fig_dir = 'figures' if not (EPOCHS or MAX_TREND) else 'results'     # test maps stay out of git
+        print('wrote', plot_map(rows, os.path.join(HERE, f'{fig_dir}/{stem}.png')))
     else:
         print(__doc__)
