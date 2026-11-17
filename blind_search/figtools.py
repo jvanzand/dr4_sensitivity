@@ -38,18 +38,21 @@ def _densify(xy, step=3.0):
 def data_points(ax):
     """Display coordinates (N, 2) of everything drawn in `ax` with data:
     lines (densified), markers, error bars, filled regions and text labels
-    (annotations; a grid over each label's box). Needs a drawn canvas."""
+    (annotations; a grid over each label's box). Artists with gid 'guide'
+    (reference lines and shaded ranges, e.g. axvline of a time span or
+    axvspan of an unsearched range) are not data and may sit under a legend.
+    Needs a drawn canvas."""
     pts = []
     for ln in ax.get_lines():
         xy = np.asarray(ln.get_xydata(), float)
-        if len(xy) == 0 or not ln.get_visible():
+        if len(xy) == 0 or not ln.get_visible() or ln.get_gid() == 'guide':
             continue
         d = ln.get_transform().transform(xy)
         d = d[np.all(np.isfinite(d), axis=1)]
         if len(d):
             pts.append(_densify(d) if ln.get_linestyle() not in ('None', ' ', '') else d)
     for col in ax.collections:
-        if not col.get_visible():
+        if not col.get_visible() or col.get_gid() == 'guide':
             continue
         offs = col.get_offsets()
         if len(offs):
@@ -60,6 +63,8 @@ def data_points(ax):
                 d = col.get_transform().transform(v)
                 pts.append(_densify(d[np.all(np.isfinite(d), axis=1)]))
     for pa in ax.patches:
+        if pa.get_gid() == 'guide':
+            continue
         v = pa.get_path().vertices
         if len(v):
             pts.append(_densify(pa.get_transform().transform(v)))

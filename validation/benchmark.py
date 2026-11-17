@@ -252,9 +252,9 @@ def summary_figure(stem):
 
     # left: a_star versus period
     ax = fig.add_subplot(gs[0, 0])
-    ax.axvspan(1e-3, pmin, color='0.85', zorder=0, label=f'not searched (P < {pmin:g} d)')
-    ax.axvspan(pmax, 1e7, color='0.85', zorder=0)
-    ax.axvline(stack.span, color='0.4', ls=':', lw=2, label=f'DR4 time span ({stack.span:.0f} d)')
+    ax.axvspan(1e-3, pmin, color='0.85', zorder=0, label=f'not searched (P < {pmin:g} d)', gid='guide')
+    ax.axvspan(pmax, 1e7, color='0.85', zorder=0, gid='guide')
+    ax.axvline(stack.span, color='0.4', ls=':', lw=2, label=f'DR4 time span ({stack.span:.0f} d)', gid='guide')
     ax.axhline(sig, color='C2', ls='--', lw=2, label=f'median per-transit error ({sig*1e3:.0f} $\\mu$as)')
     for k, r in enumerate(rows):
         f = r['found']

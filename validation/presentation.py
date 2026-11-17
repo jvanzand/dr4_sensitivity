@@ -219,8 +219,8 @@ def presentation_figure(stem, out_dir=OUT_DIR):
     ax = fig.add_subplot(gs[2, 0])
     pmin, pmax = s['settings']['pmin_d'], 2*stack.span
     sig = float(np.median(stack.err))
-    ax.axvspan(1e-3, pmin, color='0.88', zorder=0, label='periods not searched')
-    ax.axvspan(pmax, 1e7, color='0.88', zorder=0)
+    ax.axvspan(1e-3, pmin, color='0.88', zorder=0, label='periods not searched', gid='guide')
+    ax.axvspan(pmax, 1e7, color='0.88', zorder=0, gid='guide')
     ax.axhline(sig, color='C2', ls='--', lw=2, label=f'per-transit error ({sig*1e3:.0f} $\\mu$as)')
     allP, alla = [pmin, pmax], [sig]
     for c in targets:
