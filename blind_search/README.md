@@ -24,6 +24,13 @@ The search adds companions one at a time. At each step it:
   there, refits all companions together, and repeats. Otherwise it stops and reports
   the companions found.
 
+**Trends (optional, `max_trend`).** A distant companion with a period much longer than
+the data shows up as a smooth drift: an acceleration of the star (for RVs, a slope and a
+curvature). As in RVSearch, the search first adds an acceleration term if the data
+warrant it, then a change-of-acceleration term if they warrant that too. Each new
+planet may replace these terms, so a slow signal first fitted as a trend can come back
+as a planet, and a term the data no longer need is dropped.
+
 <img src="docs/search_flowchart.png" width="560" alt="Flowchart of the blind search">
 
 ## What it can find

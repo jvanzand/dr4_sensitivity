@@ -97,7 +97,8 @@ def _collides(leg, ax, renderer):
 def legend_clear(ax, locs=LOCS, grow=3, **kw):
     """Place the legend at the first position in `locs` where it covers no
     data. If none is free, raise the top of the y range by 15% of the range
-    (up to `grow` times; not for fixed-aspect axes) and try the upper positions
+    (of its logarithm on a log axis; up to `grow` times; not for fixed-aspect
+    axes) and try the upper positions
     again. Last resort:
     outside the axes, right or below, wherever it hits no other axes."""
     fig = ax.figure
@@ -111,7 +112,10 @@ def legend_clear(ax, locs=LOCS, grow=3, **kw):
     ## Equal-aspect axes re-adjust their limits, which would crop data: no growth.
     for _ in range(grow if ax.get_aspect() == 'auto' else 0):
         lo, hi = ax.get_ylim()
-        ax.set_ylim(lo, hi + 0.15*(hi - lo))
+        if ax.get_yscale() == 'log':                    # 15% of the range in log space
+            ax.set_ylim(lo, hi*(hi/lo)**0.15)
+        else:
+            ax.set_ylim(lo, hi + 0.15*(hi - lo))
         fig.canvas.draw()
         pts = data_points(ax)
         for loc in ('upper left', 'upper right', 'upper center'):

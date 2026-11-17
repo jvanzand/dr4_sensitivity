@@ -12,6 +12,7 @@ pmin_d = 20.0             # shortest trial period (d); longest = 2 x the DR4 spa
 max_companions = 4
 match_tol = 0.25          # a detection matches an injected companion if |P/P_true - 1| < this
 e_max = 0.99              # eccentricity cap of the refits (search default 0.7; 0.99 tried 2026-11-16)
+max_trend = 2             # astrometric trend allowed: 1 = acceleration, 2 = + jerk (2026-11-16)
 
 [[system]]
 name = "HD39091"

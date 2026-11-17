@@ -5,7 +5,10 @@ All selected channels are stacked into one weighted least-squares problem.
   * Baseline columns are channel-specific: astrometry gets the reference-point
     motion (position and proper motion along sin psi and cos psi, about the
     channel's mean epoch) and parallax; each RV channel gets an offset; an
-    optional RV trend (order 1, 2) is shared by all RVs.
+    optional RV trend (order 1, 2) is shared by all RVs; an optional
+    astrometric trend (order 1 = acceleration, 2 = + its rate of change, the
+    "jerk": Gaia's 7- and 9-parameter solutions) is added per astrometric
+    channel.
   * A companion with nonlinear parameters (P, e, M0) adds 4 columns to the
     astrometric rows (A, B, F, G) and 2 to the RV rows (K cos w, K sin w).
     Channels of the same type share the companion's amplitudes. In reality one
@@ -75,6 +78,13 @@ class Stack:
       span       t_max - t_min (days).
       rv_trend   order (0, 1 or 2) of a polynomial in (t - tref)/span shared by
                  all RV rows (0 if there are no RVs).
+      astro_trend
+                 order (0, 1 or 2) of the astrometric trend: 1 adds an
+                 acceleration (columns sin psi x dt^2, cos psi x dt^2), 2 also
+                 its rate of change (dt^3); per astrometric channel, dt as for
+                 the proper motion (0 if there is no astrometry).
+      trend      the trend order of the model, max(rv_trend, astro_trend);
+                 `with_trend` returns a copy at another order.
       baseline   (N, k_base) matrix of the baseline columns; baseline_names
                  their names.
       k_base     number of baseline columns.
@@ -85,17 +95,20 @@ class Stack:
     Baseline columns. Per astrometric channel: position offsets 'ra0' (column
     sin psi) and 'dec0' (cos psi), proper motions 'pmra' (sin psi x dt) and
     'pmdec' (cos psi x dt) with dt in years about the channel's mean epoch, and
-    parallax 'plx' (column f). Per RV channel: an 'offset'. If rv_trend > 0,
-    shared trend columns are added.
+    parallax 'plx' (column f), and with astro_trend > 0 'acc_ra', 'acc_dec'
+    (sin psi x dt^2, cos psi x dt^2) and with astro_trend = 2 'jerk_ra',
+    'jerk_dec' (dt^3). Per RV channel: an 'offset'. If rv_trend > 0, shared
+    trend columns are added.
 
     Channels of the same type share a companion's amplitudes (the search treats
     the astrometric and RV amplitudes of one companion as independent, which is
     conservative; the final Octofitter fit imposes the physical link).
     """
 
-    def __init__(self, channels, rv_trend=0):
+    def __init__(self, channels, rv_trend=0, astro_trend=0):
         """channels: list of data.Channel (astrometry and/or RV). rv_trend: 0, 1
-        or 2, order of the polynomial trend shared by all RV rows."""
+        or 2, order of the polynomial trend shared by all RV rows. astro_trend:
+        0, 1 (acceleration) or 2 (+ jerk) for the astrometric channels."""
         self.channels = list(channels)
         cat = lambda f: np.concatenate([f(c) for c in self.channels])
         self.n = sum(len(c) for c in self.channels)
@@ -114,6 +127,7 @@ class Stack:
         self.tref = 0.5*(self.t.min() + self.t.max())
         self.span = self.t.max() - self.t.min()
         self.rv_trend = rv_trend if self.has_rv else 0
+        self.astro_trend = astro_trend if self.has_astro else 0
         self.baseline, self.baseline_names = self._baseline()
         self.k_base = self.baseline.shape[1]
         self.k_comp_astro = 4 if self.has_astro else 0
@@ -127,9 +141,13 @@ class Stack:
             m = (self.chan == i).astype(float)
             if c.kind == 'astro':
                 dt = (self.t - c.t.mean())/365.25
-                for nm, col in (('ra0', self.sinpsi), ('dec0', self.cospsi),
-                                ('pmra', self.sinpsi*dt), ('pmdec', self.cospsi*dt),
-                                ('plx', self.fal)):
+                terms = [('ra0', self.sinpsi), ('dec0', self.cospsi),
+                         ('pmra', self.sinpsi*dt), ('pmdec', self.cospsi*dt), ('plx', self.fal)]
+                if self.astro_trend >= 1:
+                    terms += [('acc_ra', self.sinpsi*dt**2), ('acc_dec', self.cospsi*dt**2)]
+                if self.astro_trend >= 2:
+                    terms += [('jerk_ra', self.sinpsi*dt**3), ('jerk_dec', self.cospsi*dt**3)]
+                for nm, col in terms:
                     cols.append(m*col)
                     names.append(f'{c.name}:{nm}')
             else:
@@ -141,6 +159,22 @@ class Stack:
                 cols.append(self.is_rv*rv_t**k)
                 names.append(f'rv_trend{k}')
         return np.column_stack(cols), names
+
+    @property
+    def trend(self):
+        """Trend order of the model (0, 1 or 2)."""
+        return max(self.rv_trend, self.astro_trend)
+
+    def with_trend(self, order):
+        """A copy of this stack (same data, including a `y` set in place) with
+        trend order `order` for every data type present."""
+        import copy
+        s = copy.copy(self)
+        s.rv_trend = order if self.has_rv else 0
+        s.astro_trend = order if self.has_astro else 0
+        s.baseline, s.baseline_names = s._baseline()
+        s.k_base = s.baseline.shape[1]
+        return s
 
     def n_params(self, n_comp):
         """Free parameters of a model with `n_comp` companions: baseline + per

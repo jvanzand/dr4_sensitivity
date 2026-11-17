@@ -38,8 +38,10 @@ INPUT_L = [
              r'$\Delta f = 1/(2\pi T)$, from $20\,\mathrm{d}$ to $2T$, with $T$ the time span of the data.']),
     ('bul', [r'\textbf{Known companions} $\mathcal{K}=\varnothing$: the list of companions already in the model,',
              r'each stored as $(P,\,e,\,M_0)$.']),
+    ('bul', [r'\textbf{Trend test} (optional, \texttt{max\_trend}): add an acceleration term if the data warrant it,',
+             r'then a jerk term if they warrant that too (likelihood-ratio test at the FAP; trend order $\tau$).']),
     ('tag', r'code: \texttt{load\_gaia\_dr4} in \texttt{data.py}, \texttt{Stack} in \texttt{model.py}, '
-            r'\texttt{period\_grid} in \texttt{periodogram.py}'),
+            r'\texttt{period\_grid} in \texttt{periodogram.py}, \texttt{raise\_trend} in \texttt{trend.py}'),
 ]
 INPUT_R = [
     ('title', r'\textbf{Background for the start: the model that is fitted}'),
@@ -49,7 +51,8 @@ INPUT_R = [
              r'$(\sin\psi_i,\cos\psi_i)$ (east, north).']),
     ('bul', [r'$b_i=\Delta\alpha^*_0\sin\psi_i+\Delta\delta_0\cos\psi_i+\mu_{\alpha^*}\Delta t_i\sin\psi_i$',
              r'$\quad+\,\mu_{\delta}\Delta t_i\cos\psi_i+\varpi f_i$: the star\textquoteright s reference motion',
-             r'(5 linear parameters: position, proper motion, parallax $\varpi$).']),
+             r'(5 linear parameters: position, proper motion, parallax $\varpi$); a trend adds',
+             r'$\Delta t_i^2$ (acceleration) and $\Delta t_i^3$ (jerk) terms along $\sin\psi_i$, $\cos\psi_i$.']),
     ('bul', [r'$\eta_k(t)=(B_kX+G_kY)\sin\psi+(A_kX+F_kY)\cos\psi$ is the star\textquoteright s reflex orbit',
              r'around the barycentre, with $X=\cos E-e$, $Y=\sqrt{1-e^2}\,\sin E$, and $E$ from',
              r'$M=E-e\sin E=M_0+2\pi (t-t_\mathrm{ref})/P$ ($t_\mathrm{ref}$ = mid-baseline).']),
@@ -68,6 +71,8 @@ A_L = [
              r'companion ($e=0$) with free $A,B,F,G$:\; $\ln\mathcal{L}_j$.']),
     ('eq', r'$\Delta\mathrm{BIC}_j \;=\; 2\left(\ln\mathcal{L}_j-\ln\mathcal{L}_0\right) \;-\; 5\ln N$'),
     ('bul', [r'Jitter $s$ is \textbf{refitted in both models at every $P_j$}.']),
+    ('bul', [r'With a trend ($\tau>0$) the trial companion may replace trend terms: $\Delta\mathrm{BIC}_j$ is the best over',
+             r'trial models with trend order $\tau^\prime=0,\dots,\tau$, each against $\mathcal{M}_0$ (as in RVSearch).']),
     ('tag', r'code: \texttt{delta\_bic} in \texttt{periodogram.py}; \texttt{fit\_free\_jitter} in \texttt{model.py}'),
 ]
 A_R = [
@@ -122,8 +127,9 @@ D_L = [
 D_R = [
     ('title', r'\textbf{Background for Step C--D: the decision}'),
     ('bul', [r'One companion is added per iteration, the one at the highest peak.']),
-    ('bul', [r'A real search stops at the first non-detection (\texttt{run\_search} in \texttt{search.py}); '
-                     r'each step can be saved (\texttt{save\_step}) and its figure redrawn (\texttt{redraw\_step} in \texttt{plots.py}).']),
+    ('bul', [r'A real search stops at the first non-detection (\texttt{run\_search} in \texttt{search.py});',
+             r'each step can be saved (\texttt{save\_step}) and its figure redrawn',
+             r'(\texttt{redraw\_step} in \texttt{plots.py}).']),
     ('bul', [r'In injection tests a detection counts as a match if its period is within 3\% of an',
              r'injected period.']),
 ]
@@ -142,8 +148,11 @@ E_L = [
              r'and $0\le e\le 0.7$.']),
     ('bul', [r'If $\mathcal{K}\neq\varnothing$: maximise again over all',
              r'$3(|\mathcal{K}|+1)$ nonlinear parameters jointly.']),
+    ('bul', [r'Trend ($\tau>0$): repeat for each order $\tau^\prime\le\tau$ (from',
+             r'that order\textquoteright s highest peak); keep the lowest BIC;',
+             r'then drop a trend term no longer warranted.']),
     ('bul', [r'$\mathcal{K}\leftarrow\mathcal{K}\cup\{(P,e,M_0)\}$; return to Step A.']),
-    ('tag', r'code: \texttt{add\_and\_refit} in \texttt{fit.py}'),
+    ('tag', r'code: \texttt{add\_and\_refit} in \texttt{fit.py}, \texttt{settle\_trend} in \texttt{trend.py}'),
 ]
 E_R = [
     ('title', r'\textbf{Background for Step E: the refit}'),

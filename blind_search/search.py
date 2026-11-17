@@ -11,6 +11,15 @@ companion at that period and refit all companions (`fit.add_and_refit`) and
 continue; otherwise stop. `truth` periods (injection tests) are only used to
 label each detection as matching an injected period (within `tol`) or spurious.
 
+Trends (`max_trend` > 0; trend.py, RVSearch's logic): before step 1 the trend
+order is raised while each term is warranted at `fap` (RV slope then
+curvature; astrometric acceleration then jerk). At each step the periodogram
+lets the new companion replace trend terms; a detected companion is refit at
+every trend order up to the current one and the lowest-BIC combination kept
+(`add_with_trend_choice`), and the trend is then re-checked (a term no longer
+warranted is dropped). The simulated threshold uses the
+same statistic.
+
 Test mode:  python -I blind_search/search.py --test
 """
 
@@ -24,14 +33,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fit  # noqa: E402
 import periodogram as pg  # noqa: E402
 import simthreshold as st  # noqa: E402
+import trend as tr  # noqa: E402
 
 
 def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
                seed=0, keep=20, noise='fitted', truth=(), label='',
                out_dir=None, pmin=20.0, tol=0.03,
                truth_label='injected / published period', verbose=True,
-               method='sim', save_dir=None, e_max=None):
-    """Run the search on `stack`. Returns dict(known, steps, periods): `steps`
+               method='sim', save_dir=None, e_max=None, max_trend=0):
+    """Run the search on `stack`. Returns dict(known, steps, periods, trend,
+    trend_log, stack): `steps`
     is one dict per search step with the peak, its period, the threshold,
     detected, matched (the truth period it matches, or None), spurious, the
     number of noise-sampled datasets with a highest peak at or above the real
@@ -43,7 +54,11 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
     detection matches a truth period p if |P/p - 1| < tol. With `save_dir`
     every step's arrays are saved (`save_step`), so `plots.redraw_step` can
     redraw its figure without searching again. `e_max` sets the eccentricity
-    cap of every refit (`fit.set_e_max`; default 0.7, `fit.E_MAX`)."""
+    cap of every refit (`fit.set_e_max`; default 0.7, `fit.E_MAX`).
+    `max_trend` = highest trend order allowed (0 = no trend, the default of
+    the injection map and reliability tests; 2 = up to curvature / jerk); the
+    returned `stack` is at the final trend order (its coefficients follow
+    `stack.baseline_names`), `trend_log` lists every trend test."""
     import plots
     if e_max is not None:
         fit.set_e_max(e_max)
@@ -51,9 +66,16 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
     per = pg.period_grid(stack.span, pmin, pmax)
     truth_plot = list(truth)
     known, steps, unmatched = [], [], list(truth)
+    trend_log = []
+    if max_trend:
+        stack, trend_log = tr.raise_trend(stack.with_trend(0), [], fap, max_trend)
+        if verbose:
+            for x in trend_log:
+                print(f"  trend test: {x['action']}: 2 dlnL = {x['gain_2dlnL']:.1f} ({x['dof']} dof, "
+                      f"FAP {x['fap']:.1e}) -> {'adopted' if x['adopted'] else 'not warranted'}", flush=True)
     for k in range(max_companions + 1):
         t0 = time.time()
-        d = pg.delta_bic(stack, known, None, per)
+        d, orders = pg.delta_bic(stack, known, None, per, return_order=True)
         sim = None
         if method == 'sim':
             sim = st.simulated_threshold(
@@ -68,14 +90,22 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
         j = int(np.argmax(d))
         peak, P = float(d[j]), float(per[j])
         detected = peak > thr
+        new_known, new_stack, moves, P_match = None, stack, [], P
+        if detected:
+            if stack.trend:
+                new_stack, new_known, moves = add_with_trend_choice(stack, known, per, fap)
+                P_match = new_known[-1][0]            # the new companion's refit period
+            else:
+                new_known = fit.add_and_refit(stack, known, P)[0]
+            trend_log += moves
         match = None
         if detected:
-            near = [p for p in unmatched if abs(P/p - 1) < tol]
+            near = [p for p in unmatched if abs(P_match/p - 1) < tol]
             if near:
-                match = min(near, key=lambda p: abs(1/P - 1/p))
+                match = min(near, key=lambda p: abs(1/P_match - 1/p))
                 unmatched.remove(match)
-        new_known = fit.add_and_refit(stack, known, P)[0] if detected else None
-        rec = dict(step=k + 1, method=method, peak=peak, P=P, thr=thr,
+        rec = dict(step=k + 1, method=method, peak=peak, P=P, P_fit=new_known[-1][0] if detected else None,
+                   thr=thr, trend_before=stack.trend, trend_after=new_stack.trend, trend_moves=moves,
                    thr_sd=sim['thr_sd'][fap] if sim else None,
                    detected=detected, matched=match,
                    spurious=bool(detected and truth and match is None),
@@ -89,29 +119,64 @@ def run_search(stack, executor=None, M=50, fap=1e-3, max_companions=4,
             save_step(save_dir, rec, per, sim, dict(pmin=pmin, pmax=pmax, fap=fap, label=label,
                                                     truth=list(truth), truth_label=truth_label))
         if verbose:
-            note = (f" (matches injected {match:g} d)" if match else
-                    (' (SPURIOUS: no injected companion)' if rec['spurious']
-                     else ''))
+            note = ((f" (refit P = {P_match:.1f} d)" if detected and P_match != P else '')
+                    + (f" (matches injected {match:g} d)" if match else
+                       ' (SPURIOUS: no injected companion)' if rec['spurious'] else ''))
             print(f"  step {k + 1}: highest peak {peak:.1f} at {P:.1f} d vs "
                   f"threshold {thr:.1f} -> "
                   f"{'DETECTED' if detected else 'not detected'}{note}"
-                  f"  [{rec['time']:.0f} s]", flush=True)
+                  + (f"; trend order {stack.trend} -> {new_stack.trend}" if new_stack.trend != stack.trend else '')
+                  + f"  [{rec['time']:.0f} s]", flush=True)
         if out_dir and sim is not None:
             os.makedirs(out_dir, exist_ok=True)
             models = [known] + ([new_known] if detected else [])
-            title = step_title(label, k + 1, len(known))
+            title = step_title(label, k + 1, len(known), stack.trend,
+                               'rv' if stack.has_rv and not stack.has_astro else 'astro')
             plots.plot_step_sim(stack, per, d, sim, known, pmin, pmax,
                                 f'{out_dir}/{label}_step{k + 1}.png', title,
                                 truth=truth_plot, truth_label=truth_label,
                                 residual_models=models)
         if not detected:
             break
-        known = new_known
-    return dict(known=known, steps=steps, periods=per, unmatched=unmatched)
+        known, stack = new_known, new_stack
+    return dict(known=known, steps=steps, periods=per, unmatched=unmatched, trend=stack.trend,
+                trend_log=trend_log, stack=stack)
 
 
-def step_title(label, step, n_known):
-    return f'{label}: step {step}, {n_known} companion(s) in the model'
+def add_with_trend_choice(stack, known, periods, fap):
+    """Add the detected companion when the model has a trend (RVSearch's
+    logic, decided at the eccentric fit): for each trend order tau' = 0 ..
+    stack.trend, the companion is added at the highest peak of the periodogram
+    at that order and refit (`fit.add_and_refit`); the combination with the
+    lowest BIC is kept, so the companion may replace trend terms. (The circular
+    periodogram alone favours keeping the trend when an eccentric orbit of
+    period ~ the time span is present, since the trend terms help the circular
+    template; e.g. pi Men b in DR4.) The trend is then re-checked
+    (`trend.settle_trend`). Returns (stack, companions, trend moves)."""
+    best = None
+    for tau in range(stack.trend, -1, -1):
+        s = stack.with_trend(tau)
+        d = pg.delta_bic(s, known, None, periods, drop_trend=False)
+        pl, lnL = fit.add_and_refit(s, known, float(periods[int(np.argmax(d))]))
+        b = -2*lnL + s.n_params(len(pl))*np.log(s.n)
+        if best is None or b < best[0]:
+            best = (b, s, pl)
+    _, s, pl = best
+    moves = ([dict(action=f'companion replaces trend terms ({stack.trend} -> {s.trend})')]
+             if s.trend < stack.trend else [])
+    if s.trend:
+        s, pl, log = tr.settle_trend(s, pl, fap)
+        moves += log
+    return s, pl, moves
+
+
+TREND_NAMES = {'astro': ('no trend', 'acceleration', 'acceleration + jerk'),
+               'rv': ('no trend', 'linear trend', 'quadratic trend')}
+
+
+def step_title(label, step, n_known, trend=0, kind='astro'):
+    t = f', {TREND_NAMES[kind][trend]}' if trend else ''
+    return f'{label}: step {step}, {n_known} companion(s){t} in the model'
 
 
 def save_step(save_dir, rec, periods, sim, meta):
@@ -127,9 +192,10 @@ def save_step(save_dir, rec, periods, sim, meta):
     arr = dict(periods=periods, dbic=rec['dbic'],
                known_before=np.array(rec['known_before'], float).reshape(-1, 3),
                known_after=np.array(rec['known_after'] or [], float).reshape(-1, 3),
-               decision=json.dumps({k: rec[k] for k in ('step', 'method', 'peak', 'P', 'thr', 'thr_sd',
-                                                        'detected', 'matched', 'spurious', 'n_fake_ge',
-                                                        'jitter', 'time')}, default=float),
+               decision=json.dumps({k: rec.get(k) for k in ('step', 'method', 'peak', 'P', 'thr', 'thr_sd',
+                                                            'detected', 'matched', 'spurious', 'n_fake_ge',
+                                                            'jitter', 'time', 'trend_before', 'trend_after',
+                                                            'trend_moves')}, default=float),
                meta=json.dumps(meta, default=float))
     if sim is not None:
         faps = sorted(sim['thr'])

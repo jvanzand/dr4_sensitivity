@@ -135,15 +135,15 @@ def run(system=None):
         res = search.run_search(stack, M=s['M'], fap=s['fap'], pmin=s['pmin_d'],
                                 max_companions=s['max_companions'], truth=periods, tol=s['match_tol'],
                                 label=stem, out_dir=out, save_dir=out, truth_label='injected period',
-                                e_max=s.get('e_max'))
-        found = found_orbits(stack, res['known'])
+                                e_max=s.get('e_max'), max_trend=s.get('max_trend', 0))
+        found = found_orbits(res['stack'], res['known'])
         rows, spurious = match(found, truth, s['match_tol'])
         steps = [{k: v for k, v in st.items() if k not in ('dbic', 'maxima', 'known_before', 'known_after')}
                  for st in res['steps']]
         summary = dict(dataset=stem, system=name, label=label, seed=seed, settings=s,
                        code_version=code_version(), date=datetime.date.today().isoformat(),
                        n_transits=int(stack.n), steps=steps, found=found, companions=rows,
-                       spurious=spurious)
+                       spurious=spurious, trend=res['trend'], trend_log=res['trend_log'])
         json.dump(summary, open(os.path.join(out, 'summary.json'), 'w'), indent=1, default=float)
         for r in rows:
             f = r['found']
@@ -225,7 +225,7 @@ def summary_figure(stem):
     ax.set_ylabel("star's astrometric semi-major axis (mas)")
     ax.set_title(f"Known vs recovered: {n_found} of {len(targets)} known companions recovered, "
                  f"{len(s['spurious'])} spurious", fontsize=20)
-    legs = [(ax, dict(fontsize=14, markerscale=0.6, grow=8))]
+    legs = [(ax, dict(fontsize=14, markerscale=0.6))]
 
     # right: sky orbits of matched companions
     ax2 = fig.add_subplot(gs[0, 1])
@@ -293,6 +293,7 @@ def summary_figure(stem):
     figtools.check_legends(fig)
     fig.suptitle(f"{s['label']} ({stem}): blind search of synthetic DR4 astrometry, {s['n_transits']} transits; "
                  f"M = {cfg['M']}, FAP {cfg['fap']:g}, match within {cfg['match_tol']:.0%} in period; "
+                 f"final model: {('no trend', 'acceleration', 'acceleration + jerk')[s.get('trend', 0)]}; "
                  f"code {s['code_version']}", fontsize=19, y=0.95)
     out = os.path.join(RESULTS, stem, f'{stem}_summary.png')
     fig.savefig(out, dpi=80, bbox_inches='tight')

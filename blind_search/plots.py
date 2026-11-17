@@ -62,8 +62,11 @@ def redraw_step(stack, path, out):
         raise ValueError(f'{path}: no simulated threshold saved (method {dec["method"]!r})')
     known = a['known_before']
     models = [known] + ([a['known_after']] if dec['detected'] else [])
+    tau = dec.get('trend_before') or 0
+    stack = stack.with_trend(tau)            # the step's trend order (residuals of both models drawn at it)
     return plot_step_sim(stack, a['periods'], a['dbic'], sim, known, meta['pmin'], meta['pmax'], out,
-                         search.step_title(meta['label'], dec['step'], len(known)),
+                         search.step_title(meta['label'], dec['step'], len(known), tau,
+                                           'rv' if stack.has_rv and not stack.has_astro else 'astro'),
                          truth=meta['truth'], truth_label=meta['truth_label'],
                          residual_models=models, fap=meta['fap'])
 

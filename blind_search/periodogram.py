@@ -13,6 +13,13 @@ costs only a few small matrix products. Jitter is refitted at every trial period
 where k_new = 1 (the period) + the new linear amplitudes (4 astrometric, 2 RV;
 both when both data types are selected).
 
+If the current model has a trend (`stack.trend` > 0), each trial companion may
+also replace trend terms (RVSearch's logic): Delta-BIC(P) is the best over the
+models "companion at P plus a trend of order tau'" for tau' = 0 .. the current
+order, each compared with the current model, so a signal first fitted as a
+trend can come back as a companion (`delta_bic(..., return_order=True)` also
+gives the winning tau' per period).
+
 Eccentricity and phase enter only in the refit of the best peak (search.py), as
 in RVSearch. The period grid is rvsearch's: uniform in frequency with spacing
 1/(2 pi T), T the baseline.
@@ -69,9 +76,21 @@ def _delta_bic_refit_known(stack, planets, periods, window):
     return np.array([2*(best_lnL(stack.companion_columns(P, 0.0, 0.0)) - lnL0) - pen for P in periods])
 
 
-def delta_bic(stack, planets, jit, periods, refit_known=False, window=0.1):
+def null_bic(stack, planets):
+    """BIC of the model with the baseline and `planets` (P, e, M0 fixed),
+    jitter free (not counted as a parameter, as in `Stack.n_params`)."""
+    lnL = stack.fit_free_jitter(stack.design(planets))[2]
+    return -2*lnL + stack.n_params(len(planets))*np.log(stack.n)
+
+
+def delta_bic(stack, planets, jit, periods, refit_known=False, window=0.1, drop_trend=True,
+              return_order=False):
     """Delta-BIC of adding one circular companion at each of `periods`, to the
-    model with the baseline and `planets` (a list of (P, e, M0)).
+    model with the baseline and `planets` (a list of (P, e, M0)). With a trend
+    in the model and `drop_trend` (default; jitter free, known companions
+    fixed), the companion may replace trend terms: the value at each period is
+    the best over trend orders 0 .. stack.trend, compared with the current
+    model; with `return_order` the winning order per period is returned too.
 
     jit=None (the default of the search; RVSearch's formulation): every
     channel's jitter is refitted at every trial period, in the model with and
@@ -86,6 +105,24 @@ def delta_bic(stack, planets, jit, periods, refit_known=False, window=0.1):
     fixed, only their linear amplitudes are refit. refit_known=True: their (P,
     e, M0) are re-optimised at every trial period (RVSearch's convention),
     within +-`window` in P; slower (see `_delta_bic_refit_known`)."""
+    if drop_trend and stack.trend > 0 and jit is None and not refit_known:
+        b0 = null_bic(stack, planets)
+        best, order = None, np.full(len(periods), stack.trend)
+        for tau in range(stack.trend, -1, -1):
+            s = stack.with_trend(tau)
+            d = _delta_bic_one(s, planets, None, periods, False, window) + b0 - null_bic(s, planets)
+            if best is None:
+                best = d
+            else:
+                better = d > best
+                best, order = np.where(better, d, best), np.where(better, tau, order)
+        return (best, order) if return_order else best
+    d = _delta_bic_one(stack, planets, jit, periods, refit_known, window)
+    return (d, np.full(len(periods), stack.trend)) if return_order else d
+
+
+def _delta_bic_one(stack, planets, jit, periods, refit_known, window):
+    """`delta_bic` at the stack's own trend order."""
     k_new = 1 + stack.k_comp_astro + stack.k_comp_rv
     pen = k_new*np.log(stack.n)
     out = np.empty(len(periods))

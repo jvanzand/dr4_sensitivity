@@ -10,39 +10,52 @@
    "pmin_d": 20.0,
    "max_companions": 4,
    "match_tol": 0.25,
-   "e_max": 0.99
+   "e_max": 0.99,
+   "max_trend": 2
   },
-  "code_version": "253b0db-dirty",
+  "code_version": "59978d0-dirty",
   "date": "2026-11-16",
   "n_transits": 77,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 107.32530274519847,
-    "P": 1717.5710969167594,
-    "thr": 16.60276646315135,
-    "thr_sd": 2.108355914200482,
+    "peak": 63.19504774619608,
+    "P": 1209.3945529097812,
+    "P_fit": 1889.3282065825615,
+    "thr": 15.381736424307029,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 1.9087561528693946,
     "detected": true,
     "matched": 2088.5259509337357,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.5527270837453027,
-    "time": 13.333479881286621
+    "jitter": 0.2552374308756905,
+    "time": 60.04007005691528
    },
    {
     "step": 2,
     "method": "sim",
     "peak": -10.145619347420318,
     "P": 25.593359282973935,
+    "P_fit": null,
     "thr": 6.262513321810465,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 1.8441088084607982,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 33,
     "jitter": 0.0,
-    "time": 17.549022912979126
+    "time": 23.705891847610474
    }
   ],
   "found": [
@@ -93,7 +106,29 @@
     "found": null
    }
   ],
-  "spurious": []
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 32.074649194065884,
+    "dof": 2,
+    "fap": 1.084122662523746e-07,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 77.6240913720692,
+    "dof": 2,
+    "fap": 1.3936147272915377e-17,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
  },
  "HD111232_seed1": {
   "dataset": "HD111232_seed1",
@@ -106,9 +141,10 @@
    "pmin_d": 20.0,
    "max_companions": 4,
    "match_tol": 0.25,
-   "e_max": 0.99
+   "e_max": 0.99,
+   "max_trend": 2
   },
-  "code_version": "253b0db-dirty",
+  "code_version": "59978d0-dirty",
   "date": "2026-11-16",
   "n_transits": 89,
   "steps": [
@@ -117,28 +153,36 @@
     "method": "sim",
     "peak": 193.2521574926359,
     "P": 1211.136400627808,
+    "P_fit": 1169.545828561223,
     "thr": 13.134659305309025,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 2.2034576701351742,
     "detected": true,
     "matched": 1168.9482185546765,
     "spurious": false,
     "n_fake_ge": 0,
     "jitter": 0.33483540850217525,
-    "time": 14.106131076812744
+    "time": 10.96853518486023
    },
    {
     "step": 2,
     "method": "sim",
     "peak": -4.280474926656794,
     "P": 90.22101771211311,
+    "P_fit": null,
     "thr": 13.906294428721306,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 2.3539947099980845,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 16,
     "jitter": 0.03299860855555837,
-    "time": 13.945871114730835
+    "time": 13.382293939590454
    }
   ],
   "found": [
@@ -180,7 +224,18 @@
     }
    }
   ],
-  "spurious": []
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 4.9650354041431015,
+    "dof": 2,
+    "fap": 0.08353265029380989,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
  },
  "HD168443_seed1": {
   "dataset": "HD168443_seed1",
@@ -193,39 +248,52 @@
    "pmin_d": 20.0,
    "max_companions": 4,
    "match_tol": 0.25,
-   "e_max": 0.99
+   "e_max": 0.99,
+   "max_trend": 2
   },
-  "code_version": "253b0db-dirty",
+  "code_version": "59978d0-dirty",
   "date": "2026-11-16",
   "n_transits": 67,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 227.95833018338902,
-    "P": 1893.3637817585063,
-    "thr": 19.650200337117344,
-    "thr_sd": 2.5906537663119367,
+    "peak": 52.34801868592052,
+    "P": 3703.0649230796844,
+    "P_fit": 1762.2748807816447,
+    "thr": 18.513913291032566,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.607525764722018,
     "detected": true,
     "matched": 1748.898069626463,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.5509586290849333,
-    "time": 7.836487054824829
+    "jitter": 0.10585529125441406,
+    "time": 46.05284571647644
    },
    {
     "step": 2,
     "method": "sim",
     "peak": 4.3741337767073105,
     "P": 134.93093254784492,
+    "P_fit": null,
     "thr": 7.484261191034072,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 2.4607528422283864,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 1,
     "jitter": 0.03288734225319633,
-    "time": 14.076306104660034
+    "time": 21.412227869033813
    }
   ],
   "found": [
@@ -276,7 +344,29 @@
     "found": null
    }
   ],
-  "spurious": []
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 76.25278116352615,
+    "dof": 2,
+    "fap": 2.766425349161676e-17,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 121.00753763579488,
+    "dof": 2,
+    "fap": 5.2911133821585915e-27,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
  },
  "HD89707_seed1": {
   "dataset": "HD89707_seed1",
@@ -289,9 +379,10 @@
    "pmin_d": 20.0,
    "max_companions": 4,
    "match_tol": 0.25,
-   "e_max": 0.99
+   "e_max": 0.99,
+   "max_trend": 2
   },
-  "code_version": "253b0db-dirty",
+  "code_version": "59978d0-dirty",
   "date": "2026-11-16",
   "n_transits": 56,
   "steps": [
@@ -300,28 +391,36 @@
     "method": "sim",
     "peak": 59.99181989644879,
     "P": 298.02007989703435,
+    "P_fit": 294.9251244112344,
     "thr": 21.635027294316924,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 2.1029151354820583,
     "detected": true,
     "matched": 298.2257488731286,
     "spurious": false,
     "n_fake_ge": 0,
     "jitter": 0.3269557918970556,
-    "time": 17.802818059921265
+    "time": 20.18643808364868
    },
    {
     "step": 2,
     "method": "sim",
     "peak": 12.576312025714742,
     "P": 56.12632259064733,
+    "P_fit": null,
     "thr": 21.49316169934343,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
     "thr_sd": 3.7596170794594834,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 0,
     "jitter": 0.04969840627201929,
-    "time": 17.189890146255493
+    "time": 17.543576955795288
    }
   ],
   "found": [
@@ -363,7 +462,18 @@
     }
    }
   ],
-  "spurious": []
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 3.960007919412739,
+    "dof": 2,
+    "fap": 0.13806869059833682,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
  },
  "TOI1736_seed1": {
   "dataset": "TOI1736_seed1",
@@ -376,73 +486,68 @@
    "pmin_d": 20.0,
    "max_companions": 4,
    "match_tol": 0.25,
-   "e_max": 0.99
+   "e_max": 0.99,
+   "max_trend": 2
   },
-  "code_version": "253b0db-dirty",
+  "code_version": "59978d0-dirty",
   "date": "2026-11-16",
   "n_transits": 113,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 119.96609251164078,
-    "P": 3896.114273706451,
-    "thr": 16.342521324207226,
-    "thr_sd": 2.794082957864533,
-    "detected": true,
-    "matched": null,
-    "spurious": true,
-    "n_fake_ge": 0,
-    "jitter": 0.12790190944845517,
-    "time": 9.96497106552124
-   },
-   {
-    "step": 2,
-    "method": "sim",
-    "peak": 47.64853932044848,
+    "peak": 50.48318935161018,
     "P": 578.2584724754585,
-    "thr": 7.0218934044926,
-    "thr_sd": 1.5679116574369905,
+    "P_fit": 571.9432534236221,
+    "thr": 18.88119143060125,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 193.73365181497093,
+      "dof": 2,
+      "fap": 8.536346374510669e-43,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.803220744369195,
     "detected": true,
     "matched": 570.8308746549599,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.045079780002181005,
-    "time": 17.290109872817993
+    "jitter": 0.04910303388436367,
+    "time": 26.74851417541504
    },
    {
-    "step": 3,
+    "step": 2,
     "method": "sim",
-    "peak": -10.559822310936635,
-    "P": 38.060818487827305,
-    "thr": 6.336166889034821,
-    "thr_sd": 2.084671581887713,
+    "peak": -8.482187765628453,
+    "P": 97.67476753292456,
+    "P_fit": null,
+    "thr": 6.061275272484703,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.618067782320095,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 16,
     "jitter": 0.0,
-    "time": 49.41394090652466
+    "time": 31.193000078201294
    }
   ],
   "found": [
    {
-    "P_d": 3857.1521433797975,
-    "e": 0.9893679403855113,
-    "M0_deg": 159.82642054295454,
-    "a_star_mas": 13.798380517349,
-    "inc_deg": 82.83195470685344,
-    "omega_deg": 271.38622050042295,
-    "Omega_deg": 76.10100582408568
-   },
-   {
-    "P_d": 571.3547425142733,
-    "e": 0.2880930596038629,
-    "M0_deg": 185.5352839379554,
-    "a_star_mas": 0.10320098091711005,
-    "inc_deg": 91.05527891537834,
-    "omega_deg": 317.4408204169094,
-    "Omega_deg": 257.2429116579456
+    "P_d": 571.9432534236221,
+    "e": 0.3037781162767074,
+    "M0_deg": 210.62958416405286,
+    "a_star_mas": 0.10876752632485914,
+    "inc_deg": 92.54010666201928,
+    "omega_deg": 291.41411568480794,
+    "Omega_deg": 258.8804445328343
    }
   ],
   "companions": [
@@ -463,13 +568,13 @@
     "a_star_true_mas": 0.11140154965885979,
     "inc_true_deg": 99.30452529396324,
     "found": {
-     "P_d": 571.3547425142733,
-     "e": 0.2880930596038629,
-     "M0_deg": 185.5352839379554,
-     "a_star_mas": 0.10320098091711005,
-     "inc_deg": 91.05527891537834,
-     "omega_deg": 317.4408204169094,
-     "Omega_deg": 257.2429116579456
+     "P_d": 571.9432534236221,
+     "e": 0.3037781162767074,
+     "M0_deg": 210.62958416405286,
+     "a_star_mas": 0.10876752632485914,
+     "inc_deg": 92.54010666201928,
+     "omega_deg": 291.41411568480794,
+     "Omega_deg": 258.8804445328343
     }
    },
    {
@@ -482,15 +587,32 @@
     "found": null
    }
   ],
-  "spurious": [
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
    {
-    "P_d": 3857.1521433797975,
-    "e": 0.9893679403855113,
-    "M0_deg": 159.82642054295454,
-    "a_star_mas": 13.798380517349,
-    "inc_deg": 82.83195470685344,
-    "omega_deg": 271.38622050042295,
-    "Omega_deg": 76.10100582408568
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 140.48362717817923,
+    "dof": 2,
+    "fap": 3.121533207337095e-31,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 6.3561349497177275,
+    "dof": 2,
+    "fap": 0.041666098149256973,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 193.73365181497093,
+    "dof": 2,
+    "fap": 8.536346374510669e-43,
+    "dropped": false,
+    "n_companions": 1
    }
   ]
  }
