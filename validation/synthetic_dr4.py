@@ -708,8 +708,9 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     fx, comps = truth['fixed'], truth['companions']
     name = _pretty(comps[0]['name']).rsplit(' ', 1)[0]      # host name
 
-    fig = plt.figure(figsize=(20, 34))
-    gs = fig.add_gridspec(6, 2, height_ratios=[1.25, 0.5, 0.95, 1.0, 0.45, 1.0], hspace=0.42, wspace=0.22)
+    fig = plt.figure(figsize=(20, 44))
+    gs = fig.add_gridspec(8, 2, height_ratios=[1.25, 0.5, 0.95, 1.0, 0.45, 1.0, 0.3, 0.85], hspace=0.42,
+                          wspace=0.22)                     # row 6: room for the legend of 4b
 
     # Row 1: RVs and the reference fit
     ax = fig.add_subplot(gs[0, :])
@@ -892,21 +893,41 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
         span = max(np.ptp(x), np.ptp(y))
         size = f'{span:.3g} mas' if span >= 0.1 else f'{span*1e3:.3g} $\\mu$as'
         if c.get('role') == 'trend':
-            lab = f"trend companion alone (P = {c['rv_based']['P_d']/365.25:.0f} yr; spans {size})"
+            lab = f"trend companion ({c['rv_based']['P_d']/365.25:.0f} yr; {size})"
             ax.plot(x, y, '--', color='C2', lw=2.5, zorder=3, label=lab)
         else:
-            lab = f"{_pretty(c['name'])} alone (P = {c['rv_based']['P_d']:.4g} d; spans {size})"
+            lab = f"{_pretty(c['name'])} ({c['rv_based']['P_d']:.4g} d; {size})"
             ax.plot(x, y, '-', color=f'C{[0, 4, 5, 6][k % 4]}', lw=1.5, zorder=3, label=lab)
     x, y = sum(p[0] for p in parts), sum(p[1] for p in parts)
     xs, ys = sum(p[2] for p in parts), sum(p[3] for p in parts)
-    ax.plot(x, y, '-', color='0.55', lw=5, zorder=1, label='sum: the star over the DR4 window')
+    ax.plot(x, y, '-', color='0.55', lw=5, zorder=1, label='sum')
     ax.plot(xs, ys, 'o', color='C1', ms=5, zorder=4, label='sum at the DR4 transits')
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')
-    ax.set_title("4b. The star's motion due to its companions over DR4, minus its proper motion",
-                 fontsize=17)
-    legs.append((ax, dict(fontsize=12)))
+    ax.set_title("4b. The star's motion due to its companions over DR4, minus its proper motion\n"
+                 "(each companion alone: its period; the largest extent of its track)", fontsize=16)
+    legs.append((ax, dict(fontsize=11)))
+
+    # 4c-d: the same curves as 4b, each coordinate against time. Gaia measures
+    # only the along-scan projection (4a), so there are no RA or Dec data
+    # points: the dots are the model at the transit epochs.
+    for col, (q, nm, sym) in enumerate(((0, 'RA', r'$\Delta\alpha*$'), (1, 'Dec', r'$\Delta\delta$'))):
+        ax = fig.add_subplot(gs[7, col])
+        for k, (c, pt) in enumerate(zip(comps, parts)):
+            if c.get('role') == 'trend':
+                ax.plot(t_yr(tg), pt[q], '--', color='C2', lw=2.5, zorder=3, label='trend companion alone')
+            else:
+                ax.plot(t_yr(tg), pt[q], '-', color=f'C{[0, 4, 5, 6][k % 4]}', lw=1.5, zorder=3,
+                        label=f"{_pretty(c['name'])} alone")
+        ax.plot(t_yr(tg), (x, y)[q], '-', color='0.55', lw=5, zorder=1, label='sum')
+        ax.plot(t_yr(g1.t), (xs, ys)[q], 'o', color='C1', ms=5, zorder=4, label='sum at the DR4 transits')
+        ax.axhline(0, color='0.5', lw=1)
+        ax.set_xlabel('year')
+        ax.set_ylabel(f'{sym} (mas)')
+        ax.set_title(f'4{"cd"[col]}. {nm} offset vs time (as 4b; model only: Gaia measures along scan)',
+                     fontsize=16)
+        legs.append((ax, dict(fontsize=12)))
 
     for a_, kw in legs:            # legends placed where they cover no data
         figtools.legend_clear(a_, **kw)

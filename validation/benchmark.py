@@ -159,6 +159,44 @@ def run(system=None):
         print('wrote', summary_figure(stem))
 
 
+def al_panels(fig, spec_l, spec_r, stack, s, legs):
+    """Left: the along-scan positions (the data the search fits, one per
+    transit) minus the fitted position, proper motion and parallax, with the
+    rest of the search's final model (companions and any acceleration / jerk
+    terms) at each transit. Right: residuals to the full model. Errors include
+    the fitted jitter."""
+    t_yr = lambda t: 2000 + (t - 51544.5)/365.25          # noqa: E731
+    st = stack.with_trend(s.get('trend', 0))
+    known = [(f['P_d'], f['e'], np.radians(f['M0_deg'])) for f in s['found']]
+    X = st.design(known)
+    coef, resid, _, s2 = st.fit_free_jitter(X)
+    n5 = 5                                                   # ra0, dec0, pmra, pmdec, plx
+    assert [n.split(':')[1] for n in st.baseline_names[:n5]] == ['ra0', 'dec0', 'pmra', 'pmdec', 'plx']
+    rest = X[:, n5:]@coef[n5:]
+    err = np.sqrt(st.err**2 + s2[st.chan])
+    what = ' + '.join([f'{len(known)} companion(s)'] + (['acceleration'] if st.trend >= 1 else [])
+                      + (['jerk'] if st.trend >= 2 else []))
+    ax = fig.add_subplot(spec_l)
+    ax.errorbar(t_yr(st.t), st.y - X[:, :n5]@coef[:n5], err, fmt='o', color='C1', ms=5, lw=1,
+                label='along-scan data minus fitted position, proper motion, parallax')
+    ax.plot(t_yr(st.t), rest, 'x', color='k', ms=8, mew=1.5, label=f'fitted model: {what}')
+    ax.axhline(0, color='0.5', lw=1)
+    ax.set_xlabel('year')
+    ax.set_ylabel('along-scan offset (mas)')
+    ax.set_title("The data the search fits (along scan, one point per transit) and its final model", fontsize=17)
+    legs.append((ax, dict(fontsize=13)))
+    ax = fig.add_subplot(spec_r)
+    chi2 = float(np.sum((resid/err)**2))
+    ax.errorbar(t_yr(st.t), resid*1e3, err*1e3, fmt='o', color='C0', ms=5, lw=1,
+                label=f'data minus the full model ($\\chi^2$ = {chi2:.0f} for {st.n} transits; '
+                      f'jitter {np.sqrt(s2[0])*1e3:.0f} $\\mu$as)')
+    ax.axhline(0, color='0.5', lw=1)
+    ax.set_xlabel('year')
+    ax.set_ylabel(r'residual ($\mu$as)')
+    ax.set_title('Residuals to the final model', fontsize=17)
+    legs.append((ax, dict(fontsize=13)))
+
+
 def _angle_diff(a, b):
     return (a - b + 180) % 360 - 180
 
@@ -185,8 +223,8 @@ def summary_figure(stem):
     targets = [r for r in rows if r.get('role', 'target') == 'target']
     n_found = sum(r['found'] is not None for r in targets)
 
-    fig = plt.figure(figsize=(22, 17))
-    gs = fig.add_gridspec(2, 2, width_ratios=[1.35, 1], height_ratios=[1, 0.42], hspace=0.3, wspace=0.25)
+    fig = plt.figure(figsize=(22, 24))
+    gs = fig.add_gridspec(3, 2, width_ratios=[1.35, 1], height_ratios=[1, 0.7, 0.42], hspace=0.32, wspace=0.25)
 
     # left: a_star versus period
     ax = fig.add_subplot(gs[0, 0])
@@ -253,8 +291,12 @@ def summary_figure(stem):
     ax2.set_title("The star's orbit on the sky", fontsize=20)
     legs.append((ax2, dict(fontsize=13)))
 
+    # middle: the data the search fits (along-scan position per transit) and
+    # its final model; position, proper motion and parallax (fitted) removed
+    al_panels(fig, gs[1, 0], gs[1, 1], stack, s, legs)
+
     # bottom: element table
-    ax3 = fig.add_subplot(gs[1, :])
+    ax3 = fig.add_subplot(gs[2, :])
     ax3.axis('off')
     head = ['companion', 'P (d)', 'e', "star's a (mas)", 'i (deg)', r'$\omega_\star$ (deg)', r'$\Omega$ (deg)']
     cells, colors = [], []
