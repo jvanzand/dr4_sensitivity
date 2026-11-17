@@ -17,29 +17,65 @@ max_trend = 2             # astrometric trend allowed: 1 = acceleration, 2 = + j
 [[system]]
 name = "HD39091"
 label = "pi Men"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "strong long-period companion (b, 2089 d); inner c (6.3 d) and d (121 d) must not be claimed"
 
 [[system]]
 name = "HD111232"
 label = "HD 111232"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "moderate signal (b, 7.2 M_J, 1169 d; forecast SNR 8.7)"
 
 [[system]]
 name = "HD168443"
 label = "HD 168443"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "strong c (17.8 M_J, 1750 d); inner b (58 d, SNR 0.94) is a stress test"
 
 [[system]]
 name = "HD89707"
 label = "HD 89707"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "high eccentricity (b, 54 M_J, e = 0.9): beyond the search's e <= 0.7 cap"
 
 [[system]]
 name = "TOI1736"
 label = "TOI-1736"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "optional: weak signal (c, forecast SNR 2.4)"
+
+# Census group (2026-11-16): five systems drawn at random (numpy seed 20261116) among the
+# census systems that already have RV tables in rv_data/systems/ (13 of them; the rest await
+# the Jump export and DACE pull), excluding the five above.
+[[system]]
+name = "TOI1694"
+label = "TOI-1694"
+seeds = [1]
+purpose = "census draw"
+
+# The four below fail in generation (2026-11-16) and are disabled until a rule is decided:
+# HD 94340, HD 160691, HD 147513: their quadratic RV trends curve too fast for a trend companion beyond
+# 2x the RV baseline (HD 94340: a stellar companion); HD 191939: Laplace Hessian not positive definite.
+# [[system]]
+# name = "HD191939"
+# label = "HD 191939"
+# seeds = [1]
+# purpose = "census draw (six planets)"
+
+# [[system]]
+# name = "HD94340"
+# label = "HD 94340"
+# seeds = [1]
+# purpose = "census draw"
+
+# [[system]]
+# name = "HD160691"
+# label = "HD 160691 (mu Ara)"
+# seeds = [1]
+# purpose = "census draw"
+
+# [[system]]
+# name = "HD147513"
+# label = "HD 147513"
+# seeds = [1]
+# purpose = "census draw"

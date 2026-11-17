@@ -1,0 +1,178 @@
+{
+ "companions": [
+  {
+   "name": "HD 111232 b",
+   "rv_based": {
+    "P_d": 1169.7888997736125,
+    "K_ms": 162.05622013185734,
+    "e": 0.200854435466125,
+    "omega_star_deg": 87.85435090370942,
+    "M0_deg": 298.4451890182551,
+    "Tp_bjd_tcb": 2452347.879550004
+   },
+   "random": {
+    "inc_deg": 163.69309689232637,
+    "Omega_deg": 281.48220617421293
+   },
+   "derived": {
+    "mass_mj": 26.40951552591825,
+    "msini_mj": 7.309553288643346,
+    "a_au": 2.062382274381766,
+    "a_star_mas": 2.1041154226871766,
+    "thiele_innes_ABFG_mas": [
+     -1.9619840850607655,
+     -0.4789223371466257,
+     -0.49265466333069086,
+     2.0455082071586395
+    ]
+   },
+   "tref_mjd": 53317.1514091827
+  },
+  {
+   "name": "HD 111232 trend companion",
+   "role": "trend",
+   "rv_based": {
+    "P_d": 148982.83270577973,
+    "K_ms": 817.5682966075125,
+    "e": 0.0,
+    "omega_star_deg": 0.0,
+    "M0_deg": 256.5912660683565,
+    "Tp_bjd_tcb": 2347129.6134468876
+   },
+   "random": {
+    "inc_deg": 78.61466944283039,
+    "Omega_deg": 73.53273286705662
+   },
+   "derived": {
+    "mass_mj": 223.81748663748712,
+    "msini_mj": 218.73225282275325,
+    "a_au": 55.789136468815116,
+    "a_star_mas": 395.27528388489577,
+    "thiele_innes_ABFG_mas": [
+     112.04770768726824,
+     379.0618171912247,
+     -74.82921165115503,
+     22.118929560577875
+    ]
+   },
+   "trend": {
+    "order": 1,
+    "slope_ms_per_yr": 12.25053128278291,
+    "curvature_ms_per_yr2": 0.0,
+    "period_range_d": [
+     24379.241383785382,
+     400913.959612344
+    ],
+    "dlnL_vs_polynomial": -0.7499605418605029,
+    "n_draws": 66,
+    "injected": "orbit minus its offset and velocity at J2016.0 (see companion_sky)"
+   },
+   "tref_mjd": 53317.1514091827
+  }
+ ],
+ "rv_trend_coefs": [
+  408.8414226181773
+ ],
+ "fixed": {
+  "mstar_msun": 0.83,
+  "ra_deg": 192.2159654417225,
+  "dec_deg": -68.42465224767673,
+  "parallax_mas": 34.60940212403708,
+  "pmra_masyr": 27.28346762542193,
+  "pmdec_masyr": 112.91831168020067,
+  "G": 7.419252395629883,
+  "ref_epoch_mjd": 57388.5
+ },
+ "system": "HD111232",
+ "seed": 3,
+ "noise": {
+  "sigma_ccd_mas": 0.19096261978149418,
+  "extra_transit_sigma_mas": 0.014812004374815432,
+  "n_transits": 91,
+  "n_ccd_rows": 805,
+  "reject_frac": 0.1
+ },
+ "reference_fit": {
+  "planets": [
+   {
+    "P": 1169.5355748168245,
+    "K": 162.6531957159066,
+    "e": 0.1958202453831986,
+    "omega": 1.5372787784304187,
+    "M0": 5.205128211558572,
+    "Tp": 2452348.782544541,
+    "P_err": 0.47915082055472363,
+    "K_err": 0.9457549208910521,
+    "e_err": 0.004779711532129143,
+    "omega_err": 0.028627073743169196,
+    "M0_err": 0.027416367356428144,
+    "Tp_err": 5.295105805401134,
+    "name": "HD 111232 b"
+   }
+  ],
+  "lnL": -495.5208625261811,
+  "trend_order": 1,
+  "trend_coefs": [
+   408.1981524840368
+  ],
+  "trend_steps": [
+   {
+    "n_companions": 0,
+    "action": "raise trend order 0 -> 1",
+    "dBIC": 99.70743799788079
+   },
+   {
+    "n_companions": 0,
+    "action": "raise trend order 1 -> 2",
+    "dBIC": 158.5887639790949
+   },
+   {
+    "n_companions": 0,
+    "action": "keep trend order 2",
+    "top_term_worth_dBIC": 158.58876650367256
+   },
+   {
+    "n_companions": 1,
+    "action": "add HD 111232 b"
+   },
+   {
+    "n_companions": 1,
+    "action": "drop trend term 2 -> 1",
+    "worth_dBIC": -96.98248005186451
+   },
+   {
+    "n_companions": 1,
+    "action": "keep trend order 1",
+    "dBIC_of_raising": -2.585601550132651
+   }
+  ],
+  "n_rv_excluded": 4,
+  "jitter_ms": {
+   "dace:CORALIE:2004A&A...415..391M": 7.183441470997912,
+   "dace:CORAVEL:1979VA.....23..279B": 0.10000617213869041,
+   "dace:HARPS03:DRS-3.3.6-CCF_HARPS": 2.5859354643332875,
+   "dace:HARPS15:DRS-3.3.6-CCF_HARPS": 10.000689978864058,
+   "dace:MIKE_ECHELLE_SPECTROGRAPH:2009ApJ...693.1424M": 21.32217580216233
+  },
+  "rv_tref_bjd_tcb": 2453317.6514091827,
+  "rv_span_d": 12189.620691892691,
+  "laplace_held_fixed": [
+   7
+  ],
+  "theta": [
+   7.0643620043874344,
+   5.091620300533948,
+   0.014829268226400362,
+   0.44226727008345085,
+   -1.078057095621014,
+   408.1981524840368,
+   1.971778581735564,
+   -2.302523373511828,
+   0.9500873242506731,
+   2.3026540885002067,
+   3.059747648600865
+  ],
+  "kind": "maximum likelihood",
+  "method": "maximum likelihood; errors from the Laplace approximation"
+ }
+}

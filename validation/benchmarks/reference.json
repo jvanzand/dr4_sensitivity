@@ -13,17 +13,17 @@
    "e_max": 0.99,
    "max_trend": 2
   },
-  "code_version": "59978d0-dirty",
+  "code_version": "be91f29-dirty",
   "date": "2026-11-16",
   "n_transits": 77,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 63.19504774619608,
+    "peak": 63.180276858178146,
     "P": 1209.3945529097812,
-    "P_fit": 1889.3282065825615,
-    "thr": 15.381736424307029,
+    "P_fit": 1889.3282065714495,
+    "thr": 15.381531220323067,
     "trend_before": 2,
     "trend_after": 0,
     "trend_moves": [
@@ -31,77 +31,77 @@
       "action": "companion replaces trend terms (2 -> 0)"
      }
     ],
-    "thr_sd": 1.9087561528693946,
+    "thr_sd": 1.9087207778440596,
     "detected": true,
-    "matched": 2088.5259509337357,
+    "matched": 2088.5466203903125,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.2552374308756905,
-    "time": 60.04007005691528
+    "jitter": 0.2552064449085731,
+    "time": 19.78392219543457
    },
    {
     "step": 2,
     "method": "sim",
-    "peak": -10.145619347420318,
+    "peak": -10.144322239732741,
     "P": 25.593359282973935,
     "P_fit": null,
-    "thr": 6.262513321810465,
+    "thr": 6.262426093389982,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 1.8441088084607982,
+    "thr_sd": 1.8439585628742976,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 33,
     "jitter": 0.0,
-    "time": 23.705891847610474
+    "time": 7.909293174743652
    }
   ],
   "found": [
    {
-    "P_d": 1889.3282065825615,
-    "e": 0.6521668192995376,
-    "M0_deg": 255.75544430787085,
-    "a_star_mas": 1.5532764606408873,
-    "inc_deg": 63.4748869417003,
-    "omega_deg": 339.70371280278385,
-    "Omega_deg": 26.20881385479143
+    "P_d": 1889.3282065714495,
+    "e": 0.6522435399836573,
+    "M0_deg": 255.75397327012857,
+    "a_star_mas": 1.553018411055245,
+    "inc_deg": 63.474604500305254,
+    "omega_deg": 339.70629886100124,
+    "Omega_deg": 26.20870673103511
    }
   ],
   "companions": [
    {
     "name": "HD 39091 b",
     "role": "target",
-    "P_true": 2088.5259509337357,
-    "e_true": 0.6409107195676178,
-    "a_star_true_mas": 1.7422977146149932,
+    "P_true": 2088.5466203903125,
+    "e_true": 0.6409903403097701,
+    "a_star_true_mas": 1.742032300252694,
     "inc_true_deg": 64.492393106292,
     "found": {
-     "P_d": 1889.3282065825615,
-     "e": 0.6521668192995376,
-     "M0_deg": 255.75544430787085,
-     "a_star_mas": 1.5532764606408873,
-     "inc_deg": 63.4748869417003,
-     "omega_deg": 339.70371280278385,
-     "Omega_deg": 26.20881385479143
+     "P_d": 1889.3282065714495,
+     "e": 0.6522435399836573,
+     "M0_deg": 255.75397327012857,
+     "a_star_mas": 1.553018411055245,
+     "inc_deg": 63.474604500305254,
+     "omega_deg": 339.70629886100124,
+     "Omega_deg": 26.20870673103511
     }
    },
    {
     "name": "pi Men d",
     "role": "target",
-    "P_true": 121.81914998453706,
-    "e_true": 0.6079609288337169,
-    "a_star_true_mas": 0.0012302892522024994,
+    "P_true": 121.81879359430464,
+    "e_true": 0.6160944801875841,
+    "a_star_true_mas": 0.00121653485418618,
     "inc_true_deg": 55.600731873388796,
     "found": null
    },
    {
     "name": "pi Men c",
     "role": "target",
-    "P_true": 6.268665622612598,
-    "e_true": 0.07106082185363079,
-    "a_star_true_mas": 4.682590037356903e-05,
+    "P_true": 6.268660246424927,
+    "e_true": 0.07273696843719861,
+    "a_star_true_mas": 4.676504780635267e-05,
     "inc_true_deg": 129.87237874405298,
     "found": null
    }
@@ -111,17 +111,569 @@
   "trend_log": [
    {
     "action": "raise trend order 0 -> 1",
-    "gain_2dlnL": 32.074649194065884,
+    "gain_2dlnL": 32.068980456627244,
     "dof": 2,
-    "fap": 1.084122662523746e-07,
+    "fap": 1.0871998247323934e-07,
     "adopted": true,
     "n_companions": 0
    },
    {
     "action": "raise trend order 1 -> 2",
-    "gain_2dlnL": 77.6240913720692,
+    "gain_2dlnL": 77.61484334662693,
     "dof": 2,
-    "fap": 1.3936147272915377e-17,
+    "fap": 1.4000737412917404e-17,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD39091_seed2": {
+  "dataset": "HD39091_seed2",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 79,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 89.05687144661528,
+    "P": 1209.3945529097812,
+    "P_fit": 1889.328206607657,
+    "thr": 8.37407621194389,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 1.4000204591610172,
+    "detected": true,
+    "matched": 2088.481102641965,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.31636594046184896,
+    "time": 28.964295148849487
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -8.736032565910051,
+    "P": 43.618158745025646,
+    "P_fit": null,
+    "thr": 5.4800716686937445,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.5803913334445339,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 17,
+    "jitter": 0.0,
+    "time": 10.303905010223389
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1889.328206607657,
+    "e": 0.6264931781057511,
+    "M0_deg": 259.8604859420073,
+    "a_star_mas": 1.7968339788655916,
+    "inc_deg": 136.05742194682352,
+    "omega_deg": 335.4780047393109,
+    "Omega_deg": 267.62651592586957
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.481102641965,
+    "e_true": 0.6412495195618003,
+    "a_star_true_mas": 2.046269642529625,
+    "inc_true_deg": 129.95603002004975,
+    "found": {
+     "P_d": 1889.328206607657,
+     "e": 0.6264931781057511,
+     "M0_deg": 259.8604859420073,
+     "a_star_mas": 1.7968339788655916,
+     "inc_deg": 136.05742194682352,
+     "omega_deg": 335.4780047393109,
+     "Omega_deg": 267.62651592586957
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 121.69219894976271,
+    "e_true": 0.6033134386967629,
+    "a_star_true_mas": 0.0008964850806800236,
+    "inc_true_deg": 77.71252590962375,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.267862588078837,
+    "e_true": 0.16506475298426837,
+    "a_star_true_mas": 4.129698634226924e-05,
+    "inc_true_deg": 90.28833914115879,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 57.94110422168217,
+    "dof": 2,
+    "fap": 2.6196850433406627e-13,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 71.05945307238196,
+    "dof": 2,
+    "fap": 3.7122380833986076e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD39091_seed3": {
+  "dataset": "HD39091_seed3",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 75,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 126.12432111120825,
+    "P": 1690.1537159840468,
+    "P_fit": 1859.1690871958651,
+    "thr": 21.207109497251377,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [
+     {
+      "action": "test trend term 2 (keep or drop)",
+      "gain_2dlnL": 14.198270890038941,
+      "dof": 2,
+      "fap": 0.000825818580290188,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 3.047842172044773,
+    "detected": true,
+    "matched": 2088.6996667294993,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.147470197464311,
+    "time": 25.760205030441284
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -2.761564711677366,
+    "P": 29.411487780018284,
+    "P_fit": null,
+    "thr": 7.0931533094979615,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [],
+    "thr_sd": 2.340543183707781,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 7,
+    "jitter": 0.0,
+    "time": 22.44283699989319
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1859.1690871958651,
+    "e": 0.6181691832655927,
+    "M0_deg": 255.70628635593928,
+    "a_star_mas": 5.8064635187588856,
+    "inc_deg": 155.77897288696963,
+    "omega_deg": 3.0159857939775248,
+    "Omega_deg": 285.1204417749533
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.6996667294993,
+    "e_true": 0.6405952186764079,
+    "a_star_true_mas": 6.142036575579461,
+    "inc_true_deg": 165.1778040441413,
+    "found": {
+     "P_d": 1859.1690871958651,
+     "e": 0.6181691832655927,
+     "M0_deg": 255.70628635593928,
+     "a_star_mas": 5.8064635187588856,
+     "inc_deg": 155.77897288696963,
+     "omega_deg": 3.0159857939775248,
+     "Omega_deg": 285.1204417749533
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 121.78174504363527,
+    "e_true": 0.5586426306898101,
+    "a_star_true_mas": 0.001159001948260186,
+    "inc_true_deg": 82.23016686298428,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.268105070648024,
+    "e_true": 0.10669659249074238,
+    "a_star_true_mas": 4.326263116038382e-05,
+    "inc_true_deg": 95.59781955697555,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 2,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 63.51957601075878,
+    "dof": 2,
+    "fap": 1.6102723022657096e-14,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 58.036781536174544,
+    "dof": 2,
+    "fap": 2.497313217198535e-13,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 2 (keep or drop)",
+    "gain_2dlnL": 14.198270890038941,
+    "dof": 2,
+    "fap": 0.000825818580290188,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD39091_seed4": {
+  "dataset": "HD39091_seed4",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 75,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 83.43934510815257,
+    "P": 1100.8275321447627,
+    "P_fit": 3515.2467589039416,
+    "thr": 11.330141174641863,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 24.998456446305966,
+      "dof": 2,
+      "fap": 3.7295304268702388e-06,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 1.5958204796260997,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.27883534921320685,
+    "time": 28.004689693450928
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -12.105487868091913,
+    "P": 50.43518874091302,
+    "P_fit": null,
+    "thr": 9.92411827511904,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.1482876077431654,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 46,
+    "jitter": 0.0,
+    "time": 16.495813131332397
+   }
+  ],
+  "found": [
+   {
+    "P_d": 3515.2467589039416,
+    "e": 0.7888605408916078,
+    "M0_deg": 305.1641677047763,
+    "a_star_mas": 2.5676857440329903,
+    "inc_deg": 104.66811120615631,
+    "omega_deg": 153.33562875022415,
+    "Omega_deg": 16.21100583290879
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.7102738383105,
+    "e_true": 0.6406988243697405,
+    "a_star_true_mas": 1.632742371345197,
+    "inc_true_deg": 105.86836304622769,
+    "found": null
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 121.82030899843781,
+    "e_true": 0.5923670279762284,
+    "a_star_true_mas": 0.001547458475700498,
+    "inc_true_deg": 140.7557364856212,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.268259938025057,
+    "e_true": 0.1959127814517465,
+    "a_star_true_mas": 3.86957359300166e-05,
+    "inc_true_deg": 89.2062637750527,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 3515.2467589039416,
+    "e": 0.7888605408916078,
+    "M0_deg": 305.1641677047763,
+    "a_star_mas": 2.5676857440329903,
+    "inc_deg": 104.66811120615631,
+    "omega_deg": 153.33562875022415,
+    "Omega_deg": 16.21100583290879
+   }
+  ],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 16.404677911931827,
+    "dof": 2,
+    "fap": 0.0002740119180564091,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 65.05611081764417,
+    "dof": 2,
+    "fap": 7.468700235562024e-15,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 24.998456446305966,
+    "dof": 2,
+    "fap": 3.7295304268702388e-06,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD39091_seed5": {
+  "dataset": "HD39091_seed5",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 71,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 82.25586335726456,
+    "P": 1341.7190403130767,
+    "P_fit": 2104.321449058483,
+    "thr": 14.63791402872817,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.053421253232206,
+    "detected": true,
+    "matched": 2088.8009921232224,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.9541638772618775,
+    "time": 26.431598901748657
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 0.5942746281472786,
+    "P": 114.45619368990809,
+    "P_fit": null,
+    "thr": 18.13798709042046,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.5396077500496492,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.04715496228004964,
+    "time": 9.008526802062988
+   }
+  ],
+  "found": [
+   {
+    "P_d": 2104.321449058483,
+    "e": 0.6362604404960688,
+    "M0_deg": 271.87794940516164,
+    "a_star_mas": 5.007441061062522,
+    "inc_deg": 159.90332934100257,
+    "omega_deg": 333.2710958625472,
+    "Omega_deg": 49.93533724725853
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.8009921232224,
+    "e_true": 0.6411443519163176,
+    "a_star_true_mas": 4.966033468548302,
+    "inc_true_deg": 161.5613162971372,
+    "found": {
+     "P_d": 2104.321449058483,
+     "e": 0.6362604404960688,
+     "M0_deg": 271.87794940516164,
+     "a_star_mas": 5.007441061062522,
+     "inc_deg": 159.90332934100257,
+     "omega_deg": 333.2710958625472,
+     "Omega_deg": 49.93533724725853
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 121.75242329610398,
+    "e_true": 0.6140022915311745,
+    "a_star_true_mas": 0.001033069851322912,
+    "inc_true_deg": 104.93109682709161,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.268683104883601,
+    "e_true": 0.12870345128391752,
+    "a_star_true_mas": 6.206138702842419e-05,
+    "inc_true_deg": 148.10552072752444,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 47.355350275211265,
+    "dof": 2,
+    "fap": 5.210943249401758e-11,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 65.25066334874577,
+    "dof": 2,
+    "fap": 6.7763914146667585e-15,
     "adopted": true,
     "n_companions": 0
    },
@@ -144,56 +696,56 @@
    "e_max": 0.99,
    "max_trend": 2
   },
-  "code_version": "59978d0-dirty",
+  "code_version": "f5e1581-dirty",
   "date": "2026-11-16",
   "n_transits": 89,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 193.2521574926359,
+    "peak": 194.74322525461895,
     "P": 1211.136400627808,
-    "P_fit": 1169.545828561223,
-    "thr": 13.134659305309025,
+    "P_fit": 1170.1323806915882,
+    "thr": 13.131236282401105,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 2.2034576701351742,
+    "thr_sd": 2.2024082959647866,
     "detected": true,
-    "matched": 1168.9482185546765,
+    "matched": 1169.558753745143,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.33483540850217525,
-    "time": 10.96853518486023
+    "jitter": 0.3375927291500906,
+    "time": 21.438905000686646
    },
    {
     "step": 2,
     "method": "sim",
-    "peak": -4.280474926656794,
+    "peak": -4.296247941324211,
     "P": 90.22101771211311,
     "P_fit": null,
-    "thr": 13.906294428721306,
+    "thr": 13.891300023392024,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 2.3539947099980845,
+    "thr_sd": 2.3559447526967214,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 16,
-    "jitter": 0.03299860855555837,
-    "time": 13.382293939590454
+    "jitter": 0.032979493680429295,
+    "time": 26.41414189338684
    }
   ],
   "found": [
    {
-    "P_d": 1169.545828561223,
-    "e": 0.17696858719847108,
-    "M0_deg": 218.23547650076952,
-    "a_star_mas": 0.6652490889003495,
-    "inc_deg": 120.70706895752457,
-    "omega_deg": 314.05111244563574,
-    "Omega_deg": 89.1635384772945
+    "P_d": 1170.1323806915882,
+    "e": 0.17640304956794628,
+    "M0_deg": 218.80155493605483,
+    "a_star_mas": 0.6706609684583984,
+    "inc_deg": 120.70421667854832,
+    "omega_deg": 313.2374705290869,
+    "Omega_deg": 89.15346002669429
    }
   ],
   "companions": [
@@ -202,25 +754,25 @@
     "role": "trend",
     "P_true": 156200.34275972634,
     "e_true": 0.0,
-    "a_star_true_mas": 495.1044186772589,
+    "a_star_true_mas": 495.3229594632757,
     "inc_true_deg": 59.97058458536276,
     "found": null
    },
    {
     "name": "HD 111232 b",
     "role": "target",
-    "P_true": 1168.9482185546765,
-    "e_true": 0.20245283378091222,
-    "a_star_true_mas": 0.690269168660806,
+    "P_true": 1169.558753745143,
+    "e_true": 0.2025510236844915,
+    "a_star_true_mas": 0.6958351837861201,
     "inc_true_deg": 121.53237528554355,
     "found": {
-     "P_d": 1169.545828561223,
-     "e": 0.17696858719847108,
-     "M0_deg": 218.23547650076952,
-     "a_star_mas": 0.6652490889003495,
-     "inc_deg": 120.70706895752457,
-     "omega_deg": 314.05111244563574,
-     "Omega_deg": 89.1635384772945
+     "P_d": 1170.1323806915882,
+     "e": 0.17640304956794628,
+     "M0_deg": 218.80155493605483,
+     "a_star_mas": 0.6706609684583984,
+     "inc_deg": 120.70421667854832,
+     "omega_deg": 313.2374705290869,
+     "Omega_deg": 89.15346002669429
     }
    }
   ],
@@ -229,9 +781,437 @@
   "trend_log": [
    {
     "action": "raise trend order 0 -> 1",
-    "gain_2dlnL": 4.9650354041431015,
+    "gain_2dlnL": 5.046670913248015,
     "dof": 2,
-    "fap": 0.08353265029380989,
+    "fap": 0.08019168429149583,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed2": {
+  "dataset": "HD111232_seed2",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 90,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 352.22037806760744,
+    "P": 1211.136400627808,
+    "P_fit": 1189.3354051417891,
+    "thr": 14.331010891135431,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9724681742921748,
+    "detected": true,
+    "matched": 1169.8452783064997,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.7893725225814099,
+    "time": 22.416054010391235
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 9.780366534643022,
+    "P": 1102.4321714372456,
+    "P_fit": null,
+    "thr": 16.72065707032652,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.8417748329458048,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.06503396819996267,
+    "time": 23.61351203918457
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1189.3354051417891,
+    "e": 0.17896138576179077,
+    "M0_deg": 265.1711858928715,
+    "a_star_mas": 2.7211034264122658,
+    "inc_deg": 165.71008688806768,
+    "omega_deg": 267.18757102562313,
+    "Omega_deg": 0.7439243231688515
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 trend companion",
+    "role": "trend",
+    "P_true": 68448.85643231795,
+    "e_true": 0.0,
+    "a_star_true_mas": 160.6678275360572,
+    "inc_true_deg": 150.44752692752888,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1169.8452783064997,
+    "e_true": 0.1951813078171173,
+    "a_star_true_mas": 2.6837707025962496,
+    "inc_true_deg": 167.2101111355707,
+    "found": {
+     "P_d": 1189.3354051417891,
+     "e": 0.17896138576179077,
+     "M0_deg": 265.1711858928715,
+     "a_star_mas": 2.7211034264122658,
+     "inc_deg": 165.71008688806768,
+     "omega_deg": 267.18757102562313,
+     "Omega_deg": 0.7439243231688515
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 4.622757210993882,
+    "dof": 2,
+    "fap": 0.09912450373492179,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed3": {
+  "dataset": "HD111232_seed3",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 328.73401603493625,
+    "P": 1195.4275428127023,
+    "P_fit": 1167.9479788048334,
+    "thr": 16.15628865319038,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9040978892828313,
+    "detected": true,
+    "matched": 1169.7888997736125,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.3130932623959086,
+    "time": 21.796327352523804
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -14.058419873567424,
+    "P": 127.4195244838022,
+    "P_fit": null,
+    "thr": 5.7544790315560395,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.5520724750430779,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 48,
+    "jitter": 0.0,
+    "time": 23.850180864334106
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1167.9479788048334,
+    "e": 0.22333334367284197,
+    "M0_deg": 259.1301108315666,
+    "a_star_mas": 2.107778850571431,
+    "inc_deg": 163.0813218957071,
+    "omega_deg": 91.64804042936797,
+    "Omega_deg": 287.15598981476717
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 trend companion",
+    "role": "trend",
+    "P_true": 148982.83270577973,
+    "e_true": 0.0,
+    "a_star_true_mas": 395.27528388489577,
+    "inc_true_deg": 78.61466944283039,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1169.7888997736125,
+    "e_true": 0.200854435466125,
+    "a_star_true_mas": 2.1041154226871766,
+    "inc_true_deg": 163.69309689232637,
+    "found": {
+     "P_d": 1167.9479788048334,
+     "e": 0.22333334367284197,
+     "M0_deg": 259.1301108315666,
+     "a_star_mas": 2.107778850571431,
+     "inc_deg": 163.0813218957071,
+     "omega_deg": 91.64804042936797,
+     "Omega_deg": 287.15598981476717
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 3.300689098153839,
+    "dof": 2,
+    "fap": 0.19198374940022006,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed4": {
+  "dataset": "HD111232_seed4",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 93,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 292.5947901324874,
+    "P": 1211.136400627808,
+    "P_fit": 1171.7455813864526,
+    "thr": 13.659388508376443,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.324345094165226,
+    "detected": true,
+    "matched": 1168.6876093445726,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.6383106572065645,
+    "time": 20.941895961761475
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -6.840813174705872,
+    "P": 20.569379212274672,
+    "P_fit": null,
+    "thr": 7.6674507995350325,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0390725803081917,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 11,
+    "jitter": 0.0,
+    "time": 25.33208417892456
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1171.7455813864526,
+    "e": 0.19946213535281582,
+    "M0_deg": 251.0415151986027,
+    "a_star_mas": 1.061927197345906,
+    "inc_deg": 36.29651240806458,
+    "omega_deg": 101.10500316961068,
+    "Omega_deg": 5.880231553849618
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 trend companion",
+    "role": "trend",
+    "P_true": 75197.99762044678,
+    "e_true": 0.0,
+    "a_star_true_mas": 103.81024162228782,
+    "inc_true_deg": 96.13663007960231,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.6876093445726,
+    "e_true": 0.20230338780745938,
+    "a_star_true_mas": 1.0415349002451488,
+    "inc_true_deg": 34.78637497111799,
+    "found": {
+     "P_d": 1171.7455813864526,
+     "e": 0.19946213535281582,
+     "M0_deg": 251.0415151986027,
+     "a_star_mas": 1.061927197345906,
+     "inc_deg": 36.29651240806458,
+     "omega_deg": 101.10500316961068,
+     "Omega_deg": 5.880231553849618
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.5205399165540427,
+    "dof": 2,
+    "fap": 0.46754019362669297,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed5": {
+  "dataset": "HD111232_seed5",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 82,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 301.3988798304792,
+    "P": 1195.4275428127023,
+    "P_fit": 1168.5541692600045,
+    "thr": 15.742943747935445,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0253800579191843,
+    "detected": true,
+    "matched": 1168.844024354774,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.0904181142503582,
+    "time": 21.819544792175293
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -6.400065108788304,
+    "P": 20.099479227753633,
+    "P_fit": null,
+    "thr": 11.229923171449535,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0244787105334514,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 11,
+    "jitter": 0.0,
+    "time": 23.600335836410522
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1168.5541692600045,
+    "e": 0.18536845552703013,
+    "M0_deg": 253.84660879004863,
+    "a_star_mas": 1.7264925276805112,
+    "inc_deg": 24.08877088647336,
+    "omega_deg": 90.86669322859878,
+    "Omega_deg": 64.82315502184913
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 trend companion",
+    "role": "trend",
+    "P_true": 137515.51557854554,
+    "e_true": 0.0,
+    "a_star_true_mas": 323.2986229312493,
+    "inc_true_deg": 89.58085196149952,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.844024354774,
+    "e_true": 0.19378602312424772,
+    "a_star_true_mas": 1.7235264650641546,
+    "inc_true_deg": 20.323765251705055,
+    "found": {
+     "P_d": 1168.5541692600045,
+     "e": 0.18536845552703013,
+     "M0_deg": 253.84660879004863,
+     "a_star_mas": 1.7264925276805112,
+     "inc_deg": 24.08877088647336,
+     "omega_deg": 90.86669322859878,
+     "Omega_deg": 64.82315502184913
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 7.515289577959635,
+    "dof": 2,
+    "fap": 0.023338643125221447,
     "adopted": false,
     "n_companions": 0
    }
@@ -251,17 +1231,17 @@
    "e_max": 0.99,
    "max_trend": 2
   },
-  "code_version": "59978d0-dirty",
+  "code_version": "be91f29-dirty",
   "date": "2026-11-16",
-  "n_transits": 67,
+  "n_transits": 68,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 52.34801868592052,
-    "P": 3703.0649230796844,
-    "P_fit": 1762.2748807816447,
-    "thr": 18.513913291032566,
+    "peak": 46.56334263684653,
+    "P": 2261.816380779397,
+    "P_fit": 2035.6347427028275,
+    "thr": 18.225505452988788,
     "trend_before": 2,
     "trend_after": 0,
     "trend_moves": [
@@ -269,77 +1249,77 @@
       "action": "companion replaces trend terms (2 -> 0)"
      }
     ],
-    "thr_sd": 2.607525764722018,
+    "thr_sd": 2.7242046930366963,
     "detected": true,
-    "matched": 1748.898069626463,
+    "matched": 1749.3375735168643,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.10585529125441406,
-    "time": 46.05284571647644
+    "jitter": 0.1023909207895475,
+    "time": 28.162912130355835
    },
    {
     "step": 2,
     "method": "sim",
-    "peak": 4.3741337767073105,
-    "P": 134.93093254784492,
+    "peak": -7.561944124797602,
+    "P": 88.62963159213551,
     "P_fit": null,
-    "thr": 7.484261191034072,
+    "thr": 13.907801352181005,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 2.4607528422283864,
+    "thr_sd": 3.0839037564776723,
     "detected": false,
     "matched": null,
     "spurious": false,
-    "n_fake_ge": 1,
-    "jitter": 0.03288734225319633,
-    "time": 21.412227869033813
+    "n_fake_ge": 23,
+    "jitter": 0.04105818813265911,
+    "time": 9.628297090530396
    }
   ],
   "found": [
    {
-    "P_d": 1762.2748807816447,
-    "e": 0.1812490811525139,
-    "M0_deg": 127.3520165791595,
-    "a_star_mas": 1.342878236597594,
-    "inc_deg": 63.86645510583934,
-    "omega_deg": 53.20694514276104,
-    "Omega_deg": 247.1969946869105
+    "P_d": 2035.6347427028275,
+    "e": 0.13691632341719095,
+    "M0_deg": 84.45987932723523,
+    "a_star_mas": 1.4997263849261466,
+    "inc_deg": 60.11816433721408,
+    "omega_deg": 279.7476478437871,
+    "Omega_deg": 64.69039193746502
    }
   ],
   "companions": [
    {
     "name": "HD 168443 trend companion",
     "role": "trend",
-    "P_true": 72858.53228259862,
+    "P_true": 165644.57434664518,
     "e_true": 0.0,
-    "a_star_true_mas": 15.447162661412621,
-    "inc_true_deg": 90.25140583715445,
+    "a_star_true_mas": 118.96834597492735,
+    "inc_true_deg": 62.060571054357816,
     "found": null
    },
    {
     "name": "HD 168443 c",
     "role": "target",
-    "P_true": 1748.898069626463,
-    "e_true": 0.21363074954828298,
-    "a_star_true_mas": 1.3204886355131409,
+    "P_true": 1749.3375735168643,
+    "e_true": 0.21432080140108492,
+    "a_star_true_mas": 1.3208660526073268,
     "inc_true_deg": 65.47074258433503,
     "found": {
-     "P_d": 1762.2748807816447,
-     "e": 0.1812490811525139,
-     "M0_deg": 127.3520165791595,
-     "a_star_mas": 1.342878236597594,
-     "inc_deg": 63.86645510583934,
-     "omega_deg": 53.20694514276104,
-     "Omega_deg": 247.1969946869105
+     "P_d": 2035.6347427028275,
+     "e": 0.13691632341719095,
+     "M0_deg": 84.45987932723523,
+     "a_star_mas": 1.4997263849261466,
+     "inc_deg": 60.11816433721408,
+     "omega_deg": 279.7476478437871,
+     "Omega_deg": 64.69039193746502
     }
    },
    {
     "name": "HD 168443 b",
     "role": "target",
-    "P_true": 58.11127249518959,
-    "e_true": 0.5325325011520688,
-    "a_star_true_mas": 0.05700332803464635,
+    "P_true": 58.11168985336864,
+    "e_true": 0.5312714980461062,
+    "a_star_true_mas": 0.05690737801640092,
     "inc_true_deg": 75.79429270244965,
     "found": null
    }
@@ -349,17 +1329,595 @@
   "trend_log": [
    {
     "action": "raise trend order 0 -> 1",
-    "gain_2dlnL": 76.25278116352615,
+    "gain_2dlnL": 87.33418413721066,
     "dof": 2,
-    "fap": 2.766425349161676e-17,
+    "fap": 1.0854826190538113e-19,
     "adopted": true,
     "n_companions": 0
    },
    {
     "action": "raise trend order 1 -> 2",
-    "gain_2dlnL": 121.00753763579488,
+    "gain_2dlnL": 116.87930448010333,
     "dof": 2,
-    "fap": 5.2911133821585915e-27,
+    "fap": 4.1685163360708417e-26,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed2": {
+  "dataset": "HD168443_seed2",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 69,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 41.3139822003287,
+    "P": 57.784873661981074,
+    "P_fit": 57.889676833384485,
+    "thr": 14.678815557016812,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [
+     {
+      "action": "test trend term 2 (keep or drop)",
+      "gain_2dlnL": 78.06679202951844,
+      "dof": 2,
+      "fap": 1.11689282458267e-17,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.134763820970108,
+    "detected": true,
+    "matched": 58.111568485107604,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.1950406243131437,
+    "time": 25.265915870666504
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 31.16018726058713,
+    "P": 1428.088971847556,
+    "P_fit": 2202.5809666322066,
+    "thr": 17.815433352123367,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.9696350684689308,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.0836579101379937,
+    "time": 38.43652367591858
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -8.571876046468368,
+    "P": 78.4587320491148,
+    "P_fit": null,
+    "thr": 4.524263995637273,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.1698687947843265,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 5,
+    "jitter": 0.0,
+    "time": 20.293896198272705
+   }
+  ],
+  "found": [
+   {
+    "P_d": 58.10367003745253,
+    "e": 0.7215849664365346,
+    "M0_deg": 19.23048631954754,
+    "a_star_mas": 0.3571881688510946,
+    "inc_deg": 28.78368015430295,
+    "omega_deg": 340.5489834572641,
+    "Omega_deg": 62.00846230313186
+   },
+   {
+    "P_d": 2202.5809666322066,
+    "e": 0.32336563748052544,
+    "M0_deg": 64.790878737987,
+    "a_star_mas": 1.5302333177608278,
+    "inc_deg": 117.59717978377168,
+    "omega_deg": 286.5954640181662,
+    "Omega_deg": 264.956748010729
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 trend companion",
+    "role": "trend",
+    "P_true": 154494.31338875456,
+    "e_true": 0.0,
+    "a_star_true_mas": 109.08335339049424,
+    "inc_true_deg": 133.42112384509133,
+    "found": null
+   },
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1749.1792780334497,
+    "e_true": 0.21224884811622108,
+    "a_star_true_mas": 1.3400968107425195,
+    "inc_true_deg": 116.59075506284998,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.111568485107604,
+    "e_true": 0.530686303627832,
+    "a_star_true_mas": 0.2778950211819032,
+    "inc_true_deg": 11.464428479329491,
+    "found": {
+     "P_d": 58.10367003745253,
+     "e": 0.7215849664365346,
+     "M0_deg": 19.23048631954754,
+     "a_star_mas": 0.3571881688510946,
+     "inc_deg": 28.78368015430295,
+     "omega_deg": 340.5489834572641,
+     "Omega_deg": 62.00846230313186
+    }
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 2202.5809666322066,
+    "e": 0.32336563748052544,
+    "M0_deg": 64.790878737987,
+    "a_star_mas": 1.5302333177608278,
+    "inc_deg": 117.59717978377168,
+    "omega_deg": 286.5954640181662,
+    "Omega_deg": 264.956748010729
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 142.0323857032733,
+    "dof": 2,
+    "fap": 1.4389951121189357e-31,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 19.425095304674223,
+    "dof": 2,
+    "fap": 6.051933529475843e-05,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 2 (keep or drop)",
+    "gain_2dlnL": 78.06679202951844,
+    "dof": 2,
+    "fap": 1.11689282458267e-17,
+    "dropped": false,
+    "n_companions": 1
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed3": {
+  "dataset": "HD168443_seed3",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 67,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 44.65500488314592,
+    "P": 1250.0654648309937,
+    "P_fit": 2091.3475727887503,
+    "thr": 22.82661192259761,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 3.2726201627606146,
+    "detected": true,
+    "matched": 1749.4832146063134,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.07351732759496024,
+    "time": 27.133243799209595
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -5.35393358969614,
+    "P": 21.46578594844026,
+    "P_fit": null,
+    "thr": 6.853839515544008,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.3629691560303843,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 4,
+    "jitter": 0.0,
+    "time": 9.530395984649658
+   }
+  ],
+  "found": [
+   {
+    "P_d": 2091.3475727887503,
+    "e": 0.25272262728740646,
+    "M0_deg": 55.247285366025025,
+    "a_star_mas": 1.3244650833158422,
+    "inc_deg": 106.59663110327833,
+    "omega_deg": 117.64248444046785,
+    "Omega_deg": 53.23166007889008
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 trend companion",
+    "role": "trend",
+    "P_true": 91511.72968037684,
+    "e_true": 0.0,
+    "a_star_true_mas": 29.09459836297935,
+    "inc_true_deg": 84.4758070983253,
+    "found": null
+   },
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1749.4832146063134,
+    "e_true": 0.21412456431743115,
+    "a_star_true_mas": 1.2316559649394556,
+    "inc_true_deg": 103.34137390451146,
+    "found": {
+     "P_d": 2091.3475727887503,
+     "e": 0.25272262728740646,
+     "M0_deg": 55.247285366025025,
+     "a_star_mas": 1.3244650833158422,
+     "inc_deg": 106.59663110327833,
+     "omega_deg": 117.64248444046785,
+     "Omega_deg": 53.23166007889008
+    }
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.111694841400485,
+    "e_true": 0.5310407526261229,
+    "a_star_true_mas": 0.06518127427929742,
+    "inc_true_deg": 57.72340589288943,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 175.39950207275547,
+    "dof": 2,
+    "fap": 8.174892692439262e-39,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 46.339788331944035,
+    "dof": 2,
+    "fap": 8.658503113185165e-11,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed4": {
+  "dataset": "HD168443_seed4",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 72,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 96.40343820407105,
+    "P": 1893.3637817585063,
+    "P_fit": 1720.6828768884998,
+    "thr": 17.470988099329674,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.663640318642861,
+    "detected": true,
+    "matched": 1749.512969630496,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.11280484400768175,
+    "time": 26.226438283920288
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -12.979779461694019,
+    "P": 33.2898476434918,
+    "P_fit": null,
+    "thr": 5.525986812880394,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.996404588279229,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 34,
+    "jitter": 0.0,
+    "time": 9.176744222640991
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1720.6828768884998,
+    "e": 0.24425813247182937,
+    "M0_deg": 130.62884288833678,
+    "a_star_mas": 1.3929205683936852,
+    "inc_deg": 118.55758816135474,
+    "omega_deg": 49.60564994410685,
+    "Omega_deg": 78.81039044449045
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 trend companion",
+    "role": "trend",
+    "P_true": 86781.80664010924,
+    "e_true": 0.0,
+    "a_star_true_mas": 34.52965622945818,
+    "inc_true_deg": 38.16993090994615,
+    "found": null
+   },
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1749.512969630496,
+    "e_true": 0.21199282911538192,
+    "a_star_true_mas": 1.3823154799093844,
+    "inc_true_deg": 119.95155942229097,
+    "found": {
+     "P_d": 1720.6828768884998,
+     "e": 0.24425813247182937,
+     "M0_deg": 130.62884288833678,
+     "a_star_mas": 1.3929205683936852,
+     "inc_deg": 118.55758816135474,
+     "omega_deg": 49.60564994410685,
+     "Omega_deg": 78.81039044449045
+    }
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11176167439876,
+    "e_true": 0.529823335283482,
+    "a_star_true_mas": 0.05527079876459398,
+    "inc_true_deg": 94.43101248420348,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 146.72282825300206,
+    "dof": 2,
+    "fap": 1.378931397142226e-32,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 83.7761015890188,
+    "dof": 2,
+    "fap": 6.430587948321552e-19,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed5": {
+  "dataset": "HD168443_seed5",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 69,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 104.32495442755223,
+    "P": 3703.0649230796844,
+    "P_fit": 1704.0274035846967,
+    "thr": 17.29600410269179,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.653051494455408,
+    "detected": true,
+    "matched": 1749.1317414647335,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.18841330216504035,
+    "time": 24.66114902496338
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -3.0401645458229396,
+    "P": 22.694582593047507,
+    "P_fit": null,
+    "thr": 16.030860057083807,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.851337024030433,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 3,
+    "jitter": 0.03063079772379421,
+    "time": 9.240071058273315
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1704.0274035846967,
+    "e": 0.2941871398415486,
+    "M0_deg": 128.31897587503414,
+    "a_star_mas": 1.301302554379361,
+    "inc_deg": 104.34177571058517,
+    "omega_deg": 55.551095787761334,
+    "Omega_deg": 332.6593696760219
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 trend companion",
+    "role": "trend",
+    "P_true": 115504.42293552581,
+    "e_true": 0.0,
+    "a_star_true_mas": 47.56878460812713,
+    "inc_true_deg": 91.6420181227198,
+    "found": null
+   },
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1749.1317414647335,
+    "e_true": 0.2118797483278255,
+    "a_star_true_mas": 1.2398650976792107,
+    "inc_true_deg": 104.94497534277055,
+    "found": {
+     "P_d": 1704.0274035846967,
+     "e": 0.2941871398415486,
+     "M0_deg": 128.31897587503414,
+     "a_star_mas": 1.301302554379361,
+     "inc_deg": 104.34177571058517,
+     "omega_deg": 55.551095787761334,
+     "Omega_deg": 332.6593696760219
+    }
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11164531408193,
+    "e_true": 0.5297801044491339,
+    "a_star_true_mas": 0.05518125444304057,
+    "inc_true_deg": 91.91311441259754,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 120.5498428860035,
+    "dof": 2,
+    "fap": 6.651723991009563e-27,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 26.43382357641864,
+    "dof": 2,
+    "fap": 1.8195673803982304e-06,
     "adopted": true,
     "n_companions": 0
    },
@@ -382,83 +1940,83 @@
    "e_max": 0.99,
    "max_trend": 2
   },
-  "code_version": "59978d0-dirty",
+  "code_version": "be91f29-dirty",
   "date": "2026-11-16",
-  "n_transits": 56,
+  "n_transits": 57,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 59.99181989644879,
+    "peak": 77.38176380918804,
     "P": 298.02007989703435,
-    "P_fit": 294.9251244112344,
-    "thr": 21.635027294316924,
+    "P_fit": 297.91397351587807,
+    "thr": 19.62703049435742,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 2.1029151354820583,
+    "thr_sd": 2.957713636707859,
     "detected": true,
-    "matched": 298.2257488731286,
+    "matched": 298.2369854060535,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.3269557918970556,
-    "time": 20.18643808364868
+    "jitter": 0.3433518023458469,
+    "time": 7.846771955490112
    },
    {
     "step": 2,
     "method": "sim",
-    "peak": 12.576312025714742,
-    "P": 56.12632259064733,
+    "peak": -6.403589567656407,
+    "P": 32.31963002869445,
     "P_fit": null,
-    "thr": 21.49316169934343,
+    "thr": 8.198963628499476,
     "trend_before": 0,
     "trend_after": 0,
     "trend_moves": [],
-    "thr_sd": 3.7596170794594834,
+    "thr_sd": 2.227842260503016,
     "detected": false,
     "matched": null,
     "spurious": false,
-    "n_fake_ge": 0,
-    "jitter": 0.04969840627201929,
-    "time": 17.543576955795288
+    "n_fake_ge": 6,
+    "jitter": 0.0,
+    "time": 9.306946039199829
    }
   ],
   "found": [
    {
-    "P_d": 294.9251244112344,
-    "e": 0.9899999972586284,
-    "M0_deg": 191.92402208415163,
-    "a_star_mas": 2.227550549893762,
-    "inc_deg": 69.24559413216211,
-    "omega_deg": 273.4391658559387,
-    "Omega_deg": 337.805129328858
+    "P_d": 297.91397351587807,
+    "e": 0.8250713686906808,
+    "M0_deg": 189.81975783855242,
+    "a_star_mas": 1.1079795921200768,
+    "inc_deg": 61.35768501177484,
+    "omega_deg": 326.44801685954883,
+    "Omega_deg": 307.2515118999827
    }
   ],
   "companions": [
    {
     "name": "HD 89707 trend companion",
     "role": "trend",
-    "P_true": 47293.559378810765,
+    "P_true": 90153.82503422574,
     "e_true": 0.0,
-    "a_star_true_mas": 46.2095595403097,
-    "inc_true_deg": 121.59081189075445,
+    "a_star_true_mas": 37.423158016850564,
+    "inc_true_deg": 138.4978112522021,
     "found": null
    },
    {
     "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
     "role": "target",
-    "P_true": 298.2257488731286,
-    "e_true": 0.9546881599453119,
-    "a_star_true_mas": 1.4330701856581702,
+    "P_true": 298.2369854060535,
+    "e_true": 0.9639541014072428,
+    "a_star_true_mas": 1.6584403268296704,
     "inc_true_deg": 57.26105890008095,
     "found": {
-     "P_d": 294.9251244112344,
-     "e": 0.9899999972586284,
-     "M0_deg": 191.92402208415163,
-     "a_star_mas": 2.227550549893762,
-     "inc_deg": 69.24559413216211,
-     "omega_deg": 273.4391658559387,
-     "Omega_deg": 337.805129328858
+     "P_d": 297.91397351587807,
+     "e": 0.8250713686906808,
+     "M0_deg": 189.81975783855242,
+     "a_star_mas": 1.1079795921200768,
+     "inc_deg": 61.35768501177484,
+     "omega_deg": 326.44801685954883,
+     "Omega_deg": 307.2515118999827
     }
    }
   ],
@@ -467,9 +2025,437 @@
   "trend_log": [
    {
     "action": "raise trend order 0 -> 1",
-    "gain_2dlnL": 3.960007919412739,
+    "gain_2dlnL": 5.915408004290903,
     "dof": 2,
-    "fap": 0.13806869059833682,
+    "fap": 0.051938029984433184,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed2": {
+  "dataset": "HD89707_seed2",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 54,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 49.82598036863945,
+    "P": 298.02007989703435,
+    "P_fit": 297.56520623085,
+    "thr": 19.828118533214454,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.204155541244333,
+    "detected": true,
+    "matched": 298.24136661760264,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.314549956556968,
+    "time": 7.943237066268921
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -8.905401877235818,
+    "P": 69.49431406190139,
+    "P_fit": null,
+    "thr": 9.1250931737882,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.61278155184551,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 17,
+    "jitter": 0.0,
+    "time": 9.791100978851318
+   }
+  ],
+  "found": [
+   {
+    "P_d": 297.56520623085,
+    "e": 0.9687908591750121,
+    "M0_deg": 190.78979496418432,
+    "a_star_mas": 1.8406641099246155,
+    "inc_deg": 115.77947093912456,
+    "omega_deg": 110.02295886354936,
+    "Omega_deg": 17.95533871353056
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 trend companion",
+    "role": "trend",
+    "P_true": 48581.38335720107,
+    "e_true": 0.0,
+    "a_star_true_mas": 15.363604452882937,
+    "inc_true_deg": 116.44292977994138,
+    "found": null
+   },
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.24136661760264,
+    "e_true": 0.9664841897384865,
+    "a_star_true_mas": 1.6806378569647833,
+    "inc_true_deg": 123.04683594212264,
+    "found": {
+     "P_d": 297.56520623085,
+     "e": 0.9687908591750121,
+     "M0_deg": 190.78979496418432,
+     "a_star_mas": 1.8406641099246155,
+     "inc_deg": 115.77947093912456,
+     "omega_deg": 110.02295886354936,
+     "Omega_deg": 17.95533871353056
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.0837254766878566,
+    "dof": 2,
+    "fap": 0.5816637552402146,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed3": {
+  "dataset": "HD89707_seed3",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 57,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 73.44793714562304,
+    "P": 298.02007989703435,
+    "P_fit": 299.6157319143592,
+    "thr": 19.947994216432512,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.3512032809346914,
+    "detected": true,
+    "matched": 298.25651796338434,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.29418178989788135,
+    "time": 7.928545951843262
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -12.978681065899874,
+    "P": 21.243027977017082,
+    "P_fit": null,
+    "thr": 11.683101248333847,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.4109574354664707,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 39,
+    "jitter": 0.0,
+    "time": 9.84553074836731
+   }
+  ],
+  "found": [
+   {
+    "P_d": 299.6157319143592,
+    "e": 0.9899999999666507,
+    "M0_deg": 184.40856067730653,
+    "a_star_mas": 2.400595305629191,
+    "inc_deg": 99.38869384617723,
+    "omega_deg": 287.4735553238666,
+    "Omega_deg": 274.0516556116009
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 trend companion",
+    "role": "trend",
+    "P_true": 73356.40975381694,
+    "e_true": 0.0,
+    "a_star_true_mas": 17.921469268004824,
+    "inc_true_deg": 51.31361033946225,
+    "found": null
+   },
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.25651796338434,
+    "e_true": 0.9691534265475749,
+    "a_star_true_mas": 1.4534076658361585,
+    "inc_true_deg": 105.35199374341634,
+    "found": {
+     "P_d": 299.6157319143592,
+     "e": 0.9899999999666507,
+     "M0_deg": 184.40856067730653,
+     "a_star_mas": 2.400595305629191,
+     "inc_deg": 99.38869384617723,
+     "omega_deg": 287.4735553238666,
+     "Omega_deg": 274.0516556116009
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 13.157761673927874,
+    "dof": 2,
+    "fap": 0.001389403393949264,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed4": {
+  "dataset": "HD89707_seed4",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 57,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 68.08278132617804,
+    "P": 298.02007989703435,
+    "P_fit": 297.1797393766445,
+    "thr": 21.516001242936447,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.0102596977705343,
+    "detected": true,
+    "matched": 298.2346194644851,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.2604373327501625,
+    "time": 8.259712934494019
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 2.4386176928961056,
+    "P": 3808.6198276067153,
+    "P_fit": null,
+    "thr": 18.30534417921824,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.160352700930756,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.04053573377031545,
+    "time": 9.748074054718018
+   }
+  ],
+  "found": [
+   {
+    "P_d": 297.1797393766445,
+    "e": 0.9899999997987858,
+    "M0_deg": 190.83322685048523,
+    "a_star_mas": 2.5634336519296483,
+    "inc_deg": 100.65298996471503,
+    "omega_deg": 280.8256398106546,
+    "Omega_deg": 305.0139736107062
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 trend companion",
+    "role": "trend",
+    "P_true": 68151.8778438633,
+    "e_true": 0.0,
+    "a_star_true_mas": 46.31900461614705,
+    "inc_true_deg": 60.529042123320174,
+    "found": null
+   },
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2346194644851,
+    "e_true": 0.9672502591982273,
+    "a_star_true_mas": 1.5064469982337538,
+    "inc_true_deg": 110.89923418548105,
+    "found": {
+     "P_d": 297.1797393766445,
+     "e": 0.9899999997987858,
+     "M0_deg": 190.83322685048523,
+     "a_star_mas": 2.5634336519296483,
+     "inc_deg": 100.65298996471503,
+     "omega_deg": 280.8256398106546,
+     "Omega_deg": 305.0139736107062
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 10.456630348252691,
+    "dof": 2,
+    "fap": 0.005362552663234973,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed5": {
+  "dataset": "HD89707_seed5",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 60,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 71.27036572645264,
+    "P": 298.0180571667355,
+    "P_fit": 298.1215359900856,
+    "thr": 18.066091039313704,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.160806329233338,
+    "detected": true,
+    "matched": 298.2499704165544,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.20713013620496698,
+    "time": 8.160094022750854
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -4.065773342878792,
+    "P": 36.79270021001107,
+    "P_fit": null,
+    "thr": 10.594095148594297,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.87312790321051,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 5,
+    "jitter": 0.0,
+    "time": 9.460438966751099
+   }
+  ],
+  "found": [
+   {
+    "P_d": 298.1215359900856,
+    "e": 0.9899999998929783,
+    "M0_deg": 189.46716102947173,
+    "a_star_mas": 2.3899393204542396,
+    "inc_deg": 93.10296121041252,
+    "omega_deg": 104.38085438480071,
+    "Omega_deg": 295.3256824414062
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 trend companion",
+    "role": "trend",
+    "P_true": 43031.56610566538,
+    "e_true": 0.0,
+    "a_star_true_mas": 17.79016569105044,
+    "inc_true_deg": 113.05084991914866,
+    "found": null
+   },
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2499704165544,
+    "e_true": 0.9663358193276443,
+    "a_star_true_mas": 1.410218471838787,
+    "inc_true_deg": 93.82150253089311,
+    "found": {
+     "P_d": 298.1215359900856,
+     "e": 0.9899999998929783,
+     "M0_deg": 189.46716102947173,
+     "a_star_mas": 2.3899393204542396,
+     "inc_deg": 93.10296121041252,
+     "omega_deg": 104.38085438480071,
+     "Omega_deg": 295.3256824414062
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 8.58665342057151,
+    "dof": 2,
+    "fap": 0.013659408733600768,
     "adopted": false,
     "n_companions": 0
    }
@@ -489,65 +2475,65 @@
    "e_max": 0.99,
    "max_trend": 2
   },
-  "code_version": "59978d0-dirty",
+  "code_version": "f5e1581-dirty",
   "date": "2026-11-16",
   "n_transits": 113,
   "steps": [
    {
     "step": 1,
     "method": "sim",
-    "peak": 50.48318935161018,
+    "peak": 50.48319307272868,
     "P": 578.2584724754585,
-    "P_fit": 571.9432534236221,
-    "thr": 18.88119143060125,
+    "P_fit": 571.943237011963,
+    "thr": 18.88119143162491,
     "trend_before": 1,
     "trend_after": 1,
     "trend_moves": [
      {
       "action": "test trend term 1 (keep or drop)",
-      "gain_2dlnL": 193.73365181497093,
+      "gain_2dlnL": 193.73366604498335,
       "dof": 2,
-      "fap": 8.536346374510669e-43,
+      "fap": 8.536285638569226e-43,
       "dropped": false,
       "n_companions": 1
      }
     ],
-    "thr_sd": 2.803220744369195,
+    "thr_sd": 2.803220734482889,
     "detected": true,
-    "matched": 570.8308746549599,
+    "matched": 570.8308653012248,
     "spurious": false,
     "n_fake_ge": 0,
-    "jitter": 0.04910303388436367,
-    "time": 26.74851417541504
+    "jitter": 0.04910303506747618,
+    "time": 44.532419204711914
    },
    {
     "step": 2,
     "method": "sim",
-    "peak": -8.482187765628453,
+    "peak": -8.482186161058905,
     "P": 97.67476753292456,
     "P_fit": null,
-    "thr": 6.061275272484703,
+    "thr": 6.0612759743045235,
     "trend_before": 1,
     "trend_after": 1,
     "trend_moves": [],
-    "thr_sd": 1.618067782320095,
+    "thr_sd": 1.618068119888078,
     "detected": false,
     "matched": null,
     "spurious": false,
     "n_fake_ge": 16,
     "jitter": 0.0,
-    "time": 31.193000078201294
+    "time": 43.00975322723389
    }
   ],
   "found": [
    {
-    "P_d": 571.9432534236221,
-    "e": 0.3037781162767074,
-    "M0_deg": 210.62958416405286,
-    "a_star_mas": 0.10876752632485914,
-    "inc_deg": 92.54010666201928,
-    "omega_deg": 291.41411568480794,
-    "Omega_deg": 258.8804445328343
+    "P_d": 571.943237011963,
+    "e": 0.3037782389286887,
+    "M0_deg": 210.6296863806226,
+    "a_star_mas": 0.10876754493497778,
+    "inc_deg": 92.54011296745725,
+    "omega_deg": 291.4139874876192,
+    "Omega_deg": 258.88044933780554
    }
   ],
   "companions": [
@@ -556,33 +2542,33 @@
     "role": "trend",
     "P_true": 16265.711196002494,
     "e_true": 0.0,
-    "a_star_true_mas": 10.270136389384517,
+    "a_star_true_mas": 10.270137379449345,
     "inc_true_deg": 50.717271963447644,
     "found": null
    },
    {
     "name": "TOI-1736 c",
     "role": "target",
-    "P_true": 570.8308746549599,
-    "e_true": 0.37299321168730376,
-    "a_star_true_mas": 0.11140154965885979,
+    "P_true": 570.8308653012248,
+    "e_true": 0.3729932118830993,
+    "a_star_true_mas": 0.1114015510328996,
     "inc_true_deg": 99.30452529396324,
     "found": {
-     "P_d": 571.9432534236221,
-     "e": 0.3037781162767074,
-     "M0_deg": 210.62958416405286,
-     "a_star_mas": 0.10876752632485914,
-     "inc_deg": 92.54010666201928,
-     "omega_deg": 291.41411568480794,
-     "Omega_deg": 258.8804445328343
+     "P_d": 571.943237011963,
+     "e": 0.3037782389286887,
+     "M0_deg": 210.6296863806226,
+     "a_star_mas": 0.10876754493497778,
+     "inc_deg": 92.54011296745725,
+     "omega_deg": 291.4139874876192,
+     "Omega_deg": 258.88044933780554
     }
    },
    {
     "name": "TOI-1736 b",
     "role": "target",
-    "P_true": 7.085509130133208,
-    "e_true": 0.41192591767114645,
-    "a_star_true_mas": 3.6653631870496264e-05,
+    "P_true": 7.085509113445773,
+    "e_true": 0.4119267431743018,
+    "a_star_true_mas": 3.665366159825169e-05,
     "inc_true_deg": 133.61027705907958,
     "found": null
    }
@@ -592,27 +2578,674 @@
   "trend_log": [
    {
     "action": "raise trend order 0 -> 1",
-    "gain_2dlnL": 140.48362717817923,
+    "gain_2dlnL": 140.48364462357108,
     "dof": 2,
-    "fap": 3.121533207337095e-31,
+    "fap": 3.121505979270874e-31,
     "adopted": true,
     "n_companions": 0
    },
    {
     "action": "raise trend order 1 -> 2",
-    "gain_2dlnL": 6.3561349497177275,
+    "gain_2dlnL": 6.356133638345568,
     "dof": 2,
-    "fap": 0.041666098149256973,
+    "fap": 0.04166612546914651,
     "adopted": false,
     "n_companions": 0
    },
    {
     "action": "test trend term 1 (keep or drop)",
-    "gain_2dlnL": 193.73365181497093,
+    "gain_2dlnL": 193.73366604498335,
     "dof": 2,
-    "fap": 8.536346374510669e-43,
+    "fap": 8.536285638569226e-43,
     "dropped": false,
     "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed2": {
+  "dataset": "TOI1736_seed2",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 101,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 251.63238700339855,
+    "P": 578.2584724754585,
+    "P_fit": 572.1347345525417,
+    "thr": 16.687119569756437,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.5049908427791707,
+    "detected": true,
+    "matched": 571.2427450154518,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.4331779100417892,
+    "time": 23.239624738693237
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 52.405894729286715,
+    "P": 3896.114273706451,
+    "P_fit": 3155.8525687453866,
+    "thr": 15.977228766476973,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.2494688157132967,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.061078218229077046,
+    "time": 33.72241401672363
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -15.9821205056051,
+    "P": 20.888680523823577,
+    "P_fit": null,
+    "thr": 9.642908478482182,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.486022607100151,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 48,
+    "jitter": 0.0,
+    "time": 64.83360505104065
+   }
+  ],
+  "found": [
+   {
+    "P_d": 571.4371498798165,
+    "e": 0.34366975472640204,
+    "M0_deg": 161.64806643672185,
+    "a_star_mas": 0.6460113730976224,
+    "inc_deg": 18.251029049129624,
+    "omega_deg": 35.79026539404944,
+    "Omega_deg": 274.2077404433511
+   },
+   {
+    "P_d": 3155.8525687453866,
+    "e": 0.9882246860579773,
+    "M0_deg": 108.81732176534152,
+    "a_star_mas": 4.063331666156868,
+    "inc_deg": 85.7335485129203,
+    "omega_deg": 277.0763982481069,
+    "Omega_deg": 286.3685442231682
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 20941.870884769698,
+    "e_true": 0.0,
+    "a_star_true_mas": 13.515051395092009,
+    "inc_true_deg": 78.38490096843408,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.2427450154518,
+    "e_true": 0.3693651899721334,
+    "a_star_true_mas": 0.623155105030556,
+    "inc_true_deg": 10.114752175206656,
+    "found": {
+     "P_d": 571.4371498798165,
+     "e": 0.34366975472640204,
+     "M0_deg": 161.64806643672185,
+     "a_star_mas": 0.6460113730976224,
+     "inc_deg": 18.251029049129624,
+     "omega_deg": 35.79026539404944,
+     "Omega_deg": 274.2077404433511
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.08716104594908,
+    "e_true": 0.02842252744993885,
+    "a_star_true_mas": 3.717631085300996e-05,
+    "inc_true_deg": 131.2808542367285,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 3155.8525687453866,
+    "e": 0.9882246860579773,
+    "M0_deg": 108.81732176534152,
+    "a_star_mas": 4.063331666156868,
+    "inc_deg": 85.7335485129203,
+    "omega_deg": 277.0763982481069,
+    "Omega_deg": 286.3685442231682
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 7.421069663858518,
+    "dof": 2,
+    "fap": 0.024464435410872707,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1736_seed3": {
+  "dataset": "TOI1736_seed3",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 109,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 121.51225645694652,
+    "P": 578.2584724754585,
+    "P_fit": 569.126927306508,
+    "thr": 13.678791743944368,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 65.72382148449697,
+      "dof": 2,
+      "fap": 5.348764783501754e-15,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.517391291319334,
+    "detected": true,
+    "matched": 570.8621718960433,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.08366196316649296,
+    "time": 39.29671764373779
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -9.2783328741383,
+    "P": 22.79779150778259,
+    "P_fit": null,
+    "thr": 8.34676017472859,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.2626568870184816,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 21,
+    "jitter": 0.0,
+    "time": 38.95362830162048
+   }
+  ],
+  "found": [
+   {
+    "P_d": 569.126927306508,
+    "e": 0.35111971126134706,
+    "M0_deg": 130.4091075722814,
+    "a_star_mas": 0.17519175825780658,
+    "inc_deg": 58.978394611428264,
+    "omega_deg": 201.91829475212535,
+    "Omega_deg": 358.6673415602327
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 31977.959358893117,
+    "e_true": 0.0,
+    "a_star_true_mas": 31.103353003294668,
+    "inc_true_deg": 98.1149249186983,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 570.8621718960433,
+    "e_true": 0.3723903502914575,
+    "a_star_true_mas": 0.14641377904461386,
+    "inc_true_deg": 48.108376658390114,
+    "found": {
+     "P_d": 569.126927306508,
+     "e": 0.35111971126134706,
+     "M0_deg": 130.4091075722814,
+     "a_star_mas": 0.17519175825780658,
+     "inc_deg": 58.978394611428264,
+     "omega_deg": 201.91829475212535,
+     "Omega_deg": 358.6673415602327
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.075514990738167,
+    "e_true": 0.5975814957169674,
+    "a_star_true_mas": 3.3651693442834635e-05,
+    "inc_true_deg": 51.52193946046362,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 42.02168379351346,
+    "dof": 2,
+    "fap": 7.500795136957515e-10,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 0.18802076051278505,
+    "dof": 2,
+    "fap": 0.9102733133213463,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 65.72382148449697,
+    "dof": 2,
+    "fap": 5.348764783501754e-15,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed4": {
+  "dataset": "TOI1736_seed4",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 105,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 40.085445685351516,
+    "P": 606.9744584060879,
+    "P_fit": 620.7884191484841,
+    "thr": 16.69358309812767,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 321.24604570743975,
+      "dof": 2,
+      "fap": 1.747058743358431e-70,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.981029974789074,
+    "detected": true,
+    "matched": 571.0416628434771,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.05108900923437907,
+    "time": 42.931325912475586
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -9.620685305792165,
+    "P": 72.26527319006235,
+    "P_fit": null,
+    "thr": 1.5715811769349326,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.3550723754512628,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 19,
+    "jitter": 0.0,
+    "time": 40.75130796432495
+   }
+  ],
+  "found": [
+   {
+    "P_d": 620.7884191484841,
+    "e": 0.989999999997242,
+    "M0_deg": 118.78967018150215,
+    "a_star_mas": 0.2470715908716912,
+    "inc_deg": 119.5204362668712,
+    "omega_deg": 263.39596414286814,
+    "Omega_deg": 286.6455613067229
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 13302.597656078775,
+    "e_true": 0.0,
+    "a_star_true_mas": 12.435437216640448,
+    "inc_true_deg": 26.058804850080243,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.0416628434771,
+    "e_true": 0.37277139530060216,
+    "a_star_true_mas": 0.11401800667244259,
+    "inc_true_deg": 106.83691598281959,
+    "found": {
+     "P_d": 620.7884191484841,
+     "e": 0.989999999997242,
+     "M0_deg": 118.78967018150215,
+     "a_star_mas": 0.2470715908716912,
+     "inc_deg": 119.5204362668712,
+     "omega_deg": 263.39596414286814,
+     "Omega_deg": 286.6455613067229
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077334475431985,
+    "e_true": 0.3094337982431848,
+    "a_star_true_mas": 2.7347891168621117e-05,
+    "inc_true_deg": 89.67109129230033,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 255.6480190936535,
+    "dof": 2,
+    "fap": 3.0671710688662093e-56,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 10.406737158313177,
+    "dof": 2,
+    "fap": 0.005498012700848224,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 321.24604570743975,
+    "dof": 2,
+    "fap": 1.747058743358431e-70,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed5": {
+  "dataset": "TOI1736_seed5",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "f5e1581-dirty",
+  "date": "2026-11-16",
+  "n_transits": 113,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 145.52826637358228,
+    "P": 578.2584724754585,
+    "P_fit": 571.1689942411143,
+    "thr": 9.449762609637181,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 279.1196296750291,
+      "dof": 2,
+      "fap": 2.4543840536467053e-61,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.213340134343202,
+    "detected": true,
+    "matched": 571.0141570004168,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.09512684421030637,
+    "time": 43.68630623817444
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.79124646961094,
+    "P": 25.351174315413918,
+    "P_fit": null,
+    "thr": 6.791387645228038,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.8554361779565605,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 9,
+    "jitter": 0.0,
+    "time": 39.876182079315186
+   }
+  ],
+  "found": [
+   {
+    "P_d": 571.1689942411143,
+    "e": 0.26056489696677376,
+    "M0_deg": 132.45952456647484,
+    "a_star_mas": 0.17343647643694554,
+    "inc_deg": 48.59491931248914,
+    "omega_deg": 15.594561426378263,
+    "Omega_deg": 30.69211357737625
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 29702.43394899551,
+    "e_true": 0.0,
+    "a_star_true_mas": 46.692981219392266,
+    "inc_true_deg": 145.69379803774217,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.0141570004168,
+    "e_true": 0.36736836451053656,
+    "a_star_true_mas": 0.16549493564567588,
+    "inc_true_deg": 41.22237385705572,
+    "found": {
+     "P_d": 571.1689942411143,
+     "e": 0.26056489696677376,
+     "M0_deg": 132.45952456647484,
+     "a_star_mas": 0.17343647643694554,
+     "inc_deg": 48.59491931248914,
+     "omega_deg": 15.594561426378263,
+     "Omega_deg": 30.69211357737625
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.074232794169353,
+    "e_true": 0.42345513275387264,
+    "a_star_true_mas": 2.2884005157541027e-05,
+    "inc_true_deg": 88.85071913420663,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 139.21876259233605,
+    "dof": 2,
+    "fap": 5.87529685137523e-31,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 1.7257182627223244,
+    "dof": 2,
+    "fap": 0.42195393428731454,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 279.1196296750291,
+    "dof": 2,
+    "fap": 2.4543840536467053e-61,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1694_seed1": {
+  "dataset": "TOI1694_seed1",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "be91f29-dirty",
+  "date": "2026-11-16",
+  "n_transits": 140,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -1.028562418251191,
+    "P": 74.18620184272223,
+    "P_fit": null,
+    "thr": 10.096316499677599,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.335003257401018,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.03665001280194233,
+    "time": 7.560611963272095
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 387.61263078140115,
+    "e_true": 0.16324185308499142,
+    "a_star_true_mas": 0.013297086485433568,
+    "inc_true_deg": 133.91187832949947,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.770339916354857,
+    "e_true": 0.08890990348926778,
+    "a_star_true_mas": 4.935338732755253e-05,
+    "inc_true_deg": 51.37402951273804,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.4032614149134588,
+    "dof": 2,
+    "fap": 0.8173967307295994,
+    "adopted": false,
+    "n_companions": 0
    }
   ]
  }
