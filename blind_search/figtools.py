@@ -99,6 +99,20 @@ def _collides(leg, ax, renderer):
                for o in ax.figure.axes)
 
 
+def equal_with_headroom(ax, top=0.6, pad=0.05):
+    """Equal aspect for a sky panel with empty space above the data (a
+    fraction `top` of its height) for the legend; the axes box adapts, so no
+    data are cut. Call after everything is drawn, before legend_clear."""
+    pts = np.concatenate([np.asarray(ln.get_xydata(), float) for ln in ax.get_lines()
+                          if len(ln.get_xydata()) and ln.get_gid() != 'guide'])
+    pts = pts[np.all(np.isfinite(pts), axis=1)]
+    (x0, y0), (x1, y1) = pts.min(0), pts.max(0)
+    px, py = pad*(x1 - x0), pad*(y1 - y0)
+    ax.set_xlim(x0 - px, x1 + px)
+    ax.set_ylim(y0 - py, y1 + py + top*(y1 - y0))
+    ax.set_aspect('equal', adjustable='box')
+
+
 def legend_clear(ax, locs=LOCS, grow=3, **kw):
     """Place the legend at the first position in `locs` where it covers no
     data. If none is free, raise the top of the y range by 15% of the range

@@ -60,15 +60,7 @@ def recovered_model(stack, s):
     return st, comps, trend
 
 
-def equal_with_headroom(ax, top=0.6):
-    """Equal aspect for a sky panel, with empty space above the data (a
-    fraction `top` of its height) for the legend."""
-    pts = np.concatenate([ln.get_xydata() for ln in ax.get_lines() if len(ln.get_xydata())])
-    (x0, y0), (x1, y1) = pts.min(0), pts.max(0)
-    px, py = 0.05*(x1 - x0), 0.05*(y1 - y0)
-    ax.set_xlim(x0 - px, x1 + px)
-    ax.set_ylim(y0 - py, y1 + py + top*(y1 - y0))
-    ax.set_aspect('equal', adjustable='box')            # the box adapts; no data is cut
+equal_with_headroom = figtools.equal_with_headroom     # shared helper (blind_search/figtools.py)
 
 
 def sky_of(t, P, e, M0, ti, tref):

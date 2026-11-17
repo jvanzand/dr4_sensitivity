@@ -160,7 +160,10 @@ def run(system=None):
                      if f else 'not found'))
         for f in spurious:
             print(f"  SPURIOUS: P = {f['P_d']:.2f} d, a_star = {f['a_star_mas']:.3g} mas")
-        print('wrote', summary_figure(stem))
+        try:                                   # a figure problem must not stop the searches
+            print('wrote', summary_figure(stem))
+        except Exception as e:
+            print(f'  SUMMARY FIGURE FAILED for {stem}: {e!r} (search products are saved)', flush=True)
 
 
 TERM = {1: 'acceleration', 2: 'jerk'}
@@ -310,7 +313,7 @@ def summary_figure(stem):
         X, Y = orbit.xy(orbit.mean_anomaly(tf, f['P_d'], np.radians(f['M0_deg']), stack.tref), f['e'])
         ax2.plot(B*X + G*Y, A*X + F*Y, '-', color=f'C{k}', lw=1.5, label=f"{sd._pretty(r['name'])}: recovered orbit")
     ax2.plot(0, 0, '+', color='k', ms=16, mew=2, label='barycentre')
-    ax2.set_aspect('equal', 'datalim')
+    figtools.equal_with_headroom(ax2)
     ax2.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax2.set_ylabel(r'$\Delta\delta$ (mas)')
     ax2.set_title("The star's orbit on the sky", fontsize=20)
