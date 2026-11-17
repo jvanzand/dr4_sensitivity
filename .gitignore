@@ -44,3 +44,4 @@ injection/results/
 validation/results/
 fits_rv/results_WithLitPlanets/
 sample/*_output.txt
+tmp_figures/
