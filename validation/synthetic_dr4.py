@@ -872,17 +872,22 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     legs.append((ax, dict(fontsize=13)))
 
     ax = fig.add_subplot(gs[5, 1])
-    # Each companion's reflex motion of the star about the barycentre over the
-    # DR4 window (the trend companion's full orbit arc, `full=True`), and their
-    # sum: nothing subtracted. Proper motion and parallax are not part of the
-    # companions' signal. (The injected data hold the trend companion's arc
-    # minus its J2016.0 offset and velocity, which are in the DR3 position and
-    # proper motion; see companion_sky.)
-    def reflex(c):
-        x, y = companion_sky(tg, c, full=True)
-        xs, ys = companion_sky(g1.t, c, full=True)
-        return x, y, xs, ys
-    parts = [reflex(c) for c in comps]
+    # Each companion's offset over the DR4 window, and their sum, minus its
+    # linear motion (best-fit position and proper motion over the DR4 transits:
+    # a straight line in each coordinate, least squares), which the 5-parameter
+    # fit absorbs (Judah, 2026-11-16: the linear motion is proper motion and is
+    # subtracted; the quadratic and cubic terms are astrophysical and kept).
+    # The injected signal holds no parallax. Removing a line is linear, so the
+    # sum of the parts is the drawn total.
+    A = np.column_stack([np.ones_like(g1.t), g1.t - g1.t.mean()])
+
+    def minus_line(c):
+        xs, ys = companion_sky(g1.t, c)
+        lin = [np.linalg.lstsq(A, v, rcond=None)[0] for v in (xs, ys)]
+        at = lambda t, k: lin[k][0] + lin[k][1]*(t - g1.t.mean())     # noqa: E731
+        x, y = companion_sky(tg, c)
+        return x - at(tg, 0), y - at(tg, 1), xs - at(g1.t, 0), ys - at(g1.t, 1)
+    parts = [minus_line(c) for c in comps]
     for k, (c, (x, y, _, _)) in enumerate(zip(comps, parts)):
         span = max(np.ptp(x), np.ptp(y))
         size = f'{span:.3g} mas' if span >= 0.1 else f'{span*1e3:.3g} $\\mu$as'
@@ -899,8 +904,7 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')
-    ax.plot(0, 0, '+', color='k', ms=14, mew=2, zorder=5, label='barycentre')
-    ax.set_title("4b. The star's motion about the barycentre due to its companions, over DR4",
+    ax.set_title("4b. The star's motion due to its companions over DR4, minus its proper motion",
                  fontsize=17)
     legs.append((ax, dict(fontsize=12)))
 
