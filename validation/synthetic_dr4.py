@@ -872,36 +872,39 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     legs.append((ax, dict(fontsize=13)))
 
     ax = fig.add_subplot(gs[5, 1])
-    for c in targets:
-        P = c['rv_based']['P_d']
-        tf = np.linspace(0, P, 2000) + g1.t.min()
-        x, y = companion_sky(tf, c)
-        a = c['derived']['a_star_mas']
-        ax.plot(x, y, '--', lw=1.2, label=f"{_pretty(c['name'])}: full orbit (semi-major axis "
-                f"{a:.3g} mas)" if a >= 0.1 else f"{_pretty(c['name'])}: full orbit (semi-major axis "
-                f"{a*1e3:.3g} $\\mu$as)")
-    # The companions' summed offset, minus its best-fit position and proper
-    # motion over the DR4 transits (a straight line in each coordinate, least
-    # squares): the 5-parameter fit absorbs that part, so what is left is what
-    # the search must model (orbits, and a trend companion's curvature). The
-    # injected signal holds no parallax.
-    x = sum(companion_sky(tg, c)[0] for c in comps)
-    y = sum(companion_sky(tg, c)[1] for c in comps)
-    xs = sum(companion_sky(g1.t, c)[0] for c in comps)
-    ys = sum(companion_sky(g1.t, c)[1] for c in comps)
+    # Each companion's offset over the DR4 window, and their sum, minus the
+    # best-fit position and proper motion over the DR4 transits (a straight
+    # line in each coordinate, least squares): the 5-parameter fit absorbs that
+    # part, so what is left is what the search must model (orbits, and a trend
+    # companion's curvature). The injected signal holds no parallax. Removing
+    # a line is linear, so the sum of the parts is the drawn total.
     A = np.column_stack([np.ones_like(g1.t), g1.t - g1.t.mean()])
-    lin = [np.linalg.lstsq(A, v, rcond=None)[0] for v in (xs, ys)]
-    at = lambda t, c: c[0] + c[1]*(t - g1.t.mean())         # noqa: E731
-    x, y = x - at(tg, lin[0]), y - at(tg, lin[1])
-    xs, ys = xs - at(g1.t, lin[0]), ys - at(g1.t, lin[1])
-    ax.plot(x, y, 'k-', lw=1.5, label='star over the DR4 window (all companions), minus its best-fit '
-            'position and proper motion')
-    ax.plot(xs, ys, 'o', color='C1', ms=5, label='at the DR4 transits')
-    ax.plot(0, 0, '+', color='k', ms=14, mew=2, label='barycentre (centre of the full orbits)')
+
+    def minus_line(c):
+        xs, ys = companion_sky(g1.t, c)
+        lin = [np.linalg.lstsq(A, v, rcond=None)[0] for v in (xs, ys)]
+        at = lambda t, k: lin[k][0] + lin[k][1]*(t - g1.t.mean())     # noqa: E731
+        x, y = companion_sky(tg, c)
+        return x - at(tg, 0), y - at(tg, 1), xs - at(g1.t, 0), ys - at(g1.t, 1)
+    parts = [minus_line(c) for c in comps]
+    for k, (c, (x, y, _, _)) in enumerate(zip(comps, parts)):
+        span = max(np.ptp(x), np.ptp(y))
+        size = f'{span:.3g} mas' if span >= 0.1 else f'{span*1e3:.3g} $\\mu$as'
+        if c.get('role') == 'trend':
+            lab = f"trend companion alone (P = {c['rv_based']['P_d']/365.25:.0f} yr; spans {size})"
+            ax.plot(x, y, '--', color='C2', lw=2.5, zorder=3, label=lab)
+        else:
+            lab = f"{_pretty(c['name'])} alone (P = {c['rv_based']['P_d']:.4g} d; spans {size})"
+            ax.plot(x, y, '-', color=f'C{[0, 4, 5, 6][k % 4]}', lw=1.5, zorder=3, label=lab)
+    x, y = sum(p[0] for p in parts), sum(p[1] for p in parts)
+    xs, ys = sum(p[2] for p in parts), sum(p[3] for p in parts)
+    ax.plot(x, y, '-', color='0.55', lw=5, zorder=1, label='sum: the star over the DR4 window')
+    ax.plot(xs, ys, 'o', color='C1', ms=5, zorder=4, label='sum at the DR4 transits')
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')
-    ax.set_title("4b. The star's injected orbit on the sky", fontsize=20)
+    ax.set_title("4b. The star's injected motion over DR4, minus best-fit position and proper motion",
+                 fontsize=17)
     legs.append((ax, dict(fontsize=12)))
 
     for a_, kw in legs:            # legends placed where they cover no data
