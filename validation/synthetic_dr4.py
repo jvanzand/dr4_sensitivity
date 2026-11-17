@@ -11,8 +11,8 @@ Steps (`make_system`):
      tested before any companion is in the model, and re-checked after each
      companion is added (a term that stops paying Delta-BIC >= 20 is
      dropped). The literature-prior fit seeds the final fit, which has no
-     priors. Its uncertainties come from the Laplace approximation: a
-     Gaussian with covariance = inverse Hessian of -lnL at the best fit, in
+     priors. Its uncertainty estimate (inverse Hessian) is a Gaussian
+     centred on the best fit with covariance = inverse Hessian of -lnL, in
      parameters (ln P, ln K, sqrt(e) cos w, sqrt(e) sin w, mean longitude
      M0 + w) per companion, trend coefficients and ln jitters.
   2. Ground truth (`draw_truth`): ONE draw from that Gaussian gives the
@@ -220,7 +220,7 @@ def _scale_direction(f, x, d, f0):
     return s
 
 
-def laplace_cov(f, x, hold=()):
+def hessian_cov(f, x, hold=()):
     """Inverse Hessian of f at x by central differences. First pass: steps
     along each parameter axis (`axis_steps`). Strongly correlated parameters
     (e.g. K, e, omega and phase of a highly eccentric orbit) make that matrix
@@ -350,9 +350,95 @@ def profile_jitters(f, th, k, nds, lo, hi, rounds=3):
     return th
 
 
+P_EXTRA_MAX_D = cs.P_MAX_YR*365.25    # long-period Keplerian: longest period tried (200 yr)
+EXTRA_P_SEEDS = 8                       # its starting periods, log-spaced from the RV baseline
+EXTRA_E_MAX = 0.95                      # its eccentricity cap (Judah: an eccentric companion is fine)
+
+
+def long_period_keplerian(rv, lit, theta, tord):
+    """Judah, 2026-11-17: is the RVs' polynomial trend better described by one
+    long-period Keplerian? A blind companion (no prior; P from the RV baseline
+    to P_EXTRA_MAX_D, e <= EXTRA_E_MAX) is fitted with the literature
+    companions (under their priors) at each lower trend order 0 .. tord - 1;
+    starts at EXTRA_P_SEEDS periods x 4 phases x 2 eccentricities, the best 4
+    refit jointly (as cs.add_planet). Adopted if its BIC is lower than the
+    trend model's: the trend already shows the signal is there, so this is a
+    choice between two descriptions of it, not a detection. Returns a dict:
+    adopt, theta, tord, and the BICs."""
+    import copy
+    from scipy.optimize import minimize
+    n, k0 = len(lit), cs.PARAMS_PER_PLANET*len(lit)
+    rvk = copy.copy(rv)
+    rvk.pmax = P_EXTRA_MAX_D                      # cs.fit caps blind periods at data.pmax
+    bic_trend = float(cs.bic(-cs.neg_lnL(theta, rv, n, tord), n, tord, rv))
+    floors = [cs.P_MIN_KNOWN_D]*n + [rv.span]
+    k_amp = float(np.ptp(cs.trend_model(theta[k0:k0 + tord], rv)))/2 or 1.0
+    best = dict(adopt=False, bic=np.inf)
+    e_cap, cs.E_BLIND_MAX = cs.E_BLIND_MAX, EXTRA_E_MAX      # cs.fit's cap on blind companions
+    try:
+        best = _extra_search(rv, rvk, lit, theta, tord, n, k0, floors, k_amp, best)
+    finally:
+        cs.E_BLIND_MAX = e_cap
+    P = float(np.exp(best['theta'][k0]))
+    return dict(adopt=best['bic'] < bic_trend, theta=best['theta'], tord=best['tord'],
+                bic_keplerian=best['bic'], bic_trend=bic_trend, trend_order_tested=int(tord),
+                P_d=P, K_ms=float(np.exp(best['theta'][k0 + 1])),
+                e=float(best['theta'][k0 + 2]**2 + best['theta'][k0 + 3]**2))
+
+
+def _extra_search(rv, rvk, lit, theta, tord, n, k0, floors, k_amp, best):
+    from scipy.optimize import minimize
+    for t2 in range(tord):
+        base = cs.set_trend_order(theta, n, tord, t2)
+        bnd = cs.bounds_for(n + 1, t2, rv.nds, floors, P_EXTRA_MAX_D)[k0:k0 + cs.PARAMS_PER_PLANET]
+        seeds = []
+        for P0 in np.geomspace(rv.span, P_EXTRA_MAX_D, EXTRA_P_SEEDS):
+            for ph in np.arange(4)*np.pi/2:
+                for s1, s2 in cs.ECC_STARTS[:2]:
+                    new = np.array([math.log(P0), math.log(k_amp), s1, s2, ph])
+                    full = np.concatenate([base[:k0], new, base[k0:]])
+
+                    def f(x, full=full):
+                        th = full.copy()
+                        th[k0:k0 + cs.PARAMS_PER_PLANET] = x
+                        return (cs.neg_lnL(th, rv, n + 1, t2)
+                                + 1e5*max(x[2]**2 + x[3]**2 - EXTRA_E_MAX, 0.0)**2)
+                    r = minimize(f, new, method='L-BFGS-B', bounds=bnd, options={'maxiter': 200})
+                    th = full.copy()
+                    th[k0:k0 + cs.PARAMS_PER_PLANET] = r.x
+                    seeds.append((r.fun, th))
+        seeds.sort(key=lambda x: x[0])
+        for _, th in seeds[:cs.N_JOINT]:
+            th, ll = cs.fit(th, rvk, n + 1, t2, floors, lit)
+            b = float(cs.bic(ll, n + 1, t2, rv))
+            if b < best['bic']:
+                best = dict(theta=th, tord=t2, bic=b)
+    return best
+
+
+def planet_support(f, phi, n, n_lit, tord, rv, bnds):
+    """Judah, 2026-11-17: Delta-BIC for removing each literature companion
+    (refit without it, same objective `f` in theta; data BIC). Below cs.DELTA_BIC
+    (20) the RVs do not detect it: its parameters are then held fixed in the
+    uncertainty estimate (inverse Hessian)."""
+    from scipy.optimize import minimize
+    theta = from_lambda(phi, n)
+    lnl = -cs.neg_lnL(theta, rv, n, tord)
+    out = []
+    for j in range(n_lit):
+        sl = np.s_[cs.PARAMS_PER_PLANET*j:cs.PARAMS_PER_PLANET*(j + 1)]
+        th = np.delete(theta, sl)
+        b = [x for i, x in enumerate(bnds) if not sl.start <= i < sl.stop]
+        th = minimize(lambda x: f(x, n - 1, j), th, method='L-BFGS-B', bounds=b,
+                      options={'maxiter': 2000, 'maxfun': 50000}).x
+        d = float(cs.bic(-cs.neg_lnL(th, rv, n - 1, tord), n - 1, tord, rv) - cs.bic(lnl, n, tord, rv))
+        out.append(dict(index=j, dBIC_drop=d, detected=bool(d >= cs.DELTA_BIC)))
+    return out
+
+
 def reference_rv_fit(system):
     """Fit of the literature companions (+ a trend chosen by `select_trend`) to
-    the system's RVs, and its Laplace covariance. Maximum likelihood (no priors)
+    the system's RVs, and its uncertainty estimate (inverse Hessian). Maximum likelihood (no priors)
     by default. If that has no proper maximum (Hessian not positive definite,
     e.g. HD 89707 b: with periastron barely sampled, e and K trade off along a
     ridge), the literature-prior fit is used instead: the maximum of the
@@ -368,10 +454,19 @@ def reference_rv_fit(system):
     rv, n_ex = load_rvs(path, system)
     lit = literature_sorted(sid)
     th0, trend_order, trend_steps = select_trend(rv, lit)
-    n = len(lit)
+    n_extra, extra = 0, None
+    if trend_order >= 1:                     # is the trend one long-period Keplerian? (Judah, 2026-11-17)
+        extra = long_period_keplerian(rv, lit, th0, trend_order)
+        print(f"{system}: long-period Keplerian (P {extra['P_d']/365.25:.1f} yr, K {extra['K_ms']:.3g} m/s, "
+              f"e {extra['e']:.2f}, trend order {extra['tord']}) BIC {extra['bic_keplerian']:.1f} vs trend "
+              f"(order {trend_order}) {extra['bic_trend']:.1f}: {'adopted' if extra['adopt'] else 'not adopted'}")
+        if extra['adopt']:
+            th0, trend_order, n_extra = extra['theta'], extra['tord'], 1
+        extra = {k: v for k, v in extra.items() if k != 'theta'}
+    n = len(lit) + n_extra
     from scipy.optimize import minimize
-    bnds = cs.bounds_for(n, trend_order, rv.nds, [cs.P_MIN_KNOWN_D]*n, rv.pmax,
-                         [max(rv.pmax, 2*L['P0']) for L in lit])
+    bnds = cs.bounds_for(n, trend_order, rv.nds, [cs.P_MIN_KNOWN_D]*len(lit) + [rv.span]*n_extra, rv.pmax,
+                         [max(rv.pmax, 2*L['P0']) for L in lit] + [P_EXTRA_MAX_D]*n_extra)
     k = cs.PARAMS_PER_PLANET*n + trend_order
     lo, hi = np.log(cs.JITTER_BOUNDS)
     data_nll = lambda x: cs.neg_lnL(x, rv, n, trend_order)      # noqa: E731
@@ -401,10 +496,29 @@ def reference_rv_fit(system):
             x = profile_jitters(f, x, k, rv.nds, lo, hi)
             phi = polish_scaled(fl, to_lambda(x, n), hold)
         phi[k:] = np.clip(phi[k:], lo, hi)
-        # Laplace step: a jitter still at either bound is held (no curvature there)
+        # Uncertainty estimate: a jitter still at either bound is held (no curvature there),
+        # and so is every literature companion the RVs do not detect (Delta-BIC < 20 for
+        # removing it; Judah, 2026-11-17)
         hold = sorted(set(hold) | {k + d for d in range(rv.nds) if not lo + 0.01 < phi[k + d] < hi - 0.01})
+
+        def f_drop(x, m, j, f=f):                  # objective without literature companion j
+            if f is data_nll:
+                return cs.neg_lnL(x, rv, m, trend_order)
+            return cs.neg_lnL(x, rv, m, trend_order) + cs.prior_penalty(x, lit[:j] + lit[j + 1:])
+        support = planet_support(f_drop, phi, n, len(lit), trend_order, rv, bnds)
+        for sp, L in zip(support, lit):
+            sp['name'] = L['name']
+            if not sp['detected']:
+                hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*sp['index'],
+                                                    cs.PARAMS_PER_PLANET*(sp['index'] + 1))))
+        # the long-period Keplerian stands in for the trend (not a target, like the trend
+        # companion): its parameters are held fixed too (it may sit at a period bound)
+        hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*len(lit), cs.PARAMS_PER_PLANET*n)))
+        weak = [sp['name'] for sp in support if not sp['detected']]
+        if weak:
+            print(f'{system}: not detected by the RVs (Delta-BIC < {cs.DELTA_BIC:g}), held fixed: {weak}')
         try:
-            cov, flat = laplace_cov(fl, phi, hold)
+            cov, flat = hessian_cov(fl, phi, hold)
             break
         except RuntimeError:
             if f is not data_nll:
@@ -413,12 +527,13 @@ def reference_rv_fit(system):
     theta = from_lambda(phi, n)
     return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
                 theta=theta, phi=phi, lnL=-data_nll(theta), cov=cov, held_fixed=flat, kind=kind,
-                trend_steps=trend_steps, n_rv_excluded=n_ex)
+                trend_steps=trend_steps, n_rv_excluded=n_ex, n_extra=n_extra, extra_test=extra,
+                support=support)
 
 
 def planet_rows(theta, cov, fit):
     """Per companion (literature order): P, K, e, omega (star), M0 at the RV
-    tref, Tp, and 1-sigma errors from 4000 draws of the Laplace Gaussian
+    tref, Tp, and 1-sigma errors from 4000 draws of the inverse-Hessian Gaussian
     (`cov`, in the mean-longitude parameters of `to_lambda`)."""
     rng = np.random.default_rng(0)
     draws = None
@@ -426,7 +541,8 @@ def planet_rows(theta, cov, fit):
         draws = np.array([from_lambda(p, fit['npl']) for p in
                           rng.multivariate_normal(to_lambda(theta, fit['npl']), cov, 4000)])
     out = []
-    for j, L in enumerate(fit['lit']):
+    names = [L['name'] for L in fit['lit']] + [extra_name(fit)]*fit.get('n_extra', 0)
+    for j, name in enumerate(names):
         k = cs.PARAMS_PER_PLANET*j
 
         def conv(p):
@@ -445,9 +561,16 @@ def planet_rows(theta, cov, fit):
                     v[f'{kk}_err'] = float(np.std(x))
                 else:
                     v[f'{kk}_err'] = float(np.std(x))
-        v['name'] = L['name']
+        v['name'] = name
         out.append(v)
     return out
+
+
+def extra_name(fit):
+    """Name of the long-period Keplerian that replaced the RV trend."""
+    import re
+    host = re.sub(r'^.*\[\S+ (.+)\]$', r'\1', fit['lit'][0]['name']).rsplit(' ', 1)[0]
+    return f'{host} long-period companion (RV)'
 
 
 # ---- 2. ground truth -------------------------------------------------------------------
@@ -532,12 +655,78 @@ def draw_trend_companion(fit, th, host, mstar, rng, name):
                        dlnL_vs_polynomial=float(dlnl), n_draws=i + 1,
                        injected='orbit minus its offset and velocity at J2016.0 (see companion_sky)'),
             tref_mjd=rv.tref - BJD_MJD)
-    raise RuntimeError(f'no trend companion consistent with the RVs in {TREND_MAX_DRAWS} draws')
+    tc = _eccentric_trend_companion(fit, th, host, mstar, rng, name, th0, nll_poly, m_cap, p_hi)
+    if tc is None:
+        raise RuntimeError(f'no trend companion consistent with the RVs in {TREND_MAX_DRAWS} circular and '
+                           f'{TREND_MAX_DRAWS} eccentric draws')
+    return tc
+
+
+TREND_E_MAX = 0.9              # fallback trend companion: e uniform in [0, TREND_E_MAX]
+
+
+def _eccentric_trend_companion(fit, th, host, mstar, rng, name, th0, nll_poly, m_cap, p_hi):
+    """Fallback when no circular trend companion fits (Judah, 2026-11-17: an
+    eccentric companion is fine): P log-uniform from 1x the RV baseline to
+    p_hi, e uniform in [0, TREND_E_MAX], omega, M0, Omega uniform, cos i
+    uniform; K is the weighted least-squares match of the orbit's RV curve to
+    the polynomial trend at the RV epochs. Kept by the same mass and lnL tests."""
+    import copy
+    rv, n, tord = fit['rv'], fit['npl'], fit['tord']
+    k = cs.PARAMS_PER_PLANET*n
+    poly = cs.trend_model(th[k:k + tord], rv)
+    w = 1/rv.err**2
+    p_lo = rv.span
+    for i in range(TREND_MAX_DRAWS):
+        P = math.exp(rng.uniform(math.log(p_lo), math.log(p_hi)))
+        e = rng.uniform(0, TREND_E_MAX)
+        om, M0 = rng.uniform(0, 2*np.pi, 2)
+        inc = math.acos(rng.uniform(-1, 1))
+        Omega = rng.uniform(0, 2*np.pi)
+        s1, s2 = math.sqrt(e)*math.cos(om), math.sqrt(e)*math.sin(om)
+        shape = cs.keplerian(rv.t, rv.tref, math.log(P), 0.0, s1, s2, M0)      # K = 1
+        shape = shape - np.sum(w*shape)/np.sum(w)
+        pc = poly - np.sum(w*poly)/np.sum(w)
+        K = float(np.sum(w*shape*pc)/np.sum(w*shape**2))
+        if K < 0:                                 # -K at omega is K at omega + pi
+            K, om = -K, om + np.pi
+            s1, s2 = -s1, -s2
+        if not K > 0:
+            continue
+        try:
+            m = true_mass_mj(P, e, K, inc, mstar)
+        except ValueError:
+            continue
+        if m > m_cap:
+            continue
+        rv2 = copy.copy(rv)
+        rv2.rv = rv.rv - cs.keplerian(rv.t, rv.tref, math.log(P), math.log(K), s1, s2, M0)
+        dlnl = nll_poly - cs.neg_lnL(th0, rv2, n, 0)
+        if dlnl < -TREND_DLNL_MAX:
+            continue
+        m_sun = m*injection.GM_JUP/injection.GM_SUN
+        a_au = ((mstar + m_sun)*(P/365.25)**2)**(1/3)
+        a_star = a_au*host['parallax']*m_sun/(mstar + m_sun)
+        om = om % (2*np.pi)
+        M0 = M0 % (2*np.pi)
+        return dict(
+            name=name, role='trend',
+            rv_based=dict(P_d=P, K_ms=K, e=e, omega_star_deg=math.degrees(om), M0_deg=math.degrees(M0),
+                          Tp_bjd_tcb=rv.tref - M0*P/(2*np.pi)),
+            random=dict(inc_deg=math.degrees(inc), Omega_deg=math.degrees(Omega)),
+            derived=dict(mass_mj=m, msini_mj=true_mass_mj(P, e, K, np.pi/2, mstar), a_au=a_au,
+                         a_star_mas=a_star,
+                         thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, om, Omega))),
+            trend=dict(kind='eccentric', order=int(tord), period_range_d=[p_lo, p_hi], e_max=TREND_E_MAX,
+                       dlnL_vs_polynomial=float(dlnl), n_draws=i + 1,
+                       injected='orbit minus its offset and velocity at J2016.0 (see companion_sky)'),
+            tref_mjd=rv.tref - BJD_MJD)
+    return None
 
 
 def draw_truth(fit, host, mstar, rng):
     """One ground-truth system: RV-based parameters drawn from the reference
-    fit's Laplace Gaussian, inclination and Omega drawn at random, derived
+    fit's inverse-Hessian Gaussian, inclination and Omega drawn at random, derived
     masses and astrometric sizes, and the fixed host values."""
     while True:
         th = from_lambda(rng.multivariate_normal(fit['phi'], fit['cov']), fit['npl'])
@@ -547,7 +736,8 @@ def draw_truth(fit, host, mstar, rng):
     rows = planet_rows(th, None, fit)
     tref_mjd = fit['rv'].tref - BJD_MJD
     comps = []
-    for r in rows:
+    n_lit = len(fit['lit'])
+    for j, r in enumerate(rows):
         inc = math.acos(rng.uniform(-1, 1))
         Omega = rng.uniform(0, 2*np.pi)
         m = true_mass_mj(r['P'], r['e'], r['K'], inc, mstar)
@@ -563,6 +753,10 @@ def draw_truth(fit, host, mstar, rng):
             derived=dict(mass_mj=m, msini_mj=msini, a_au=a_au, a_star_mas=a_star,
                          thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, r['omega'], Omega))),
             tref_mjd=tref_mjd))
+        if j >= n_lit:                   # the long-period Keplerian that replaced the RV trend
+            comps[-1].update(role='trend', trend=dict(
+                kind='keplerian', order=0, test=fit.get('extra_test'),
+                injected='orbit minus its offset and velocity at J2016.0 (see companion_sky)'))
     import re
     host_name = re.sub(r'^.*\[\S+ (.+)\]$', r'\1', rows[0]['name']).rsplit(' ', 1)[0]
     tc = draw_trend_companion(fit, th, host, mstar, rng, f'{host_name} trend companion')
@@ -714,10 +908,12 @@ def make_system(system, seed, fig=True, force=False):
                                     n_rv_excluded=fit['n_rv_excluded'],
                                     jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
                                     rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
-                                    laplace_held_fixed=[int(i) for i in fit['held_fixed']],
+                                    hessian_held_fixed=[int(i) for i in fit['held_fixed']],
+                                    n_extra=fit['n_extra'], long_period_keplerian_test=fit['extra_test'],
+                                    rv_support=fit['support'],
                                     theta=[float(x) for x in fit['theta']],
                                     kind=fit['kind'],
-                                    method=f"{fit['kind']}; errors from the Laplace approximation"))
+                                    method=f"{fit['kind']}; errors from the inverse Hessian"))
     json.dump(truth, open(f'{stem}_truth.json', 'w'), indent=1)
     print(f'wrote {stem}.csv, _noplanet.csv, _truth.json')
     if fig:
@@ -733,8 +929,9 @@ def fit_from_truth(truth):
     path = rv_table(truth['system'])
     rv = load_rvs(path, truth['system'])[0]
     lit = literature_sorted(os.path.basename(path).split('_')[0])
-    return dict(rv=rv, lit=lit, npl=len(lit), tord=ref['trend_order'],
-                theta=np.array(ref['theta']), held_fixed=ref['laplace_held_fixed'])
+    return dict(rv=rv, lit=lit, npl=len(lit) + ref.get('n_extra', 0), n_extra=ref.get('n_extra', 0),
+                tord=ref['trend_order'],
+                theta=np.array(ref['theta']), held_fixed=ref.get('hessian_held_fixed', ref.get('laplace_held_fixed')))   # older files: laplace_*
 
 
 def redraw(system, seed):
@@ -771,8 +968,9 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     gs = fig.add_gridspec(8, 2, height_ratios=[1.25, 0.5, 0.95, 1.0, 0.45, 1.0, 0.3, 0.85], hspace=0.42,
                           wspace=0.22)                     # row 6: room for the legend of 4b
 
-    # Row 1: RVs and the reference fit
-    ax = fig.add_subplot(gs[0, :])
+    # Row 1: RVs and the reference fit, and the residuals (below)
+    sub1 = gs[0, :].subgridspec(2, 1, height_ratios=[3, 1], hspace=0.2)
+    ax = fig.add_subplot(sub1[0])
     nll, off, _ = cs.neg_lnL(th, rv, n, tord, True)
     jit = cs.unpack(th, n, tord, rv.nds)[2]
     yr = lambda t: 2000 + (t - 2451544.5)/365.25   # noqa: E731
@@ -810,17 +1008,36 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     else:
         ax.plot([], [], ' ', label=f'no trend (raising the order gains $\\Delta$BIC < {cs.DELTA_BIC:g})')
     for c in tcs:
+        if c['trend'].get('kind') == 'keplerian':          # part of the reference fit (black curve)
+            continue
         rb = c['rv_based']
         tt2 = np.linspace(rv.t.min(), rv.t.max(), 3000)
-        v = rb['K_ms']*np.cos(2*np.pi*(tt2 - rv.tref)/rb['P_d'] + math.radians(rb['M0_deg']))
-        ax.plot(yr(tt2), v - rb['K_ms']*math.cos(math.radians(rb['M0_deg'])), ':', color='C3', lw=2.5,
+        w, e = math.radians(rb['omega_star_deg']), rb['e']
+        kep = lambda t: cs.keplerian(t, rv.tref, math.log(rb['P_d']), math.log(rb['K_ms']),   # noqa: E731
+                                     math.sqrt(e)*math.cos(w), math.sqrt(e)*math.sin(w),
+                                     math.radians(rb['M0_deg']))
+        ax.plot(yr(tt2), kep(tt2) - kep(np.array([rv.tref]))[0], ':', color='C3', lw=2.5,
                 zorder=4, label="trend companion's RV, drawn to match the trend (dotted; injected "
                                 "into the astrometry)")
-    ax.set_xlabel('year')
     ax.set_ylabel('RV $-$ offset (m/s)')
+    ax.tick_params(labelbottom=False)
     ax.set_title(f'1. {name}: RVs and the reference fit (offsets and jitters per dataset; errors include jitter)',
                  fontsize=22)
     hl = ax.get_legend_handles_labels()
+    xl = ax.get_xlim()
+    ax = fig.add_subplot(sub1[1], sharex=ax)
+    resid = rv.rv - off[rv.ds] - cs.model_rv(th, rv, n, tord)
+    for d in range(rv.nds):
+        m = rv.ds == d
+        ax.errorbar(yr(rv.t[m]), resid[m], np.hypot(rv.err[m], jit[d]), fmt='o', ms=4, color=f'C{d % 10}',
+                    alpha=0.7, lw=1)
+    ax.axhline(0, color='0.4', lw=1, gid='guide')
+    ax.set_xlim(xl)
+    ax.set_xlabel('year')
+    ax.set_ylabel('residual (m/s)')
+    ax.set_title('Residuals: data minus the reference fit (colours as above; rms '
+                 + ', '.join(f"{(rv.names[d].split(':')[1] if ':' in rv.names[d] else rv.names[d])} "
+                             f"{np.std(resid[rv.ds == d]):.3g}" for d in range(rv.nds)) + ' m/s)', fontsize=15)
     ax = fig.add_subplot(gs[1, :])
     ax.axis('off')
     ax.legend(*hl, fontsize=13, ncol=2, loc='upper left', frameon=False)
@@ -830,7 +1047,7 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     ax.axis('off')
     ax.set_title('2. Ground truth for the synthetic DR4 data (one draw)', fontsize=22, loc='left')
     targets = [c for c in comps if c.get('role') != 'trend']
-    lines = [('RV-based: one draw from the reference fit (Laplace Gaussian)', 'C0'),]
+    lines = [('RV-based: one draw from the reference fit (inverse-Hessian Gaussian)', 'C0'),]
     for c in targets:
         rb = c['rv_based']
         lines.append((f"   {_pretty(c['name'])}:  P = {rb['P_d']:.5g} d,  K = {rb['K_ms']:.4g} m/s,  "
@@ -849,18 +1066,32 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
                       f"semi-major axis = {dv['a_star_mas']*1e3:.4g} $\\mu$as", '0.3'))
     for c in tcs:
         rb, rd, dv, tr = c['rv_based'], c['random'], c['derived'], c['trend']
-        lines.append(('Trend companion (reproduces the RV trend; injected, not a target): circular, '
-                      f'P log-uniform from 2x the RV baseline to {TREND_A_MAX_AU:g} AU', 'C2'))
-        lines.append((f"   cos i, $\\Omega${', phase' if tr['order'] == 1 else ''} uniform; K"
-                      f"{'' if tr['order'] == 1 else ' and phase'} set by the trend; kept if M $\\leq$ "
-                      f"{TREND_M_MAX_MSUN:g} M$_\\odot$ and the RVs fit it as well as the polynomial "
-                      f"($\\Delta$lnL > $-${TREND_DLNL_MAX:g}); its J2016.0 offset and velocity are in the "
-                      f"DR3 position and proper motion, so only its acceleration is injected", 'C2'))
-        lines.append((f"   P = {rb['P_d']/365.25:.4g} yr,  K = {rb['K_ms']:.4g} m/s,  i = {rd['inc_deg']:.1f}"
-                      f"$^\\circ$,  $\\Omega$ = {rd['Omega_deg']:.1f}$^\\circ$,  M = {dv['mass_mj']:.4g} M$_J$,  "
-                      f"a = {dv['a_au']:.3g} AU,  star's astrometric semi-major axis = "
-                      f"{dv['a_star_mas']:.4g} mas;  $\\Delta$lnL = {tr['dlnL_vs_polynomial']:.2f} "
-                      f"(draw {tr['n_draws']})", 'C2'))
+        kind = tr.get('kind', 'circular')
+        if kind == 'keplerian':
+            t = tr['test']
+            lines.append(('Long-period companion (replaces the RV trend; injected, not a target): one blind '
+                          f"Keplerian fitted to the RVs, BIC {t['bic_keplerian']:.1f} vs {t['bic_trend']:.1f} for "
+                          f"the order-{t['trend_order_tested']} trend", 'C2'))
+            lines.append(("   P, K, e, omega, M0 from the reference fit; cos i, $\\Omega$ uniform; its J2016.0 offset "
+                          "and velocity are in the DR3 position and proper motion, so only its acceleration is "
+                          "injected", 'C2'))
+        else:
+            orb = ('circular, P log-uniform from 2x the RV baseline' if kind == 'circular' else
+                   f"eccentric (no circular orbit fit), e uniform in [0, {tr['e_max']:g}], P log-uniform "
+                   "from 1x the RV baseline")
+            lines.append(('Trend companion (reproduces the RV trend; injected, not a target): '
+                          f'{orb} to {TREND_A_MAX_AU:g} AU', 'C2'))
+            lines.append((f"   cos i, $\\Omega${', phase' if tr['order'] == 1 or kind != 'circular' else ''} uniform; K"
+                          f"{'' if tr['order'] == 1 or kind != 'circular' else ' and phase'} set by the trend; kept if "
+                          f"M $\\leq$ {TREND_M_MAX_MSUN:g} M$_\\odot$ and the RVs fit it as well as the polynomial "
+                          f"($\\Delta$lnL > $-${TREND_DLNL_MAX:g}); its J2016.0 offset and velocity are in the "
+                          f"DR3 position and proper motion, so only its acceleration is injected", 'C2'))
+        tail = (f";  $\\Delta$lnL = {tr['dlnL_vs_polynomial']:.2f} (draw {tr['n_draws']})"
+                if kind != 'keplerian' else '')
+        lines.append((f"   P = {rb['P_d']/365.25:.4g} yr,  K = {rb['K_ms']:.4g} m/s,  e = {rb['e']:.2f},  "
+                      f"i = {rd['inc_deg']:.1f}$^\\circ$,  $\\Omega$ = {rd['Omega_deg']:.1f}$^\\circ$,  "
+                      f"M = {dv['mass_mj']:.4g} M$_J$,  a = {dv['a_au']:.3g} AU,  star's astrometric "
+                      f"semi-major axis = {dv['a_star_mas']:.4g} mas{tail}", 'C2'))
     nz = truth['noise']
     lines.append((f"Fixed: M$_\\star$ = {fx['mstar_msun']} M$_\\odot$ (catalog);  Gaia DR3 (J2016.0): "
                   f"$\\varpi$ = {fx['parallax_mas']:.3f} mas, $\\mu_{{\\alpha*}}$ = {fx['pmra_masyr']:.2f}, "

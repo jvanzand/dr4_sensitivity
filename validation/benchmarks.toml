@@ -50,32 +50,34 @@ purpose = "optional: weak signal (c, forecast SNR 2.4)"
 [[system]]
 name = "TOI1694"
 label = "TOI-1694"
-seeds = [1]
+seeds = [1, 2, 3, 4, 5]
 purpose = "census draw"
 
-# The four below fail in generation (2026-11-16) and are disabled until a rule is decided:
-# HD 94340, HD 160691, HD 147513: their quadratic RV trends curve too fast for a trend companion beyond
-# 2x the RV baseline (HD 94340: a stellar companion); HD 191939: Laplace Hessian not positive definite.
-# [[system]]
-# name = "HD191939"
-# label = "HD 191939"
-# seeds = [1]
-# purpose = "census draw (six planets)"
+# 2026-11-17: the reference fit now tests one long-period Keplerian against a polynomial trend (adopted if
+# its BIC is lower) and holds literature companions with Delta-BIC < 20 for removal fixed in the
+# uncertainty estimate (Judah). HD 147513, HD 160691 and HD 191939 are enabled again.
+[[system]]
+name = "HD147513"
+label = "HD 147513"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census draw (RV trend replaced by a long-period Keplerian)"
 
+[[system]]
+name = "HD160691"
+label = "HD 160691 (mu Ara)"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census draw"
+
+[[system]]
+name = "HD191939"
+label = "HD 191939"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census draw (six planets)"
+
+# HD 94340 stays disabled (2026-11-17): neither the polynomial trend nor a long-period Keplerian fits its RVs
+# (residuals 2-7 km/s per dataset); likely a stellar binary that needs a full binary fit.
 # [[system]]
 # name = "HD94340"
 # label = "HD 94340"
-# seeds = [1]
-# purpose = "census draw"
-
-# [[system]]
-# name = "HD160691"
-# label = "HD 160691 (mu Ara)"
-# seeds = [1]
-# purpose = "census draw"
-
-# [[system]]
-# name = "HD147513"
-# label = "HD 147513"
 # seeds = [1]
 # purpose = "census draw"

@@ -7,7 +7,8 @@ simulated threshold, the decision; (c) each planet's orbit on the sky,
 injected vs recovered; (d) the star's total motion over DR4 from all
 companions, injected vs the search's final model; (e) known vs recovered
 (star's astrometric semi-major axis vs period); (f) a table of injected vs
-recovered elements. The diagnostic figures (synthetic_dr4.process_figure,
+recovered elements; (g, h) the along-scan data the search fits, its final
+model and the residuals. The diagnostic figures (synthetic_dr4.process_figure,
 benchmark.summary_figure, the step figures) carry the details.
 
 Run:        python -I validation/presentation.py TOI1736_seed1 [out_dir]
@@ -83,8 +84,8 @@ def presentation_figure(stem, out_dir=OUT_DIR):
     fs = 17
     legs = []
 
-    fig = plt.figure(figsize=(26, 31))
-    gs = fig.add_gridspec(3, 2, height_ratios=[1, 1.15, 1], hspace=0.3, wspace=0.22)
+    fig = plt.figure(figsize=(26, 38))
+    gs = fig.add_gridspec(4, 2, height_ratios=[1, 1.15, 1, 0.6], hspace=0.3, wspace=0.22)
 
     # (a) RVs and the reference fit
     fit = sd.fit_from_truth(truth)
@@ -275,11 +276,14 @@ def presentation_figure(stem, out_dir=OUT_DIR):
                 f"Search: {bm.trend_summary(s)}.")
     ax.set_title('(f) Injected vs recovered' + (f'\n{note}' if note else ''), fontsize=fs + 1)
 
+    # (g, h) the data the search fits (along scan, one point per transit), its
+    # final model and the residuals (benchmark.al_panels)
+    bm.al_panels(fig, gs[3, 0], gs[3, 1], stack, s, legs)
     for a_, kw in legs:
         figtools.legend_clear(a_, **kw)
     figtools.check_legends(fig)
     fig.suptitle(f"{s['label']}: blind search of synthetic Gaia DR4 astrometry (seed {s['seed']})",
-                 fontsize=fs + 12, y=0.935)
+                 fontsize=fs + 12, y=0.925)
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, f'{stem}_presentation.png')
     fig.savefig(out, dpi=200, bbox_inches='tight')
