@@ -105,14 +105,15 @@ def found_orbits(stack, known):
 def match(found, truth, tol):
     """Pair injected companions with detections (nearest period first, within
     tol). The trend companion (role 'trend', which stands in for the RV
-    trend) is matched too, but it is not a target: finding it is neither a
-    recovery nor a false alarm. Returns (rows per injected companion,
-    unmatched detections)."""
+    trend) is not a target and is never matched: the search models such a
+    signal with trend terms (acceleration, jerk), reported by
+    `trend_summary`. Returns (rows per injected companion, unmatched
+    detections)."""
     left = list(range(len(found)))
     rows = []
     for c in sorted(truth['companions'], key=lambda c: -c['derived']['a_star_mas']):
         P = c['rv_based']['P_d']
-        cand = [i for i in left if abs(found[i]['P_d']/P - 1) < tol]
+        cand = [] if c.get('role') == 'trend' else [i for i in left if abs(found[i]['P_d']/P - 1) < tol]
         i = min(cand, key=lambda i: abs(found[i]['P_d']/P - 1)) if cand else None
         if i is not None:
             left.remove(i)
@@ -157,6 +158,26 @@ def run(system=None):
         for f in spurious:
             print(f"  SPURIOUS: P = {f['P_d']:.2f} d, a_star = {f['a_star_mas']:.3g} mas")
         print('wrote', summary_figure(stem))
+
+
+TERM = {1: 'acceleration', 2: 'jerk'}
+FINAL = ('no trend terms', 'acceleration', 'acceleration + jerk')
+
+
+def trend_summary(s):
+    """How the search handled long-term motion, from a summary.json: every
+    trend test (term, adopted or not, FAP) and move, and the final model."""
+    out = []
+    for x in s.get('trend_log', []):
+        a = x['action']
+        if 'adopted' in x:                                   # tests before the first companion
+            k = int(a.rsplit('-> ', 1)[1])
+            out.append(f"{TERM[k]} {'adopted' if x['adopted'] else 'not warranted'} (FAP {x['fap']:.1g})")
+        elif a.startswith('companion replaces'):
+            out.append(f"a new companion replaced trend terms ({a.split('(')[1].rstrip(')')})")
+        elif x.get('dropped'):
+            out.append(f"{TERM[int(a.split()[3])]} dropped once companions were in (FAP {x['fap']:.1g})")
+    return '; '.join(out + [f"final model: {FINAL[s.get('trend', 0)]}"])
 
 
 def al_panels(fig, spec_l, spec_r, stack, s, legs):
@@ -243,7 +264,8 @@ def summary_figure(stem):
         ax.plot(r['P_true'], r['a_star_true_mas'], 's' if trend else 'o', ms=20, mfc='none', mec='k', mew=2.5,
                 label=('trend companion (reproduces the RV trend; not a target)' if trend else
                        'known companion (injected; from the RV fit)' if r is targets[0] else None), zorder=4)
-        ax.annotate(f"{sd._pretty(r['name'])}\n{('found' if trend else 'recovered') if f else ('not found' if trend else 'not recovered')}",
+        ax.annotate('trend companion' if trend else
+                    f"{sd._pretty(r['name'])}\n{'recovered' if f else 'not recovered'}",
                     (r['P_true'], r['a_star_true_mas']), xytext=(16, 8), textcoords='offset points',
                     fontsize=17, color='C0' if f else 'C3', va='bottom')
         if f:
@@ -305,7 +327,7 @@ def summary_figure(stem):
         tr = [c['rv_based']['P_d'], c['rv_based']['e'], c['derived']['a_star_mas'], c['random']['inc_deg'],
               c['rv_based']['omega_star_deg'] % 360, c['random']['Omega_deg'] % 360]
         trend = r.get('role') == 'trend'
-        cells.append(['trend companion' if trend else sd._pretty(r['name']) + ' (injected)', f'{tr[0]:.2f}', f'{tr[1]:.3f}', f'{tr[2]:.3g}',
+        cells.append(['trend companion*' if trend else sd._pretty(r['name']) + ' (injected)', f'{tr[0]:.2f}', f'{tr[1]:.3f}', f'{tr[2]:.3g}',
                       f'{tr[3]:.1f}', f'{tr[4]:.1f}', f'{tr[5]:.1f}'])
         colors.append(['w']*7)
         if f:
@@ -317,8 +339,7 @@ def summary_figure(stem):
                           f'{w:.1f} ({_angle_diff(w, tr[4]):+.1f})', f'{Om:.1f} ({_angle_diff(Om, tr[5]):+.1f})'])
             colors.append(['#dbe9f6']*7)
         elif trend:
-            cells.append(['   not found (not a target)'] + ['-']*6)
-            colors.append(['0.93']*7)
+            colors[-1] = ['0.93']*7                         # its handling is in the title (trend terms)
         else:
             cells.append(['   not recovered'] + ['-']*6)
             colors.append(['#f8dcdc']*7)
@@ -330,9 +351,12 @@ def summary_figure(stem):
     tab.auto_set_font_size(False)
     tab.set_fontsize(15)
     tab.scale(1, 2.2)
-    ax3.set_title('Orbit elements: injected vs recovered (differences in brackets; recovered angles shown on the '
-                  r'($\omega$, $\Omega$) or ($\omega$+180, $\Omega$+180) branch nearer the truth: same sky orbit)',
-                  fontsize=15)
+    title = ('Orbit elements: injected vs recovered (differences in brackets; recovered angles shown on the '
+             r'($\omega$, $\Omega$) or ($\omega$+180, $\Omega$+180) branch nearer the truth: same sky orbit)')
+    if any(r.get('role') == 'trend' for r in rows):
+        title += ('\n*Trend companion: injected to reproduce the RV trend; not a search target. The search models '
+                  'long-term motion with trend terms: ' + trend_summary(s))
+    ax3.set_title(title, fontsize=15)
 
     for a_, kw in legs:
         figtools.legend_clear(a_, **kw)
@@ -407,6 +431,10 @@ def compare(update=False):
         rows_r = {x['name']: x for x in r['companions']} if r else {}
         for nm in list(dict.fromkeys(list(rows_r) + list(rows_c))):
             x = rows_c.get(nm) or rows_r.get(nm)
+            if x.get('role') == 'trend':                     # not a target: its signal goes to trend terms
+                print(f"  trend terms: ref {FINAL[r.get('trend', 0)] if r else '-'} | "
+                      f"now {FINAL[c.get('trend', 0)] if c else '-'}")
+                continue
             fr, fc = (rows_r.get(nm) or {}).get('found'), (rows_c.get(nm) or {}).get('found')
             changed = (fr is None) != (fc is None) or (fr and fc and abs(fc['P_d']/fr['P_d'] - 1) > 0.01)
             print(f"  {nm:12s} truth P {x['P_true']:.1f}, a {x['a_star_true_mas']:.3g} | "
