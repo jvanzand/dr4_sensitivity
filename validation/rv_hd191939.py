@@ -63,9 +63,9 @@ def summary_figure(res, truth, rows, extra, path, title):
     matplotlib.rc_file(os.path.join(ROOT, 'matplotlibrc'))
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(figsize=(18, 8))
-    for i, t in enumerate(truth):
-        ax.axvline(t['P'], color='C2', lw=3, alpha=0.35,
-                   label='published planet (period)' if i == 0 else None)
+    for i, t in enumerate(truth):            # short ticks at the bottom: the legend stays free above
+        ax.plot([t['P'], t['P']], [0, 0.1], color='C2', lw=4, transform=ax.get_xaxis_transform(),
+                label='published planet (period)' if i == 0 else None)
         ax.text(t['P'], 1.02, f"{t['name']}\nK = {t['K']:g}", ha='center',
                 va='bottom', fontsize=14, color='C2',
                 transform=ax.get_xaxis_transform())
@@ -112,17 +112,17 @@ def main():
     for x in extra:
         print(f"  extra detection: P = {x['P']:.2f} d, e = {x['e']:.2f}, "
               f"K = {x['K']:.2f} m/s")
+    out = dict(M=M, seconds=time.time() - t0, trend=res['trend'], rows=rows,
+               extra=extra, steps=[{k: v for k, v in s.items()}
+                                   for s in res['steps']])
+    json.dump(out, open(os.path.join(HERE, 'results', 'rv_hd191939.json'), 'w'),
+              indent=1, default=float)
     title = (f'HD 191939 (RVs only, M = {M} noise-sampled datasets, FAP 0.001): '
              f'{sum(r["found"] for r in rows)} of {len(rows)} published '
              f'planets found, {len(extra)} extra')
     print('wrote', summary_figure(res, truth, rows, extra,
                                   os.path.join(fig_dir, 'hd191939_summary.png'),
                                   title))
-    out = dict(M=M, seconds=time.time() - t0, trend=res['trend'], rows=rows,
-               extra=extra, steps=[{k: v for k, v in s.items()}
-                                   for s in res['steps']])
-    json.dump(out, open(os.path.join(HERE, 'results', 'rv_hd191939.json'), 'w'),
-              indent=1, default=float)
     print(f'done in {time.time() - t0:.0f} s')
 
 
