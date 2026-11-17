@@ -63,12 +63,12 @@ def recovered_model(stack, s):
 def equal_with_headroom(ax, top=0.6):
     """Equal aspect for a sky panel, with empty space above the data (a
     fraction `top` of its height) for the legend."""
-    ax.relim()
-    ax.autoscale_view()
-    x0, x1 = ax.get_xlim()
-    y0, y1 = ax.get_ylim()
-    ax.set_ylim(y0, y1 + top*(y1 - y0))
-    ax.set_aspect('equal', 'datalim')
+    pts = np.concatenate([ln.get_xydata() for ln in ax.get_lines() if len(ln.get_xydata())])
+    (x0, y0), (x1, y1) = pts.min(0), pts.max(0)
+    px, py = 0.05*(x1 - x0), 0.05*(y1 - y0)
+    ax.set_xlim(x0 - px, x1 + px)
+    ax.set_ylim(y0 - py, y1 + py + top*(y1 - y0))
+    ax.set_aspect('equal', adjustable='box')            # the box adapts; no data is cut
 
 
 def sky_of(t, P, e, M0, ti, tref):
@@ -103,14 +103,14 @@ def presentation_figure(stem, out_dir=OUT_DIR):
     for d, nm in enumerate(rv.names):
         m = rv.ds == d
         ax.errorbar(YR(rv.t[m] - 2400000.5), rv.rv[m] - off[d], np.hypot(rv.err[m], jit[d]), fmt='o', ms=5,
-                    lw=1, alpha=0.75, color=f'C{d % 10}', label=f"{nm.split(':')[-1] if ':' in nm else nm} ({m.sum()})")
+                    lw=1, alpha=0.75, color=f'C{d % 10}', label=f"{nm.split(':')[1] if ':' in nm else nm} ({m.sum()})")
     tt = np.linspace(rv.t.min() - 100, rv.t.max() + 100, 20000)
     ax.plot(YR(tt - 2400000.5), cs.model_rv(th, sd.grid_for(tt, rv), n, tord), 'k-', lw=1.3, zorder=5,
             label='reference fit (sets the injected planets)')
     ax.set_xlabel('year')
     ax.set_ylabel('RV (m/s)')
     trend_txt = ['', ', linear trend', ', quadratic trend'][tord]
-    ax.set_title(f'(a) RVs and the reference fit: {n} planet(s){trend_txt}', fontsize=fs + 3)
+    ax.set_title(f"(a) RVs and the reference fit: {n} planet{'' if n == 1 else 's'}{trend_txt}", fontsize=fs + 3)
     legs.append((ax, dict(fontsize=fs - 3, ncol=2)))
 
     # (b) the search, step by step
@@ -129,9 +129,9 @@ def presentation_figure(stem, out_dir=OUT_DIR):
         hit = dec['detected']
         ax.plot(per[j], dbic[j], 'o', ms=13, color='C3' if hit else '0.4', zorder=5,
                 label='highest peak' if i == 0 else None)
-        for p in meta.get('truth', []):
-            ax.axvline(p, color='C2', lw=3, alpha=0.35,
-                       label='injected period' if i == 0 and p == meta['truth'][0] else None)
+        for p in meta.get('truth', []):        # short ticks at the bottom: legends stay free above
+            ax.plot([p, p], [0, 0.12], color='C2', lw=4, transform=ax.get_xaxis_transform(), zorder=6,
+                    label='injected period' if i == 0 and p == meta['truth'][0] else None)
         ax.set_xscale('log')
         ax.set_xlim(meta['pmin'], meta['pmax'])
         ax.set_ylim(max(dbic.min(), -25) - 3, max(dbic.max(), dec['thr'])*1.35 + 3)
@@ -139,8 +139,9 @@ def presentation_figure(stem, out_dir=OUT_DIR):
         nk = len(a['known_before'])
         model_txt = (f"{nk} companion{'' if nk == 1 else 's'}"
                      f"{['', ' + acceleration', ' + acceleration + jerk'][tr]}")
+        P_new = a['known_after'][-1][0] if hit and a['known_after'] else dec['P']   # after the refit
         verdict = (f"peak {dbic[j]:.0f} > threshold {dec['thr']:.0f}: companion added at "
-                   f"{(dec.get('P_fit') or dec['P']):.0f} d" if hit else
+                   f"{P_new:.0f} d" if hit else
                    f"peak {dbic[j]:.0f} < threshold {dec['thr']:.0f}: stop")
         ax.text(0.01, 0.95, f"step {dec['step']} (model: {model_txt})\n{verdict}", transform=ax.transAxes,
                 va='top', fontsize=fs - 1, bbox=dict(fc='w', ec='0.7', alpha=0.9))
@@ -154,7 +155,7 @@ def presentation_figure(stem, out_dir=OUT_DIR):
         else:
             ax.set_xlabel('trial period (d)')
         if i == 0:                             # one legend for all steps
-            legs.append((ax, dict(fontsize=fs - 4)))
+            legs.append((ax, dict(fontsize=fs - 4, grow=8)))
 
     # (c) each planet's orbit on the sky: injected vs recovered
     st, rec, trend = recovered_model(stack, s)
