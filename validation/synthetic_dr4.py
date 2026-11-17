@@ -880,14 +880,24 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
         ax.plot(x, y, '--', lw=1.2, label=f"{_pretty(c['name'])}: full orbit (semi-major axis "
                 f"{a:.3g} mas)" if a >= 0.1 else f"{_pretty(c['name'])}: full orbit (semi-major axis "
                 f"{a*1e3:.3g} $\\mu$as)")
+    # The companions' summed offset, minus its best-fit position and proper
+    # motion over the DR4 transits (a straight line in each coordinate, least
+    # squares): the 5-parameter fit absorbs that part, so what is left is what
+    # the search must model (orbits, and a trend companion's curvature). The
+    # injected signal holds no parallax.
     x = sum(companion_sky(tg, c)[0] for c in comps)
     y = sum(companion_sky(tg, c)[1] for c in comps)
-    ax.plot(x, y, 'k-', lw=1.5, label='star over the DR4 window (all companions)')
     xs = sum(companion_sky(g1.t, c)[0] for c in comps)
     ys = sum(companion_sky(g1.t, c)[1] for c in comps)
+    A = np.column_stack([np.ones_like(g1.t), g1.t - g1.t.mean()])
+    lin = [np.linalg.lstsq(A, v, rcond=None)[0] for v in (xs, ys)]
+    at = lambda t, c: c[0] + c[1]*(t - g1.t.mean())         # noqa: E731
+    x, y = x - at(tg, lin[0]), y - at(tg, lin[1])
+    xs, ys = xs - at(g1.t, lin[0]), ys - at(g1.t, lin[1])
+    ax.plot(x, y, 'k-', lw=1.5, label='star over the DR4 window (all companions), minus its best-fit '
+            'position and proper motion')
     ax.plot(xs, ys, 'o', color='C1', ms=5, label='at the DR4 transits')
-    ax.plot(0, 0, '+', color='k', ms=14, mew=2,
-            label="barycentre + the trend companion's J2016.0 offset and motion" if tcs else 'barycentre')
+    ax.plot(0, 0, '+', color='k', ms=14, mew=2, label='barycentre (centre of the full orbits)')
     ax.set_aspect('equal', 'datalim')
     ax.set_xlabel(r'$\Delta\alpha*$ (mas)')
     ax.set_ylabel(r'$\Delta\delta$ (mas)')

@@ -129,6 +129,10 @@ def run(system=None):
     for name, label, seed, stem in datasets(cfg, system):
         stack, truth = load(stem)
         out = os.path.join(RESULTS, stem)
+        if os.path.isdir(out):                 # a previous run's steps must not outlive it (redraw reads them all)
+            import glob
+            for f in glob.glob(os.path.join(out, 'step*.npz')) + glob.glob(os.path.join(out, f'{stem}_step*.png')):
+                os.remove(f)
         periods = [c['rv_based']['P_d'] for c in truth['companions']]
         print(f'{stem} ({label}): {stack.n} transits over {stack.span:.0f} d; injected periods '
               f'{[round(p, 2) for p in periods]}', flush=True)
