@@ -5,7 +5,7 @@
 [priors]
 # Period (days), log-uniform. The floor for the companions the literature reports is below
 # the census minimum (0.07 d) so hot companions are modeled; extra companions are searched
-# down to 1 d (companion_search.py).
+# down to 1 d.
 period_min_known_d = 0.05
 period_max_yr = 200.0
 # Mass ratio q = M_p / M_*, log-uniform (the G23H default)

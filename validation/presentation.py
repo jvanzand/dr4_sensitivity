@@ -27,7 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import benchmark as bm          # noqa: E402  (sets the paths of core, injection, fits_rv)
-import companion_search as cs   # noqa: E402
+import rv_model as cs   # noqa: E402
 import figtools                 # noqa: E402
 import orbit                    # noqa: E402
 import search                   # noqa: E402

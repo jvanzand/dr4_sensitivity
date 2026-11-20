@@ -1,6 +1,6 @@
 """Loader for kepler.c: compiles it on first use (cc -O3 -shared -fPIC) into
 fits_rv/_build/ and exposes `keplerian_rv_add` and `kepler_E`. If no C compiler is
-available, `AVAILABLE` is False and companion_search.py falls back to its numpy solver
+available, `AVAILABLE` is False and rv_model.py falls back to its numpy solver
 (about 2-3x slower, same results)."""
 
 import ctypes

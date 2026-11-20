@@ -6,7 +6,7 @@ Steps (`make_system`):
      fitted to its RVs (rv_data/systems/) by maximum likelihood (or, where
      that has no proper maximum, with the literature priors), with a
      polynomial trend, per-dataset offsets (profiled) and jitters, using the
-     likelihood of fits_rv/companion_search.py. The trend order (none by
+     likelihood of fits_rv/rv_model.py. The trend order (none by
      default, linear or quadratic) is chosen step by step (`select_trend`):
      tested before any companion is in the model, and re-checked after each
      companion is added (a term that stops paying Delta-BIC >= 20 is
@@ -71,7 +71,7 @@ ROOT = os.path.dirname(HERE)
 for _d in ('blind_search', 'injection', 'fits_rv'):   # core, injection, RV likelihood
     sys.path.insert(0, os.path.join(ROOT, _d))
 sys.path.insert(0, HERE)
-import companion_search as cs   # noqa: E402
+import rv_model as cs   # noqa: E402
 import data as bsdata          # noqa: E402
 import figtools                # noqa: E402
 import injection               # noqa: E402
@@ -112,7 +112,7 @@ EXCLUDED_RVS = os.path.join(HERE, 'excluded_rvs.csv')   # log of RVs left out, p
 
 
 def load_rvs(path, system):
-    """The system's RVs (companion_search.load_system: junk flags applied)
+    """The system's RVs (junk flags applied)
     minus the points listed for it in validation/excluded_rvs.csv (matched by
     dataset and BJD_TCB within 1e-4 d). Returns (RVData, number excluded)."""
     t = pd.read_csv(path, low_memory=False)
@@ -270,7 +270,7 @@ def from_lambda(phi, npl):
 
 
 def literature_sorted(source_id):
-    """The system's literature companions (companion_search priors), largest K
+    """The system's literature companions (rv_model priors), largest K
     first: the order in which the reference fit adds them, and the order of
     the companions in its theta."""
     return sorted(cs.literature_priors(source_id), key=lambda L: -(L['K0'] or 0.0))
@@ -283,7 +283,7 @@ def select_trend(rv, lit):
     cs.DELTA_BIC (20). The literature companions are then added one at a time
     (largest K first), and after each the trend is re-checked: its top term
     is dropped if it is worth < DELTA_BIC, and the order raised if that gains
-    >= DELTA_BIC. Fits are companion_search's (literature priors on the
+    >= DELTA_BIC. Fits are rv_model.fit (literature priors on the
     companions, BIC from the data lnL). Returns (theta, order, steps)."""
     steps = []
     floors = lambda n: [cs.P_MIN_KNOWN_D]*n        # noqa: E731
@@ -442,7 +442,7 @@ def reference_rv_fit(system):
     by default. If that has no proper maximum (Hessian not positive definite,
     e.g. HD 89707 b: with periastron barely sampled, e and K trade off along a
     ridge), the literature-prior fit is used instead: the maximum of the
-    likelihood times companion_search's Gaussian priors on ln P, ln K and e
+    likelihood times rv_model's Gaussian priors on ln P, ln K and e
     around the published values (they enter only this RV reference model).
     Jitters stay within their bounds and are profiled to their maxima
     (`profile_jitters`); a jitter that has no effect (below 10% of its

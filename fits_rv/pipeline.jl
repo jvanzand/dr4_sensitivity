@@ -4,8 +4,8 @@
 #
 # Octofitter v9. The priors come from configs/*.toml; no literature orbital parameter ever
 # enters a prior or a starting value (PLAN.md, Section 2.6). The number of companions is
-# the count the literature reports (the census), or whatever fits_rv/companion_search.py
-# found; their orbits are blind.
+# the count the literature reports (the census), or whatever the blind RV search
+# (blind_search/rv_search.py) found; their orbits are blind.
 
 using Octofitter
 using OctofitterRadialVelocity

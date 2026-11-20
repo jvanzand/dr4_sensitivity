@@ -17,6 +17,15 @@ threshold for a companion comes from M noise-sampled datasets drawn from the
 current model (companions, trend, offsets and fitted jitter of each
 instrument, plus white noise), each refit and searched like the real data.
 
+Shortest period searched (Judah, 2026-11-20): twice the smallest mean spacing
+of any WINDOW_N = 10 consecutive RVs (all instruments pooled, sorted in time;
+`sampling_floor`). A dense run anywhere in the series makes short periods
+searchable, however long the gaps elsewhere: 99 RVs over one year and one RV a
+century later gives a floor of days, not of a year. It is never below P_MIN_D
+= 2 d (the earlier default): runs of same-night exposures (HD 160691, HD 39091,
+HD 147513) give windows of minutes, and a grid down to minutes is unaffordable
+(interim, 2026-11-20; open: bin RVs per night instead). `pmin` overrides it.
+
 No RV noise model: the noise-sampled datasets carry white noise only.
 
 Test mode:  python -I blind_search/rv_search.py --test   (a short synthetic
@@ -40,6 +49,23 @@ import model  # noqa: E402
 import search  # noqa: E402
 
 
+WINDOW_N = 10            # RVs per window of the sampling floor
+FLOOR_FACTOR = 2.0       # floor = FLOOR_FACTOR x the smallest mean spacing in a window
+P_MIN_D = 2.0            # the floor is never below this (days; interim, see the docstring)
+
+
+def sampling_floor(channels, n=WINDOW_N, factor=FLOOR_FACTOR):
+    """Shortest period the RVs can constrain: `factor` x the smallest mean
+    spacing, (t[i+n-1] - t[i])/(n-1), over every run of `n` consecutive RVs (all
+    RV channels pooled and sorted in time), and at least P_MIN_D. With fewer
+    than `n` RVs the whole series is one window."""
+    t = np.sort(np.concatenate([c.t for c in channels if c.kind == 'rv']))
+    n = min(n, len(t))
+    if n < 2:
+        raise ValueError('sampling_floor needs at least 2 RVs')
+    return max(P_MIN_D, factor*float(np.min((t[n - 1:] - t[:len(t) - n + 1])/(n - 1))))
+
+
 def amplitudes(stack, known):
     """RV semi-amplitude K (m/s) of each companion in the joint linear fit."""
     coef = stack.fit_free_jitter(stack.design(known))[0]
@@ -48,14 +74,17 @@ def amplitudes(stack, known):
             for i in range(len(known))]
 
 
-def run_rv_search(channels, executor, M=50, fap=1e-3, max_steps=12, pmin=2.0,
+def run_rv_search(channels, executor, M=50, fap=1e-3, max_steps=12, pmin=None,
                   max_trend=2, seed=0, label='', out_dir=None, truth=(),
                   verbose=True):
     """Run the search (`search.run_search` with trends up to `max_trend`).
     Returns dict(known, trend, trend_log, steps, amplitudes, periods): `steps`
     has one dict per step (peak, period, threshold, detected, trend order
     before and after, trend moves; the arrays are dropped). With `out_dir` a
-    step figure is written for each step (`truth` periods are drawn on it)."""
+    step figure is written for each step (`truth` periods are drawn on it).
+    `pmin` (days): the shortest period searched; default `sampling_floor`."""
+    if pmin is None:
+        pmin = sampling_floor(channels)
     res = search.run_search(model.Stack(channels), executor, M=M, fap=fap,
                             max_companions=max_steps, seed=seed, truth=truth,
                             label=label, out_dir=out_dir, pmin=pmin,
@@ -63,7 +92,7 @@ def run_rv_search(channels, executor, M=50, fap=1e-3, max_steps=12, pmin=2.0,
                             max_trend=max_trend)
     steps = [{k: v for k, v in st_.items() if k not in ('dbic', 'maxima')}
              for st_ in res['steps']]
-    return dict(known=res['known'], trend=res['trend'],
+    return dict(known=res['known'], trend=res['trend'], pmin=float(pmin),
                 trend_log=res['trend_log'], steps=steps,
                 amplitudes=amplitudes(res['stack'], res['known']),
                 periods=res['periods'])
@@ -82,6 +111,9 @@ def selftest():
                [[9.0, 4.0], [6.0, -5.0]], 3, base=base)
         ch = [data.Channel('rv', c.name, c.t, s.y[s.chan == i], c.err)
               for i, c in enumerate(s.channels)]
+        t = np.concatenate([np.linspace(0, 365.25, 99), [36525.0]])
+        f = sampling_floor([data.Channel('rv', 'x', t, 0*t, 1 + 0*t)])
+        assert abs(f - 2*365.25/98) < 1e-9, f       # the dense year sets it, not the century
         r = run_rv_search(ch, ex, M=10, pmin=5.0, max_steps=6, seed=1)
         Ps = sorted(p[0] for p in r['known'])
         ok = (len(Ps) == 2 and abs(Ps[0]/40 - 1) < 0.03
