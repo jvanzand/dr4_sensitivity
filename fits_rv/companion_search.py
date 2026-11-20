@@ -77,7 +77,8 @@ import names
 
 DELTA_BIC = 20.0     # raised from 10 on 2026-11-06 (Judah), after the first pilot searches
 JITTER_BOUNDS = (0.1, 30.0)          # m/s, as in the MCMC prior
-E_MAX = 0.99
+E_MAX = 0.99                         # the prior on e >= E_MAX is zero (Judah, 2026-11-20)
+E_WALL = 1e6                         # steepness of the wall in `neg_lnL` that enforces it
 P_MIN_SEARCH_D = 1.0                 # extra-companion search floor (decided 2026-11-06)
 PERIOD_CAP_BASELINES = 2.0            # blind period cap in RV baselines (2026-11-09; was 3)
 E_BLIND_MAX = 0.7                    # eccentricity cap for blind companions (2026-11-09)
@@ -187,8 +188,22 @@ def neg_lnL(theta, data, npl, tord, return_parts=False):
     for d, idx in enumerate(data.members):
         off[d] = np.sum(w[idx]*r[idx])/np.sum(w[idx])
     res = r - off[data.ds]
-    nll = 0.5*np.sum(res**2*w + np.log(2*np.pi*var))
+    nll = 0.5*np.sum(res**2*w + np.log(2*np.pi*var)) + E_WALL*e_excess(theta, npl)
     return (nll, off, res) if return_parts else nll
+
+
+def e_excess(theta, npl):
+    """Sum over companions of (e - E_MAX)^2 where e > E_MAX. The Keplerian clips e
+    at E_MAX, so without a wall the likelihood is flat beyond it and a poorly
+    constrained companion drifts there (HD 191939 g reached e = 1.002); the wall
+    (E_WALL x this, in `neg_lnL`) makes e > E_MAX impossible in every fit, and
+    `cap_e` moves a fit's final values strictly below E_MAX. Zero for any valid
+    fit, so data lnL and BIC are unchanged."""
+    tot = 0.0
+    for j in range(npl):
+        k = PARAMS_PER_PLANET*j
+        tot += max(theta[k + 2]**2 + theta[k + 3]**2 - E_MAX, 0.0)**2
+    return tot
 
 
 def bounds_for(npl, tord, nds, floors, pmax, p_hi=None):
@@ -229,14 +244,17 @@ def ecc_penalty(theta, n_lit, npl):
     return tot
 
 
-def cap_blind_e(theta, n_lit, npl):
-    """Rescale (sqrt(e) cos w, sqrt(e) sin w) of any blind companion above the cap onto it."""
+def cap_e(theta, n_lit, npl):
+    """Rescale (sqrt(e) cos w, sqrt(e) sin w) onto the cap of any companion above it:
+    E_BLIND_MAX for blind companions (those after the first `n_lit`), just below
+    E_MAX for the others (the prior on e >= E_MAX is zero)."""
     theta = theta.copy()
-    for j in range(n_lit, npl):
+    for j in range(npl):
         k = PARAMS_PER_PLANET*j
+        cap = E_BLIND_MAX if j >= n_lit else E_MAX*(1 - 1e-6)
         e = theta[k + 2]**2 + theta[k + 3]**2
-        if e > E_BLIND_MAX:
-            theta[k + 2:k + 4] *= math.sqrt(E_BLIND_MAX/e)
+        if e > cap:
+            theta[k + 2:k + 4] *= math.sqrt(cap/e)
     return theta
 
 
@@ -252,7 +270,7 @@ def fit(theta0, data, npl, tord, floors, pri=None):
                    method='L-BFGS-B',
                    bounds=bounds_for(npl, tord, data.nds, floors, data.pmax, p_hi),
                    options={'maxiter': 400, 'maxfun': 20000})
-    th = cap_blind_e(res.x, len(pri), npl)
+    th = cap_e(res.x, len(pri), npl)
     return th, -neg_lnL(th, data, npl, tord)
 
 

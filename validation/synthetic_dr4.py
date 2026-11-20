@@ -496,6 +496,7 @@ def reference_rv_fit(system):
             x = profile_jitters(f, x, k, rv.nds, lo, hi)
             phi = polish_scaled(fl, to_lambda(x, n), hold)
         phi[k:] = np.clip(phi[k:], lo, hi)
+        phi = to_lambda(cs.cap_e(from_lambda(phi, n), n, n), n)     # e < E_MAX (zero prior beyond)
         # Uncertainty estimate: a jitter still at either bound is held (no curvature there),
         # and so is every literature companion the RVs do not detect (Delta-BIC < 20 for
         # removing it; Judah, 2026-11-17)
@@ -728,11 +729,13 @@ def draw_truth(fit, host, mstar, rng):
     """One ground-truth system: RV-based parameters drawn from the reference
     fit's inverse-Hessian Gaussian, inclination and Omega drawn at random, derived
     masses and astrometric sizes, and the fixed host values."""
-    while True:
+    for _ in range(100000):                  # the prior on e >= E_MAX is zero: redraw
         th = from_lambda(rng.multivariate_normal(fit['phi'], fit['cov']), fit['npl'])
         pl = cs.unpack(th, fit['npl'], fit['tord'], fit['rv'].nds)[0]
         if all(p[2]**2 + p[3]**2 < cs.E_MAX for p in pl):
             break
+    else:
+        raise RuntimeError(f"{fit['system']}: no draw with every e < {cs.E_MAX} in 100000 tries")
     rows = planet_rows(th, None, fit)
     tref_mjd = fit['rv'].tref - BJD_MJD
     comps = []
