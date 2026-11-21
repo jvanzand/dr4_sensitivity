@@ -58,16 +58,39 @@ def fit_system(system):
     return sd.reference_rv_fit(system)
 
 
+CUT_WORDS = {                     # census cut failed -> what is true of the companion
+    'M sin i or mass from a usable solution': 'no usable mass',
+    'M sin i (or true mass) <= 80.0 M_J': 'M sin i > 80 M_J',
+    'SMA <= 5.0 AU': 'SMA > 5 AU',
+    'stellar mass and distance known': 'no stellar mass or distance',
+}
+
+
+def describe(fit, j):
+    """Plain-words description of companion j of a fit: (name, what it is)."""
+    lit = fit['lit']
+    if j >= len(lit):
+        return ('Long-period Keplerian', 'fitted to RV curvature the known companions do not explain; '
+                'not a known companion')
+    L = lit[j]
+    if L.get('context'):
+        why = CUT_WORDS.get(L.get('cut_reason'), L.get('cut_reason'))
+        return (L['name'], f'known companion, left out of our sample ({why})')
+    return (L['name'], 'known companion in our sample')
+
+
 def summarize(fit):
     """A JSON-ready summary of a fit."""
     import rv_model as cs
     th, P = fit['theta'], cs.PARAMS_PER_PLANET
     support = {s['index']: s['dBIC_drop'] for s in fit['support']}
     comps = []
-    for j, L in enumerate(fit['lit'] + [{'name': 'long-period Keplerian (extra)'}]*fit['n_extra']):
+    for j, L in enumerate(fit['lit'] + [{}]*fit['n_extra']):
         k = P*j
-        comps.append(dict(name=L['name'], role=('extra' if j >= len(fit['lit']) else
-                                                 'context' if L.get('context') else 'sample'),
+        name, what = describe(fit, j)
+        comps.append(dict(name=name, description=what,
+                          role=('extra' if j >= len(fit['lit']) else
+                                'context' if L.get('context') else 'sample'),
                           P_d=float(np.exp(th[k])), P_lit_d=L.get('P0'), K_ms=float(np.exp(th[k + 1])),
                           e=float(th[k + 2]**2 + th[k + 3]**2), dBIC_drop=support.get(j)))
     jit = np.exp(th[-fit['rv'].nds:])
@@ -94,7 +117,6 @@ def plot_fit(fit, path):
     matplotlib.rc_file(os.path.join(ROOT, 'matplotlibrc'))
     rv, th, n, tord = fit['rv'], fit['theta'], fit['npl'], fit['tord']
     P = cs.PARAMS_PER_PLANET
-    names = [L['name'] for L in fit['lit']] + ['long-period Keplerian (extra)']*fit['n_extra']
     _, off, res = cs.neg_lnL(th, rv, n, tord, True)
     comp = lambda t, j: cs.keplerian(t, rv.tref, *th[P*j:P*(j + 1)])     # noqa: E731
     y = rv.rv - off[rv.ds]
@@ -115,20 +137,25 @@ def plot_fit(fit, path):
         ax[0].errorbar(yr(rv.t[idx]), y[idx], e, label=f'{lab} (N={len(idx)}, jitter {jit:.1f} m/s)', **kw)
         ax[1].errorbar(yr(rv.t[idx]), y_long[idx], e, label=lab, **kw)
         ax[2].errorbar(yr(rv.t[idx]), res[idx], e, label=lab, **kw)
-    ax[0].plot(yr(tm), cs.model_rv(th, sd.grid_for(tm, rv), n, tord), 'k-', lw=0.6,
-               label='full model', zorder=5)
-    ax[0].set(ylabel='RV - offset (m/s)', title=f"(a) {fit['system']}: RVs (nightly bins) and the reference RV fit")
-    ax[1].plot(yr(tm), sum((comp(tm, j) for j in long_j), 0*tm) + trend(tm), 'k-', lw=2,
-               label='long-period companions' + (f' + trend (order {tord})' if tord else ''), zorder=5)
+    trend_words = {1: 'linear trend', 2: 'quadratic trend'}.get(tord)
+    ax[0].plot(yr(tm), cs.model_rv(th, sd.grid_for(tm, rv), n, tord), 'k-', lw=0.6, zorder=5,
+               label=f"model: {len(fit['lit'])} known companions" + (' + 1 long-period Keplerian' if fit['n_extra'] else '')
+               + (f' + {trend_words}' if tord else ''))
+    ax[0].set(ylabel='RV - offset (m/s)',
+              title=f"(a) {fit['system']}: RVs (one point per night and instrument) and the reference RV fit")
+    parts = ([' + '.join(describe(fit, j)[0] for j in long_j)] if long_j else []) + ([trend_words] if tord else [])
+    ax[1].plot(yr(tm), sum((comp(tm, j) for j in long_j), 0*tm) + trend(tm), 'k-', lw=2, zorder=5,
+               label='model: ' + (' + '.join(parts) if parts else 'nothing (no companion with P > 2000 d, no trend)'))
     for i, j in enumerate(long_j):
-        role = 'extra' if j >= len(fit['lit']) else ('context' if fit['lit'][j].get('context') else 'sample')
+        name, what = describe(fit, j)
         ax[1].plot(yr(tm), comp(tm, j), ['--', ':'][i % 2], color='0.35', lw=2,
-                   label=f'{names[j]} ({role}): P {np.exp(th[P*j]):.0f} d, K {np.exp(th[P*j + 1]):.1f} m/s, '
+                   label=f'{name}, {what}: P {np.exp(th[P*j]):.0f} d, K {np.exp(th[P*j + 1]):.1f} m/s, '
                          f'e {th[P*j + 2]**2 + th[P*j + 3]**2:.2f}')
-    ax[1].set(ylabel='RV - offset - companions with P < 2000 d (m/s)',
-              title='(b) The long-period signal (companions with P < 2000 d removed)')
+    ax[1].set(ylabel='RV - offset - (companions with P < 2000 d) (m/s)',
+              title='(b) RVs minus the model of the companions with P < 2000 d')
     ax[2].axhline(0, color='0.5', lw=1, gid='guide')
-    ax[2].set(xlabel='year', ylabel='residual (m/s)', title='(c) Residuals (error bars include jitter)')
+    ax[2].set(xlabel='year', ylabel='RV - model (m/s)', title='(c) Residuals: RVs minus the full model '
+              '(error bars include each instrument\'s fitted jitter)')
     for a, v in ((ax[1], y_long), (ax[2], res)):
         lo, hi = np.percentile(v, [0.5, 99.5])
         a.set_ylim(lo - 0.15*(hi - lo), hi + 0.15*(hi - lo))
@@ -169,8 +196,8 @@ def _run_one(system, out, figures):
     return dict(system=system, status=status, minutes=round((time.time() - t0)/60, 1),
                 n_rv=s and s['n_rv'], kind=s and s['kind'], trend_order=s and s['trend_order'],
                 n_extra=s and s['n_extra'],
-                companions=s and '; '.join(f"{c['name']} ({c['role']}) P {c['P_d']:.1f} K {c['K_ms']:.1f}"
-                                           for c in s['companions']))
+                companions=s and '; '.join(f"{c['name']} [{c['description']}] P {c['P_d']:.1f} d, "
+                                           f"K {c['K_ms']:.1f} m/s" for c in s['companions']))
 
 
 def progress(done, total, last='', width=30):

@@ -41,6 +41,7 @@ FLAME_BOUNDS_FILE = os.path.join(RAW_DIR, 'gaia_dr3_flame_bounds.csv')
 STANDIN_FILE = os.path.join(HERE, 'st_mass_err_standin.csv')
 LIT_FILE = os.path.join(HERE, 'raw_lit', 'literature_companions.csv')
 CUT_FILE = os.path.join(HERE, 'census_cut_companions.csv')     # cut companions of census hosts
+MANUAL_FILE = os.path.join(HERE, 'manual_companions.csv')      # known companions missing from our sources
 REVIEW_FILE = os.path.join(HERE, 'raw_lit', 'review_planet_regime.csv')
 
 ## Literature tiers (set in literature.py) whose sub-13 M_J entries need NEA vetting
@@ -742,9 +743,60 @@ def build_census():
     ## the sample, but the assisted RV fit of a system puts them back in (no period or SMA
     ## limit), so its baseline RV model is complete. cut_reason = the first cut failed.
     cut = df[~keep & df.hostname.isin(set(sample.hostname))].assign(cut_reason=cut_reason[~keep])
+    man = manual_companions(sample, out_cols)
+    if len(man):                                  # keep integer and boolean columns as they were
+        kinds = cut.dtypes
+        cut = pd.concat([cut, man], ignore_index=True)
+        for c, k in kinds.items():
+            if k == bool:
+                cut[c] = cut[c].astype('boolean')
+            elif pd.api.types.is_integer_dtype(k):
+                cut[c] = cut[c].astype('Int64')
     cut[out_cols + ['cut_reason']].sort_values(['hostname', 'period_d']).to_csv(
         CUT_FILE, index=False)
     return df, sample, cutflow, n_lit_dup
+
+
+def manual_companions(sample, out_cols):
+    """Companions known from the literature but absent from the NEA and from our
+    survey tables (sample/manual_companions.csv; Judah, 2026-11-20: e.g. HD 94340's
+    6.84 d companion, M sin i 90 M_J, which raw_lit/barbato_2023/build.py drops),
+    treated as if they were on the NEA: the companion cuts apply (M sin i <= 80 M_J,
+    SMA <= 5 AU), and one that fails a cut joins the cut table, so the assisted RV
+    fit includes it. Host columns come from the host's census row. A manual
+    companion that passes every cut would belong in the sample itself, which this
+    route does not handle: it raises."""
+    if not os.path.exists(MANUAL_FILE):
+        return pd.DataFrame(columns=out_cols + ['cut_reason'])
+    host_cols = ['st_mass', 'st_mass_source', 'dist_pc', 'dist_source', 'G', 'abs_G', 'G_source',
+                 'gaia_match', 'source_id', 'ruwe', 'non_single_star', 'sy_gaiamag', 'sy_vmag',
+                 'parallax', 'sy_plx', 'st_mass_err', 'st_mass_err_source']
+    rows = []
+    for _, m in pd.read_csv(MANUAL_FILE).iterrows():
+        hosts = sample[sample.hostname == m.hostname]
+        if hosts.empty:
+            continue                                          # host not in the census
+        h = hosts.iloc[0]
+        r = {c: np.nan for c in out_cols}
+        r.update({c: h[c] for c in host_cols})
+        r.update(pl_name=m.pl_name, hostname=m.hostname, catalog='manual', tran_flag=0, pl_controv_flag=0,
+                 catalog_status='manual (not in the NEA or our survey tables)',
+                 discoverymethod='Radial Velocity', fit_type='RV-only', mass_source='RV-only',
+                 pl_refname=m.pl_refname, period_d=m.period_d, period_err_d=m.period_err_d,
+                 period_err_filled_d=m.period_err_d, period_err_source='published',
+                 pl_orbeccen=m.pl_orbeccen, K_ms=m.K_ms, omega_deg=m.omega_deg,
+                 Tp_bjd_tdb=m.Tp_bjd_tdb, mass_mj=m.mass_mj, mass_type=m.mass_type,
+                 mass_err_mj=m.mass_err_mj, mass_err_source='published', sma_au=m.sma_au,
+                 sma_source='published')
+        if not m.mass_mj <= MSINI_MAX_MJ:
+            r['cut_reason'] = f'M sin i (or true mass) <= {MSINI_MAX_MJ} M_J'
+        elif not m.sma_au <= SMA_MAX_AU:
+            r['cut_reason'] = f'SMA <= {SMA_MAX_AU} AU'
+        else:
+            raise ValueError(f'{m.pl_name} passes every companion cut: add it to the sample, '
+                             f'not to {os.path.basename(MANUAL_FILE)}')
+        rows.append(r)
+    return pd.DataFrame(rows, columns=out_cols + ['cut_reason'])
 
 
 def tables(sample):
