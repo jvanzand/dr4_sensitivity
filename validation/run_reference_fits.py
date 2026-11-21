@@ -175,6 +175,9 @@ def plot_fit(fit, path):
 def _run_one(system, out, figures):
     """Worker: fit one system, its output going to <system>.log."""
     t0 = time.time()
+    for suffix in ('_fit.pkl', '_summary.json', '_rv.png'):      # no stale results from an earlier run
+        if os.path.exists(os.path.join(out, system + suffix)):
+            os.remove(os.path.join(out, system + suffix))
     with open(os.path.join(out, f'{system}.log'), 'w') as log, contextlib.redirect_stdout(log), \
             contextlib.redirect_stderr(log):
         try:
