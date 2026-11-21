@@ -111,7 +111,7 @@ def host_astrometry(source_id):
 EXCLUDED_RVS = os.path.join(HERE, 'excluded_rvs.csv')   # log of RVs left out, per system (in git)
 
 
-def load_rvs(path, system):
+def load_rvs(path, system, nightly=True):
     """The system's RVs (junk flags applied)
     minus the points listed for it in validation/excluded_rvs.csv (matched by
     dataset and BJD_TCB within 1e-4 d). Returns (RVData, number excluded)."""
@@ -128,7 +128,10 @@ def load_rvs(path, system):
                 raise ValueError(f'{system}: excluded RV at BJD {r.bjd_tcb} matches {hit.sum()} rows')
             drop |= hit
         t, n_ex = t[~drop], int(drop.sum())
-    return cs.RVData(t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy()), n_ex
+    cols = (t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy())
+    if nightly:                          # one point per night and dataset (Judah, 2026-11-20)
+        cols = cs.bin_nightly(*cols)
+    return cs.RVData(*cols), n_ex
 
 
 def rv_table(system):
@@ -925,7 +928,8 @@ def make_system(system, seed, fig=True, force=False):
                  reference_fit=dict(planets=rows, lnL=fit['lnL'], trend_order=fit['tord'],
                                     trend_coefs=[float(c) for c in coefs],
                                     trend_steps=fit['trend_steps'],
-                                    n_rv_excluded=fit['n_rv_excluded'],
+                                    n_rv_excluded=fit['n_rv_excluded'], rv_binned_nightly=True,
+                                    n_rv_points=int(fit['rv'].n),
                                     jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
                                     rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
                                     hessian_held_fixed=[int(i) for i in fit['held_fixed']],
@@ -947,7 +951,7 @@ def fit_from_truth(truth):
     with its RV data: enough to redraw the figure without refitting."""
     ref = truth['reference_fit']
     path = rv_table(truth['system'])
-    rv = load_rvs(path, truth['system'])[0]
+    rv = load_rvs(path, truth['system'], nightly=ref.get('rv_binned_nightly', False))[0]   # as fitted
     lit = literature_sorted(os.path.basename(path).split('_')[0])
     return dict(rv=rv, lit=lit, npl=len(lit) + ref.get('n_extra', 0), n_extra=ref.get('n_extra', 0),
                 tord=ref['trend_order'],
