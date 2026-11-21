@@ -12,11 +12,11 @@ on the nightly-binned RVs. This script runs it per system and saves, in
   <system>_rv.png       RVs, model, long-period part, residuals (with --figures)
   summary.csv           one row per system: status, N_RV, companions, trend
 
-Usage (from the project root):
-  python -I validation/run_reference_fits.py                     # every system in rv_data/systems/
-  python -I validation/run_reference_fits.py HD111232 HD160691   # chosen systems
-  python -I validation/run_reference_fits.py --jobs 4 --figures
-  python -I validation/run_reference_fits.py --dry-run           # list what would run (local test mode)
+Usage: set SYSTEMS, JOBS, FIGURES and OUT in the `if __name__ == '__main__':` block
+at the bottom, then run the module from the project root:
+  python -I validation/run_reference_fits.py
+  python -I validation/run_reference_fits.py --dry-run    # list what would run (local test mode)
+A progress bar counts the finished systems.
 
 Interactive use:
   import sys; sys.path.insert(0, 'validation')
@@ -166,35 +166,47 @@ def _run_one(system, out, figures):
                                            for c in s['companions']))
 
 
-def main(argv):
-    import argparse
+def progress(done, total, last='', width=30):
+    """One-line progress bar, redrawn in place: [#####-----] done/total."""
+    n = int(width*done/total)
+    sys.stdout.write(f"\r[{'#'*n}{'-'*(width - n)}] {done}/{total} finished  {last:<50.50s}")
+    sys.stdout.flush()
+
+
+def run(systems, jobs, out, figures):
+    """Fit `systems` in parallel (`jobs` at a time) into `out`, with a progress
+    bar; writes summary.csv and returns its rows."""
     from concurrent.futures import ProcessPoolExecutor, as_completed
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('systems', nargs='*', help='system keys (default: every RV table in rv_data/systems/)')
-    ap.add_argument('--jobs', type=int, default=max(1, (os.cpu_count() or 2) - 1), help='parallel fits')
-    ap.add_argument('--out', default=OUT_DIR)
-    ap.add_argument('--figures', action='store_true', help='draw <system>_rv.png per system')
-    ap.add_argument('--dry-run', action='store_true', help='list the systems and outputs, fit nothing')
-    a = ap.parse_args(argv)
-    systems = a.systems or all_systems()
-    unknown = sorted(set(systems) - set(all_systems()))
-    if unknown:
-        sys.exit(f'no RV table in rv_data/systems/ for {unknown}')
-    print(f'{len(systems)} systems, {min(a.jobs, len(systems))} at a time -> {a.out}: {" ".join(systems)}')
-    if a.dry_run:
-        return
-    os.makedirs(a.out, exist_ok=True)
+    import pandas as pd
+    os.makedirs(out, exist_ok=True)
     rows = []
-    with ProcessPoolExecutor(min(a.jobs, len(systems))) as ex:
-        futs = {ex.submit(_run_one, s, a.out, a.figures): s for s in systems}
+    progress(0, len(systems))
+    with ProcessPoolExecutor(min(jobs, len(systems))) as ex:
+        futs = [ex.submit(_run_one, s, out, figures) for s in systems]
         for f in as_completed(futs):
             r = f.result()
             rows.append(r)
-            print(f"{r['system']:10s} {r['status'][:70]:70s} {r['minutes']:5.1f} min", flush=True)
-    import pandas as pd
-    pd.DataFrame(sorted(rows, key=lambda r: r['system'])).to_csv(os.path.join(a.out, 'summary.csv'), index=False)
-    print(f"wrote {os.path.join(a.out, 'summary.csv')}")
+            progress(len(rows), len(systems), f"{r['system']}: {r['status'][:30]} ({r['minutes']} min)")
+    print()
+    rows.sort(key=lambda r: r['system'])
+    for r in rows:
+        print(f"{r['system']:10s} {r['status'][:70]:70s} {r['minutes']:5.1f} min")
+    pd.DataFrame(rows).to_csv(os.path.join(out, 'summary.csv'), index=False)
+    print(f"wrote {os.path.join(out, 'summary.csv')}")
+    return rows
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    ## Settings
+    SYSTEMS = all_systems()              # or e.g. ['HD111232', 'HD160691']
+    JOBS = max(1, (os.cpu_count() or 2) - 1)   # fits running at once
+    FIGURES = True                       # draw <system>_rv.png per system
+    OUT = OUT_DIR                        # validation/results/reference_fits/
+    DRY_RUN = '--dry-run' in sys.argv    # list what would run, fit nothing
+
+    unknown = sorted(set(SYSTEMS) - set(all_systems()))
+    if unknown:
+        sys.exit(f'no RV table in rv_data/systems/ for {unknown}')
+    print(f'{len(SYSTEMS)} systems, {min(JOBS, len(SYSTEMS))} at a time -> {OUT}: {" ".join(SYSTEMS)}')
+    if not DRY_RUN:
+        run(SYSTEMS, JOBS, OUT, FIGURES)
