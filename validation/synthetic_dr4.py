@@ -319,6 +319,40 @@ def select_trend(rv, lit):
     return theta, tord, steps
 
 
+TREND_REPLACES_LONG = False     # option (Judah, 2026-11-20): may a trend replace a known companion with P > RV span?
+
+
+def replace_long_by_trend(rv, lit, theta, tord):
+    """Judah, 2026-11-20 (option, `TREND_REPLACES_LONG`): a known companion
+    whose literature period exceeds the RV span may be replaced by a polynomial
+    trend. For each such companion (longest period first), the model without
+    it is rebuilt by `select_trend` (trend order at least 1: the trend stands
+    for the companion) and replaces the current one if its BIC (data lnL) is
+    lower. The replaced companion then enters the truth only through the trend
+    (drawn as a trend companion), not as a target. Returns (lit, theta, tord,
+    steps, tests)."""
+    floors = lambda n: [cs.P_MIN_KNOWN_D]*n        # noqa: E731
+    tests, steps = [], None
+    for L in sorted([L for L in lit if (L['P0'] or 0) > rv.span], key=lambda L: -L['P0']):
+        n = len(lit)
+        bic_full = float(cs.bic(-cs.neg_lnL(theta, rv, n, tord), n, tord, rv))
+        lit_r = [M for M in lit if M is not L]
+        th_r, t_r, st_r = select_trend(rv, lit_r)
+        if t_r == 0:
+            th_r, _ = cs.fit(cs.seed_trend(th_r, n - 1, 0, 1, rv), rv, n - 1, 1, floors(n - 1), lit_r)
+            t_r = 1
+        bic_r = float(cs.bic(-cs.neg_lnL(th_r, rv, n - 1, t_r), n - 1, t_r, rv))
+        adopt = bic_r < bic_full
+        tests.append(dict(name=L['name'], P_lit_d=float(L['P0']), span_d=float(rv.span),
+                          bic_with_companion=bic_full, bic_trend=bic_r, trend_order=int(t_r),
+                          adopted=bool(adopt)))
+        print(f"{L['name']} (P {L['P0']:.0f} d > RV span {rv.span:.0f} d): trend of order {t_r} instead, "
+              f"BIC {bic_r:.1f} vs {bic_full:.1f} with it: {'replaced' if adopt else 'kept'}")
+        if adopt:
+            lit, theta, tord, steps = lit_r, th_r, t_r, st_r
+    return lit, theta, tord, steps, tests
+
+
 def profile_jitters(f, th, k, nds, lo, hi, rounds=3):
     """Each dataset's ln jitter set to its maximum of -f with everything else
     held (bounded 1-D search in [lo, hi]), `rounds` times over all datasets.
@@ -424,7 +458,7 @@ def planet_support(f, phi, n, n_lit, tord, rv, bnds):
     return out
 
 
-def reference_rv_fit(system):
+def reference_rv_fit(system, trend_replaces_long=None):
     """Fit of the literature companions (+ a trend chosen by `select_trend`) to
     the system's RVs, and its uncertainty estimate (inverse Hessian). Maximum likelihood (no priors)
     by default. If that has no proper maximum (Hessian not positive definite,
@@ -442,8 +476,13 @@ def reference_rv_fit(system):
     rv, n_ex = load_rvs(path, system)
     lit = literature_sorted(sid)
     th0, trend_order, trend_steps = select_trend(rv, lit)
-    n_extra, extra = 0, None
-    if trend_order >= 1:                     # is the trend one long-period Keplerian? (Judah, 2026-11-17)
+    n_extra, extra, replaced = 0, None, []
+    if TREND_REPLACES_LONG if trend_replaces_long is None else trend_replaces_long:
+        lit, th0, trend_order, st, replaced = replace_long_by_trend(rv, lit, th0, trend_order)
+        trend_steps = st or trend_steps
+    # is the trend one long-period Keplerian? (Judah, 2026-11-17). Not asked when a known
+    # companion was just replaced by the trend: that test already chose between the two.
+    if trend_order >= 1 and not any(r['adopted'] for r in replaced):
         extra = long_period_keplerian(rv, lit, th0, trend_order)
         print(f"{system}: long-period Keplerian (P {extra['P_d']/365.25:.1f} yr, K {extra['K_ms']:.3g} m/s, "
               f"e {extra['e']:.2f}, trend order {extra['tord']}) BIC {extra['bic_keplerian']:.1f} vs trend "
@@ -531,7 +570,7 @@ def reference_rv_fit(system):
     return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
                 theta=theta, phi=phi, lnL=-data_nll(theta), cov=cov, held_fixed=flat, kind=kind,
                 trend_steps=trend_steps, n_rv_excluded=n_ex, n_extra=n_extra, extra_test=extra,
-                support=support)
+                support=support, replaced_by_trend=replaced)
 
 
 def planet_rows(theta, cov, fit):

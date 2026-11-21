@@ -52,10 +52,12 @@ def all_systems():
     return sorted(f.split('_', 1)[1][:-4].replace('-', '') for f in os.listdir(RV_DIR) if f.endswith('.csv'))
 
 
-def fit_system(system):
-    """The reference RV fit of one system (prints its progress)."""
+def fit_system(system, trend_replaces_long=None):
+    """The reference RV fit of one system (prints its progress).
+    trend_replaces_long: may a trend replace a known companion whose period
+    exceeds the RV span (None: synthetic_dr4.TREND_REPLACES_LONG)?"""
     import synthetic_dr4 as sd
-    return sd.reference_rv_fit(system)
+    return sd.reference_rv_fit(system, trend_replaces_long)
 
 
 CUT_WORDS = {                     # census cut failed -> what is true of the companion
@@ -96,6 +98,7 @@ def summarize(fit):
     jit = np.exp(th[-fit['rv'].nds:])
     return dict(system=fit['system'], kind=fit['kind'], n_rv=int(fit['rv'].n), trend_order=int(fit['tord']),
                 n_extra=int(fit['n_extra']), lnL=float(fit['lnL']), companions=comps,
+                replaced_by_trend=fit.get('replaced_by_trend', []),
                 jitter_ms=dict(zip(map(str, fit['rv'].names), map(float, jit))),
                 jitter_at_bound=[str(n) for n, j in zip(fit['rv'].names, jit) if j < 0.11 or j > 29.9])
 
