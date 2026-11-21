@@ -196,7 +196,19 @@ def run(systems, jobs, out, figures):
     return rows
 
 
+PROJECT_PYTHON = os.path.expanduser('~/opt/anaconda3/envs/gaia_dr4_sensitivity/bin/python')
+
+
 if __name__ == '__main__':
+    ## The project environment (Python 3.14): run from any other Python (e.g. the base
+    ## Anaconda 3.7, whose scipy fails in the worker processes), the module restarts itself
+    ## with the project interpreter
+    if sys.version_info < (3, 12):
+        if os.path.exists(PROJECT_PYTHON):
+            print(f'restarting with {PROJECT_PYTHON} (this is Python {sys.version.split()[0]})', flush=True)
+            os.execv(PROJECT_PYTHON, [PROJECT_PYTHON, '-I', os.path.abspath(__file__), *sys.argv[1:]])
+        sys.exit(f'needs the gaia_dr4_sensitivity environment (Python 3.14); this is {sys.executable}')
+
     ## Settings
     SYSTEMS = all_systems()              # or e.g. ['HD111232', 'HD160691']
     JOBS = max(1, (os.cpu_count() or 2) - 1)   # fits running at once
