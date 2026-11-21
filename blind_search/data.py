@@ -155,6 +155,26 @@ def read_rv_table(path, system=None, nightly=True):
     return (*cols, n_ex)
 
 
+SMALL_DATASET_MAX = 5      # Judah, 2026-11-20: datasets of <= this many RVs, isolated in time, are flagged
+
+
+def small_isolated_datasets(t, dataset, nmax=SMALL_DATASET_MAX):
+    """Datasets with <= nmax RVs whose time range [first, last] meets no other
+    dataset's range (Judah, 2026-11-20): with a free offset, such a dataset is
+    tied to the others only through the model, so it can bend a long-period
+    signal (e.g. HD 168443's three CORAVEL RVs, 1984-1994). Flagged for
+    review, not dropped. Returns a list of dicts (dataset, n, first, last;
+    times as given)."""
+    t, dataset = np.asarray(t, float), np.asarray(dataset)
+    rng = {d: (t[dataset == d].min(), t[dataset == d].max()) for d in np.unique(dataset)}
+    out = []
+    for d, (a, b) in rng.items():
+        n = int((dataset == d).sum())
+        if n <= nmax and not any(a2 <= b and a <= b2 for d2, (a2, b2) in rng.items() if d2 != d):
+            out.append(dict(dataset=str(d), n=n, first=float(a), last=float(b)))
+    return out
+
+
 def load_rv_project(path, system=None, nightly=True):
     """A project RV table as search channels (one per dataset; times MJD), read by
     `read_rv_table` (junk flags, exclusions, nightly binning)."""
