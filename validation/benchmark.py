@@ -107,8 +107,10 @@ def match(found, truth, tol):
     tol). The trend companion (role 'trend', which stands in for the RV
     trend) is not a target and is never matched: the search models such a
     signal with trend terms (acceleration, jerk), reported by
-    `trend_summary`. Returns (rows per injected companion, unmatched
-    detections)."""
+    `trend_summary`. A context companion (role 'context': known, but cut
+    from the sample, e.g. SMA > 5 AU) is matched like a target, so finding it
+    is not a spurious detection, but it is not counted as a target. Returns
+    (rows per injected companion, unmatched detections)."""
     left = list(range(len(found)))
     rows = []
     for c in sorted(truth['companions'], key=lambda c: -c['derived']['a_star_mas']):

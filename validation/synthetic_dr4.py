@@ -469,7 +469,11 @@ def reference_rv_fit(system):
                          [max(rv.pmax, 2*L['P0']) for L in lit] + [P_EXTRA_MAX_D]*n_extra)
     k = cs.PARAMS_PER_PLANET*n + trend_order
     lo, hi = np.log(cs.JITTER_BOUNDS)
-    data_nll = lambda x: cs.neg_lnL(x, rv, n, trend_order)      # noqa: E731
+    ks_extra = range(cs.PARAMS_PER_PLANET*len(lit), cs.PARAMS_PER_PLANET*n, cs.PARAMS_PER_PLANET)
+
+    def data_nll(x):         # the long-period Keplerian keeps e <= EXTRA_E_MAX, as in its test
+        wall = sum(1e5*max(x[k + 2]**2 + x[k + 3]**2 - EXTRA_E_MAX, 0.0)**2 for k in ks_extra)
+        return cs.neg_lnL(x, rv, n, trend_order) + wall
     for kind, f in (('maximum likelihood', data_nll),
                     ('literature-prior fit (maximum likelihood had no proper maximum)',
                      lambda x: data_nll(x) + cs.prior_penalty(x, lit))):
@@ -496,7 +500,12 @@ def reference_rv_fit(system):
             x = profile_jitters(f, x, k, rv.nds, lo, hi)
             phi = polish_scaled(fl, to_lambda(x, n), hold)
         phi[k:] = np.clip(phi[k:], lo, hi)
-        phi = to_lambda(cs.cap_e(from_lambda(phi, n), n, n), n)     # e < E_MAX (zero prior beyond)
+        x = cs.cap_e(from_lambda(phi, n), n, n)                     # e < E_MAX (zero prior beyond)
+        for k_ in ks_extra:                                         # and the extra one <= EXTRA_E_MAX
+            e_ = x[k_ + 2]**2 + x[k_ + 3]**2
+            if e_ > EXTRA_E_MAX:
+                x[k_ + 2:k_ + 4] *= math.sqrt(EXTRA_E_MAX/e_)
+        phi = to_lambda(x, n)
         # Uncertainty estimate: a jitter still at either bound is held (no curvature there),
         # and so is every literature companion the RVs do not detect (Delta-BIC < 20 for
         # removing it; Judah, 2026-11-17)
@@ -515,6 +524,11 @@ def reference_rv_fit(system):
         # the long-period Keplerian stands in for the trend (not a target, like the trend
         # companion): its parameters are held fixed too (it may sit at a period bound)
         hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*len(lit), cs.PARAMS_PER_PLANET*n)))
+        # so are the context companions (known but cut from the sample, e.g. HD 111232 c at
+        # P ~ 32,000 d, whose orbit the RVs barely constrain; Judah, 2026-11-20): not targets
+        for j, L in enumerate(lit):
+            if L.get('context'):
+                hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*j, cs.PARAMS_PER_PLANET*(j + 1))))
         weak = [sp['name'] for sp in support if not sp['detected']]
         if weak:
             print(f'{system}: not detected by the RVs (Delta-BIC < {cs.DELTA_BIC:g}), held fixed: {weak}')
@@ -760,6 +774,9 @@ def draw_truth(fit, host, mstar, rng):
             comps[-1].update(role='trend', trend=dict(
                 kind='keplerian', order=0, test=fit.get('extra_test'),
                 injected='orbit minus its offset and velocity at J2016.0 (see companion_sky)'))
+        elif fit['lit'][j].get('context'):  # known, but cut from the sample (Judah, 2026-11-20):
+            comps[-1].update(role='context',  # injected and matchable, not scored as a target
+                             cut_reason=fit['lit'][j].get('cut_reason'))
     import re
     host_name = re.sub(r'^.*\[\S+ (.+)\]$', r'\1', rows[0]['name']).rsplit(' ', 1)[0]
     tc = draw_trend_companion(fit, th, host, mstar, rng, f'{host_name} trend companion')

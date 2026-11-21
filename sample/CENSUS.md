@@ -30,6 +30,9 @@ Outputs:
     example hosts per bar. NEA studies with fewer than 15 companions and none
     recoverable are summed in one row, literature sources are grouped by tier, and bars
     are cut at 70 with the full count printed.
+- `census_cut_companions.csv`: companions of census hosts that fail a cut (column `cut_reason`; mostly
+  SMA > 5 AU). Not in the sample; the assisted RV fit of a fit-set system adds them back so its
+  baseline RV model has every known companion.
 - `no_rv_only_solution.csv`: the 94 NEA planets that lacked an RV-only solution under the
   earlier RV-only rule. It is no longer regenerated; 28 of them are now in the census.
 - Printed summaries: `census_output.txt`, `census_plot_output.txt`, `sky_output.txt` (written by

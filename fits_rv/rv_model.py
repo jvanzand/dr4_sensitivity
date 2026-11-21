@@ -55,6 +55,7 @@ N_JOINT = 4                          # best single-companion seeds refit jointly
 LIT_FLOOR_P, LIT_FLOOR_K, LIT_SIGMA_E, LIT_DEFAULT_REL = 0.01, 0.10, 0.10, 0.20
 CATALOG = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                        'sample', 'stage1_catalog.csv')
+CUT_CATALOG = os.path.join(os.path.dirname(CATALOG), 'census_cut_companions.csv')
 OVERSAMPLE = 5
 
 
@@ -323,32 +324,49 @@ def make_prior(P0, K0=None, e0=None, omega0=None, sigP=None, sigK_rel=None, name
             'notes': notes or {}}
 
 
-def literature_priors(system_id, catalog=CATALOG):
+def _prior_from_row(r):
+    notes, P0 = {}, float(r.period_d)
+    sigP = r.period_err_filled_d if pd.notna(r.period_err_filled_d) else None
+    notes['P'] = (f'error {r.period_err_source}' if sigP else 'no error known: 20%')
+    e0 = float(r.pl_orbeccen) if pd.notna(r.pl_orbeccen) else None
+    notes['e'] = 'published' if e0 is not None else 'unreported: circular assumed'
+    K0 = float(r.K_ms) if pd.notna(r.K_ms) else None
+    notes['K'] = 'published' if K0 is not None else None
+    if K0 is None and pd.notna(r.mass_mj) and pd.notna(r.st_mass):
+        K0 = (28.4329*r.mass_mj*r.st_mass**(-2/3)*(P0/365.25)**(-1/3)
+              / math.sqrt(1 - (e0 or 0.0)**2))
+        notes['K'] = f'derived from {r.mass_type} (sin i = 1)'
+    sigK = (float(r.mass_err_mj/r.mass_mj) if pd.notna(r.mass_err_mj) and r.mass_mj > 0
+            else None)
+    notes['K_width'] = 'mass-error proxy' if sigK else 'no error known: 20%'
+    return make_prior(P0, K0, e0, math.radians(r.omega_deg) if pd.notna(r.omega_deg) else None,
+                      sigP, sigK, r.pl_name, notes)
+
+
+def literature_priors(system_id, catalog=CATALOG, context=True):
     """Priors for the system's literature companions (sample/stage1_catalog.csv), strongest
     K first. K comes from the catalog, else from M sin i, P, e, and M_* (flagged). The relative
     K width uses the mass error (the catalog carries no K errors). Notes record the source of
-    each value."""
+    each value.
+
+    With `context` (default; Judah, 2026-11-20), the companions of the same host that failed
+    a census cut (sample/census_cut_companions.csv: SMA > 5 AU, mass > 80 M_J, no mass, ...)
+    are added too, marked 'context': True with their 'cut_reason', so the assisted RV fit has
+    every known companion and no period limit. They are not part of the sample. A cut
+    companion with neither a period nor a K or mass is skipped (noted in 'skipped')."""
     cat = pd.read_csv(catalog, dtype={'system_id': str}, low_memory=False)
     rows = cat[cat.system_id == str(system_id)]
-    out = []
-    for _, r in rows.iterrows():
-        notes, P0 = {}, float(r.period_d)
-        sigP = r.period_err_filled_d if pd.notna(r.period_err_filled_d) else None
-        notes['P'] = (f'error {r.period_err_source}' if sigP else 'no error known: 20%')
-        e0 = float(r.pl_orbeccen) if pd.notna(r.pl_orbeccen) else None
-        notes['e'] = 'published' if e0 is not None else 'unreported: circular assumed'
-        K0 = float(r.K_ms) if pd.notna(r.K_ms) else None
-        notes['K'] = 'published' if K0 is not None else None
-        if K0 is None and pd.notna(r.mass_mj) and pd.notna(r.st_mass):
-            K0 = (28.4329*r.mass_mj*r.st_mass**(-2/3)*(P0/365.25)**(-1/3)
-                  / math.sqrt(1 - (e0 or 0.0)**2))
-            notes['K'] = f'derived from {r.mass_type} (sin i = 1)'
-        sigK = (float(r.mass_err_mj/r.mass_mj) if pd.notna(r.mass_err_mj) and r.mass_mj > 0
-                else None)
-        notes['K_width'] = 'mass-error proxy' if sigK else 'no error known: 20%'
-        out.append(make_prior(P0, K0, e0,
-                              math.radians(r.omega_deg) if pd.notna(r.omega_deg) else None,
-                              sigP, sigK, r.pl_name, notes))
+    out = [_prior_from_row(r) for _, r in rows.iterrows()]
+    if context and len(rows) and os.path.exists(CUT_CATALOG):
+        cut = pd.read_csv(CUT_CATALOG, low_memory=False)
+        for _, r in cut[cut.hostname.isin(set(rows.hostname))].iterrows():
+            if pd.isna(r.period_d) or (pd.isna(r.K_ms) and pd.isna(r.mass_mj)):
+                continue
+            L = _prior_from_row(r)
+            if L['K0'] is None:
+                continue
+            L.update(context=True, cut_reason=r.cut_reason)
+            out.append(L)
     out.sort(key=lambda L: -(L['K0'] or 0.0))
     return out
 

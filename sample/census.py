@@ -40,6 +40,7 @@ NEA_COMP_ERR_FILE = os.path.join(RAW_DIR, 'nea_pscomppars_st_mass_err.csv')
 FLAME_BOUNDS_FILE = os.path.join(RAW_DIR, 'gaia_dr3_flame_bounds.csv')
 STANDIN_FILE = os.path.join(HERE, 'st_mass_err_standin.csv')
 LIT_FILE = os.path.join(HERE, 'raw_lit', 'literature_companions.csv')
+CUT_FILE = os.path.join(HERE, 'census_cut_companions.csv')     # cut companions of census hosts
 REVIEW_FILE = os.path.join(HERE, 'raw_lit', 'review_planet_regime.csv')
 
 ## Literature tiers (set in literature.py) whose sub-13 M_J entries need NEA vetting
@@ -711,7 +712,9 @@ def build_census():
     ]
     keep = np.ones(len(df), bool)
     cutflow = []
+    cut_reason = pd.Series('', index=df.index)
     for label, mask in steps:
+        cut_reason[keep & ~np.asarray(mask)] = label
         keep &= np.asarray(mask)
         cutflow.append((label, int(keep.sum()), df[keep].hostname.nunique()))
     sample = df[keep].copy()
@@ -735,6 +738,12 @@ def build_census():
     sample = sample[out_cols].sort_values('snr', ascending=False)
     ## Full precision, since periods and periastron times need more than a few digits
     sample.to_csv(os.path.join(HERE, 'census_table.csv'), index=False)
+    ## Companions that fail a cut but orbit a census host (Judah, 2026-11-20): not part of
+    ## the sample, but the assisted RV fit of a system puts them back in (no period or SMA
+    ## limit), so its baseline RV model is complete. cut_reason = the first cut failed.
+    cut = df[~keep & df.hostname.isin(set(sample.hostname))].assign(cut_reason=cut_reason[~keep])
+    cut[out_cols + ['cut_reason']].sort_values(['hostname', 'period_d']).to_csv(
+        CUT_FILE, index=False)
     return df, sample, cutflow, n_lit_dup
 
 
