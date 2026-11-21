@@ -113,7 +113,7 @@ def host_astrometry(source_id):
 def load_rvs(path, system, nightly=True):
     """The system's RVs as the RV model's data (`rv_model.RVData`), read by the
     shared loader `data.read_rv_table` in blind_search/data.py (junk flags, the
-    RVs listed in validation/excluded_rvs.csv, nightly binning unless `nightly`
+    RVs listed in rv_data/excluded_rvs.csv, nightly binning unless `nightly`
     is False). Returns (RVData, number excluded)."""
     t, y, e, ds, n_ex = bsdata.read_rv_table(path, system, nightly)
     return cs.RVData(t, y, e, ds), n_ex

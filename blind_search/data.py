@@ -96,7 +96,7 @@ def _rv_channels(t, rv, err, label, prefix='rv:'):
 
 
 NIGHT_GAP_D = 0.5     # RVs of one dataset closer than this are one night (Judah, 2026-11-20)
-EXCLUDED_RVS = os.path.join(ROOT, 'validation', 'excluded_rvs.csv')   # RVs left out, per system
+EXCLUDED_RVS = os.path.join(ROOT, 'rv_data', 'excluded_rvs.csv')   # RVs left out, per system
 
 
 def bin_nightly(t, rv, err, dataset, gap=NIGHT_GAP_D):
@@ -131,7 +131,7 @@ def read_rv_table(path, system=None, nightly=True):
     blind RV search (`load_rv_project`) and the benchmarks' reference RV fit
     (validation/synthetic_dr4.load_rvs; Judah, 2026-11-20): non-junk rows with an
     RV and an error, minus the RVs listed for the system in
-    validation/excluded_rvs.csv (matched by dataset and BJD_TCB within 1e-4 d),
+    rv_data/excluded_rvs.csv (matched by dataset and BJD_TCB within 1e-4 d),
     then binned per night and dataset (`bin_nightly`) unless `nightly` is False.
     `system` defaults to the file's (`system_of`). Returns (BJD_TCB, rv, err,
     dataset, number excluded)."""
