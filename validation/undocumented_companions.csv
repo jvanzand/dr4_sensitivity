@@ -1,0 +1,2 @@
+system,evidence,signal,source,date_added,status
+HD94340,"RV residuals after the NEA companion b: rms 5.4 km/s, clean periodogram peak, all four instruments phase up","P = 6.842 d, K ~ 8 km/s (M sin i ~0.08 M_sun)","Barbato et al. 2023 (triple system); not in the NEA","2026-11-20","benchmark disabled; add to the reference fit"
