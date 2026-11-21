@@ -108,30 +108,15 @@ def host_astrometry(source_id):
     return r.iloc[0].to_dict()
 
 
-EXCLUDED_RVS = os.path.join(HERE, 'excluded_rvs.csv')   # log of RVs left out, per system (in git)
 
 
 def load_rvs(path, system, nightly=True):
-    """The system's RVs (junk flags applied)
-    minus the points listed for it in validation/excluded_rvs.csv (matched by
-    dataset and BJD_TCB within 1e-4 d). Returns (RVData, number excluded)."""
-    t = pd.read_csv(path, low_memory=False)
-    t = t[~t.isjunk.astype(bool) & t.rv_ms.notna() & t.rv_err_ms.notna()]
-    n_ex = 0
-    if os.path.exists(EXCLUDED_RVS):
-        ex = pd.read_csv(EXCLUDED_RVS)
-        ex = ex[ex.system == system]
-        drop = np.zeros(len(t), bool)
-        for _, r in ex.iterrows():
-            hit = (t.dataset.to_numpy() == r.dataset) & (np.abs(t.bjd_tcb.to_numpy() - r.bjd_tcb) < 1e-4)
-            if hit.sum() != 1:
-                raise ValueError(f'{system}: excluded RV at BJD {r.bjd_tcb} matches {hit.sum()} rows')
-            drop |= hit
-        t, n_ex = t[~drop], int(drop.sum())
-    cols = (t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy())
-    if nightly:                          # one point per night and dataset (Judah, 2026-11-20)
-        cols = cs.bin_nightly(*cols)
-    return cs.RVData(*cols), n_ex
+    """The system's RVs as the RV model's data (`rv_model.RVData`), read by the
+    shared loader `data.read_rv_table` in blind_search/data.py (junk flags, the
+    RVs listed in validation/excluded_rvs.csv, nightly binning unless `nightly`
+    is False). Returns (RVData, number excluded)."""
+    t, y, e, ds, n_ex = bsdata.read_rv_table(path, system, nightly)
+    return cs.RVData(t, y, e, ds), n_ex
 
 
 def rv_table(system):

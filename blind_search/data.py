@@ -95,14 +95,71 @@ def _rv_channels(t, rv, err, label, prefix='rv:'):
     return out
 
 
-def load_rv_project(path):
-    """A project RV table (rv_data/systems/*.csv): non-junk rows, one channel
-    per dataset."""
+NIGHT_GAP_D = 0.5     # RVs of one dataset closer than this are one night (Judah, 2026-11-20)
+EXCLUDED_RVS = os.path.join(ROOT, 'validation', 'excluded_rvs.csv')   # RVs left out, per system
+
+
+def bin_nightly(t, rv, err, dataset, gap=NIGHT_GAP_D):
+    """Bin RVs per night and dataset (Judah, 2026-11-20): consecutive RVs of one
+    dataset less than `gap` days apart (chained) become one point at the
+    error-weighted mean time and RV, with error 1/sqrt(sum of weights); jitter is
+    added later per binned point. Dense runs (HD 160691: 2,113 RVs in 8 nights of a
+    June 2004 HARPS campaign) otherwise dominate the likelihood, and their
+    short-timescale stellar noise is fitted as a companion. Returns (t, rv, err,
+    dataset) as arrays."""
+    t, rv, err, dataset = map(np.asarray, (t, rv, err, dataset))
+    out = []
+    for d in pd.unique(dataset):
+        m = np.where(dataset == d)[0]
+        m = m[np.argsort(t[m])]
+        grp = np.concatenate([[0], np.cumsum(np.diff(t[m]) >= gap)])
+        for g in range(grp[-1] + 1):
+            k = m[grp == g]
+            w = 1/err[k]**2
+            out.append((np.sum(w*t[k])/w.sum(), np.sum(w*rv[k])/w.sum(), 1/np.sqrt(w.sum()), d))
+    tb, yb, eb, db = zip(*out)
+    return np.array(tb, float), np.array(yb, float), np.array(eb, float), np.array(db)
+
+
+def system_of(path):
+    """System key of a project RV table: rv_data/systems/<id>_TOI-1736.csv -> 'TOI1736'."""
+    return os.path.basename(path).split('_', 1)[1].rsplit('.', 1)[0].replace('-', '')
+
+
+def read_rv_table(path, system=None, nightly=True):
+    """The one loader of project RV tables (rv_data/systems/*.csv), shared by the
+    blind RV search (`load_rv_project`) and the benchmarks' reference RV fit
+    (validation/synthetic_dr4.load_rvs; Judah, 2026-11-20): non-junk rows with an
+    RV and an error, minus the RVs listed for the system in
+    validation/excluded_rvs.csv (matched by dataset and BJD_TCB within 1e-4 d),
+    then binned per night and dataset (`bin_nightly`) unless `nightly` is False.
+    `system` defaults to the file's (`system_of`). Returns (BJD_TCB, rv, err,
+    dataset, number excluded)."""
+    system = system or system_of(path)
     t = pd.read_csv(path, low_memory=False)
-    ok = ~t.isjunk.astype(bool) & t.rv_ms.notna() & t.rv_err_ms.notna()
-    t = t[ok]
-    return _rv_channels(t.bjd_tcb.to_numpy() - BJD_MJD, t.rv_ms.to_numpy(),
-                        t.rv_err_ms.to_numpy(), t.dataset.to_numpy())
+    t = t[~t.isjunk.astype(bool) & t.rv_ms.notna() & t.rv_err_ms.notna()]
+    n_ex = 0
+    if os.path.exists(EXCLUDED_RVS):
+        ex = pd.read_csv(EXCLUDED_RVS)
+        ex = ex[ex.system == system]
+        drop = np.zeros(len(t), bool)
+        for _, r in ex.iterrows():
+            hit = (t.dataset.to_numpy() == r.dataset) & (np.abs(t.bjd_tcb.to_numpy() - r.bjd_tcb) < 1e-4)
+            if hit.sum() != 1:
+                raise ValueError(f'{system}: excluded RV at BJD {r.bjd_tcb} matches {hit.sum()} rows')
+            drop |= hit
+        t, n_ex = t[~drop], int(drop.sum())
+    cols = (t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy())
+    if nightly:
+        cols = bin_nightly(*cols)
+    return (*cols, n_ex)
+
+
+def load_rv_project(path, system=None, nightly=True):
+    """A project RV table as search channels (one per dataset; times MJD), read by
+    `read_rv_table` (junk flags, exclusions, nightly binning)."""
+    t, rv, err, ds, _ = read_rv_table(path, system, nightly)
+    return _rv_channels(t - BJD_MJD, rv, err, ds)
 
 
 def load_rv_simple(path, epoch_col='epoch', rv_col='rv', err_col='σ_rv', tel_col='tel'):
@@ -136,4 +193,7 @@ if __name__ == '__main__':
         r = load_rv_simple(os.path.join(ROOT, 'data_conversion/RV_data_HD114762.csv'))
         assert len(select(r + [g], 'gaia_dr4')) == 1 and len(select(r + [g], 'astro')) == 1
         assert len(select(r + [g], 'all')) == len(r) + 1
+        tb, yb, eb, db = bin_nightly([0.0, 0.1, 0.2, 5.0, 0.15], [1.0, 3.0, 2.0, 7.0, 9.0],
+                                     [1.0, 1.0, 2.0, 1.0, 1.0], ['a', 'a', 'a', 'a', 'b'])
+        assert len(tb) == 3 and abs(yb[0] - 2.0) < 1e-12 and abs(eb[0] - 1/1.5) < 1e-12, (tb, yb, eb)
         print(f'data.py test passed: Gaia-4 {len(g)} transits over {span([g])/365.25:.2f} yr')

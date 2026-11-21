@@ -78,30 +78,6 @@ class RVData:
         self.members = [np.where(self.ds == d)[0] for d in range(self.nds)]
 
 
-NIGHT_GAP_D = 0.5          # RVs of one dataset closer than this are one night (Judah, 2026-11-20)
-
-
-def bin_nightly(t, rv, err, dataset, gap=NIGHT_GAP_D):
-    """Bin RVs per night and dataset (Judah, 2026-11-20): consecutive RVs of one
-    dataset less than `gap` days apart (chained) become one point at the
-    error-weighted mean time and RV, with error 1/sqrt(sum of weights); jitter is
-    added later per binned point. Dense runs (HD 160691: 2,113 RVs in 8 nights of a
-    June 2004 HARPS campaign) otherwise dominate the likelihood, and their
-    short-timescale stellar noise is fitted as a companion. Returns (t, rv, err,
-    dataset) as arrays."""
-    t, rv, err, dataset = map(np.asarray, (t, rv, err, dataset))
-    out = []
-    for d in np.unique(dataset):
-        m = np.where(dataset == d)[0]
-        m = m[np.argsort(t[m])]
-        grp = np.concatenate([[0], np.cumsum(np.diff(t[m]) >= gap)])
-        for g in range(grp[-1] + 1):
-            k = m[grp == g]
-            w = 1/err[k]**2
-            out.append((np.sum(w*t[k])/w.sum(), np.sum(w*rv[k])/w.sum(), 1/np.sqrt(w.sum()), d))
-    tb, yb, eb, db = zip(*out)
-    return np.array(tb, float), np.array(yb, float), np.array(eb, float), np.array(db)
-
 
 def kepler_E(M, e):
     M = np.mod(M, 2*np.pi)
@@ -511,10 +487,6 @@ def selftest():
     """kepler.c against the numpy solver; two companions recovered under literature
     priors that are slightly off, with every fitted e below E_MAX."""
     t0 = time.time()
-    tb, yb, eb, db = bin_nightly([0.0, 0.1, 0.2, 5.0, 0.15], [1.0, 3.0, 2.0, 7.0, 9.0],
-                                 [1.0, 1.0, 2.0, 1.0, 1.0], ['a', 'a', 'a', 'a', 'b'])
-    assert len(tb) == 3 and abs(yb[0] - 2.0) < 1e-12 and abs(eb[0] - 1/1.5) < 1e-12, (tb, yb, eb)
-    print('bin_nightly: 5 RVs in 2 datasets -> 3 nightly points')
     if kepler_c.AVAILABLE:
         rng = np.random.default_rng(0)
         t = np.sort(rng.uniform(0, 6000, 410))
