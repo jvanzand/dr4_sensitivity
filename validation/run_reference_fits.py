@@ -134,7 +134,10 @@ def plot_fit(fit, path):
         a.set_ylim(lo - 0.15*(hi - lo), hi + 0.15*(hi - lo))
     for a in ax:
         a.set_xlim(yr(tm[0]), yr(tm[-1]))
-        figtools.legend_clear(a, fontsize=11)
+        try:
+            figtools.legend_clear(a, fontsize=11)
+        except RuntimeError:                  # data everywhere (e.g. HD 39091): legend outside, right
+            a.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=11, borderaxespad=0)
     fig.tight_layout()
     figtools.check_legends(fig)
     fig.savefig(path, dpi=200)
@@ -153,9 +156,13 @@ def _run_one(system, out, figures):
                 pickle.dump(fit, fh)
             s = summarize(fit)
             json.dump(s, open(os.path.join(out, f'{system}_summary.json'), 'w'), indent=1)
-            if figures:
-                plot_fit(fit, os.path.join(out, f'{system}_rv.png'))
             status = 'ok'
+            if figures:
+                try:                                  # a failed figure does not fail the fit
+                    plot_fit(fit, os.path.join(out, f'{system}_rv.png'))
+                except Exception as ex:
+                    traceback.print_exc()
+                    status = f'ok (figure failed: {type(ex).__name__}: {ex})'
         except Exception as ex:                                   # recorded, the other systems go on
             traceback.print_exc()
             s, status = None, f'FAILED: {type(ex).__name__}: {ex}'
