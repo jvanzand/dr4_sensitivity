@@ -11,12 +11,10 @@ Steps (`make_system`):
      tested before any companion is in the model, and re-checked after each
      companion is added (a term that stops paying Delta-BIC >= 20 is
      dropped). The literature-prior fit seeds the final fit, which has no
-     priors. Its uncertainty estimate (inverse Hessian) is a Gaussian
-     centred on the best fit with covariance = inverse Hessian of -lnL, in
-     parameters (ln P, ln K, sqrt(e) cos w, sqrt(e) sin w, mean longitude
-     M0 + w) per companion, trend coefficients and ln jitters.
-  2. Ground truth (`draw_truth`): ONE draw from that Gaussian gives the
-     RV-based parameters (P, K, e, omega, M0); the unknown ones are drawn at
+     priors. No uncertainties are estimated (Judah, 2026-11-21: they come
+     from the Octofitter fits later).
+  2. Ground truth (`draw_truth`): the best fit gives the RV-based
+     parameters (P, K, e, omega, M0); the unknown ones are drawn at
      random: cos i uniform in [-1, 1] (isotropic, i in [0, 180] deg) and Omega
      uniform in [0, 360) deg. The true mass follows from K, P, e, i and the
      host mass (dark companion: the photocentre is the star). If the fit has
@@ -176,67 +174,6 @@ def polish_scaled(f, x, hold=(), rounds=3):
         x = x0.copy()
         x[free] += r.x*h[free]
     return x
-
-
-def _hessian_in_basis(f, x, B):
-    """Second derivatives of f at x with respect to c, where x = x0 + B c (the
-    columns of B are the step vectors), by central differences with unit
-    steps in c."""
-    m, f0 = B.shape[1], f(x)
-    H = np.zeros((m, m))
-    for a in range(m):
-        ba = B[:, a]
-        H[a, a] = f(x + ba) + f(x - ba) - 2*f0
-        for b in range(a):
-            bb = B[:, b]
-            H[a, b] = H[b, a] = (f(x + ba + bb) - f(x + ba - bb) - f(x - ba + bb) + f(x - ba - bb))/4
-    return H
-
-
-def _scale_direction(f, x, d, f0):
-    """Step length along direction d at which f rises by about 0.5 (None if
-    f stays flat up to a length of 1e4)."""
-    s = 1.0
-    for _ in range(60):
-        r = 0.5*(f(x + s*d) + f(x - s*d)) - f0
-        if r < 0.05 and s < 1e4:
-            s *= 3
-        elif r > 2:
-            s /= 3
-        else:
-            return s if r >= 0.05 else None
-    return s
-
-
-def hessian_cov(f, x, hold=()):
-    """Inverse Hessian of f at x by central differences. First pass: steps
-    along each parameter axis (`axis_steps`). Strongly correlated parameters
-    (e.g. K, e, omega and phase of a highly eccentric orbit) make that matrix
-    ill-conditioned, so a second pass measures the curvature along the
-    first-pass eigen-directions, each with its own step (rise of about 0.5).
-    A flat parameter (e.g. the jitter of a dataset whose errors dwarf it) and
-    any parameter in `hold` are held fixed: zero variance. Raises if a
-    direction stays flat or the Hessian is not positive definite. Returns
-    (cov, indices held fixed)."""
-    n, f0 = len(x), f(x)
-    h, flat = axis_steps(f, x, hold)
-    keep = [i for i in range(n) if i not in flat]
-    B = np.zeros((n, len(keep)))
-    for a, i in enumerate(keep):
-        B[i, a] = h[i]
-    w, V = np.linalg.eigh(_hessian_in_basis(f, x, B))
-    D = B @ V                                          # eigen-directions in parameter space
-    for a in range(D.shape[1]):
-        s = (1/np.sqrt(w[a])) if w[a] > 1e-6 else _scale_direction(f, x, D[:, a], f0)
-        if s is None:
-            raise RuntimeError('Hessian not positive definite: a direction is flat')
-        D[:, a] *= s
-    Hc = _hessian_in_basis(f, x, D)
-    if np.min(np.linalg.eigvalsh(Hc)) <= 0:
-        raise RuntimeError('Hessian not positive definite: not at a maximum')
-    cov = np.zeros((n, n))
-    cov[np.ix_(keep, keep)] = (D @ np.linalg.inv(Hc) @ D.T)[np.ix_(keep, keep)]
-    return cov, flat
 
 
 def to_lambda(theta, npl):
@@ -441,8 +378,8 @@ def _extra_search(rv, rvk, lit, theta, tord, n, k0, floors, k_amp, best):
 def planet_support(f, phi, n, n_lit, tord, rv, bnds):
     """Judah, 2026-11-17: Delta-BIC for removing each literature companion
     (refit without it, same objective `f` in theta; data BIC). Below cs.DELTA_BIC
-    (20) the RVs do not detect it: its parameters are then held fixed in the
-    uncertainty estimate (inverse Hessian)."""
+    (20) the RVs do not detect it (reported; the companion stays in the
+    model)."""
     from scipy.optimize import minimize
     theta = from_lambda(phi, n)
     lnl = -cs.neg_lnL(theta, rv, n, tord)
@@ -459,18 +396,18 @@ def planet_support(f, phi, n, n_lit, tord, rv, bnds):
 
 
 def reference_rv_fit(system, trend_replaces_long=None):
-    """Fit of the literature companions (+ a trend chosen by `select_trend`) to
-    the system's RVs, and its uncertainty estimate (inverse Hessian). Maximum likelihood (no priors)
-    by default. If that has no proper maximum (Hessian not positive definite,
-    e.g. HD 89707 b: with periastron barely sampled, e and K trade off along a
-    ridge), the literature-prior fit is used instead: the maximum of the
-    likelihood times rv_model's Gaussian priors on ln P, ln K and e
-    around the published values (they enter only this RV reference model).
-    Jitters stay within their bounds and are profiled to their maxima
-    (`profile_jitters`); a jitter that has no effect (below 10% of its
-    dataset's median error) or still sits at a bound is held fixed.
-    Returns a dict with the data, the literature priors (names, order),
-    theta, data lnL, cov, held_fixed and `kind` (which fit was used)."""
+    """Maximum-likelihood fit of the literature companions (+ a trend chosen by
+    `select_trend`, or a long-period Keplerian) to the system's RVs. The
+    literature priors only guide the steps before (`select_trend`); the final
+    fit has none. No uncertainties: this fit sets the model and best-fit values;
+    errors come later from the Octofitter fits (Judah, 2026-11-21; the
+    inverse-Hessian estimate used before failed on numerical artifacts, e.g.
+    HD 191939). Jitters stay within their bounds and are profiled to their
+    maxima (`profile_jitters`); a jitter that has no effect (below 10% of its
+    dataset's median error) or sits at the lower bound is held fixed during the
+    polish (`held_fixed`). `support`: Delta-BIC for dropping each literature
+    companion (detected if >= 20). Returns a dict with the data, the literature
+    priors (names, order), theta, data lnL, cov (None), held_fixed, `kind`."""
     path = rv_table(system)
     sid = os.path.basename(path).split('_')[0]
     rv, n_ex = load_rvs(path, system)
@@ -501,76 +438,47 @@ def reference_rv_fit(system, trend_replaces_long=None):
     def data_nll(x):         # the long-period Keplerian keeps e <= EXTRA_E_MAX, as in its test
         wall = sum(1e5*max(x[k + 2]**2 + x[k + 3]**2 - EXTRA_E_MAX, 0.0)**2 for k in ks_extra)
         return cs.neg_lnL(x, rv, n, trend_order) + wall
-    for kind, f in (('maximum likelihood', data_nll),
-                    ('literature-prior fit (maximum likelihood had no proper maximum)',
-                     lambda x: data_nll(x) + cs.prior_penalty(x, lit))):
-        th = th0.copy()
-        for _ in range(3):
-            th = minimize(f, th, method='L-BFGS-B', bounds=bnds,
-                          options={'maxiter': 2000, 'maxfun': 50000}).x
-        jit = np.exp(th[k:])
-        # During the polish only jitters without effect or at the LOWER bound are
-        # held; one at the upper bound may only reflect a poor starting model
-        # (HD 168443 HIRES: 30 m/s from a start at -lnL 2003; 6 m/s at the
-        # maximum), so it stays free, and the jitters are profiled between polishes.
-        hold = [k + d for d in range(rv.nds)
-                if jit[d] < 0.1*np.median(rv.err[rv.ds == d]) or th[k + d] <= lo + 0.01]
+    th = th0.copy()
+    for _ in range(3):
+        th = minimize(data_nll, th, method='L-BFGS-B', bounds=bnds,
+                      options={'maxiter': 2000, 'maxfun': 50000}).x
+    jit = np.exp(th[k:])
+    # During the polish only jitters without effect or at the LOWER bound are
+    # held; one at the upper bound may only reflect a poor starting model
+    # (HD 168443 HIRES: 30 m/s from a start at -lnL 2003; 6 m/s at the
+    # maximum), so it stays free, and the jitters are profiled between polishes.
+    hold = [k + d for d in range(rv.nds)
+            if jit[d] < 0.1*np.median(rv.err[rv.ds == d]) or th[k + d] <= lo + 0.01]
 
-        def fl(p, f=f):
-            x = from_lambda(p, n)
-            x[k:] = np.clip(x[k:], lo, hi)                 # jitters stay within bounds
-            return f(x)
-        phi = polish_scaled(fl, to_lambda(th, n), hold)
-        for _ in range(2):
-            x = from_lambda(phi, n)
-            x[k:] = np.clip(x[k:], lo, hi)
-            x = profile_jitters(f, x, k, rv.nds, lo, hi)
-            phi = polish_scaled(fl, to_lambda(x, n), hold)
-        phi[k:] = np.clip(phi[k:], lo, hi)
-        x = cs.cap_e(from_lambda(phi, n), n, n)                     # e < E_MAX (zero prior beyond)
-        for k_ in ks_extra:                                         # and the extra one <= EXTRA_E_MAX
-            e_ = x[k_ + 2]**2 + x[k_ + 3]**2
-            if e_ > EXTRA_E_MAX:
-                x[k_ + 2:k_ + 4] *= math.sqrt(EXTRA_E_MAX/e_)
-        phi = to_lambda(x, n)
-        # Uncertainty estimate: a jitter still at either bound is held (no curvature there),
-        # and so is every literature companion the RVs do not detect (Delta-BIC < 20 for
-        # removing it; Judah, 2026-11-17)
-        hold = sorted(set(hold) | {k + d for d in range(rv.nds) if not lo + 0.01 < phi[k + d] < hi - 0.01})
-
-        def f_drop(x, m, j, f=f):                  # objective without literature companion j
-            if f is data_nll:
-                return cs.neg_lnL(x, rv, m, trend_order)
-            return cs.neg_lnL(x, rv, m, trend_order) + cs.prior_penalty(x, lit[:j] + lit[j + 1:])
-        support = planet_support(f_drop, phi, n, len(lit), trend_order, rv, bnds)
-        for sp, L in zip(support, lit):
-            sp['name'] = L['name']
-            if not sp['detected']:
-                hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*sp['index'],
-                                                    cs.PARAMS_PER_PLANET*(sp['index'] + 1))))
-        # the long-period Keplerian stands in for the trend (not a target, like the trend
-        # companion): its parameters are held fixed too (it may sit at a period bound)
-        hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*len(lit), cs.PARAMS_PER_PLANET*n)))
-        # so are the context companions (known but cut from the sample, e.g. HD 111232 c at
-        # P ~ 32,000 d, whose orbit the RVs barely constrain; Judah, 2026-11-20): not targets
-        for j, L in enumerate(lit):
-            if L.get('context'):
-                hold = sorted(set(hold) | set(range(cs.PARAMS_PER_PLANET*j, cs.PARAMS_PER_PLANET*(j + 1))))
-        weak = [sp['name'] for sp in support if not sp['detected']]
-        if weak:
-            print(f'{system}: not detected by the RVs (Delta-BIC < {cs.DELTA_BIC:g}), held fixed: {weak}')
-        try:
-            cov, flat = hessian_cov(fl, phi, hold)
-            break
-        except RuntimeError:
-            if f is not data_nll:
-                raise
-            print(f'{system}: maximum-likelihood Hessian not positive definite; using the literature-prior fit')
+    def fl(p):
+        x = from_lambda(p, n)
+        x[k:] = np.clip(x[k:], lo, hi)                 # jitters stay within bounds
+        return data_nll(x)
+    phi = polish_scaled(fl, to_lambda(th, n), hold)
+    for _ in range(2):
+        x = from_lambda(phi, n)
+        x[k:] = np.clip(x[k:], lo, hi)
+        x = profile_jitters(data_nll, x, k, rv.nds, lo, hi)
+        phi = polish_scaled(fl, to_lambda(x, n), hold)
+    phi[k:] = np.clip(phi[k:], lo, hi)
+    x = cs.cap_e(from_lambda(phi, n), n, n)                     # e < E_MAX (zero prior beyond)
+    for k_ in ks_extra:                                         # and the extra one <= EXTRA_E_MAX
+        e_ = x[k_ + 2]**2 + x[k_ + 3]**2
+        if e_ > EXTRA_E_MAX:
+            x[k_ + 2:k_ + 4] *= math.sqrt(EXTRA_E_MAX/e_)
+    phi = to_lambda(x, n)
+    support = planet_support(lambda x, m, j: cs.neg_lnL(x, rv, m, trend_order),
+                             phi, n, len(lit), trend_order, rv, bnds)
+    for sp, L in zip(support, lit):
+        sp['name'] = L['name']
+    weak = [sp['name'] for sp in support if not sp['detected']]
+    if weak:
+        print(f'{system}: not detected by the RVs (Delta-BIC < {cs.DELTA_BIC:g} for dropping): {weak}')
     theta = from_lambda(phi, n)
     return dict(system=system, source_id=sid, rv=rv, lit=lit, npl=n, tord=trend_order,
-                theta=theta, phi=phi, lnL=-data_nll(theta), cov=cov, held_fixed=flat, kind=kind,
-                trend_steps=trend_steps, n_rv_excluded=n_ex, n_extra=n_extra, extra_test=extra,
-                support=support, replaced_by_trend=replaced)
+                theta=theta, phi=phi, lnL=-data_nll(theta), cov=None, held_fixed=sorted(hold),
+                kind='maximum likelihood', trend_steps=trend_steps, n_rv_excluded=n_ex, n_extra=n_extra,
+                extra_test=extra, support=support, replaced_by_trend=replaced)
 
 
 def planet_rows(theta, cov, fit):
@@ -767,10 +675,14 @@ def _eccentric_trend_companion(fit, th, host, mstar, rng, name, th0, nll_poly, m
 
 
 def draw_truth(fit, host, mstar, rng):
-    """One ground-truth system: RV-based parameters drawn from the reference
-    fit's inverse-Hessian Gaussian, inclination and Omega drawn at random, derived
-    masses and astrometric sizes, and the fixed host values."""
+    """One ground-truth system: the reference fit's RV-based parameters (its
+    best fit; drawn from its inverse-Hessian Gaussian only for older fits that
+    carry a covariance), inclination and Omega drawn at random, derived masses
+    and astrometric sizes, and the fixed host values."""
     for _ in range(100000):                  # the prior on e >= E_MAX is zero: redraw
+        if fit.get('cov') is None:           # no uncertainties (since 2026-11-21): the best fit
+            th = fit['theta'].copy()
+            break
         th = from_lambda(rng.multivariate_normal(fit['phi'], fit['cov']), fit['npl'])
         pl = cs.unpack(th, fit['npl'], fit['tord'], fit['rv'].nds)[0]
         if all(p[2]**2 + p[3]**2 < cs.E_MAX for p in pl):
@@ -956,12 +868,13 @@ def make_system(system, seed, fig=True, force=False):
                                     n_rv_points=int(fit['rv'].n),
                                     jitter_ms=dict(zip(fit['rv'].names, map(float, jit))),
                                     rv_tref_bjd_tcb=fit['rv'].tref, rv_span_d=fit['rv'].span,
-                                    hessian_held_fixed=[int(i) for i in fit['held_fixed']],
+                                    hessian_held_fixed=[int(i) for i in fit['held_fixed']],   # since 2026-11-21: held in the polish
                                     n_extra=fit['n_extra'], long_period_keplerian_test=fit['extra_test'],
                                     rv_support=fit['support'],
                                     theta=[float(x) for x in fit['theta']],
                                     kind=fit['kind'],
-                                    method=f"{fit['kind']}; errors from the inverse Hessian"))
+                                    method=(f"{fit['kind']}; errors from the inverse Hessian" if fit.get('cov') is not None
+                                            else f"{fit['kind']}; no errors (from the Octofitter fits later)")))
     json.dump(truth, open(f'{stem}_truth.json', 'w'), indent=1)
     print(f'wrote {stem}.csv, _noplanet.csv, _truth.json')
     if fig:
@@ -1095,7 +1008,8 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     ax.axis('off')
     ax.set_title('2. Ground truth for the synthetic DR4 data (one draw)', fontsize=22, loc='left')
     targets = [c for c in comps if c.get('role') != 'trend']
-    lines = [('RV-based: one draw from the reference fit (inverse-Hessian Gaussian)', 'C0'),]
+    lines = [('RV-based: the reference fit' + (' (one draw from its inverse-Hessian Gaussian)'
+              if 'inverse Hessian' in truth['reference_fit'].get('method', '') else ' (best fit)'), 'C0'),]
     for c in targets:
         rb = c['rv_based']
         lines.append((f"   {_pretty(c['name'])}:  P = {rb['P_d']:.5g} d,  K = {rb['K_ms']:.4g} m/s,  "
