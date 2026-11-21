@@ -24,7 +24,7 @@ searchable, however long the gaps elsewhere: 99 RVs over one year and one RV a
 century later gives a floor of days, not of a year. It is never below P_MIN_D
 = 2 d (the earlier default): runs of same-night exposures (HD 160691, HD 39091,
 HD 147513) give windows of minutes, and a grid down to minutes is unaffordable
-(interim, 2026-11-20; open: bin RVs per night instead). `pmin` overrides it.
+(Judah, 2026-11-20). `pmin` overrides it.
 
 No RV noise model: the noise-sampled datasets carry white noise only.
 
@@ -51,7 +51,7 @@ import search  # noqa: E402
 
 WINDOW_N = 10            # RVs per window of the sampling floor
 FLOOR_FACTOR = 2.0       # floor = FLOOR_FACTOR x the smallest mean spacing in a window
-P_MIN_D = 2.0            # the floor is never below this (days; interim, see the docstring)
+P_MIN_D = 2.0            # the floor is never below this (days; Judah, 2026-11-20)
 
 
 def sampling_floor(channels, n=WINDOW_N, factor=FLOOR_FACTOR):
