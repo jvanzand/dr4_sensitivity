@@ -132,9 +132,10 @@ def read_rv_table(path, system=None, nightly=True):
     (validation/synthetic_dr4.load_rvs; Judah, 2026-11-20): non-junk rows with an
     RV and an error, minus the RVs listed for the system in
     rv_data/excluded_rvs.csv (matched by dataset and BJD_TCB within 1e-4 d),
-    then binned per night and dataset (`bin_nightly`) unless `nightly` is False.
+    then binned per night and dataset (`bin_nightly`) unless `nightly` is False;
+    datasets left with a single RV are dropped (`single_rv_datasets`).
     `system` defaults to the file's (`system_of`). Returns (BJD_TCB, rv, err,
-    dataset, number excluded)."""
+    dataset, number excluded: listed RVs plus dropped single-RV datasets)."""
     system = system or system_of(path)
     t = pd.read_csv(path, low_memory=False)
     t = t[~t.isjunk.astype(bool) & t.rv_ms.notna() & t.rv_err_ms.notna()]
@@ -152,7 +153,20 @@ def read_rv_table(path, system=None, nightly=True):
     cols = (t.bjd_tcb.to_numpy(), t.rv_ms.to_numpy(), t.rv_err_ms.to_numpy(), t.dataset.to_numpy())
     if nightly:
         cols = bin_nightly(*cols)
+    single = single_rv_datasets(cols[3])          # no constraint, only an extra offset (Judah, 2026-11-21)
+    if single:
+        keep = ~np.isin(cols[3], single)
+        cols = tuple(c[keep] for c in cols)
+        n_ex += len(single)
     return (*cols, n_ex)
+
+
+def single_rv_datasets(dataset):
+    """Datasets with a single RV (after nightly binning, when used by
+    `read_rv_table`): with their own free offset they constrain nothing and
+    only add a parameter, so the loader drops them (Judah, 2026-11-21)."""
+    names, counts = np.unique(np.asarray(dataset), return_counts=True)
+    return [str(d) for d, c in zip(names, counts) if c == 1]
 
 
 SMALL_DATASET_MAX = 5      # Judah, 2026-11-20: datasets of <= this many RVs, isolated in time, are flagged
