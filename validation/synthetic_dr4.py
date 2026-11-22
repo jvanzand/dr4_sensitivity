@@ -674,21 +674,44 @@ def _eccentric_trend_companion(fit, th, host, mstar, rng, name, th0, nll_poly, m
     return None
 
 
+def nea_orbits_for_undetected(fit, th):
+    """Judah, 2026-11-21: an NEA companion the RVs do not detect (Delta-BIC for
+    dropping it < cs.DELTA_BIC) enters the truth with its NEA orbit, not the
+    fitted one, which drifts without priors (HD 191939 g: fit P 422 d, e 0.80
+    vs NEA 288.6 d). P and K are the NEA values, e the NEA value or 0 where
+    unreported, omega the NEA value where given; otherwise the fitted omega and
+    the fitted mean anomaly at the RV tref are kept (the RVs constrain neither).
+    Returns (theta, {companion index: description of the change})."""
+    th = np.array(th, float)
+    P = cs.PARAMS_PER_PLANET
+    out = {}
+    for s in fit.get('support', []):
+        j = s['index']
+        if s['dBIC_drop'] >= cs.DELTA_BIC or j >= len(fit['lit']):
+            continue
+        L, k = fit['lit'][j], P*j
+        if not L.get('P0') or not L.get('K0'):
+            continue
+        e = L['e0'] or 0.0
+        om = L['omega0'] if L.get('omega0') is not None else math.atan2(th[k + 3], th[k + 2])
+        old = (math.exp(th[k]), math.exp(th[k + 1]), th[k + 2]**2 + th[k + 3]**2)
+        th[k], th[k + 1] = math.log(L['P0']), math.log(L['K0'])
+        th[k + 2], th[k + 3] = math.sqrt(e)*math.cos(om), math.sqrt(e)*math.sin(om)
+        out[j] = (f"NEA orbit (not detected by the RVs: Delta-BIC {s['dBIC_drop']:.1f}); fitted "
+                  f"P {old[0]:.5g} d, K {old[1]:.4g} m/s, e {old[2]:.3f} replaced; "
+                  f"e {'NEA' if L['e0'] is not None else '0 (unreported)'}, omega "
+                  f"{'NEA' if L.get('omega0') is not None else 'fitted'}, phase fitted")
+    return th, out
+
+
 def draw_truth(fit, host, mstar, rng):
     """One ground-truth system: the reference fit's RV-based parameters (its
-    best fit; drawn from its inverse-Hessian Gaussian only for older fits that
-    carry a covariance), inclination and Omega drawn at random, derived masses
-    and astrometric sizes, and the fixed host values."""
-    for _ in range(100000):                  # the prior on e >= E_MAX is zero: redraw
-        if fit.get('cov') is None:           # no uncertainties (since 2026-11-21): the best fit
-            th = fit['theta'].copy()
-            break
-        th = from_lambda(rng.multivariate_normal(fit['phi'], fit['cov']), fit['npl'])
-        pl = cs.unpack(th, fit['npl'], fit['tord'], fit['rv'].nds)[0]
-        if all(p[2]**2 + p[3]**2 < cs.E_MAX for p in pl):
-            break
-    else:
-        raise RuntimeError(f"{fit['system']}: no draw with every e < {cs.E_MAX} in 100000 tries")
+    best fit, Judah 2026-11-21; a covariance saved with an older fit is
+    ignored), with the NEA orbit for NEA companions the RVs do not detect
+    (`nea_orbits_for_undetected`); inclination and Omega drawn at random,
+    derived masses and astrometric sizes, and the fixed host values."""
+    th = np.array(fit['theta'], float)
+    th, from_nea = nea_orbits_for_undetected(fit, th)
     rows = planet_rows(th, None, fit)
     tref_mjd = fit['rv'].tref - BJD_MJD
     comps = []
@@ -709,6 +732,8 @@ def draw_truth(fit, host, mstar, rng):
             derived=dict(mass_mj=m, msini_mj=msini, a_au=a_au, a_star_mas=a_star,
                          thiele_innes_ABFG_mas=list(orbit.ti_from_elements(a_star, inc, r['omega'], Omega))),
             tref_mjd=tref_mjd))
+        if j in from_nea:
+            comps[-1]['orbit_source'] = from_nea[j]
         if j >= n_lit:                   # the long-period Keplerian that replaced the RV trend
             comps[-1].update(role='trend', trend=dict(
                 kind='keplerian', order=0, test=fit.get('extra_test'),
