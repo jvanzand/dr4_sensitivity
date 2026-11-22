@@ -108,9 +108,43 @@ def load_fit(system, out=OUT_DIR):
         return pickle.load(fh)
 
 
+def model_lines(fit):
+    """The final model in words, for the figure's top panel: list of (text, bold).
+    One line per companion (fitted P with the literature P, K, e, Delta-BIC for
+    dropping it), the trend (fitted coefficients), and the fit's totals."""
+    import rv_model as cs
+    s = summarize(fit)
+    th, P, tord = fit['theta'], cs.PARAMS_PER_PLANET, int(fit['tord'])
+    n_known = sum(c['role'] != 'extra' for c in s['companions'])
+    n_ctx = sum(c['role'] == 'context' for c in s['companions'])
+    head = (f"Final model of {fit['system']} ({s['kind']} fit, {s['n_rv']} nightly RVs, "
+            f"{fit['rv'].nds} instruments): {n_known} known companions"
+            + (f" ({n_ctx} outside our sample)" if n_ctx else '')
+            + (f" + {s['n_extra']} long-period Keplerian" if s['n_extra'] else '')
+            + {0: ', no trend', 1: ' + linear trend', 2: ' + quadratic trend'}[tord])
+    out = [(head, True)]
+    for c in s['companions']:
+        lit = f" (literature {c['P_lit_d']:.5g} d)" if c.get('P_lit_d') else ''
+        role = {'sample': 'in our sample', 'context': 'outside our sample (context)',
+                'extra': 'not a known companion'}[c['role']]
+        db = (f";  $\\Delta$BIC for dropping it = {c['dBIC_drop']:.1f}"
+              + (' (not detected by the RVs)' if c['dBIC_drop'] < 20 else '')) if c.get('dBIC_drop') is not None else ''
+        out.append((f"   {c['name']} [{role}]:  P = {c['P_d']:.5g} d{lit},  K = {c['K_ms']:.4g} m/s,  "
+                    f"e = {c['e']:.3f}{db}", False))
+    if tord:
+        k, span_yr = P*fit['npl'], fit['rv'].span/365.25
+        terms = [f"slope {th[k]/span_yr:.3g} m/s/yr"] + ([f"curvature {th[k + 1]/span_yr**2:.3g} m/s/yr$^2$"]
+                                                       if tord > 1 else [])
+        out.append(('   trend: ' + ',  '.join(terms), False))
+    rep = fit.get('replaced_by_trend') or []
+    if rep:
+        out.append(('   replaced by the trend: ' + ', '.join(map(str, rep)), False))
+    return out
+
+
 def plot_fit(fit, path):
-    """RVs and model (a), RVs minus the companions with P < 2000 d against the
-    longer-period ones (b), residuals (c)."""
+    """The final model in words (top), RVs and model (a), RVs minus the
+    companions with P < 2000 d against the longer-period ones (b), residuals (c)."""
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -131,7 +165,15 @@ def plot_fit(fit, path):
     tm = np.linspace(rv.t.min() - 200, rv.t.max() + 200, 20000)
     yr = lambda t: 2000 + (t - 2451544.5)/365.25                          # noqa: E731
     cols = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    fig, ax = plt.subplots(3, 1, figsize=(18, 22), gridspec_kw=dict(height_ratios=[1.2, 1.2, 0.8]))
+    lines = model_lines(fit)
+    htab = 0.07*len(lines) + 0.05
+    fig, ax = plt.subplots(4, 1, figsize=(18, 22 + 5.5*htab),
+                           gridspec_kw=dict(height_ratios=[htab, 1.2, 1.2, 0.8]))
+    tab, ax = ax[0], ax[1:]
+    tab.axis('off')
+    for i, (s, bold) in enumerate(lines):
+        tab.text(0.0, 1 - i/len(lines), s, fontsize=15, va='top', transform=tab.transAxes,
+                 fontweight='bold' if bold else 'normal')
     for d, idx in enumerate(rv.members):
         lab = str(rv.names[d]).split(':')[1] if ':' in str(rv.names[d]) else str(rv.names[d])
         jit = np.exp(th[-rv.nds + d])
@@ -164,13 +206,17 @@ def plot_fit(fit, path):
         a.set_ylim(lo - 0.15*(hi - lo), hi + 0.15*(hi - lo))
     for a in ax:
         a.set_xlim(yr(tm[0]), yr(tm[-1]))
+    fig.tight_layout()                        # first: legends are placed on the final panel positions
+    outside = []
+    for a in ax:
         try:
             figtools.legend_clear(a, fontsize=11)
         except RuntimeError:                  # data everywhere (e.g. HD 39091): legend outside, right
-            a.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=11, borderaxespad=0)
-    fig.tight_layout()
+            outside.append(a)
+    for a in outside:                         # added after the layout, so they do not squeeze the panels
+        a.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=11, borderaxespad=0)
     figtools.check_legends(fig)
-    fig.savefig(path, dpi=200)
+    fig.savefig(path, dpi=200, bbox_inches='tight')
     plt.close(fig)
     return path
 
