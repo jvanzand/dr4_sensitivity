@@ -1,0 +1,6970 @@
+{
+ "HD39091_seed1": {
+  "dataset": "HD39091_seed1",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 79,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 76.28948830831018,
+    "P": 1341.7190403130767,
+    "P_fit": 2170.3162974752336,
+    "thr": 14.493459338661946,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.3033366215533655,
+    "detected": true,
+    "matched": 2088.572333216295,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.3981964306990399,
+    "time": 18.04352116584778
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.563851708074026,
+    "P": 28.052347347407892,
+    "P_fit": null,
+    "thr": 11.570221846438365,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.5921082606232164,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 13,
+    "jitter": 0.014882649955619807,
+    "time": 6.9526989459991455
+   }
+  ],
+  "found": [
+   {
+    "P_d": 2170.3162974752336,
+    "e": 0.6512909380384868,
+    "M0_deg": 274.77413353153804,
+    "a_star_mas": 2.734784543224758,
+    "inc_deg": 139.3679681669006,
+    "omega_deg": 326.6378364022926,
+    "Omega_deg": 306.6575532614997
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.572333216295,
+    "e_true": 0.6394178105051329,
+    "a_star_true_mas": 2.573044408126618,
+    "inc_true_deg": 142.43830808471643,
+    "found": {
+     "P_d": 2170.3162974752336,
+     "e": 0.6512909380384868,
+     "M0_deg": 274.77413353153804,
+     "a_star_mas": 2.734784543224758,
+     "inc_deg": 139.3679681669006,
+     "omega_deg": 326.6378364022926,
+     "Omega_deg": 306.6575532614997
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 120.58838394511055,
+    "e_true": 0.22563572021407408,
+    "a_star_true_mas": 0.0011370354178661484,
+    "inc_true_deg": 121.86263628688205,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.2683390604723055,
+    "e_true": 0.07624819821496633,
+    "a_star_true_mas": 6.56130101886311e-05,
+    "inc_true_deg": 143.6517853878146,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 71.99794779312828,
+    "dof": 2,
+    "fap": 2.3219041221061905e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 87.98315508867798,
+    "dof": 2,
+    "fap": 7.846945246937082e-20,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD39091_seed2": {
+  "dataset": "HD39091_seed2",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 80,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 106.78461386719172,
+    "P": 1100.8275321447627,
+    "P_fit": 4296.41270170526,
+    "thr": 15.301451786195072,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 18.45690569905213,
+      "dof": 2,
+      "fap": 9.82050567504316e-05,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.5178034461770924,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.22961547158404297,
+    "time": 18.408327102661133
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -9.525238965963311,
+    "P": 35.12289012586574,
+    "P_fit": null,
+    "thr": 12.403319891914444,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.843364535213619,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 36,
+    "jitter": 0.0,
+    "time": 12.08397388458252
+   }
+  ],
+  "found": [
+   {
+    "P_d": 4296.41270170526,
+    "e": 0.7262720238643807,
+    "M0_deg": 317.141067170977,
+    "a_star_mas": 3.0718921920471773,
+    "inc_deg": 107.62181414789875,
+    "omega_deg": 325.14480914869756,
+    "Omega_deg": 66.94327836845449
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.572333216295,
+    "e_true": 0.6394178105051329,
+    "a_star_true_mas": 1.6362107265633739,
+    "inc_true_deg": 106.53250536840316,
+    "found": null
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 120.58838394511055,
+    "e_true": 0.22563572021407408,
+    "a_star_true_mas": 0.001487529330152337,
+    "inc_true_deg": 40.481234409545756,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.2683390604723055,
+    "e_true": 0.07624819821496633,
+    "a_star_true_mas": 4.4677679290385165e-05,
+    "inc_true_deg": 119.49276306076241,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 4296.41270170526,
+    "e": 0.7262720238643807,
+    "M0_deg": 317.141067170977,
+    "a_star_mas": 3.0718921920471773,
+    "inc_deg": 107.62181414789875,
+    "omega_deg": 325.14480914869756,
+    "Omega_deg": 66.94327836845449
+   }
+  ],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 29.420307785405456,
+    "dof": 2,
+    "fap": 4.087533607694861e-07,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 69.9172438790369,
+    "dof": 2,
+    "fap": 6.571483120771401e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 18.45690569905213,
+    "dof": 2,
+    "fap": 9.82050567504316e-05,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD39091_seed3": {
+  "dataset": "HD39091_seed3",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 77,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 109.14843644566128,
+    "P": 1341.7190403130767,
+    "P_fit": 1889.3282062643393,
+    "thr": 18.56129706411599,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 32.411281405376116,
+      "dof": 2,
+      "fap": 9.161775953356825e-08,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.7176227526280123,
+    "detected": true,
+    "matched": 2088.572333216295,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.8926116435473856,
+    "time": 18.028390884399414
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.187093627832255,
+    "P": 35.427301024071994,
+    "P_fit": null,
+    "thr": 10.749548300508565,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.0979187036220805,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 18,
+    "jitter": 0.0,
+    "time": 11.984704732894897
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1889.3282062643393,
+    "e": 0.601421067242137,
+    "M0_deg": 260.608895769299,
+    "a_star_mas": 4.544561944156567,
+    "inc_deg": 162.14280115111757,
+    "omega_deg": 323.1870420797519,
+    "Omega_deg": 78.44150969330474
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.572333216295,
+    "e_true": 0.6394178105051329,
+    "a_star_true_mas": 5.044345029220568,
+    "inc_true_deg": 161.88317230900495,
+    "found": {
+     "P_d": 1889.3282062643393,
+     "e": 0.601421067242137,
+     "M0_deg": 260.608895769299,
+     "a_star_mas": 4.544561944156567,
+     "inc_deg": 162.14280115111757,
+     "omega_deg": 323.1870420797519,
+     "Omega_deg": 78.44150969330474
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 120.58838394511055,
+    "e_true": 0.22563572021407408,
+    "a_star_true_mas": 0.0013178777974572837,
+    "inc_true_deg": 47.119194207134576,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.2683390604723055,
+    "e_true": 0.07624819821496633,
+    "a_star_true_mas": 8.494736302858279e-05,
+    "inc_true_deg": 152.75525796971615,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 70.29655241343193,
+    "dof": 2,
+    "fap": 5.436227147461336e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 72.00760132545415,
+    "dof": 2,
+    "fap": 2.310723837871048e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 32.411281405376116,
+    "dof": 2,
+    "fap": 9.161775953356825e-08,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD39091_seed4": {
+  "dataset": "HD39091_seed4",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 75,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 87.30391618536726,
+    "P": 1209.3945529097812,
+    "P_fit": 2055.90624111326,
+    "thr": 16.973029801915253,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 1.9530645074267057,
+    "detected": true,
+    "matched": 2088.572333216295,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.6810776901434474,
+    "time": 17.465368032455444
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.684590311508412,
+    "P": 22.57760613940034,
+    "P_fit": null,
+    "thr": 6.102603910091906,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.7498210111876622,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 11,
+    "jitter": 0.0,
+    "time": 7.164260149002075
+   }
+  ],
+  "found": [
+   {
+    "P_d": 2055.90624111326,
+    "e": 0.6397925053870086,
+    "M0_deg": 269.40451946017464,
+    "a_star_mas": 8.432588076903604,
+    "inc_deg": 175.65691512947154,
+    "omega_deg": 322.80247626747956,
+    "Omega_deg": 64.17023349569358
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.572333216295,
+    "e_true": 0.6394178105051329,
+    "a_star_true_mas": 8.616632191417406,
+    "inc_true_deg": 169.51142367722667,
+    "found": {
+     "P_d": 2055.90624111326,
+     "e": 0.6397925053870086,
+     "M0_deg": 269.40451946017464,
+     "a_star_mas": 8.432588076903604,
+     "inc_deg": 175.65691512947154,
+     "omega_deg": 322.80247626747956,
+     "Omega_deg": 64.17023349569358
+    }
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 120.58838394511055,
+    "e_true": 0.22563572021407408,
+    "a_star_true_mas": 0.0011478426084066975,
+    "inc_true_deg": 57.27973108521041,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.2683390604723055,
+    "e_true": 0.07624819821496633,
+    "a_star_true_mas": 5.420239793249858e-05,
+    "inc_true_deg": 134.15452885730627,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 52.85784397607955,
+    "dof": 2,
+    "fap": 3.327093592662457e-12,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 72.18619732496995,
+    "dof": 2,
+    "fap": 2.1133256104639552e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD39091_seed5": {
+  "dataset": "HD39091_seed5",
+  "system": "HD39091",
+  "label": "pi Men",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 71,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 61.94850659937223,
+    "P": 1341.7190403130767,
+    "P_fit": 4296.4126711200415,
+    "thr": 12.784074179381953,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 19.206767524429495,
+      "dof": 2,
+      "fap": 6.749994585631707e-05,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.5269925238348225,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.2380920668211354,
+    "time": 17.922029972076416
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -3.6536483247633527,
+    "P": 68.07382382368985,
+    "P_fit": null,
+    "thr": 18.517872893453273,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.6328427310707507,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 15,
+    "jitter": 0.04060275918607604,
+    "time": 12.199697971343994
+   }
+  ],
+  "found": [
+   {
+    "P_d": 4296.4126711200415,
+    "e": 0.7857942695095834,
+    "M0_deg": 317.0364502502956,
+    "a_star_mas": 2.961612776110977,
+    "inc_deg": 100.92357923810115,
+    "omega_deg": 323.56191083947135,
+    "Omega_deg": 267.6350162105721
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 39091 b",
+    "role": "target",
+    "P_true": 2088.572333216295,
+    "e_true": 0.6394178105051329,
+    "a_star_true_mas": 1.5803495406526344,
+    "inc_true_deg": 97.00077747608279,
+    "found": null
+   },
+   {
+    "name": "pi Men d",
+    "role": "target",
+    "P_true": 120.58838394511055,
+    "e_true": 0.22563572021407408,
+    "a_star_true_mas": 0.0009768980773986707,
+    "inc_true_deg": 98.68264167243657,
+    "found": null
+   },
+   {
+    "name": "pi Men c",
+    "role": "target",
+    "P_true": 6.2683390604723055,
+    "e_true": 0.07624819821496633,
+    "a_star_true_mas": 4.3319208742138026e-05,
+    "inc_true_deg": 63.859163929392935,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 4296.4126711200415,
+    "e": 0.7857942695095834,
+    "M0_deg": 317.0364502502956,
+    "a_star_mas": 2.961612776110977,
+    "inc_deg": 100.92357923810115,
+    "omega_deg": 323.56191083947135,
+    "Omega_deg": 267.6350162105721
+   }
+  ],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 35.40748329093421,
+    "dof": 2,
+    "fap": 2.04815440721919e-08,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 49.91306805775144,
+    "dof": 2,
+    "fap": 1.4504908176090223e-11,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 19.206767524429495,
+    "dof": 2,
+    "fap": 6.749994585631707e-05,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD111232_seed1": {
+  "dataset": "HD111232_seed1",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 90,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 277.36086797246446,
+    "P": 1211.136400627808,
+    "P_fit": 1217.6413272165958,
+    "thr": 12.196370482522521,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9137500260967155,
+    "detected": true,
+    "matched": 1168.5116329652835,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.4871284237013628,
+    "time": 6.223406791687012
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -5.540272304141141,
+    "P": 52.23589863589691,
+    "P_fit": null,
+    "thr": 15.703313419648829,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.729765480699736,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 13,
+    "jitter": 0.023708149979580782,
+    "time": 7.658236980438232
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1217.6413272165958,
+    "e": 0.1431195890966095,
+    "M0_deg": 250.03284204919524,
+    "a_star_mas": 0.8739000547517773,
+    "inc_deg": 47.57052491742703,
+    "omega_deg": 277.40925324861894,
+    "Omega_deg": 84.61591703697754
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 c",
+    "role": "context",
+    "P_true": 16972.9711118983,
+    "e_true": 0.27373764312225235,
+    "a_star_true_mas": 6.918811665293836,
+    "inc_true_deg": 86.23196426931422,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.5116329652835,
+    "e_true": 0.20718873827528136,
+    "a_star_true_mas": 0.806455497488731,
+    "inc_true_deg": 46.37700507135731,
+    "found": {
+     "P_d": 1217.6413272165958,
+     "e": 0.1431195890966095,
+     "M0_deg": 250.03284204919524,
+     "a_star_mas": 0.8739000547517773,
+     "inc_deg": 47.57052491742703,
+     "omega_deg": 277.40925324861894,
+     "Omega_deg": 84.61591703697754
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 13.429652617336359,
+    "dof": 2,
+    "fap": 0.0012127966458946456,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed2": {
+  "dataset": "HD111232_seed2",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 87,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 294.76400714012135,
+    "P": 1211.136400627808,
+    "P_fit": 1177.5679954298369,
+    "thr": 15.157249694387392,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.4678153745453204,
+    "detected": true,
+    "matched": 1168.5116329652835,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.8007852356054532,
+    "time": 6.209606885910034
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 25.224902289192137,
+    "P": 3909.767775324173,
+    "P_fit": 3870.661829524054,
+    "thr": 12.672281018466027,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0039189519311615,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.05874541801873494,
+    "time": 10.87106204032898
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -4.086817208307302,
+    "P": 26.46354508394393,
+    "P_fit": null,
+    "thr": 10.737293280088354,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.2793774425512643,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 6,
+    "jitter": 0.0,
+    "time": 19.534191131591797
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1175.8654195258862,
+    "e": 0.158186824703881,
+    "M0_deg": 265.72064338167496,
+    "a_star_mas": 1.2650108068977526,
+    "inc_deg": 19.14127246580032,
+    "omega_deg": 311.6739248234472,
+    "Omega_deg": 125.71422321746834
+   },
+   {
+    "P_d": 3870.661829524054,
+    "e": 0.9899999999914366,
+    "M0_deg": 12.073088687760068,
+    "a_star_mas": 0.7061917091143579,
+    "inc_deg": 121.34992179321011,
+    "omega_deg": 245.50321317685888,
+    "Omega_deg": 301.0970645515862
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 c",
+    "role": "context",
+    "P_true": 16972.9711118983,
+    "e_true": 0.27373764312225235,
+    "a_star_true_mas": 7.408289532181177,
+    "inc_true_deg": 68.73445007865327,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.5116329652835,
+    "e_true": 0.20718873827528136,
+    "a_star_true_mas": 1.2689694717036133,
+    "inc_true_deg": 27.390319903449655,
+    "found": {
+     "P_d": 1175.8654195258862,
+     "e": 0.158186824703881,
+     "M0_deg": 265.72064338167496,
+     "a_star_mas": 1.2650108068977526,
+     "inc_deg": 19.14127246580032,
+     "omega_deg": 311.6739248234472,
+     "Omega_deg": 125.71422321746834
+    }
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 3870.661829524054,
+    "e": 0.9899999999914366,
+    "M0_deg": 12.073088687760068,
+    "a_star_mas": 0.7061917091143579,
+    "inc_deg": 121.34992179321011,
+    "omega_deg": 245.50321317685888,
+    "Omega_deg": 301.0970645515862
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.1900868734282994,
+    "dof": 2,
+    "fap": 0.3345250759629202,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD111232_seed3": {
+  "dataset": "HD111232_seed3",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 85,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 194.38689398145982,
+    "P": 1211.136400627808,
+    "P_fit": 1131.5834167780192,
+    "thr": 14.159181194918983,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 180.5140631410325,
+      "dof": 2,
+      "fap": 6.336788847733868e-40,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.2074887329471506,
+    "detected": true,
+    "matched": 1168.5116329652835,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.26719728608239923,
+    "time": 17.246134042739868
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.402360600277859,
+    "P": 278.2599242100625,
+    "P_fit": null,
+    "thr": 4.387617312869228,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.6438447811889207,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 12,
+    "jitter": 0.0,
+    "time": 12.36863374710083
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1131.5834167780192,
+    "e": 0.2704554164175586,
+    "M0_deg": 275.16552943559367,
+    "a_star_mas": 0.6492345657651659,
+    "inc_deg": 116.95248092678052,
+    "omega_deg": 76.23215223293164,
+    "Omega_deg": 47.9616695733476
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 c",
+    "role": "context",
+    "P_true": 16972.9711118983,
+    "e_true": 0.27373764312225235,
+    "a_star_true_mas": 11.739228140690898,
+    "inc_true_deg": 36.02238519529039,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.5116329652835,
+    "e_true": 0.20718873827528136,
+    "a_star_true_mas": 0.6624906989691718,
+    "inc_true_deg": 118.21211541100254,
+    "found": {
+     "P_d": 1131.5834167780192,
+     "e": 0.2704554164175586,
+     "M0_deg": 275.16552943559367,
+     "a_star_mas": 0.6492345657651659,
+     "inc_deg": 116.95248092678052,
+     "omega_deg": 76.23215223293164,
+     "Omega_deg": 47.9616695733476
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 35.659130198497955,
+    "dof": 2,
+    "fap": 1.8060021486149998e-08,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 18.07950844266516,
+    "dof": 2,
+    "fap": 0.00011859998221807435,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 180.5140631410325,
+    "dof": 2,
+    "fap": 6.336788847733868e-40,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD111232_seed4": {
+  "dataset": "HD111232_seed4",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 94,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 231.73605428170433,
+    "P": 1102.4321714372456,
+    "P_fit": 1152.7961635574209,
+    "thr": 5.413644287810512,
+    "trend_before": 2,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 1)"
+     },
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 208.83261896829617,
+      "dof": 2,
+      "fap": 4.493378162474068e-46,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 1.7658396254606386,
+    "detected": true,
+    "matched": 1168.5116329652835,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.2847472463674503,
+    "time": 18.156555891036987
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -3.269112975155366,
+    "P": 21.28218106463155,
+    "P_fit": null,
+    "thr": 9.743006642292803,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.279920672065054,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 3,
+    "jitter": 0.0,
+    "time": 12.735813856124878
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1152.7961635574209,
+    "e": 0.14388929385617827,
+    "M0_deg": 258.8538425799994,
+    "a_star_mas": 0.6677546568880859,
+    "inc_deg": 125.52649972557282,
+    "omega_deg": 97.80032067139426,
+    "Omega_deg": 75.9891617569213
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 c",
+    "role": "context",
+    "P_true": 16972.9711118983,
+    "e_true": 0.27373764312225235,
+    "a_star_true_mas": 13.567088502902745,
+    "inc_true_deg": 30.588447265584296,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.5116329652835,
+    "e_true": 0.20718873827528136,
+    "a_star_true_mas": 0.6836128777586801,
+    "inc_true_deg": 121.35318660592125,
+    "found": {
+     "P_d": 1152.7961635574209,
+     "e": 0.14388929385617827,
+     "M0_deg": 258.8538425799994,
+     "a_star_mas": 0.6677546568880859,
+     "inc_deg": 125.52649972557282,
+     "omega_deg": 97.80032067139426,
+     "Omega_deg": 75.9891617569213
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 26.503206788135472,
+    "dof": 2,
+    "fap": 1.7575260449261826e-06,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 30.205657389459965,
+    "dof": 2,
+    "fap": 2.760100124954089e-07,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 1)"
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 208.83261896829617,
+    "dof": 2,
+    "fap": 4.493378162474068e-46,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "HD111232_seed5": {
+  "dataset": "HD111232_seed5",
+  "system": "HD111232",
+  "label": "HD 111232",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 84,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 242.91874216150708,
+    "P": 1211.136400627808,
+    "P_fit": 1178.3960111887586,
+    "thr": 12.262948979471899,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.4693552396533787,
+    "detected": true,
+    "matched": 1168.5116329652835,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 3.860868890213571,
+    "time": 6.234699964523315
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 243.05888739439152,
+    "P": 3909.767775324173,
+    "P_fit": 4730.8190071358,
+    "thr": 25.258607272005072,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.8963373136114963,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.5409141056563359,
+    "time": 10.225872278213501
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -8.890856949843712,
+    "P": 35.69121658346536,
+    "P_fit": null,
+    "thr": 11.152618632582273,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.3021508863230697,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 20,
+    "jitter": 0.0,
+    "time": 16.541903018951416
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1166.1855348416484,
+    "e": 0.19140170129513023,
+    "M0_deg": 255.0010308461245,
+    "a_star_mas": 5.908672080718951,
+    "inc_deg": 164.08653278454193,
+    "omega_deg": 42.71862145256859,
+    "Omega_deg": 90.3723627468394
+   },
+   {
+    "P_d": 4730.8190071358,
+    "e": 0.5998875853799648,
+    "M0_deg": 358.3947885355712,
+    "a_star_mas": 2.5445396003919853,
+    "inc_deg": 121.03887628490119,
+    "omega_deg": 352.6840509131929,
+    "Omega_deg": 230.46968954491882
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 111232 c",
+    "role": "context",
+    "P_true": 16972.9711118983,
+    "e_true": 0.27373764312225235,
+    "a_star_true_mas": 34.62022163953097,
+    "inc_true_deg": 168.49714054098732,
+    "found": null
+   },
+   {
+    "name": "HD 111232 b",
+    "role": "target",
+    "P_true": 1168.5116329652835,
+    "e_true": 0.20718873827528136,
+    "a_star_true_mas": 5.851454208010044,
+    "inc_true_deg": 174.27417669470557,
+    "found": {
+     "P_d": 1166.1855348416484,
+     "e": 0.19140170129513023,
+     "M0_deg": 255.0010308461245,
+     "a_star_mas": 5.908672080718951,
+     "inc_deg": 164.08653278454193,
+     "omega_deg": 42.71862145256859,
+     "Omega_deg": 90.3723627468394
+    }
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 4730.8190071358,
+    "e": 0.5998875853799648,
+    "M0_deg": 358.3947885355712,
+    "a_star_mas": 2.5445396003919853,
+    "inc_deg": 121.03887628490119,
+    "omega_deg": 352.6840509131929,
+    "Omega_deg": 230.46968954491882
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 11.309654677814024,
+    "dof": 2,
+    "fap": 0.0035005774481591083,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD168443_seed1": {
+  "dataset": "HD168443_seed1",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 68,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 100.54416194955778,
+    "P": 3703.0649230796844,
+    "P_fit": 1704.0274035867915,
+    "thr": 18.957018248525866,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.907845239358563,
+    "detected": true,
+    "matched": 1748.6792383899028,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.17840396852292417,
+    "time": 19.76643180847168
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.78742475021107,
+    "P": 27.86309224387162,
+    "P_fit": null,
+    "thr": 10.28164891075265,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.77091299121974,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 13,
+    "jitter": 0.026333256903502692,
+    "time": 8.348767042160034
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1704.0274035867915,
+    "e": 0.2904172442244105,
+    "M0_deg": 128.2093717281052,
+    "a_star_mas": 1.2196891118417053,
+    "inc_deg": 108.8113228431834,
+    "omega_deg": 234.13556416266366,
+    "Omega_deg": 311.3158408644378
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1748.6792383899028,
+    "e_true": 0.21295904292421514,
+    "a_star_true_mas": 1.2610576778444393,
+    "inc_true_deg": 108.00587636816647,
+    "found": {
+     "P_d": 1704.0274035867915,
+     "e": 0.2904172442244105,
+     "M0_deg": 128.2093717281052,
+     "a_star_mas": 1.2196891118417053,
+     "inc_deg": 108.8113228431834,
+     "omega_deg": 234.13556416266366,
+     "Omega_deg": 311.3158408644378
+    }
+   },
+   {
+    "name": "HD 168443 long-period companion (RV)",
+    "role": "trend",
+    "P_true": 9932.82661598499,
+    "e_true": 0.5621770155416498,
+    "a_star_true_mas": 1.248566806036102,
+    "inc_true_deg": 148.81204042551525,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11161133319524,
+    "e_true": 0.531328158402744,
+    "a_star_true_mas": 0.057158814272457246,
+    "inc_true_deg": 105.0827916575212,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 107.52831517055893,
+    "dof": 2,
+    "fap": 4.4722187341106555e-24,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 20.651859902674556,
+    "dof": 2,
+    "fap": 3.277220038000652e-05,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed2": {
+  "dataset": "HD168443_seed2",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 72,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 234.42649118969345,
+    "P": 3703.0649230796844,
+    "P_fit": 1748.7458397670127,
+    "thr": 16.76941536276141,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.5819407156284626,
+    "detected": true,
+    "matched": 1748.6792383899028,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.44066830135357654,
+    "time": 20.81367325782776
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -5.974042882070929,
+    "P": 257.4902758214331,
+    "P_fit": null,
+    "thr": 9.052022733380374,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.077180202714511,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 8,
+    "jitter": 0.025821496440872577,
+    "time": 8.411494016647339
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1748.7458397670127,
+    "e": 0.23104226428237973,
+    "M0_deg": 120.6005812964543,
+    "a_star_mas": 3.0696428495805756,
+    "inc_deg": 159.9918306078127,
+    "omega_deg": 55.16044159479642,
+    "Omega_deg": 317.3714810600836
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1748.6792383899028,
+    "e_true": 0.21295904292421514,
+    "a_star_true_mas": 3.078046408676651,
+    "inc_true_deg": 157.06856303147615,
+    "found": {
+     "P_d": 1748.7458397670127,
+     "e": 0.23104226428237973,
+     "M0_deg": 120.6005812964543,
+     "a_star_mas": 3.0696428495805756,
+     "inc_deg": 159.9918306078127,
+     "omega_deg": 55.16044159479642,
+     "Omega_deg": 317.3714810600836
+    }
+   },
+   {
+    "name": "HD 168443 long-period companion (RV)",
+    "role": "trend",
+    "P_true": 9932.82661598499,
+    "e_true": 0.5621770155416498,
+    "a_star_true_mas": 0.6478085580296701,
+    "inc_true_deg": 93.54803212873122,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11161133319524,
+    "e_true": 0.531328158402744,
+    "a_star_true_mas": 0.057177319065341695,
+    "inc_true_deg": 74.84855488927774,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 60.18944165599805,
+    "dof": 2,
+    "fap": 8.511945023879132e-14,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 98.84063027066618,
+    "dof": 2,
+    "fap": 3.443735937877906e-22,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed3": {
+  "dataset": "HD168443_seed3",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 69,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 43.743120105588446,
+    "P": 1893.3637817585063,
+    "P_fit": 2035.6347427016017,
+    "thr": 24.852888277348065,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 3.387716394567048,
+    "detected": true,
+    "matched": 1748.6792383899028,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.09035753518975599,
+    "time": 21.81401300430298
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 3.116842479473796,
+    "P": 58.07359781415272,
+    "P_fit": null,
+    "thr": 14.570560471679803,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.8504470487856333,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.02996426281169252,
+    "time": 8.688722133636475
+   }
+  ],
+  "found": [
+   {
+    "P_d": 2035.6347427016017,
+    "e": 0.108268929017345,
+    "M0_deg": 67.0414224446658,
+    "a_star_mas": 1.3514219436929324,
+    "inc_deg": 88.68427804943444,
+    "omega_deg": 120.52729934963043,
+    "Omega_deg": 35.249457479682455
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1748.6792383899028,
+    "e_true": 0.21295904292421514,
+    "a_star_true_mas": 1.1993257796416024,
+    "inc_true_deg": 89.60409613545819,
+    "found": {
+     "P_d": 2035.6347427016017,
+     "e": 0.108268929017345,
+     "M0_deg": 67.0414224446658,
+     "a_star_mas": 1.3514219436929324,
+     "inc_deg": 88.68427804943444,
+     "omega_deg": 120.52729934963043,
+     "Omega_deg": 35.249457479682455
+    }
+   },
+   {
+    "name": "HD 168443 long-period companion (RV)",
+    "role": "trend",
+    "P_true": 9932.82661598499,
+    "e_true": 0.5621770155416498,
+    "a_star_true_mas": 1.170422130737735,
+    "inc_true_deg": 33.53332850323917,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11161133319524,
+    "e_true": 0.531328158402744,
+    "a_star_true_mas": 0.09640018257573783,
+    "inc_true_deg": 145.07479602510122,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 169.9445762328227,
+    "dof": 2,
+    "fap": 1.250270995688886e-37,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 53.65296444465274,
+    "dof": 2,
+    "fap": 2.2356653815000645e-12,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed4": {
+  "dataset": "HD168443_seed4",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 73,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 182.0698073587022,
+    "P": 3703.0649230796844,
+    "P_fit": 1756.6736726920676,
+    "thr": 16.40392109214558,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.486537422001513,
+    "detected": true,
+    "matched": 1748.6792383899028,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.37019012535043827,
+    "time": 20.678587913513184
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -0.01759583490738237,
+    "P": 22.04879668283859,
+    "P_fit": null,
+    "thr": 11.543644030242532,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.751777523822461,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 4,
+    "jitter": 0.0308133281186971,
+    "time": 8.240571975708008
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1756.6736726920676,
+    "e": 0.21627402611859586,
+    "M0_deg": 120.400447030089,
+    "a_star_mas": 2.7144876868014305,
+    "inc_deg": 156.71692545794406,
+    "omega_deg": 59.97082272730347,
+    "Omega_deg": 311.44855584756135
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1748.6792383899028,
+    "e_true": 0.21295904292421514,
+    "a_star_true_mas": 2.698133216076591,
+    "inc_true_deg": 153.6091934548364,
+    "found": {
+     "P_d": 1756.6736726920676,
+     "e": 0.21627402611859586,
+     "M0_deg": 120.400447030089,
+     "a_star_mas": 2.7144876868014305,
+     "inc_deg": 156.71692545794406,
+     "omega_deg": 59.97082272730347,
+     "Omega_deg": 311.44855584756135
+    }
+   },
+   {
+    "name": "HD 168443 long-period companion (RV)",
+    "role": "trend",
+    "P_true": 9932.82661598499,
+    "e_true": 0.5621770155416498,
+    "a_star_true_mas": 0.922061556447197,
+    "inc_true_deg": 135.4751307942718,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11161133319524,
+    "e_true": 0.531328158402744,
+    "a_star_true_mas": 0.05978761522129634,
+    "inc_true_deg": 67.38305678083837,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 62.21842516184975,
+    "dof": 2,
+    "fap": 3.086317772678532e-14,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 103.91000309858507,
+    "dof": 2,
+    "fap": 2.7304203987858214e-23,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD168443_seed5": {
+  "dataset": "HD168443_seed5",
+  "system": "HD168443",
+  "label": "HD 168443",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 67,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 96.64787376032143,
+    "P": 1361.7368960294507,
+    "P_fit": 1707.740058660723,
+    "thr": 16.948153627278586,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.878208187257976,
+    "detected": true,
+    "matched": 1748.6792383899028,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.1783899823762247,
+    "time": 20.000082969665527
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 2.638640284897974,
+    "P": 459.128787427545,
+    "P_fit": null,
+    "thr": 15.964867366542068,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.65488444553083,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 2,
+    "jitter": 0.04736593529214904,
+    "time": 8.391345024108887
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1707.740058660723,
+    "e": 0.15519328822593248,
+    "M0_deg": 95.88456625294201,
+    "a_star_mas": 1.4087647758723902,
+    "inc_deg": 58.37052710398216,
+    "omega_deg": 89.29271703564606,
+    "Omega_deg": 303.1336688668241
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 168443 c",
+    "role": "target",
+    "P_true": 1748.6792383899028,
+    "e_true": 0.21295904292421514,
+    "a_star_true_mas": 1.4695786358074838,
+    "inc_true_deg": 54.69452062539534,
+    "found": {
+     "P_d": 1707.740058660723,
+     "e": 0.15519328822593248,
+     "M0_deg": 95.88456625294201,
+     "a_star_mas": 1.4087647758723902,
+     "inc_deg": 58.37052710398216,
+     "omega_deg": 89.29271703564606,
+     "Omega_deg": 303.1336688668241
+    }
+   },
+   {
+    "name": "HD 168443 long-period companion (RV)",
+    "role": "trend",
+    "P_true": 9932.82661598499,
+    "e_true": 0.5621770155416498,
+    "a_star_true_mas": 1.116533414436999,
+    "inc_true_deg": 35.38615744121424,
+    "found": null
+   },
+   {
+    "name": "HD 168443 b",
+    "role": "target",
+    "P_true": 58.11161133319524,
+    "e_true": 0.531328158402744,
+    "a_star_true_mas": 0.06980445930650192,
+    "inc_true_deg": 127.75525222444382,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 92.54989344791679,
+    "dof": 2,
+    "fap": 7.999189538949568e-21,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 55.969811200842,
+    "dof": 2,
+    "fap": 7.019560494815135e-13,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD89707_seed1": {
+  "dataset": "HD89707_seed1",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 55,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 96.98656684698197,
+    "P": 298.01720638116507,
+    "P_fit": 298.2563471767159,
+    "thr": 26.190008674337694,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.700479951341401,
+    "detected": true,
+    "matched": 298.2849977340276,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.5848278581270466,
+    "time": 7.209654092788696
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -14.407267576189895,
+    "P": 20.836030984116267,
+    "P_fit": null,
+    "thr": 12.683799586302783,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.1673562732407747,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 44,
+    "jitter": 0.0,
+    "time": 8.69822096824646
+   }
+  ],
+  "found": [
+   {
+    "P_d": 298.2563471767159,
+    "e": 0.9661218222884418,
+    "M0_deg": 187.7034830916362,
+    "a_star_mas": 1.9444524168450492,
+    "inc_deg": 132.40406127633807,
+    "omega_deg": 118.11009322949151,
+    "Omega_deg": 307.1483118455809
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2849977340276,
+    "e_true": 0.9541414636055141,
+    "a_star_true_mas": 1.9332366388704023,
+    "inc_true_deg": 130.88811609779773,
+    "found": {
+     "P_d": 298.2563471767159,
+     "e": 0.9661218222884418,
+     "M0_deg": 187.7034830916362,
+     "a_star_mas": 1.9444524168450492,
+     "inc_deg": 132.40406127633807,
+     "omega_deg": 118.11009322949151,
+     "Omega_deg": 307.1483118455809
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 11.192966498387634,
+    "dof": 2,
+    "fap": 0.0037108910752498923,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed2": {
+  "dataset": "HD89707_seed2",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 53,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 87.39528526504414,
+    "P": 305.63409563977876,
+    "P_fit": 298.31818474551744,
+    "thr": 22.09981943826076,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.5422996861516047,
+    "detected": true,
+    "matched": 298.2849977340276,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.9317980955279636,
+    "time": 7.045500040054321
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -9.7347699044772,
+    "P": 39.462891136209876,
+    "P_fit": null,
+    "thr": 10.900853305696547,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9970303202983315,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 27,
+    "jitter": 0.0,
+    "time": 8.22989296913147
+   }
+  ],
+  "found": [
+   {
+    "P_d": 298.31818474551744,
+    "e": 0.8783558065035395,
+    "M0_deg": 192.7724008842366,
+    "a_star_mas": 1.998192845474868,
+    "inc_deg": 49.92708062705567,
+    "omega_deg": 330.26377549733377,
+    "Omega_deg": 27.03428863134426
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2849977340276,
+    "e_true": 0.9541414636055141,
+    "a_star_true_mas": 2.425625305432513,
+    "inc_true_deg": 37.05113694924959,
+    "found": {
+     "P_d": 298.31818474551744,
+     "e": 0.8783558065035395,
+     "M0_deg": 192.7724008842366,
+     "a_star_mas": 1.998192845474868,
+     "inc_deg": 49.92708062705567,
+     "omega_deg": 330.26377549733377,
+     "Omega_deg": 27.03428863134426
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 7.679597981219899,
+    "dof": 2,
+    "fap": 0.021497922195037437,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed3": {
+  "dataset": "HD89707_seed3",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 58,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 67.39694270328994,
+    "P": 305.63409563977876,
+    "P_fit": 297.4405291313937,
+    "thr": 20.59620269906699,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.457317542654857,
+    "detected": true,
+    "matched": 298.2849977340276,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.4222135193002423,
+    "time": 6.938762903213501
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -10.015823155354525,
+    "P": 142.17589248676893,
+    "P_fit": null,
+    "thr": 8.596157268208454,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.3167792025576732,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 21,
+    "jitter": 0.0,
+    "time": 8.555147886276245
+   }
+  ],
+  "found": [
+   {
+    "P_d": 297.4405291313937,
+    "e": 0.9025057691175876,
+    "M0_deg": 190.64656452406652,
+    "a_star_mas": 1.2739410361617025,
+    "inc_deg": 68.18279796139201,
+    "omega_deg": 311.3129450259052,
+    "Omega_deg": 235.8052169111132
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2849977340276,
+    "e_true": 0.9541414636055141,
+    "a_star_true_mas": 1.5695725711900868,
+    "inc_true_deg": 68.61465687771398,
+    "found": {
+     "P_d": 297.4405291313937,
+     "e": 0.9025057691175876,
+     "M0_deg": 190.64656452406652,
+     "a_star_mas": 1.2739410361617025,
+     "inc_deg": 68.18279796139201,
+     "omega_deg": 311.3129450259052,
+     "Omega_deg": 235.8052169111132
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 11.145826824874078,
+    "dof": 2,
+    "fap": 0.0037993950874408546,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD89707_seed4": {
+  "dataset": "HD89707_seed4",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 59,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 80.96147947835136,
+    "P": 298.02007989703435,
+    "P_fit": 298.41266512899205,
+    "thr": 24.406506841404088,
+    "trend_before": 1,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (1 -> 0)"
+     }
+    ],
+    "thr_sd": 3.2295722685056685,
+    "detected": true,
+    "matched": 298.2849977340276,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.2590749713366299,
+    "time": 12.73124885559082
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -0.17772781518391056,
+    "P": 59.771963646132534,
+    "P_fit": null,
+    "thr": 11.471530530136704,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.2391373373941135,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.017982094087082314,
+    "time": 8.480309009552002
+   }
+  ],
+  "found": [
+   {
+    "P_d": 298.41266512899205,
+    "e": 0.9051917408868533,
+    "M0_deg": 189.40851239131732,
+    "a_star_mas": 1.2565887461273033,
+    "inc_deg": 105.43624007250769,
+    "omega_deg": 129.60658652174698,
+    "Omega_deg": 328.588955219037
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2849977340276,
+    "e_true": 0.9541414636055141,
+    "a_star_true_mas": 1.5046704697576376,
+    "inc_true_deg": 103.75698362615793,
+    "found": {
+     "P_d": 298.41266512899205,
+     "e": 0.9051917408868533,
+     "M0_deg": 189.40851239131732,
+     "a_star_mas": 1.2565887461273033,
+     "inc_deg": 105.43624007250769,
+     "omega_deg": 129.60658652174698,
+     "Omega_deg": 328.588955219037
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 17.226504911252427,
+    "dof": 2,
+    "fap": 0.00018168203565236917,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 0.758704651956803,
+    "dof": 2,
+    "fap": 0.6843044719460996,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (1 -> 0)"
+   }
+  ]
+ },
+ "HD89707_seed5": {
+  "dataset": "HD89707_seed5",
+  "system": "HD89707",
+  "label": "HD 89707",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 60,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 75.42485907910327,
+    "P": 298.02007989703435,
+    "P_fit": 298.130059243641,
+    "thr": 25.911227757292828,
+    "trend_before": 1,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (1 -> 0)"
+     }
+    ],
+    "thr_sd": 3.233900325449594,
+    "detected": true,
+    "matched": 298.2849977340276,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.21614182752542827,
+    "time": 13.24632215499878
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -13.024722502159527,
+    "P": 22.188666845413433,
+    "P_fit": null,
+    "thr": 11.973662823285071,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.38919627793486,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 41,
+    "jitter": 0.0,
+    "time": 8.49977707862854
+   }
+  ],
+  "found": [
+   {
+    "P_d": 298.130059243641,
+    "e": 0.9899999999748026,
+    "M0_deg": 193.0282728288821,
+    "a_star_mas": 3.032636044583946,
+    "inc_deg": 85.2792294588126,
+    "omega_deg": 104.36043132976799,
+    "Omega_deg": 346.590853926043
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
+    "role": "target",
+    "P_true": 298.2849977340276,
+    "e_true": 0.9541414636055141,
+    "a_star_true_mas": 1.4763327531530925,
+    "inc_true_deg": 81.87298949658728,
+    "found": {
+     "P_d": 298.130059243641,
+     "e": 0.9899999999748026,
+     "M0_deg": 193.0282728288821,
+     "a_star_mas": 3.032636044583946,
+     "inc_deg": 85.2792294588126,
+     "omega_deg": 104.36043132976799,
+     "Omega_deg": 346.590853926043
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 19.047798742158836,
+    "dof": 2,
+    "fap": 7.30841258752715e-05,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 1.0736153473724048,
+    "dof": 2,
+    "fap": 0.5846115474949904,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (1 -> 0)"
+   }
+  ]
+ },
+ "TOI1736_seed1": {
+  "dataset": "TOI1736_seed1",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 114,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 87.42935260209843,
+    "P": 578.2584724754585,
+    "P_fit": 577.9913205663892,
+    "thr": 14.09555618295895,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 99.02886644634944,
+      "dof": 2,
+      "fap": 3.1344033051831132e-22,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.062877430706978,
+    "detected": true,
+    "matched": 571.3700272052703,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.06998219550080523,
+    "time": 14.160911321640015
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -7.970573275621064,
+    "P": 176.78977299600444,
+    "P_fit": null,
+    "thr": 5.124031713386852,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.8071541697577969,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 13,
+    "jitter": 0.0,
+    "time": 14.776890277862549
+   }
+  ],
+  "found": [
+   {
+    "P_d": 577.9913205663892,
+    "e": 0.40917024890286746,
+    "M0_deg": 158.90368817822306,
+    "a_star_mas": 0.13214395996482892,
+    "inc_deg": 132.97677267882926,
+    "omega_deg": 342.838944342049,
+    "Omega_deg": 127.87039905477053
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 20279.153892030754,
+    "e_true": 0.0,
+    "a_star_true_mas": 12.928171848062465,
+    "inc_true_deg": 105.90246841675587,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.3700272052703,
+    "e_true": 0.3700960477625327,
+    "a_star_true_mas": 0.13553118870308317,
+    "inc_true_deg": 126.08756082744043,
+    "found": {
+     "P_d": 577.9913205663892,
+     "e": 0.40917024890286746,
+     "M0_deg": 158.90368817822306,
+     "a_star_mas": 0.13214395996482892,
+     "inc_deg": 132.97677267882926,
+     "omega_deg": 342.838944342049,
+     "Omega_deg": 127.87039905477053
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077264313958059,
+    "e_true": 0.09519904176330515,
+    "a_star_true_mas": 3.386867547902447e-05,
+    "inc_true_deg": 59.0968847994933,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 27.618416241137197,
+    "dof": 2,
+    "fap": 1.0063223395429499e-06,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 3.184779188859295,
+    "dof": 2,
+    "fap": 0.20343889398896037,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 99.02886644634944,
+    "dof": 2,
+    "fap": 3.1344033051831132e-22,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed2": {
+  "dataset": "TOI1736_seed2",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 101,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 241.08967261333908,
+    "P": 578.2584724754585,
+    "P_fit": 566.7109917424075,
+    "thr": 15.763886856174725,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.6154377488359315,
+    "detected": true,
+    "matched": 571.3700272052703,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.5836464767610257,
+    "time": 7.3240227699279785
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 60.31564317581807,
+    "P": 2379.2791176267206,
+    "P_fit": 2878.927732300856,
+    "thr": 14.383063599349217,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.4762058372986426,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.07312437363204598,
+    "time": 11.577814102172852
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -6.900118094437222,
+    "P": 24.6855703351034,
+    "P_fit": null,
+    "thr": 9.965567795481576,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.1228239157732087,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 12,
+    "jitter": 0.020486079338269177,
+    "time": 25.43326473236084
+   }
+  ],
+  "found": [
+   {
+    "P_d": 569.8327046752121,
+    "e": 0.39959938411416085,
+    "M0_deg": 155.32480086056074,
+    "a_star_mas": 0.9258769699089129,
+    "inc_deg": 170.69578968889402,
+    "omega_deg": 350.37643310369526,
+    "Omega_deg": 358.28092702456223
+   },
+   {
+    "P_d": 2878.927732300856,
+    "e": 0.20430444464984826,
+    "M0_deg": 122.28496218739203,
+    "a_star_mas": 0.2694290731654945,
+    "inc_deg": 64.85243145041089,
+    "omega_deg": 3.900829774430118,
+    "Omega_deg": 267.03216459686337
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 18937.24954080063,
+    "e_true": 0.0,
+    "a_star_true_mas": 11.431011501318636,
+    "inc_true_deg": 72.88680229121645,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.3700272052703,
+    "e_true": 0.3700960477625327,
+    "a_star_true_mas": 0.9193079545829048,
+    "inc_true_deg": 173.157602306265,
+    "found": {
+     "P_d": 569.8327046752121,
+     "e": 0.39959938411416085,
+     "M0_deg": 155.32480086056074,
+     "a_star_mas": 0.9258769699089129,
+     "inc_deg": 170.69578968889402,
+     "omega_deg": 350.37643310369526,
+     "Omega_deg": 358.28092702456223
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077264313958059,
+    "e_true": 0.09519904176330515,
+    "a_star_true_mas": 3.981782092609558e-05,
+    "inc_true_deg": 46.872851232519,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 2878.927732300856,
+    "e": 0.20430444464984826,
+    "M0_deg": 122.28496218739203,
+    "a_star_mas": 0.2694290731654945,
+    "inc_deg": 64.85243145041089,
+    "omega_deg": 3.900829774430118,
+    "Omega_deg": 267.03216459686337
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.1075914365382005,
+    "dof": 2,
+    "fap": 0.34861200167740614,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1736_seed3": {
+  "dataset": "TOI1736_seed3",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 111,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 57.74666133855126,
+    "P": 578.2584724754585,
+    "P_fit": 568.6221516360758,
+    "thr": 12.18552392841219,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 167.33528945552808,
+      "dof": 2,
+      "fap": 4.608966811988475e-37,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.193297629319294,
+    "detected": true,
+    "matched": 571.3700272052703,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.047907906490964054,
+    "time": 14.6507089138031
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -11.504974264105257,
+    "P": 3896.114273706451,
+    "P_fit": null,
+    "thr": 7.748721744804731,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.5328199289730007,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 30,
+    "jitter": 0.0,
+    "time": 15.521891832351685
+   }
+  ],
+  "found": [
+   {
+    "P_d": 568.6221516360758,
+    "e": 0.22962552363992772,
+    "M0_deg": 170.7453296577997,
+    "a_star_mas": 0.10090688039330895,
+    "inc_deg": 111.11887718117727,
+    "omega_deg": 339.1087237704875,
+    "Omega_deg": 76.88866179669056
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 15305.00390640697,
+    "e_true": 0.0,
+    "a_star_true_mas": 7.12464198436726,
+    "inc_true_deg": 90.38760230365193,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.3700272052703,
+    "e_true": 0.3700960477625327,
+    "a_star_true_mas": 0.11560086959982534,
+    "inc_true_deg": 108.65847633947084,
+    "found": {
+     "P_d": 568.6221516360758,
+     "e": 0.22962552363992772,
+     "M0_deg": 170.7453296577997,
+     "a_star_mas": 0.10090688039330895,
+     "inc_deg": 111.11887718117727,
+     "omega_deg": 339.1087237704875,
+     "Omega_deg": 76.88866179669056
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077264313958059,
+    "e_true": 0.09519904176330515,
+    "a_star_true_mas": 8.1838952410151e-05,
+    "inc_true_deg": 20.79924683988374,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 126.60872855380256,
+    "dof": 2,
+    "fap": 3.2156140247424225e-28,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 3.602611608124903,
+    "dof": 2,
+    "fap": 0.16508318112807818,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 167.33528945552808,
+    "dof": 2,
+    "fap": 4.608966811988475e-37,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed4": {
+  "dataset": "TOI1736_seed4",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 112,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 234.11199852936784,
+    "P": 578.2584724754585,
+    "P_fit": 571.3890185938585,
+    "thr": 16.411145158763873,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 204.13347469995608,
+      "dof": 2,
+      "fap": 4.709547516614142e-45,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 2.474865892874433,
+    "detected": true,
+    "matched": 571.3700272052703,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.22385530566116324,
+    "time": 14.183557987213135
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -4.175925841701712,
+    "P": 55.27222613766312,
+    "P_fit": null,
+    "thr": 15.374519385853375,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.1789392516089303,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 12,
+    "jitter": 0.023766814498141355,
+    "time": 14.529558897018433
+   }
+  ],
+  "found": [
+   {
+    "P_d": 571.3890185938585,
+    "e": 0.3715520889732606,
+    "M0_deg": 166.40890548114257,
+    "a_star_mas": 0.33211754582350783,
+    "inc_deg": 11.675450610858505,
+    "omega_deg": 45.93012472384218,
+    "Omega_deg": 279.9735465036739
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 13238.799502624259,
+    "e_true": 0.0,
+    "a_star_true_mas": 7.929134355288072,
+    "inc_true_deg": 137.25140609014372,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.3700272052703,
+    "e_true": 0.3700960477625327,
+    "a_star_true_mas": 0.3428093563929523,
+    "inc_true_deg": 18.63226185079031,
+    "found": {
+     "P_d": 571.3890185938585,
+     "e": 0.3715520889732606,
+     "M0_deg": 166.40890548114257,
+     "a_star_mas": 0.33211754582350783,
+     "inc_deg": 11.675450610858505,
+     "omega_deg": 45.93012472384218,
+     "Omega_deg": 279.9735465036739
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077264313958059,
+    "e_true": 0.09519904176330515,
+    "a_star_true_mas": 3.943070394596379e-05,
+    "inc_true_deg": 47.47680146298709,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 44.385025497890055,
+    "dof": 2,
+    "fap": 2.3009870452734717e-10,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 0.21438461549062282,
+    "dof": 2,
+    "fap": 0.8983528961577224,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 204.13347469995608,
+    "dof": 2,
+    "fap": 4.709547516614142e-45,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1736_seed5": {
+  "dataset": "TOI1736_seed5",
+  "system": "TOI1736",
+  "label": "TOI-1736",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 111,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 178.140765254689,
+    "P": 578.2584724754585,
+    "P_fit": 571.3506589824569,
+    "thr": 12.419571526032309,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [
+     {
+      "action": "test trend term 1 (keep or drop)",
+      "gain_2dlnL": 201.072005189674,
+      "dof": 2,
+      "fap": 2.176550963106455e-44,
+      "dropped": false,
+      "n_companions": 1
+     }
+    ],
+    "thr_sd": 1.861353684175434,
+    "detected": true,
+    "matched": 571.3700272052703,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.1299011681929459,
+    "time": 13.647403001785278
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -10.956931993185037,
+    "P": 40.056554080941,
+    "P_fit": null,
+    "thr": 10.037312362345244,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.667128961618274,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 27,
+    "jitter": 0.009285999129459408,
+    "time": 14.828452110290527
+   }
+  ],
+  "found": [
+   {
+    "P_d": 571.3506589824569,
+    "e": 0.23931748700897382,
+    "M0_deg": 134.87522519170403,
+    "a_star_mas": 0.20550970800319662,
+    "inc_deg": 150.16606200052055,
+    "omega_deg": 17.385521072145966,
+    "Omega_deg": 289.4490632325242
+   }
+  ],
+  "companions": [
+   {
+    "name": "TOI-1736 trend companion",
+    "role": "trend",
+    "P_true": 18506.343776562124,
+    "e_true": 0.0,
+    "a_star_true_mas": 13.243019995277953,
+    "inc_true_deg": 128.5656019222417,
+    "found": null
+   },
+   {
+    "name": "TOI-1736 c",
+    "role": "target",
+    "P_true": 571.3700272052703,
+    "e_true": 0.3700960477625327,
+    "a_star_true_mas": 0.21430417603811663,
+    "inc_true_deg": 149.26464522487709,
+    "found": {
+     "P_d": 571.3506589824569,
+     "e": 0.23931748700897382,
+     "M0_deg": 134.87522519170403,
+     "a_star_mas": 0.20550970800319662,
+     "inc_deg": 150.16606200052055,
+     "omega_deg": 17.385521072145966,
+     "Omega_deg": 289.4490632325242
+    }
+   },
+   {
+    "name": "TOI-1736 b",
+    "role": "target",
+    "P_true": 7.077264313958059,
+    "e_true": 0.09519904176330515,
+    "a_star_true_mas": 8.486340697884891e-05,
+    "inc_true_deg": 159.97443322370742,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 88.12504033275412,
+    "dof": 2,
+    "fap": 7.309549862175173e-20,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 1.0075930386363012,
+    "dof": 2,
+    "fap": 0.6042323199522377,
+    "adopted": false,
+    "n_companions": 0
+   },
+   {
+    "action": "test trend term 1 (keep or drop)",
+    "gain_2dlnL": 201.072005189674,
+    "dof": 2,
+    "fap": 2.176550963106455e-44,
+    "dropped": false,
+    "n_companions": 1
+   }
+  ]
+ },
+ "TOI1694_seed1": {
+  "dataset": "TOI1694_seed1",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 140,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -10.487003354023976,
+    "P": 20.133080222903487,
+    "P_fit": null,
+    "thr": 7.396975326512022,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.195271960314906,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 20,
+    "jitter": 0.01491528781951344,
+    "time": 6.778591871261597
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 388.7238012895457,
+    "e_true": 0.14050724496858816,
+    "a_star_true_mas": 0.009692772321367754,
+    "inc_true_deg": 73.84530688890176,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.769690015517115,
+    "e_true": 0.1835065854745302,
+    "a_star_true_mas": 5.1608698480730155e-05,
+    "inc_true_deg": 47.06794588605536,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.7174676486263252,
+    "dof": 2,
+    "fap": 0.6985602663661449,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1694_seed2": {
+  "dataset": "TOI1694_seed2",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 144,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -13.659298116060583,
+    "P": 42.74480545056174,
+    "P_fit": null,
+    "thr": 14.80132554737105,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.741668207451732,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 42,
+    "jitter": 0.023433689061533407,
+    "time": 6.834252119064331
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 388.7238012895457,
+    "e_true": 0.14050724496858816,
+    "a_star_true_mas": 0.009330769576775502,
+    "inc_true_deg": 93.81959966265667,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.769690015517115,
+    "e_true": 0.1835065854745302,
+    "a_star_true_mas": 3.785170881617729e-05,
+    "inc_true_deg": 93.37843398980961,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.16099731062774936,
+    "dof": 2,
+    "fap": 0.9226561442658381,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1694_seed3": {
+  "dataset": "TOI1694_seed3",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 145,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -11.531778717789006,
+    "P": 25.963858631786163,
+    "P_fit": null,
+    "thr": 12.018735840911322,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.842378478511401,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 25,
+    "jitter": 0.013449603269309987,
+    "time": 6.9132091999053955
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 388.7238012895457,
+    "e_true": 0.14050724496858816,
+    "a_star_true_mas": 0.009363776900814514,
+    "inc_true_deg": 83.85895676272884,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.769690015517115,
+    "e_true": 0.1835065854745302,
+    "a_star_true_mas": 4.991570630955016e-05,
+    "inc_true_deg": 130.80003039258742,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.2227944854890893,
+    "dof": 2,
+    "fap": 0.32909880875503483,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1694_seed4": {
+  "dataset": "TOI1694_seed4",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 140,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -14.715693982622575,
+    "P": 23.090770413825393,
+    "P_fit": null,
+    "thr": 11.184249208408337,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.5274417516517116,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 43,
+    "jitter": 0.008930991093454615,
+    "time": 6.710108995437622
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 388.7238012895457,
+    "e_true": 0.14050724496858816,
+    "a_star_true_mas": 0.009332818965849815,
+    "inc_true_deg": 85.99637696244396,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.769690015517115,
+    "e_true": 0.1835065854745302,
+    "a_star_true_mas": 5.621406538669463e-05,
+    "inc_true_deg": 42.23548022355676,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.09739563845471366,
+    "dof": 2,
+    "fap": 0.9524689040057148,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "TOI1694_seed5": {
+  "dataset": "TOI1694_seed5",
+  "system": "TOI1694",
+  "label": "TOI-1694",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 142,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -4.181273190166994,
+    "P": 415.3170951492499,
+    "P_fit": null,
+    "thr": 5.7573974109374735,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.223443565844428,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.020211699389332972,
+    "time": 6.72730016708374
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "TOI-1694 c",
+    "role": "target",
+    "P_true": 388.7238012895457,
+    "e_true": 0.14050724496858816,
+    "a_star_true_mas": 0.017765653417078815,
+    "inc_true_deg": 31.604133091916836,
+    "found": null
+   },
+   {
+    "name": "TOI-1694 b",
+    "role": "target",
+    "P_true": 3.769690015517115,
+    "e_true": 0.1835065854745302,
+    "a_star_true_mas": 3.9036914937111795e-05,
+    "inc_true_deg": 75.45568190981605,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.673807801968394,
+    "dof": 2,
+    "fap": 0.4330492132445194,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD147513_seed1": {
+  "dataset": "HD147513_seed1",
+  "system": "HD147513",
+  "label": "HD 147513",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 48,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 8.50215775860256,
+    "P": 552.7013691545453,
+    "P_fit": null,
+    "thr": 26.63551918349776,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 3.7294474465499703,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 2,
+    "jitter": 0.09902656051303094,
+    "time": 10.07521677017212
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 147513 trend companion",
+    "role": "trend",
+    "P_true": 35929.35448938859,
+    "e_true": 0.049241783423481934,
+    "a_star_true_mas": 284.0626661025927,
+    "inc_true_deg": 78.79472323411323,
+    "found": null
+   },
+   {
+    "name": "HD 147513 b",
+    "role": "target",
+    "P_true": 541.971713565371,
+    "e_true": 0.19330026442199583,
+    "a_star_true_mas": 0.14196990107132482,
+    "inc_true_deg": 128.39028945949622,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 93.7065946173363,
+    "dof": 2,
+    "fap": 4.48612654336084e-21,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 2.093295284970438,
+    "dof": 2,
+    "fap": 0.3511128341061041,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD147513_seed2": {
+  "dataset": "HD147513_seed2",
+  "system": "HD147513",
+  "label": "HD 147513",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 47,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 5.606903243934973,
+    "P": 283.99240851009534,
+    "P_fit": null,
+    "thr": 17.67782413374295,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 3.048178886411982,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.07575838076279992,
+    "time": 9.891091108322144
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 147513 trend companion",
+    "role": "trend",
+    "P_true": 34931.45425448657,
+    "e_true": 0.012499011709882614,
+    "a_star_true_mas": 234.81728089869256,
+    "inc_true_deg": 107.4634581070396,
+    "found": null
+   },
+   {
+    "name": "HD 147513 b",
+    "role": "target",
+    "P_true": 541.971713565371,
+    "e_true": 0.19330026442199583,
+    "a_star_true_mas": 0.11230453204321421,
+    "inc_true_deg": 97.7609803567522,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 84.30615069157366,
+    "dof": 2,
+    "fap": 4.933464211459884e-19,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 6.924902729973688,
+    "dof": 2,
+    "fap": 0.03135281055680498,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD147513_seed3": {
+  "dataset": "HD147513_seed3",
+  "system": "HD147513",
+  "label": "HD 147513",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 46,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 1.9452102254964743,
+    "P": 26.18643290886625,
+    "P_fit": null,
+    "thr": 12.072379066729493,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.3469777495814355,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.0,
+    "time": 10.08696699142456
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 147513 trend companion",
+    "role": "trend",
+    "P_true": 13597.449196552161,
+    "e_true": 0.4382504598091658,
+    "a_star_true_mas": 60.19725886407337,
+    "inc_true_deg": 130.31878488339697,
+    "found": null
+   },
+   {
+    "name": "HD 147513 b",
+    "role": "target",
+    "P_true": 541.971713565371,
+    "e_true": 0.19330026442199583,
+    "a_star_true_mas": 0.11442071943200531,
+    "inc_true_deg": 103.46443083218803,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 107.45841638792425,
+    "dof": 2,
+    "fap": 4.6312834740212145e-24,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 3.114432187310072,
+    "dof": 2,
+    "fap": 0.21072188539026104,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD147513_seed4": {
+  "dataset": "HD147513_seed4",
+  "system": "HD147513",
+  "label": "HD 147513",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 48,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 3.4630538396562436,
+    "P": 25.556313021806346,
+    "P_fit": null,
+    "thr": 17.51536099149466,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.5295373203566838,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 2,
+    "jitter": 0.07209520191699588,
+    "time": 10.174229145050049
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 147513 trend companion",
+    "role": "trend",
+    "P_true": 33117.240958805254,
+    "e_true": 0.20526759806684317,
+    "a_star_true_mas": 355.66462181906854,
+    "inc_true_deg": 96.01923796461215,
+    "found": null
+   },
+   {
+    "name": "HD 147513 b",
+    "role": "target",
+    "P_true": 541.971713565371,
+    "e_true": 0.19330026442199583,
+    "a_star_true_mas": 0.12873879076084138,
+    "inc_true_deg": 59.808967126430296,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 123.61801159657247,
+    "dof": 2,
+    "fap": 1.434464648780721e-27,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 1.9590593222258619,
+    "dof": 2,
+    "fap": 0.37548766377535797,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD147513_seed5": {
+  "dataset": "HD147513_seed5",
+  "system": "HD147513",
+  "label": "HD 147513",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 45,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -1.3189413460531227,
+    "P": 67.08917894221285,
+    "P_fit": null,
+    "thr": 17.239899438071042,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.6655365366025237,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 13,
+    "jitter": 0.07362085070467839,
+    "time": 10.05978798866272
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 147513 trend companion",
+    "role": "trend",
+    "P_true": 34182.54586015128,
+    "e_true": 0.05467384220907025,
+    "a_star_true_mas": 251.35214760269264,
+    "inc_true_deg": 97.21677073903582,
+    "found": null
+   },
+   {
+    "name": "HD 147513 b",
+    "role": "target",
+    "P_true": 541.971713565371,
+    "e_true": 0.19330026442199583,
+    "a_star_true_mas": 0.11216275517460571,
+    "inc_true_deg": 97.21014878964813,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 68.26244869667923,
+    "dof": 2,
+    "fap": 1.5031336764519716e-15,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 2.8564044491133274,
+    "dof": 2,
+    "fap": 0.23973953290219163,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD160691_seed1": {
+  "dataset": "HD160691_seed1",
+  "system": "HD160691",
+  "label": "HD 160691 (mu Ara)",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 66,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 16.003834614894828,
+    "P": 612.4946003769614,
+    "P_fit": null,
+    "thr": 17.394935372030094,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.408365855852452,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.10572854725598906,
+    "time": 10.636318922042847
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 160691 c",
+    "role": "context",
+    "P_true": 3975.798072343417,
+    "e_true": 0.06250766347566164,
+    "a_star_true_mas": 1.330087939040428,
+    "inc_true_deg": 157.17964851444282,
+    "found": null
+   },
+   {
+    "name": "HD 160691 b",
+    "role": "target",
+    "P_true": 644.6958619525382,
+    "e_true": 0.052149390209457525,
+    "a_star_true_mas": 0.208272046287777,
+    "inc_true_deg": 139.1810003289664,
+    "found": null
+   },
+   {
+    "name": "HD 160691 e",
+    "role": "target",
+    "P_true": 307.07299115312213,
+    "e_true": 0.03419969915571654,
+    "a_star_true_mas": 0.02660852822311488,
+    "inc_true_deg": 51.298510742694674,
+    "found": null
+   },
+   {
+    "name": "HD 160691 d",
+    "role": "target",
+    "P_true": 9.63986729833904,
+    "e_true": 0.06056120041927175,
+    "a_star_true_mas": 0.00021756366204528406,
+    "inc_true_deg": 132.28640629111945,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 44.858882956706125,
+    "dof": 2,
+    "fap": 1.815588125991623e-10,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 6.76494467296159,
+    "dof": 2,
+    "fap": 0.03396338194112217,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD160691_seed2": {
+  "dataset": "HD160691_seed2",
+  "system": "HD160691",
+  "label": "HD 160691 (mu Ara)",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 69,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 13.672468013647723,
+    "P": 774.3224129407113,
+    "P_fit": null,
+    "thr": 19.84704183099588,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 3.2484124747585397,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.10806072712522152,
+    "time": 10.400145053863525
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 160691 c",
+    "role": "context",
+    "P_true": 3975.798072343417,
+    "e_true": 0.06250766347566164,
+    "a_star_true_mas": 1.52901370723604,
+    "inc_true_deg": 160.28240510467487,
+    "found": null
+   },
+   {
+    "name": "HD 160691 b",
+    "role": "target",
+    "P_true": 644.6958619525382,
+    "e_true": 0.052149390209457525,
+    "a_star_true_mas": 0.18582983050456955,
+    "inc_true_deg": 47.105977980594595,
+    "found": null
+   },
+   {
+    "name": "HD 160691 e",
+    "role": "target",
+    "P_true": 307.07299115312213,
+    "e_true": 0.03419969915571654,
+    "a_star_true_mas": 0.038466436746993266,
+    "inc_true_deg": 147.32733931955678,
+    "found": null
+   },
+   {
+    "name": "HD 160691 d",
+    "role": "target",
+    "P_true": 9.63986729833904,
+    "e_true": 0.06056120041927175,
+    "a_star_true_mas": 0.00018312964551739448,
+    "inc_true_deg": 118.49074131297245,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 83.47501807361934,
+    "dof": 2,
+    "fap": 7.475325997841836e-19,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 9.25774407451729,
+    "dof": 2,
+    "fap": 0.009765768314984819,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD160691_seed3": {
+  "dataset": "HD160691_seed3",
+  "system": "HD160691",
+  "label": "HD 160691 (mu Ara)",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 64,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 3.80295671765748,
+    "P": 25.870158084603755,
+    "P_fit": null,
+    "thr": 10.699440385627163,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.392405747607212,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.0,
+    "time": 9.996962070465088
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 160691 c",
+    "role": "context",
+    "P_true": 3975.798072343417,
+    "e_true": 0.06250766347566164,
+    "a_star_true_mas": 0.8046101560441136,
+    "inc_true_deg": 140.12334810520085,
+    "found": null
+   },
+   {
+    "name": "HD 160691 b",
+    "role": "target",
+    "P_true": 644.6958619525382,
+    "e_true": 0.052149390209457525,
+    "a_star_true_mas": 0.14609732560293978,
+    "inc_true_deg": 68.72584347651505,
+    "found": null
+   },
+   {
+    "name": "HD 160691 e",
+    "role": "target",
+    "P_true": 307.07299115312213,
+    "e_true": 0.03419969915571654,
+    "a_star_true_mas": 0.02498019091989243,
+    "inc_true_deg": 56.23102379601718,
+    "found": null
+   },
+   {
+    "name": "HD 160691 d",
+    "role": "target",
+    "P_true": 9.63986729833904,
+    "e_true": 0.06056120041927175,
+    "a_star_true_mas": 0.00036583626130970003,
+    "inc_true_deg": 153.89897390423718,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 28.151358541953154,
+    "dof": 2,
+    "fap": 7.709215103409045e-07,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 0.19949296831632068,
+    "dof": 2,
+    "fap": 0.9050668377352563,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD160691_seed4": {
+  "dataset": "HD160691_seed4",
+  "system": "HD160691",
+  "label": "HD 160691 (mu Ara)",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 68,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -3.765054254773929,
+    "P": 55.52155338931124,
+    "P_fit": null,
+    "thr": 14.228918403095529,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.2185957530589726,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 11,
+    "jitter": 0.062276840874035795,
+    "time": 10.249519109725952
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 160691 c",
+    "role": "context",
+    "P_true": 3975.798072343417,
+    "e_true": 0.06250766347566164,
+    "a_star_true_mas": 0.6094498652465518,
+    "inc_true_deg": 57.827002372414576,
+    "found": null
+   },
+   {
+    "name": "HD 160691 b",
+    "role": "target",
+    "P_true": 644.6958619525382,
+    "e_true": 0.052149390209457525,
+    "a_star_true_mas": 0.13614182099668742,
+    "inc_true_deg": 89.87956355633834,
+    "found": null
+   },
+   {
+    "name": "HD 160691 e",
+    "role": "target",
+    "P_true": 307.07299115312213,
+    "e_true": 0.03419969915571654,
+    "a_star_true_mas": 0.027402469813810722,
+    "inc_true_deg": 130.729109440971,
+    "found": null
+   },
+   {
+    "name": "HD 160691 d",
+    "role": "target",
+    "P_true": 9.63986729833904,
+    "e_true": 0.06056120041927175,
+    "a_star_true_mas": 0.0002309711301613206,
+    "inc_true_deg": 44.174598319216514,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 19.068860205350113,
+    "dof": 2,
+    "fap": 7.231853475417067e-05,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 3.3339612068087803,
+    "dof": 2,
+    "fap": 0.18881631715343555,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD160691_seed5": {
+  "dataset": "HD160691_seed5",
+  "system": "HD160691",
+  "label": "HD 160691 (mu Ara)",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 64,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 15.809693301410526,
+    "P": 612.4907245531457,
+    "P_fit": null,
+    "thr": 19.440867437825453,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.837365854288395,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.1505295526550412,
+    "time": 5.9344329833984375
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 160691 c",
+    "role": "context",
+    "P_true": 3975.798072343417,
+    "e_true": 0.06250766347566164,
+    "a_star_true_mas": 0.5158721212306431,
+    "inc_true_deg": 90.2944840225766,
+    "found": null
+   },
+   {
+    "name": "HD 160691 b",
+    "role": "target",
+    "P_true": 644.6958619525382,
+    "e_true": 0.052149390209457525,
+    "a_star_true_mas": 0.21804830064057942,
+    "inc_true_deg": 141.36447432798943,
+    "found": null
+   },
+   {
+    "name": "HD 160691 e",
+    "role": "target",
+    "P_true": 307.07299115312213,
+    "e_true": 0.03419969915571654,
+    "a_star_true_mas": 0.043429062503494764,
+    "inc_true_deg": 28.56474406324658,
+    "found": null
+   },
+   {
+    "name": "HD 160691 d",
+    "role": "target",
+    "P_true": 9.63986729833904,
+    "e_true": 0.06056120041927175,
+    "a_star_true_mas": 0.0002126869111356211,
+    "inc_true_deg": 49.17883185232999,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 8.09115305518706,
+    "dof": 2,
+    "fap": 0.01749961273731991,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD191939_seed1": {
+  "dataset": "HD191939_seed1",
+  "system": "HD191939",
+  "label": "HD 191939",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -3.544730003912548,
+    "P": 3923.184974960983,
+    "P_fit": null,
+    "thr": 6.108479673597474,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [],
+    "thr_sd": 1.3509287215869878,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 9,
+    "jitter": 0.0,
+    "time": 15.933717966079712
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 191939 f",
+    "role": "target",
+    "P_true": 3016.8865616193643,
+    "e_true": 0.05483936032825034,
+    "a_star_true_mas": 0.36758058032868185,
+    "inc_true_deg": 38.88015762102329,
+    "found": null
+   },
+   {
+    "name": "HD 191939 e",
+    "role": "target",
+    "P_true": 101.75912463020805,
+    "e_true": 0.04020996064110849,
+    "a_star_true_mas": 0.0033649914377806307,
+    "inc_true_deg": 77.07077730783747,
+    "found": null
+   },
+   {
+    "name": "HD 191939 g",
+    "role": "target",
+    "P_true": 288.6,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.0005206416925452091,
+    "inc_true_deg": 132.81552229476168,
+    "found": null
+   },
+   {
+    "name": "HD 191939 c",
+    "role": "target",
+    "P_true": 28.532750617365423,
+    "e_true": 0.2609136663867382,
+    "a_star_true_mas": 0.00010716705834793277,
+    "inc_true_deg": 116.53392414122514,
+    "found": null
+   },
+   {
+    "name": "HD 191939 b",
+    "role": "target",
+    "P_true": 8.879465915443868,
+    "e_true": 0.13981946526132466,
+    "a_star_true_mas": 5.488142589924464e-05,
+    "inc_true_deg": 100.3656815355177,
+    "found": null
+   },
+   {
+    "name": "HD 191939 d",
+    "role": "target",
+    "P_true": 38.35240000000001,
+    "e_true": 0.0,
+    "a_star_true_mas": 4.5902317663291303e-05,
+    "inc_true_deg": 61.15462719151903,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 2,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 106.15122429467746,
+    "dof": 2,
+    "fap": 8.90337202787927e-24,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 28.50487219628633,
+    "dof": 2,
+    "fap": 6.460195321186118e-07,
+    "adopted": true,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD191939_seed2": {
+  "dataset": "HD191939_seed2",
+  "system": "HD191939",
+  "label": "HD 191939",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -4.739943849287954,
+    "P": 3923.184974960983,
+    "P_fit": null,
+    "thr": 3.7812400112918105,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [],
+    "thr_sd": 0.9697595526869186,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 31,
+    "jitter": 0.0,
+    "time": 15.815610885620117
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 191939 f",
+    "role": "target",
+    "P_true": 3016.8865616193643,
+    "e_true": 0.05483936032825034,
+    "a_star_true_mas": 0.23322215047040246,
+    "inc_true_deg": 81.6129947716022,
+    "found": null
+   },
+   {
+    "name": "HD 191939 e",
+    "role": "target",
+    "P_true": 101.75912463020805,
+    "e_true": 0.04020996064110849,
+    "a_star_true_mas": 0.003390072774960573,
+    "inc_true_deg": 104.66189359012718,
+    "found": null
+   },
+   {
+    "name": "HD 191939 g",
+    "role": "target",
+    "P_true": 288.6,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.0005254635549972426,
+    "inc_true_deg": 46.619999466948265,
+    "found": null
+   },
+   {
+    "name": "HD 191939 c",
+    "role": "target",
+    "P_true": 28.532750617365423,
+    "e_true": 0.2609136663867382,
+    "a_star_true_mas": 0.0003961378003174508,
+    "inc_true_deg": 165.99332985235645,
+    "found": null
+   },
+   {
+    "name": "HD 191939 b",
+    "role": "target",
+    "P_true": 8.879465915443868,
+    "e_true": 0.13981946526132466,
+    "a_star_true_mas": 5.4269033413397386e-05,
+    "inc_true_deg": 84.14297308229244,
+    "found": null
+   },
+   {
+    "name": "HD 191939 d",
+    "role": "target",
+    "P_true": 38.35240000000001,
+    "e_true": 0.0,
+    "a_star_true_mas": 4.021810695910665e-05,
+    "inc_true_deg": 91.34761041248461,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 2,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 67.34221351626658,
+    "dof": 2,
+    "fap": 2.381354960394407e-15,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 21.946778266528327,
+    "dof": 2,
+    "fap": 1.7152113886428697e-05,
+    "adopted": true,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD191939_seed3": {
+  "dataset": "HD191939_seed3",
+  "system": "HD191939",
+  "label": "HD 191939",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 5.800130059850375,
+    "P": 65.84777719705914,
+    "P_fit": null,
+    "thr": 6.0420088699826495,
+    "trend_before": 2,
+    "trend_after": 2,
+    "trend_moves": [],
+    "thr_sd": 1.4265921325883144,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.021973377584328338,
+    "time": 15.656718015670776
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 191939 f",
+    "role": "target",
+    "P_true": 3016.8865616193643,
+    "e_true": 0.05483936032825034,
+    "a_star_true_mas": 0.3042530152763281,
+    "inc_true_deg": 130.6817210628301,
+    "found": null
+   },
+   {
+    "name": "HD 191939 e",
+    "role": "target",
+    "P_true": 101.75912463020805,
+    "e_true": 0.04020996064110849,
+    "a_star_true_mas": 0.005325584262042559,
+    "inc_true_deg": 141.987405148695,
+    "found": null
+   },
+   {
+    "name": "HD 191939 g",
+    "role": "target",
+    "P_true": 288.6,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.000577187906209266,
+    "inc_true_deg": 138.57176666317565,
+    "found": null
+   },
+   {
+    "name": "HD 191939 c",
+    "role": "target",
+    "P_true": 28.532750617365423,
+    "e_true": 0.2609136663867382,
+    "a_star_true_mas": 0.00016159236956704055,
+    "inc_true_deg": 36.3943570946849,
+    "found": null
+   },
+   {
+    "name": "HD 191939 b",
+    "role": "target",
+    "P_true": 8.879465915443868,
+    "e_true": 0.13981946526132466,
+    "a_star_true_mas": 7.377363505776069e-05,
+    "inc_true_deg": 132.96456308787208,
+    "found": null
+   },
+   {
+    "name": "HD 191939 d",
+    "role": "target",
+    "P_true": 38.35240000000001,
+    "e_true": 0.0,
+    "a_star_true_mas": 4.235399257223286e-05,
+    "inc_true_deg": 108.32142836748564,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 2,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 92.73131997455494,
+    "dof": 2,
+    "fap": 7.30549617533427e-21,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 26.22865846299851,
+    "dof": 2,
+    "fap": 2.016133012519673e-06,
+    "adopted": true,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD191939_seed4": {
+  "dataset": "HD191939_seed4",
+  "system": "HD191939",
+  "label": "HD 191939",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 89,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 1.6899205551946466,
+    "P": 96.92245702168769,
+    "P_fit": null,
+    "thr": 12.016072639540978,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 1.8339826248548854,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.023066858559633373,
+    "time": 10.894391059875488
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 191939 f",
+    "role": "target",
+    "P_true": 3016.8865616193643,
+    "e_true": 0.05483936032825034,
+    "a_star_true_mas": 0.23848401360313234,
+    "inc_true_deg": 75.34745701383548,
+    "found": null
+   },
+   {
+    "name": "HD 191939 e",
+    "role": "target",
+    "P_true": 101.75912463020805,
+    "e_true": 0.04020996064110849,
+    "a_star_true_mas": 0.003796665880097181,
+    "inc_true_deg": 59.74954177150244,
+    "found": null
+   },
+   {
+    "name": "HD 191939 g",
+    "role": "target",
+    "P_true": 288.6,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.0004104336019901243,
+    "inc_true_deg": 68.5151935418382,
+    "found": null
+   },
+   {
+    "name": "HD 191939 c",
+    "role": "target",
+    "P_true": 28.532750617365423,
+    "e_true": 0.2609136663867382,
+    "a_star_true_mas": 0.0002688995930213728,
+    "inc_true_deg": 20.889155336398186,
+    "found": null
+   },
+   {
+    "name": "HD 191939 b",
+    "role": "target",
+    "P_true": 8.879465915443868,
+    "e_true": 0.13981946526132466,
+    "a_star_true_mas": 7.500677296718998e-05,
+    "inc_true_deg": 46.03340849623756,
+    "found": null
+   },
+   {
+    "name": "HD 191939 d",
+    "role": "target",
+    "P_true": 38.35240000000001,
+    "e_true": 0.0,
+    "a_star_true_mas": 4.945535066460854e-05,
+    "inc_true_deg": 54.38965201205056,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 49.85540169579019,
+    "dof": 2,
+    "fap": 1.492921853173413e-11,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 8.361296432550205,
+    "dof": 2,
+    "fap": 0.015288594038538262,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD191939_seed5": {
+  "dataset": "HD191939_seed5",
+  "system": "HD191939",
+  "label": "HD 191939",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 90,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -2.471032654536259,
+    "P": 2396.95809023041,
+    "P_fit": null,
+    "thr": 10.766739107259234,
+    "trend_before": 1,
+    "trend_after": 1,
+    "trend_moves": [],
+    "thr_sd": 2.5768651939202116,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 7,
+    "jitter": 0.0,
+    "time": 10.842363119125366
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 191939 f",
+    "role": "target",
+    "P_true": 3016.8865616193643,
+    "e_true": 0.05483936032825034,
+    "a_star_true_mas": 0.24100657977019946,
+    "inc_true_deg": 73.20628867090215,
+    "found": null
+   },
+   {
+    "name": "HD 191939 e",
+    "role": "target",
+    "P_true": 101.75912463020805,
+    "e_true": 0.04020996064110849,
+    "a_star_true_mas": 0.003794504419639331,
+    "inc_true_deg": 59.80555187974316,
+    "found": null
+   },
+   {
+    "name": "HD 191939 g",
+    "role": "target",
+    "P_true": 288.6,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.0005226494868960898,
+    "inc_true_deg": 46.94744280328713,
+    "found": null
+   },
+   {
+    "name": "HD 191939 c",
+    "role": "target",
+    "P_true": 28.532750617365423,
+    "e_true": 0.2609136663867382,
+    "a_star_true_mas": 0.00011226528560753134,
+    "inc_true_deg": 121.34605333861337,
+    "found": null
+   },
+   {
+    "name": "HD 191939 d",
+    "role": "target",
+    "P_true": 38.35240000000001,
+    "e_true": 0.0,
+    "a_star_true_mas": 9.841842771279985e-05,
+    "inc_true_deg": 155.88740931099758,
+    "found": null
+   },
+   {
+    "name": "HD 191939 b",
+    "role": "target",
+    "P_true": 8.879465915443868,
+    "e_true": 0.13981946526132466,
+    "a_star_true_mas": 6.044284853886331e-05,
+    "inc_true_deg": 116.72568971884894,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 1,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 70.47107087787353,
+    "dof": 2,
+    "fap": 4.981973257333351e-16,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 8.613110863048405,
+    "dof": 2,
+    "fap": 0.013479902162161524,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD94340_seed1": {
+  "dataset": "HD94340_seed1",
+  "system": "HD94340",
+  "label": "HD 94340",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 90,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 225.02407888779965,
+    "P": 1070.23275151942,
+    "P_fit": 1122.7424380925684,
+    "thr": 28.424004251763357,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.670682097438417,
+    "detected": true,
+    "matched": 1123.6605652900105,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.9762130534549885,
+    "time": 7.768225908279419
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 3.2665663301993533,
+    "P": 90.22833944520391,
+    "P_fit": null,
+    "thr": 13.558305304925552,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.8058986674501556,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.025153078272116124,
+    "time": 8.165419101715088
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1122.7424380925684,
+    "e": 0.36382690969055526,
+    "M0_deg": 96.61145364741601,
+    "a_star_mas": 2.867423046302125,
+    "inc_deg": 108.2585414834418,
+    "omega_deg": 276.79210181675893,
+    "Omega_deg": 77.53624434368913
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 94340 [barbato_2023 HD 94340 b]",
+    "role": "target",
+    "P_true": 1123.6605652900105,
+    "e_true": 0.31198431387995607,
+    "a_star_true_mas": 2.760613273585711,
+    "inc_true_deg": 108.3969453797436,
+    "found": {
+     "P_d": 1122.7424380925684,
+     "e": 0.36382690969055526,
+     "M0_deg": 96.61145364741601,
+     "a_star_mas": 2.867423046302125,
+     "inc_deg": 108.2585414834418,
+     "omega_deg": 276.79210181675893,
+     "Omega_deg": 77.53624434368913
+    }
+   },
+   {
+    "name": "HD 94340 [barbato_2023 6.84 d companion]",
+    "role": "context",
+    "P_true": 6.842318935777388,
+    "e_true": 0.009057742230947644,
+    "a_star_true_mas": 0.10794772872183563,
+    "inc_true_deg": 110.08230253332101,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.5657094674939174,
+    "dof": 2,
+    "fap": 0.7536292568067715,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD94340_seed2": {
+  "dataset": "HD94340_seed2",
+  "system": "HD94340",
+  "label": "HD 94340",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 294.65284247485533,
+    "P": 1175.760312445255,
+    "P_fit": 1124.306440882552,
+    "thr": 9.073736544819399,
+    "trend_before": 2,
+    "trend_after": 0,
+    "trend_moves": [
+     {
+      "action": "companion replaces trend terms (2 -> 0)"
+     }
+    ],
+    "thr_sd": 2.3273698438031265,
+    "detected": true,
+    "matched": 1123.6605652900105,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.0837489976106407,
+    "time": 20.59478497505188
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 24.502917456034915,
+    "P": 20.6226859962891,
+    "P_fit": 20.572181983054236,
+    "thr": 13.74117247168184,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.342024095989802,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.13048760650288685,
+    "time": 11.54094409942627
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": 18.375322685043507,
+    "P": 146.94029025478457,
+    "P_fit": null,
+    "thr": 20.357293312787633,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.111505594188343,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.07541129103600408,
+    "time": 19.070717811584473
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1123.5942102454019,
+    "e": 0.3745254597611198,
+    "M0_deg": 93.34361888810652,
+    "a_star_mas": 3.1636650420289185,
+    "inc_deg": 122.2836226978522,
+    "omega_deg": 99.4348402489007,
+    "Omega_deg": 333.1795047548313
+   },
+   {
+    "P_d": 20.572181983054236,
+    "e": 0.9899999999735536,
+    "M0_deg": 338.9849844734331,
+    "a_star_mas": 0.4858647188819039,
+    "inc_deg": 94.84492264150441,
+    "omega_deg": 36.77014892965778,
+    "Omega_deg": 284.86717089333774
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 94340 [barbato_2023 HD 94340 b]",
+    "role": "target",
+    "P_true": 1123.6605652900105,
+    "e_true": 0.31198431387995607,
+    "a_star_true_mas": 3.0610627705462377,
+    "inc_true_deg": 121.15652439628747,
+    "found": {
+     "P_d": 1123.5942102454019,
+     "e": 0.3745254597611198,
+     "M0_deg": 93.34361888810652,
+     "a_star_mas": 3.1636650420289185,
+     "inc_deg": 122.2836226978522,
+     "omega_deg": 99.4348402489007,
+     "Omega_deg": 333.1795047548313
+    }
+   },
+   {
+    "name": "HD 94340 [barbato_2023 6.84 d companion]",
+    "role": "context",
+    "P_true": 6.842318935777388,
+    "e_true": 0.009057742230947644,
+    "a_star_true_mas": 0.2699853825865988,
+    "inc_true_deg": 22.056371948333,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 20.572181983054236,
+    "e": 0.9899999999735536,
+    "M0_deg": 338.9849844734331,
+    "a_star_mas": 0.4858647188819039,
+    "inc_deg": 94.84492264150441,
+    "omega_deg": 36.77014892965778,
+    "Omega_deg": 284.86717089333774
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 16.091549562214766,
+    "dof": 2,
+    "fap": 0.0003204530503481558,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "raise trend order 1 -> 2",
+    "gain_2dlnL": 34.84478534004097,
+    "dof": 2,
+    "fap": 2.7136323118862445e-08,
+    "adopted": true,
+    "n_companions": 0
+   },
+   {
+    "action": "companion replaces trend terms (2 -> 0)"
+   }
+  ]
+ },
+ "HD94340_seed3": {
+  "dataset": "HD94340_seed3",
+  "system": "HD94340",
+  "label": "HD 94340",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 96,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 247.4497784503698,
+    "P": 1070.23275151942,
+    "P_fit": 1118.335476854986,
+    "thr": 12.37160744455629,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.878876236395088,
+    "detected": true,
+    "matched": 1123.6605652900105,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.8985143566943805,
+    "time": 7.107318162918091
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -0.3419442072016281,
+    "P": 359.76669526977196,
+    "P_fit": null,
+    "thr": 16.6551283672878,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.156157837193164,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 3,
+    "jitter": 0.044281857079866156,
+    "time": 8.595685243606567
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1118.335476854986,
+    "e": 0.31338274605130867,
+    "M0_deg": 97.52599364409268,
+    "a_star_mas": 2.6259606588740736,
+    "inc_deg": 84.7644695322244,
+    "omega_deg": 94.4564770630579,
+    "Omega_deg": 310.4543914853406
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 94340 [barbato_2023 HD 94340 b]",
+    "role": "target",
+    "P_true": 1123.6605652900105,
+    "e_true": 0.31198431387995607,
+    "a_star_true_mas": 2.6304178853059583,
+    "inc_true_deg": 84.78416961644182,
+    "found": {
+     "P_d": 1118.335476854986,
+     "e": 0.31338274605130867,
+     "M0_deg": 97.52599364409268,
+     "a_star_mas": 2.6259606588740736,
+     "inc_deg": 84.7644695322244,
+     "omega_deg": 94.4564770630579,
+     "Omega_deg": 310.4543914853406
+    }
+   },
+   {
+    "name": "HD 94340 [barbato_2023 6.84 d companion]",
+    "role": "context",
+    "P_true": 6.842318935777388,
+    "e_true": 0.009057742230947644,
+    "a_star_true_mas": 0.10142229931945643,
+    "inc_true_deg": 88.43661503315658,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.7720327345560634,
+    "dof": 2,
+    "fap": 0.2500695081214319,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD94340_seed4": {
+  "dataset": "HD94340_seed4",
+  "system": "HD94340",
+  "label": "HD 94340",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 97,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 270.6305239269642,
+    "P": 1175.774352680215,
+    "P_fit": 1124.3394192074982,
+    "thr": 17.81337021902035,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.409227572531562,
+    "detected": true,
+    "matched": 1123.6605652900105,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 5.257305875894996,
+    "time": 7.389316082000732
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 6.784054915200535,
+    "P": 20.694275229714048,
+    "P_fit": null,
+    "thr": 10.09902127758819,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.4989034083626915,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.024452325680896538,
+    "time": 8.346996784210205
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1124.3394192074982,
+    "e": 0.3174764429530642,
+    "M0_deg": 94.42431235419483,
+    "a_star_mas": 9.048077652742053,
+    "inc_deg": 17.55020718293457,
+    "omega_deg": 278.6771575422172,
+    "Omega_deg": 34.56457640578578
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 94340 [barbato_2023 HD 94340 b]",
+    "role": "target",
+    "P_true": 1123.6605652900105,
+    "e_true": 0.31198431387995607,
+    "a_star_true_mas": 9.012562692890043,
+    "inc_true_deg": 16.897039474894513,
+    "found": {
+     "P_d": 1124.3394192074982,
+     "e": 0.3174764429530642,
+     "M0_deg": 94.42431235419483,
+     "a_star_mas": 9.048077652742053,
+     "inc_deg": 17.55020718293457,
+     "omega_deg": 278.6771575422172,
+     "Omega_deg": 34.56457640578578
+    }
+   },
+   {
+    "name": "HD 94340 [barbato_2023 6.84 d companion]",
+    "role": "context",
+    "P_true": 6.842318935777388,
+    "e_true": 0.009057742230947644,
+    "a_star_true_mas": 0.10154416743183756,
+    "inc_true_deg": 86.78697881619217,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 7.671101450533342,
+    "dof": 2,
+    "fap": 0.021589445342509943,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD94340_seed5": {
+  "dataset": "HD94340_seed5",
+  "system": "HD94340",
+  "label": "HD 94340",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 100,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 279.3372024288767,
+    "P": 1175.774352680215,
+    "P_fit": 1127.8610765622836,
+    "thr": 13.737975115062385,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.195001921652919,
+    "detected": true,
+    "matched": 1123.6605652900105,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 1.8962805918102947,
+    "time": 7.088444948196411
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": 19.39127723293315,
+    "P": 133.75315123228043,
+    "P_fit": 135.16973835199957,
+    "thr": 16.637199581230263,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.554730090735669,
+    "detected": true,
+    "matched": null,
+    "spurious": true,
+    "n_fake_ge": 0,
+    "jitter": 0.07084097045069104,
+    "time": 10.417910099029541
+   },
+   {
+    "step": 3,
+    "method": "sim",
+    "peak": -2.1634277034684004,
+    "P": 27.463023694611746,
+    "P_fit": null,
+    "thr": 9.442966522427891,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9080040315634246,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.03159627719290188,
+    "time": 17.3951199054718
+   }
+  ],
+  "found": [
+   {
+    "P_d": 1129.2161091866599,
+    "e": 0.2966441504181861,
+    "M0_deg": 93.61307210135202,
+    "a_star_mas": 4.286506952631506,
+    "inc_deg": 39.718457575250056,
+    "omega_deg": 98.85603695682103,
+    "Omega_deg": 308.83239464718815
+   },
+   {
+    "P_d": 135.16973835199957,
+    "e": 0.9899999999629253,
+    "M0_deg": 0.01676275674660381,
+    "a_star_mas": 0.8238094892007686,
+    "inc_deg": 84.738988528412,
+    "omega_deg": 92.0671870285207,
+    "Omega_deg": 62.18979084515375
+   }
+  ],
+  "companions": [
+   {
+    "name": "HD 94340 [barbato_2023 HD 94340 b]",
+    "role": "target",
+    "P_true": 1123.6605652900105,
+    "e_true": 0.31198431387995607,
+    "a_star_true_mas": 4.236292986821597,
+    "inc_true_deg": 38.19599036050966,
+    "found": {
+     "P_d": 1129.2161091866599,
+     "e": 0.2966441504181861,
+     "M0_deg": 93.61307210135202,
+     "a_star_mas": 4.286506952631506,
+     "inc_deg": 39.718457575250056,
+     "omega_deg": 98.85603695682103,
+     "Omega_deg": 308.83239464718815
+    }
+   },
+   {
+    "name": "HD 94340 [barbato_2023 6.84 d companion]",
+    "role": "context",
+    "P_true": 6.842318935777388,
+    "e_true": 0.009057742230947644,
+    "a_star_true_mas": 0.17995043950560813,
+    "inc_true_deg": 34.29143830660305,
+    "found": null
+   }
+  ],
+  "spurious": [
+   {
+    "P_d": 135.16973835199957,
+    "e": 0.9899999999629253,
+    "M0_deg": 0.01676275674660381,
+    "a_star_mas": 0.8238094892007686,
+    "inc_deg": 84.738988528412,
+    "omega_deg": 92.0671870285207,
+    "Omega_deg": 62.18979084515375
+   }
+  ],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.4847095546973037,
+    "dof": 2,
+    "fap": 0.7847777068030927,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "70Vir_seed1": {
+  "dataset": "70Vir_seed1",
+  "system": "70Vir",
+  "label": "70 Vir",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 65,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 31.226496980319986,
+    "P": 116.0636006710386,
+    "P_fit": 116.65868263023901,
+    "thr": 18.67782875607262,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.276986996632599,
+    "detected": true,
+    "matched": 116.69366120968803,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.12638199930383326,
+    "time": 7.157103061676025
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -12.768452830640904,
+    "P": 128.26301344800189,
+    "P_fit": null,
+    "thr": 5.983639768868661,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.1238801648226824,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 30,
+    "jitter": 0.0,
+    "time": 8.7291579246521
+   }
+  ],
+  "found": [
+   {
+    "P_d": 116.65868263023901,
+    "e": 0.7280030947639923,
+    "M0_deg": 58.979800208103114,
+    "a_star_mas": 0.41572360893756327,
+    "inc_deg": 62.12729110010263,
+    "omega_deg": 335.6382994541039,
+    "Omega_deg": 147.492802249969
+   }
+  ],
+  "companions": [
+   {
+    "name": "70 Vir b",
+    "role": "target",
+    "P_true": 116.69366120968803,
+    "e_true": 0.39928876466596763,
+    "a_star_true_mas": 0.2018669307442889,
+    "inc_true_deg": 58.12275256221918,
+    "found": {
+     "P_d": 116.65868263023901,
+     "e": 0.7280030947639923,
+     "M0_deg": 58.979800208103114,
+     "a_star_mas": 0.41572360893756327,
+     "inc_deg": 62.12729110010263,
+     "omega_deg": 335.6382994541039,
+     "Omega_deg": 147.492802249969
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.0715291405557146,
+    "dof": 2,
+    "fap": 0.35495488919266555,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "70Vir_seed2": {
+  "dataset": "70Vir_seed2",
+  "system": "70Vir",
+  "label": "70 Vir",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 75,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -10.653460289643657,
+    "P": 551.197024545142,
+    "P_fit": null,
+    "thr": 12.298502959748255,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.265634913620986,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 33,
+    "jitter": 0.0,
+    "time": 6.199947118759155
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "70 Vir b",
+    "role": "target",
+    "P_true": 116.69366120968803,
+    "e_true": 0.39928876466596763,
+    "a_star_true_mas": 0.1779897131576393,
+    "inc_true_deg": 74.38639252263272,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 4.0002763312374015,
+    "dof": 2,
+    "fap": 0.13531658584517037,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "70Vir_seed3": {
+  "dataset": "70Vir_seed3",
+  "system": "70Vir",
+  "label": "70 Vir",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 70,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 30.16411094553828,
+    "P": 117.17811069411844,
+    "P_fit": 117.0838748203486,
+    "thr": 19.294893515714065,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.646822687554988,
+    "detected": true,
+    "matched": 116.69366120968803,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.11949861867272948,
+    "time": 7.589285135269165
+   },
+   {
+    "step": 2,
+    "method": "sim",
+    "peak": -12.028883437332784,
+    "P": 33.05742335966738,
+    "P_fit": null,
+    "thr": 6.090913398988333,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.3853006757840602,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 28,
+    "jitter": 0.0,
+    "time": 9.130901098251343
+   }
+  ],
+  "found": [
+   {
+    "P_d": 117.0838748203486,
+    "e": 0.6529903317920853,
+    "M0_deg": 18.611163035312085,
+    "a_star_mas": 0.3238915768730806,
+    "inc_deg": 41.27754359487054,
+    "omega_deg": 327.74551232726515,
+    "Omega_deg": 281.9975996150709
+   }
+  ],
+  "companions": [
+   {
+    "name": "70 Vir b",
+    "role": "target",
+    "P_true": 116.69366120968803,
+    "e_true": 0.39928876466596763,
+    "a_star_true_mas": 0.22632691850990788,
+    "inc_true_deg": 49.23615976381372,
+    "found": {
+     "P_d": 117.0838748203486,
+     "e": 0.6529903317920853,
+     "M0_deg": 18.611163035312085,
+     "a_star_mas": 0.3238915768730806,
+     "inc_deg": 41.27754359487054,
+     "omega_deg": 327.74551232726515,
+     "Omega_deg": 281.9975996150709
+    }
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 7.562913807263907,
+    "dof": 2,
+    "fap": 0.0227894651726658,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "70Vir_seed4": {
+  "dataset": "70Vir_seed4",
+  "system": "70Vir",
+  "label": "70 Vir",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 74,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": 19.041147941095147,
+    "P": 116.0636006710386,
+    "P_fit": null,
+    "thr": 21.173896603950777,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.754269334166021,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 0,
+    "jitter": 0.1448215225515947,
+    "time": 6.229962110519409
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "70 Vir b",
+    "role": "target",
+    "P_true": 116.69366120968803,
+    "e_true": 0.39928876466596763,
+    "a_star_true_mas": 0.2817929758652176,
+    "inc_true_deg": 142.53152638733087,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.4936447227759544,
+    "dof": 2,
+    "fap": 0.7812794666053331,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "70Vir_seed5": {
+  "dataset": "70Vir_seed5",
+  "system": "70Vir",
+  "label": "70 Vir",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 70,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -0.0074059280277971595,
+    "P": 117.17811069411844,
+    "P_fit": null,
+    "thr": 17.35487646314147,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.6250235823843053,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 5,
+    "jitter": 0.07626855230653709,
+    "time": 6.414578914642334
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "70 Vir b",
+    "role": "target",
+    "P_true": 116.69366120968803,
+    "e_true": 0.39928876466596763,
+    "a_star_true_mas": 0.20198016749582276,
+    "inc_true_deg": 121.92886177060265,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.6808328888781006,
+    "dof": 2,
+    "fap": 0.711473971680977,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD10180_seed1": {
+  "dataset": "HD10180_seed1",
+  "system": "HD10180",
+  "label": "HD 10180",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 92,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -7.3056793270661196,
+    "P": 29.729038797069173,
+    "P_fit": null,
+    "thr": 9.818692742791056,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0428872270010716,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 16,
+    "jitter": 0.0,
+    "time": 6.587122917175293
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 10180 trend companion",
+    "role": "trend",
+    "P_true": 189435.4928549947,
+    "e_true": 0.0,
+    "a_star_true_mas": 10.12492665513171,
+    "inc_true_deg": 64.98778040441925,
+    "found": null
+   },
+   {
+    "name": "HD 10180 h",
+    "role": "target",
+    "P_true": 2369.40857906362,
+    "e_true": 0.14843967458048077,
+    "a_star_true_mas": 0.022568099044037546,
+    "inc_true_deg": 139.3462734723487,
+    "found": null
+   },
+   {
+    "name": "HD 10180 g",
+    "role": "target",
+    "P_true": 609.364965842179,
+    "e_true": 0.16484809102729023,
+    "a_star_true_mas": 0.003205805619440082,
+    "inc_true_deg": 135.73174810669997,
+    "found": null
+   },
+   {
+    "name": "HD 10180 f",
+    "role": "target",
+    "P_true": 122.61306127211036,
+    "e_true": 0.07723420703454019,
+    "a_star_true_mas": 0.0009667421632093913,
+    "inc_true_deg": 117.10073486413489,
+    "found": null
+   },
+   {
+    "name": "HD 10180 e",
+    "role": "target",
+    "P_true": 49.762411860214485,
+    "e_true": 0.039923865576248406,
+    "a_star_true_mas": 0.0005860764570663879,
+    "inc_true_deg": 119.56622859523698,
+    "found": null
+   },
+   {
+    "name": "HD 10180 d",
+    "role": "target",
+    "P_true": 16.350286628278983,
+    "e_true": 0.10664712733923341,
+    "a_star_true_mas": 0.0001087725228030896,
+    "inc_true_deg": 108.72411670722826,
+    "found": null
+   },
+   {
+    "name": "HD 10180 c",
+    "role": "target",
+    "P_true": 5.759313194629596,
+    "e_true": 0.056418560450033,
+    "a_star_true_mas": 6.515868203284684e-05,
+    "inc_true_deg": 106.43825414381332,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.3284926087170845,
+    "dof": 2,
+    "fap": 0.8485329987636487,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD10180_seed2": {
+  "dataset": "HD10180_seed2",
+  "system": "HD10180",
+  "label": "HD 10180",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 89,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -4.192375176083189,
+    "P": 61.687630930908746,
+    "P_fit": null,
+    "thr": 15.955995200296403,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 3.2131384683520356,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 12,
+    "jitter": 0.017823607256131684,
+    "time": 6.318962812423706
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 10180 trend companion",
+    "role": "trend",
+    "P_true": 120377.4245585935,
+    "e_true": 0.0,
+    "a_star_true_mas": 18.810384994088537,
+    "inc_true_deg": 153.40720748346575,
+    "found": null
+   },
+   {
+    "name": "HD 10180 h",
+    "role": "target",
+    "P_true": 2369.40857906362,
+    "e_true": 0.14843967458048077,
+    "a_star_true_mas": 0.016156325127859972,
+    "inc_true_deg": 65.5099924309984,
+    "found": null
+   },
+   {
+    "name": "HD 10180 g",
+    "role": "target",
+    "P_true": 609.364965842179,
+    "e_true": 0.16484809102729023,
+    "a_star_true_mas": 0.0023906508551275927,
+    "inc_true_deg": 69.39458134698991,
+    "found": null
+   },
+   {
+    "name": "HD 10180 f",
+    "role": "target",
+    "P_true": 122.61306127211036,
+    "e_true": 0.07723420703454019,
+    "a_star_true_mas": 0.0010680163196202207,
+    "inc_true_deg": 126.31304276234964,
+    "found": null
+   },
+   {
+    "name": "HD 10180 e",
+    "role": "target",
+    "P_true": 49.762411860214485,
+    "e_true": 0.039923865576248406,
+    "a_star_true_mas": 0.0010632000762992723,
+    "inc_true_deg": 151.3499130416759,
+    "found": null
+   },
+   {
+    "name": "HD 10180 d",
+    "role": "target",
+    "P_true": 16.350286628278983,
+    "e_true": 0.10664712733923341,
+    "a_star_true_mas": 0.00010620004991135052,
+    "inc_true_deg": 104.0660612004678,
+    "found": null
+   },
+   {
+    "name": "HD 10180 c",
+    "role": "target",
+    "P_true": 5.759313194629596,
+    "e_true": 0.056418560450033,
+    "a_star_true_mas": 6.70563089601482e-05,
+    "inc_true_deg": 68.7460626770546,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.925068093926427,
+    "dof": 2,
+    "fap": 0.38192384573545807,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD10180_seed3": {
+  "dataset": "HD10180_seed3",
+  "system": "HD10180",
+  "label": "HD 10180",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 91,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -10.1572689684508,
+    "P": 33.93901182215654,
+    "P_fit": null,
+    "thr": 10.166244927359681,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9115882171363185,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 32,
+    "jitter": 0.010764616968062593,
+    "time": 6.283684730529785
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 10180 trend companion",
+    "role": "trend",
+    "P_true": 43937.881168359134,
+    "e_true": 0.0,
+    "a_star_true_mas": 0.5554124284669936,
+    "inc_true_deg": 118.91151194700468,
+    "found": null
+   },
+   {
+    "name": "HD 10180 h",
+    "role": "target",
+    "P_true": 2369.40857906362,
+    "e_true": 0.14843967458048077,
+    "a_star_true_mas": 0.018321698485993142,
+    "inc_true_deg": 53.367591187308115,
+    "found": null
+   },
+   {
+    "name": "HD 10180 g",
+    "role": "target",
+    "P_true": 609.364965842179,
+    "e_true": 0.16484809102729023,
+    "a_star_true_mas": 0.0035482586941980266,
+    "inc_true_deg": 39.09814928345098,
+    "found": null
+   },
+   {
+    "name": "HD 10180 e",
+    "role": "target",
+    "P_true": 49.762411860214485,
+    "e_true": 0.039923865576248406,
+    "a_star_true_mas": 0.0012628938817373341,
+    "inc_true_deg": 23.80625603822781,
+    "found": null
+   },
+   {
+    "name": "HD 10180 f",
+    "role": "target",
+    "P_true": 122.61306127211036,
+    "e_true": 0.07723420703454019,
+    "a_star_true_mas": 0.0009896216172792323,
+    "inc_true_deg": 119.5848025806981,
+    "found": null
+   },
+   {
+    "name": "HD 10180 d",
+    "role": "target",
+    "P_true": 16.350286628278983,
+    "e_true": 0.10664712733923341,
+    "a_star_true_mas": 0.00010343577009424835,
+    "inc_true_deg": 84.83491577097014,
+    "found": null
+   },
+   {
+    "name": "HD 10180 c",
+    "role": "target",
+    "P_true": 5.759313194629596,
+    "e_true": 0.056418560450033,
+    "a_star_true_mas": 0.00010013451412455554,
+    "inc_true_deg": 38.61717608184388,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.6538704884121955,
+    "dof": 2,
+    "fap": 0.7211304388887543,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD10180_seed4": {
+  "dataset": "HD10180_seed4",
+  "system": "HD10180",
+  "label": "HD 10180",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 92,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -14.638138598411334,
+    "P": 105.24172388395613,
+    "P_fit": null,
+    "thr": 9.125274592349086,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.892745316165729,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 48,
+    "jitter": 0.0,
+    "time": 6.42734694480896
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 10180 trend companion",
+    "role": "trend",
+    "P_true": 207932.39673483552,
+    "e_true": 0.0,
+    "a_star_true_mas": 25.885228643009572,
+    "inc_true_deg": 145.6359483844544,
+    "found": null
+   },
+   {
+    "name": "HD 10180 h",
+    "role": "target",
+    "P_true": 2369.40857906362,
+    "e_true": 0.14843967458048077,
+    "a_star_true_mas": 0.014855461371456323,
+    "inc_true_deg": 98.22117790113217,
+    "found": null
+   },
+   {
+    "name": "HD 10180 g",
+    "role": "target",
+    "P_true": 609.364965842179,
+    "e_true": 0.16484809102729023,
+    "a_star_true_mas": 0.0029133688887788218,
+    "inc_true_deg": 50.18214232171323,
+    "found": null
+   },
+   {
+    "name": "HD 10180 f",
+    "role": "target",
+    "P_true": 122.61306127211036,
+    "e_true": 0.07723420703454019,
+    "a_star_true_mas": 0.0009358480140930122,
+    "inc_true_deg": 66.8668595407025,
+    "found": null
+   },
+   {
+    "name": "HD 10180 e",
+    "role": "target",
+    "P_true": 49.762411860214485,
+    "e_true": 0.039923865576248406,
+    "a_star_true_mas": 0.0005827363641351065,
+    "inc_true_deg": 118.98207881364186,
+    "found": null
+   },
+   {
+    "name": "HD 10180 d",
+    "role": "target",
+    "P_true": 16.350286628278983,
+    "e_true": 0.10664712733923341,
+    "a_star_true_mas": 0.00010747038719565248,
+    "inc_true_deg": 106.55428345269425,
+    "found": null
+   },
+   {
+    "name": "HD 10180 c",
+    "role": "target",
+    "P_true": 5.759313194629596,
+    "e_true": 0.056418560450033,
+    "a_star_true_mas": 7.692427037215229e-05,
+    "inc_true_deg": 125.66628333403965,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.6087927132204243,
+    "dof": 2,
+    "fap": 0.7375684683695407,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD10180_seed5": {
+  "dataset": "HD10180_seed5",
+  "system": "HD10180",
+  "label": "HD 10180",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 96,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -2.11231370751198,
+    "P": 25.833364771236997,
+    "P_fit": null,
+    "thr": 10.675222594281463,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.0179997475108293,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 1,
+    "jitter": 0.021989234894913817,
+    "time": 6.255594968795776
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 10180 trend companion",
+    "role": "trend",
+    "P_true": 103266.68539794057,
+    "e_true": 0.0,
+    "a_star_true_mas": 8.262652816352462,
+    "inc_true_deg": 148.41282439013162,
+    "found": null
+   },
+   {
+    "name": "HD 10180 h",
+    "role": "target",
+    "P_true": 2369.40857906362,
+    "e_true": 0.14843967458048077,
+    "a_star_true_mas": 0.01733710348207918,
+    "inc_true_deg": 121.99937140574568,
+    "found": null
+   },
+   {
+    "name": "HD 10180 g",
+    "role": "target",
+    "P_true": 609.364965842179,
+    "e_true": 0.16484809102729023,
+    "a_star_true_mas": 0.007096105145047927,
+    "inc_true_deg": 18.381563200966074,
+    "found": null
+   },
+   {
+    "name": "HD 10180 f",
+    "role": "target",
+    "P_true": 122.61306127211036,
+    "e_true": 0.07723420703454019,
+    "a_star_true_mas": 0.0011829430220186231,
+    "inc_true_deg": 46.67789219069954,
+    "found": null
+   },
+   {
+    "name": "HD 10180 e",
+    "role": "target",
+    "P_true": 49.762411860214485,
+    "e_true": 0.039923865576248406,
+    "a_star_true_mas": 0.0006258196410951706,
+    "inc_true_deg": 54.54283768256862,
+    "found": null
+   },
+   {
+    "name": "HD 10180 d",
+    "role": "target",
+    "P_true": 16.350286628278983,
+    "e_true": 0.10664712733923341,
+    "a_star_true_mas": 0.00010944459574256713,
+    "inc_true_deg": 70.26415705708136,
+    "found": null
+   },
+   {
+    "name": "HD 10180 c",
+    "role": "target",
+    "P_true": 5.759313194629596,
+    "e_true": 0.056418560450033,
+    "a_star_true_mas": 6.25924353365273e-05,
+    "inc_true_deg": 93.19181690610199,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.6900121749849006,
+    "dof": 2,
+    "fap": 0.4295547432915231,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD43691_seed1": {
+  "dataset": "HD43691_seed1",
+  "system": "HD43691",
+  "label": "HD 43691",
+  "seed": 1,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 59,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -1.0757311995228171,
+    "P": 77.94552058362584,
+    "P_fit": null,
+    "thr": 11.74316147397796,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.088820142958248,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 3,
+    "jitter": 0.0186059121653133,
+    "time": 5.87859582901001
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 43691 b",
+    "role": "target",
+    "P_true": 36.99901050346379,
+    "e_true": 0.08376539450584743,
+    "a_star_true_mas": 0.023709820444472004,
+    "inc_true_deg": 12.613319484265741,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.575556281494599,
+    "dof": 2,
+    "fap": 0.2758830759885897,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD43691_seed2": {
+  "dataset": "HD43691_seed2",
+  "system": "HD43691",
+  "label": "HD 43691",
+  "seed": 2,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 56,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -5.617686007363702,
+    "P": 31.617197605915358,
+    "P_fit": null,
+    "thr": 11.897406244616297,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 1.9212970615719407,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 16,
+    "jitter": 0.0,
+    "time": 5.88628888130188
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 43691 b",
+    "role": "target",
+    "P_true": 36.99901050346379,
+    "e_true": 0.08376539450584743,
+    "a_star_true_mas": 0.00593059282162286,
+    "inc_true_deg": 60.81130140273882,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 0.6066929579227747,
+    "dof": 2,
+    "fap": 0.7383432316511214,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD43691_seed3": {
+  "dataset": "HD43691_seed3",
+  "system": "HD43691",
+  "label": "HD 43691",
+  "seed": 3,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 57,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -5.0688710291008725,
+    "P": 83.50751191178136,
+    "P_fit": null,
+    "thr": 17.711783335360693,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.7443421015175,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 18,
+    "jitter": 0.02961285757265717,
+    "time": 5.820112228393555
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 43691 b",
+    "role": "target",
+    "P_true": 36.99901050346379,
+    "e_true": 0.08376539450584743,
+    "a_star_true_mas": 0.005720593302455596,
+    "inc_true_deg": 64.83220894208566,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 1.4724478209172105,
+    "dof": 2,
+    "fap": 0.47891894622145725,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD43691_seed4": {
+  "dataset": "HD43691_seed4",
+  "system": "HD43691",
+  "label": "HD 43691",
+  "seed": 4,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 53,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -8.473244052073436,
+    "P": 46.59861435591778,
+    "P_fit": null,
+    "thr": 15.694423346997425,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.643580436352796,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 28,
+    "jitter": 0.0,
+    "time": 5.904038906097412
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 43691 b",
+    "role": "target",
+    "P_true": 36.99901050346379,
+    "e_true": 0.08376539450584743,
+    "a_star_true_mas": 0.006310717387640147,
+    "inc_true_deg": 124.87191400433312,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 2.7518094278867267,
+    "dof": 2,
+    "fap": 0.25261095174131926,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ },
+ "HD43691_seed5": {
+  "dataset": "HD43691_seed5",
+  "system": "HD43691",
+  "label": "HD 43691",
+  "seed": 5,
+  "settings": {
+   "M": 50,
+   "fap": 0.001,
+   "pmin_d": 20.0,
+   "max_companions": 4,
+   "match_tol": 0.25,
+   "e_max": 0.99,
+   "max_trend": 2
+  },
+  "code_version": "ec1d921",
+  "date": "2026-11-21",
+  "n_transits": 57,
+  "steps": [
+   {
+    "step": 1,
+    "method": "sim",
+    "peak": -12.407392830896864,
+    "P": 1280.2695074703313,
+    "P_fit": null,
+    "thr": 12.723028523749539,
+    "trend_before": 0,
+    "trend_after": 0,
+    "trend_moves": [],
+    "thr_sd": 2.269658637358759,
+    "detected": false,
+    "matched": null,
+    "spurious": false,
+    "n_fake_ge": 47,
+    "jitter": 0.0,
+    "time": 5.943041086196899
+   }
+  ],
+  "found": [],
+  "companions": [
+   {
+    "name": "HD 43691 b",
+    "role": "target",
+    "P_true": 36.99901050346379,
+    "e_true": 0.08376539450584743,
+    "a_star_true_mas": 0.00886376422958019,
+    "inc_true_deg": 35.740958128923324,
+    "found": null
+   }
+  ],
+  "spurious": [],
+  "trend": 0,
+  "trend_log": [
+   {
+    "action": "raise trend order 0 -> 1",
+    "gain_2dlnL": 3.09696670214322,
+    "dof": 2,
+    "fap": 0.21257012372119505,
+    "adopted": false,
+    "n_companions": 0
+   }
+  ]
+ }
+}
