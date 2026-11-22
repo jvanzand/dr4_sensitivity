@@ -133,7 +133,7 @@ def model_lines(fit):
                     f"e = {c['e']:.3f}{db}", False))
     if tord:
         k, span_yr = P*fit['npl'], fit['rv'].span/365.25
-        terms = [f"slope {th[k]/span_yr:.3g} m/s/yr"] + ([f"curvature {th[k + 1]/span_yr**2:.3g} m/s/yr$^2$"]
+        terms = [f"slope {th[k]/span_yr:.3g} m/s/yr"] + ([f"curvature {2*th[k + 1]/span_yr**2:.3g} m/s/yr$^2$"]
                                                        if tord > 1 else [])
         out.append(('   trend: ' + ',  '.join(terms), False))
     rep = fit.get('replaced_by_trend') or []

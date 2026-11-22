@@ -3,77 +3,33 @@
   {
    "name": "HD 89707 [sahlmann_2011 HD 89707 b]",
    "rv_based": {
-    "P_d": 298.2369854060535,
-    "K_ms": 6668.259646221739,
-    "e": 0.9639541014072428,
-    "omega_star_deg": 117.8802214412572,
-    "M0_deg": 52.628689635102134,
-    "Tp_bjd_tcb": 2452094.962276575
+    "P_d": 298.2849977340276,
+    "K_ms": 6208.387763052391,
+    "e": 0.9541414636055141,
+    "omega_star_deg": 121.82473836885016,
+    "M0_deg": 271.3484627108781,
+    "Tp_bjd_tcb": 2455373.8767735893
    },
    "random": {
-    "inc_deg": 57.26105890008095,
-    "Omega_deg": 159.71559549265586
+    "inc_deg": 130.88811609779773,
+    "Omega_deg": 311.6643982176933
    },
    "derived": {
-    "mass_mj": 70.5997548157513,
-    "msini_mj": 58.955412424398894,
-    "a_au": 0.8815085782060721,
-    "a_star_mas": 1.6584403268296704,
+    "mass_mj": 82.9155652328662,
+    "msini_mj": 61.87285393404756,
+    "a_au": 0.8849532033503885,
+    "a_star_mas": 1.9332366388704023,
     "thiele_innes_ABFG_mas": [
-     0.4525844315124865,
-     -1.0124918254218056,
-     1.5204304871973198,
-     -0.1148086532464064
+     -1.4809352483111933,
+     0.0468023184799083,
+     -0.5934335485677277,
+     1.6707138007941118
     ]
    },
-   "tref_mjd": 52138.061781415716
-  },
-  {
-   "name": "HD 89707 trend companion",
-   "role": "trend",
-   "rv_based": {
-    "P_d": 90153.82503422574,
-    "K_ms": 104.33674859899646,
-    "e": 0.0,
-    "omega_star_deg": 0.0,
-    "M0_deg": 8.87465064175642,
-    "Tp_bjd_tcb": 2449916.107055869
-   },
-   "random": {
-    "inc_deg": 138.4978112522021,
-    "Omega_deg": 300.48337932819055
-   },
-   "derived": {
-    "mass_mj": 34.575766743334285,
-    "msini_mj": 22.737425247197194,
-    "a_au": 39.256648670275936,
-    "a_star_mas": 37.423158016850564,
-    "thiele_innes_ABFG_mas": [
-     18.984333786015632,
-     -32.25039265893226,
-     -24.153299718984314,
-     -14.217944840180957
-    ]
-   },
-   "trend": {
-    "order": 2,
-    "slope_ms_per_yr": -0.40974523752481923,
-    "curvature_ms_per_yr2": -0.06680031609001608,
-    "period_range_d": [
-     28356.435007511638,
-     372781.72022981494
-    ],
-    "dlnL_vs_polynomial": -0.02416032309622551,
-    "n_draws": 1,
-    "injected": "orbit minus its offset and velocity at J2016.0 (see companion_sky)"
-   },
-   "tref_mjd": 52138.061781415716
+   "tref_mjd": 55598.20781688066
   }
  ],
- "rv_trend_coefs": [
-  -15.905426690636489,
-  -50.328193451546895
- ],
+ "rv_trend_coefs": [],
  "fixed": {
   "mstar_msun": 0.96,
   "ra_deg": 155.20723894240282,
@@ -88,50 +44,41 @@
  "seed": 1,
  "noise": {
   "sigma_ccd_mas": 0.17163509845733643,
-  "extra_transit_sigma_mas": 0.002849617401193125,
-  "n_transits": 57,
-  "n_ccd_rows": 506,
+  "extra_transit_sigma_mas": 0.012868522434819242,
+  "n_transits": 55,
+  "n_ccd_rows": 488,
   "reject_frac": 0.1
  },
  "reference_fit": {
   "planets": [
    {
-    "P": 298.2500670224486,
-    "K": 7172.792367339129,
-    "e": 0.9680652385045694,
-    "omega": 2.0536681601940265,
-    "M0": 0.9113297875189756,
-    "Tp": 2452095.3028041744,
-    "P_err": 0.01269332927923503,
-    "K_err": 179.59050284959613,
-    "e_err": 0.0014810348261638509,
-    "omega_err": 0.011351344748404837,
-    "M0_err": 0.0033937791131955558,
-    "Tp_err": 0.16118252131267383,
+    "P": 298.2849977340276,
+    "K": 6208.387763052391,
+    "e": 0.9541414636055141,
+    "omega": 2.1262427949171014,
+    "M0": 4.735924094529881,
+    "Tp": 2455373.8767735893,
     "name": "HD 89707 [sahlmann_2011 HD 89707 b]"
    }
   ],
-  "lnL": -667.362840201334,
-  "trend_order": 2,
-  "trend_coefs": [
-   93.64655611850947,
-   -170.59040143029182
-  ],
+  "lnL": -191.51875936259543,
+  "trend_order": 0,
+  "trend_coefs": [],
   "trend_steps": [
    {
     "n_companions": 0,
     "action": "raise trend order 0 -> 1",
-    "dBIC": 76.26209341053254
+    "dBIC": 72.78890661363403
    },
    {
     "n_companions": 0,
     "action": "raise trend order 1 -> 2",
-    "dBIC": 40.75462400812103
+    "dBIC": 85.469997135835
    },
    {
     "n_companions": 0,
     "action": "keep trend order 2",
-    "top_term_worth_dBIC": 41.07825706112271
+    "top_term_worth_dBIC": 85.4700799225393
    },
    {
     "n_companions": 1,
@@ -139,37 +86,55 @@
    },
    {
     "n_companions": 1,
-    "action": "keep trend order 2",
-    "top_term_worth_dBIC": 64.31536320176474
+    "action": "drop trend term 2 -> 1",
+    "worth_dBIC": -128.51378008359933
+   },
+   {
+    "n_companions": 1,
+    "action": "drop trend term 1 -> 0",
+    "worth_dBIC": -45.476883939048946
+   },
+   {
+    "n_companions": 1,
+    "action": "keep trend order 0",
+    "dBIC_of_raising": 6.525761317112881
    }
   ],
-  "n_rv_excluded": 0,
+  "n_rv_excluded": 64,
+  "rv_binned_nightly": true,
+  "n_rv_points": 47,
   "jitter_ms": {
-   "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 12.737210306048736,
+   "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 12.341712358154394,
    "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 0.10000000000000002,
-   "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 17.30086449013659,
-   "dace:CORAVEL:1979VA.....23..279B": 0.1000061721096363
+   "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 17.063743645342015
   },
-  "rv_tref_bjd_tcb": 2452138.5617814157,
-  "rv_span_d": 14178.217503755819,
-  "laplace_held_fixed": [
-   8,
-   10
+  "rv_tref_bjd_tcb": 2455598.7078168807,
+  "rv_span_d": 7257.925432825461,
+  "hessian_held_fixed": [
+   6
+  ],
+  "n_extra": 0,
+  "long_period_keplerian_test": null,
+  "rv_support": [
+   {
+    "index": 0,
+    "dBIC_drop": 26167.39312730536,
+    "detected": true,
+    "name": "HD 89707 [sahlmann_2011 HD 89707 b]"
+   }
   ],
   "theta": [
-   5.697932285697023,
-   8.878050309288843,
-   -0.4568503663637402,
-   0.8714086189944908,
-   0.9113297875189756,
-   93.64655611850947,
-   -170.59040143029182,
-   2.5445276548985487,
+   5.698049397711665,
+   8.733656521744289,
+   -0.5150896845858093,
+   0.8299542640644758,
+   -1.5472612126497056,
+   2.512984773692625,
    -2.3025850929940455,
-   2.8507564707833746,
-   -2.302523373802351
+   2.836955957928096
   ],
   "kind": "maximum likelihood",
-  "method": "maximum likelihood; errors from the Laplace approximation"
+  "reference_fit_file": "validation/results/reference_fits/HD89707_fit.pkl",
+  "method": "maximum likelihood; no errors (from the Octofitter fits later)"
  }
 }

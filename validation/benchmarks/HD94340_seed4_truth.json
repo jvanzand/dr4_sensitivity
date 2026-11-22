@@ -1,0 +1,236 @@
+{
+ "companions": [
+  {
+   "name": "HD 94340 [barbato_2023 6.84 d companion]",
+   "rv_based": {
+    "P_d": 6.842318935777388,
+    "K_ms": 8174.603436823967,
+    "e": 0.009057742230947644,
+    "omega_star_deg": 40.246713877353464,
+    "M0_deg": 61.2942473495982,
+    "Tp_bjd_tcb": 2453492.44563507
+   },
+   "random": {
+    "inc_deg": 86.78697881619217,
+    "Omega_deg": 216.63164452104243
+   },
+   "derived": {
+    "mass_mj": 94.33656896689932,
+    "msini_mj": 94.18149192838116,
+    "a_au": 0.07834077514406809,
+    "a_star_mas": 0.10154416743183756,
+    "thiele_innes_ABFG_mas": [
+     -0.06000328815755481,
+     -0.04919593059602786,
+     0.05523973660593168,
+     0.03565876013574279
+    ]
+   },
+   "tref_mjd": 53493.11062059598,
+   "role": "context",
+   "cut_reason": "M sin i (or true mass) <= 80.0 M_J"
+  },
+  {
+   "name": "HD 94340 [barbato_2023 HD 94340 b]",
+   "rv_based": {
+    "P_d": 1123.6605652900105,
+    "K_ms": 1353.6442516618492,
+    "e": 0.31198431387995607,
+    "omega_star_deg": 99.09399682854664,
+    "M0_deg": 116.50829979106257,
+    "Tp_bjd_tcb": 2453129.9556705845
+   },
+   "random": {
+    "inc_deg": 16.897039474894513,
+    "Omega_deg": 215.2192116079645
+   },
+   "derived": {
+    "mass_mj": 306.0217094800856,
+    "msini_mj": 80.63352818233805,
+    "a_au": 2.459569576477666,
+    "a_star_mas": 9.012562692890043,
+    "thiele_innes_ABFG_mas": [
+     6.074431109804582,
+     -6.134906274257502,
+     6.484239894340104,
+     6.24575855655297
+    ]
+   },
+   "tref_mjd": 53493.11062059598
+  }
+ ],
+ "rv_trend_coefs": [],
+ "fixed": {
+  "mstar_msun": 1.28,
+  "ra_deg": 163.26824101552825,
+  "dec_deg": -20.629366225269575,
+  "parallax_mas": 19.719942137244875,
+  "pmra_masyr": -143.86449174705098,
+  "pmdec_masyr": -273.84390002017324,
+  "G": 6.867118835449219,
+  "ref_epoch_mjd": 57388.5
+ },
+ "system": "HD94340",
+ "seed": 4,
+ "noise": {
+  "sigma_ccd_mas": 0.16734237670898439,
+  "extra_transit_sigma_mas": 0.0028935837754212245,
+  "n_transits": 97,
+  "n_ccd_rows": 861,
+  "reject_frac": 0.1
+ },
+ "reference_fit": {
+  "planets": [
+   {
+    "P": 6.842318935777388,
+    "K": 8174.603436823967,
+    "e": 0.009057742230947644,
+    "omega": 0.7024376702679113,
+    "M0": 1.0697864287822965,
+    "Tp": 2453492.44563507,
+    "name": "HD 94340 [barbato_2023 6.84 d companion]"
+   },
+   {
+    "P": 1123.6605652900105,
+    "K": 1353.6442516618492,
+    "e": 0.31198431387995607,
+    "omega": 1.7295165136189576,
+    "M0": 2.0334534372546633,
+    "Tp": 2453129.9556705845,
+    "name": "HD 94340 [barbato_2023 HD 94340 b]"
+   }
+  ],
+  "lnL": -303.8195748223728,
+  "trend_order": 0,
+  "trend_coefs": [],
+  "trend_steps": [
+   {
+    "n_companions": 0,
+    "action": "raise trend order 0 -> 1",
+    "dBIC": 5668.5892597588245
+   },
+   {
+    "n_companions": 0,
+    "action": "raise trend order 1 -> 2",
+    "dBIC": 36021.411255679326
+   },
+   {
+    "n_companions": 0,
+    "action": "keep trend order 2",
+    "top_term_worth_dBIC": 36021.41197103402
+   },
+   {
+    "n_companions": 1,
+    "action": "add HD 94340 [barbato_2023 6.84 d companion]"
+   },
+   {
+    "n_companions": 1,
+    "action": "drop trend term 2 -> 1",
+    "worth_dBIC": -12870.543788011615
+   },
+   {
+    "n_companions": 1,
+    "action": "drop trend term 1 -> 0",
+    "worth_dBIC": -442.7488874487135
+   },
+   {
+    "n_companions": 1,
+    "action": "raise trend order 0 -> 1",
+    "dBIC": 73.81363731487727
+   },
+   {
+    "n_companions": 1,
+    "action": "raise trend order 1 -> 2",
+    "dBIC": 873.4941465044321
+   },
+   {
+    "n_companions": 1,
+    "action": "keep trend order 2",
+    "top_term_worth_dBIC": 892.3837218110093
+   },
+   {
+    "n_companions": 2,
+    "action": "add HD 94340 [barbato_2023 HD 94340 b]"
+   },
+   {
+    "n_companions": 2,
+    "action": "drop trend term 2 -> 1",
+    "worth_dBIC": -693.5595513912963
+   },
+   {
+    "n_companions": 2,
+    "action": "drop trend term 1 -> 0",
+    "worth_dBIC": -135.51074117685266
+   },
+   {
+    "n_companions": 2,
+    "action": "raise trend order 0 -> 1",
+    "dBIC": 125.63847977964156
+   },
+   {
+    "n_companions": 2,
+    "action": "drop trend term 1 -> 0",
+    "worth_dBIC": -3.9039043725159672
+   },
+   {
+    "n_companions": 2,
+    "action": "keep trend order 0",
+    "dBIC_of_raising": -3.807574932878424
+   }
+  ],
+  "n_rv_excluded": 0,
+  "rv_binned_nightly": true,
+  "n_rv_points": 61,
+  "jitter_ms": {
+   "dace:CORALIE07:DRS-3.3.12-CCF_CORALIE": 24.445026474234112,
+   "dace:CORALIE14:DRS-3.3.12-CCF_CORALIE": 4.969545719504068,
+   "dace:CORALIE98:DRS-3.3.12-CCF_CORALIE": 13.231502396429308,
+   "dace:CORAVEL:1979VA.....23..279B": 30.000000000000004
+  },
+  "rv_tref_bjd_tcb": 2453493.610620596,
+  "rv_span_d": 11771.87910278514,
+  "hessian_held_fixed": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   13
+  ],
+  "n_extra": 0,
+  "long_period_keplerian_test": null,
+  "rv_support": [
+   {
+    "index": 0,
+    "dBIC_drop": 1131595.2229753009,
+    "detected": true,
+    "name": "HD 94340 [barbato_2023 6.84 d companion]"
+   },
+   {
+    "index": 1,
+    "dBIC_drop": 19039.749444601217,
+    "detected": true,
+    "name": "HD 94340 [barbato_2023 HD 94340 b]"
+   }
+  ],
+  "theta": [
+   1.9231266998766812,
+   9.008787485331835,
+   0.07264201825063316,
+   0.06148885602629409,
+   1.0697864287822965,
+   7.024346996669878,
+   7.210555680148155,
+   -0.0882822812371397,
+   0.5515347248356377,
+   -4.249731869924923,
+   3.1964267790422585,
+   1.6033284314045446,
+   2.5826005315002454,
+   3.4011973816621555
+  ],
+  "kind": "maximum likelihood",
+  "reference_fit_file": "validation/results/reference_fits/HD94340_fit.pkl",
+  "method": "maximum likelihood; no errors (from the Octofitter fits later)"
+ }
+}

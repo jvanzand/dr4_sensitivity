@@ -864,6 +864,22 @@ def rng_for(system, seed):
 
 
 _FIT_CACHE = {}
+REFERENCE_FITS = os.path.join(HERE, 'results', 'reference_fits')   # run_reference_fits.py output (not in git)
+
+
+def saved_fit_path(system):
+    return os.path.join(REFERENCE_FITS, f'{system}_fit.pkl')
+
+
+def saved_reference_fit(system):
+    """The system's saved reference RV fit (validation/run_reference_fits.py;
+    Judah, 2026-11-21): benchmarks are built from it, not from a new fit."""
+    import pickle
+    path = saved_fit_path(system)
+    if not os.path.exists(path):
+        raise FileNotFoundError(f'{path} missing: run validation/run_reference_fits.py for {system} first')
+    with open(path, 'rb') as fh:
+        return pickle.load(fh)
 
 
 def make_system(system, seed, fig=True, force=False):
@@ -872,7 +888,7 @@ def make_system(system, seed, fig=True, force=False):
         raise FileExistsError(f'{stem}_truth.json exists: benchmark inputs are frozen (force=True to replace)')
     rng = rng_for(system, seed)
     if system not in _FIT_CACHE:                       # one reference fit per system and process
-        _FIT_CACHE[system] = reference_rv_fit(system)
+        _FIT_CACHE[system] = saved_reference_fit(system)
     fit = _FIT_CACHE[system]
     host = host_astrometry(fit['source_id'])
     cat = pd.read_csv(cs.CATALOG, dtype={'system_id': str}, low_memory=False)
@@ -883,7 +899,7 @@ def make_system(system, seed, fig=True, force=False):
     write_csv(f'{stem}.csv', ast['t'], ast['psi'], ast['fal'], ast['row'], ast['planets'], ast['sig'])
     write_csv(f'{stem}_noplanet.csv', ast['t'], ast['psi'], ast['fal'], ast['row'], ast['noplanet'],
               ast['sig'])
-    rows = planet_rows(fit['theta'], fit['cov'], fit)
+    rows = planet_rows(fit['theta'], None, fit)        # no errors (Judah, 2026-11-21)
     _, coefs, jit = cs.unpack(fit['theta'], fit['npl'], fit['tord'], fit['rv'].nds)
     truth.update(system=system, seed=seed, noise=ast['noise'],
                  reference_fit=dict(planets=rows, lnL=fit['lnL'], trend_order=fit['tord'],
@@ -898,8 +914,8 @@ def make_system(system, seed, fig=True, force=False):
                                     rv_support=fit['support'],
                                     theta=[float(x) for x in fit['theta']],
                                     kind=fit['kind'],
-                                    method=(f"{fit['kind']}; errors from the inverse Hessian" if fit.get('cov') is not None
-                                            else f"{fit['kind']}; no errors (from the Octofitter fits later)")))
+                                    reference_fit_file=os.path.relpath(saved_fit_path(system), ROOT),
+                                    method=f"{fit['kind']}; no errors (from the Octofitter fits later)"))
     json.dump(truth, open(f'{stem}_truth.json', 'w'), indent=1)
     print(f'wrote {stem}.csv, _noplanet.csv, _truth.json')
     if fig:
@@ -910,11 +926,22 @@ def make_system(system, seed, fig=True, force=False):
 
 def fit_from_truth(truth):
     """The reference fit as saved in a _truth.json (theta, no covariance),
-    with its RV data: enough to redraw the figure without refitting."""
+    with its RV data: enough to redraw the figure without refitting. The saved
+    reference fit is used when its theta is the truth's (its RVs are exactly
+    the ones fitted); otherwise the RVs are reloaded with the current loader,
+    which must give the same datasets."""
     ref = truth['reference_fit']
+    pkl = saved_fit_path(truth['system'])
+    if os.path.exists(pkl):
+        fit = saved_reference_fit(truth['system'])
+        if len(fit['theta']) == len(ref['theta']) and np.allclose(fit['theta'], ref['theta']):
+            return fit
     path = rv_table(truth['system'])
     rv = load_rvs(path, truth['system'], nightly=ref.get('rv_binned_nightly', False))[0]   # as fitted
     lit = literature_sorted(os.path.basename(path).split('_')[0])
+    if rv.nds != len(ref['jitter_ms']):
+        raise RuntimeError(f"{truth['system']}: the RV loader now gives {rv.nds} datasets, the fit had "
+                           f"{len(ref['jitter_ms'])}; redraw needs the saved reference fit")
     return dict(rv=rv, lit=lit, npl=len(lit) + ref.get('n_extra', 0), n_extra=ref.get('n_extra', 0),
                 tord=ref['trend_order'],
                 theta=np.array(ref['theta']), held_fixed=ref.get('hessian_held_fixed', ref.get('laplace_held_fixed')))   # older files: laplace_*
@@ -974,13 +1001,17 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     kind = truth['reference_fit'].get('kind', 'maximum likelihood')
     ax.plot(yr(tt), cs.model_rv(th, grid, n, tord), 'k-', lw=1.2, zorder=5,
             label=f'reference fit ({kind}):')
+    def pm(r, k, fmt, f=lambda x: x):          # '+- error' where the fit has errors (older truth files)
+        return f" $\\pm$ {format(f(r[k + '_err']), fmt)}" if k + '_err' in r else ''
+    src = {c['name']: c.get('orbit_source') for c in comps}
     for r in rows:
-        ax.plot([], [], ' ', label=(f"{_pretty(r['name'])}: P = {r['P']:.4g} $\\pm$ {r['P_err']:.2g} d, "
-                                    f"K = {r['K']:.3g} $\\pm$ {r['K_err']:.2g} m/s, "
-                                    f"e = {r['e']:.3f} $\\pm$ {r['e_err']:.3f}, "
-                                    f"$\\omega_\\star$ = {math.degrees(r['omega']):.1f} $\\pm$ "
-                                    f"{math.degrees(r['omega_err']):.2g}$^\\circ$, "
-                                    f"T$_p$ = BJD {r['Tp']:.0f} $\\pm$ {r['Tp_err']:.2g}"))
+        nea = ('; injected with the NEA orbit (not detected by the RVs)' if src.get(r['name']) else '')
+        ax.plot([], [], ' ', label=(f"{_pretty(r['name'])}: P = {r['P']:.4g}{pm(r, 'P', '.2g')} d, "
+                                    f"K = {r['K']:.3g}{pm(r, 'K', '.2g')} m/s, "
+                                    f"e = {r['e']:.3f}{pm(r, 'e', '.3f')}, "
+                                    f"$\\omega_\\star$ = {math.degrees(r['omega']):.1f}"
+                                    f"{pm(r, 'omega', '.2g', math.degrees)}$^\\circ$, "
+                                    f"T$_p$ = BJD {r['Tp']:.0f}{pm(r, 'Tp', '.2g')}{nea}"))
     tcs = [c for c in comps if c.get('role') == 'trend']
     if tord:
         cf = truth['reference_fit']['trend_coefs']
@@ -1034,12 +1065,14 @@ def process_figure(fit, truth, csv_planets, csv_noplanet, out):
     ax.set_title('2. Ground truth for the synthetic DR4 data (one draw)', fontsize=22, loc='left')
     targets = [c for c in comps if c.get('role') != 'trend']
     lines = [('RV-based: the reference fit' + (' (one draw from its inverse-Hessian Gaussian)'
-              if 'inverse Hessian' in truth['reference_fit'].get('method', '') else ' (best fit)'), 'C0'),]
+              if 'inverse Hessian' in truth['reference_fit'].get('method', '') else
+              ' (best fit; NEA orbit for NEA companions the RVs do not detect)'), 'C0'),]
     for c in targets:
         rb = c['rv_based']
         lines.append((f"   {_pretty(c['name'])}:  P = {rb['P_d']:.5g} d,  K = {rb['K_ms']:.4g} m/s,  "
                       f"e = {rb['e']:.3f},  $\\omega_\\star$ = {rb['omega_star_deg']:.1f}$^\\circ$,  "
-                      f"T$_p$ = BJD {rb['Tp_bjd_tcb']:.1f}", 'C0'))
+                      f"T$_p$ = BJD {rb['Tp_bjd_tcb']:.1f}"
+                      + ('  (NEA orbit: not detected by the RVs)' if c.get('orbit_source') else ''), 'C0'))
     lines.append(('Random: isotropic inclination (cos i uniform), $\\Omega$ uniform in [0, 360)$^\\circ$', 'C3'))
     for c in targets:
         rd = c['random']

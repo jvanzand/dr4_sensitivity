@@ -1,0 +1,138 @@
+{
+ "companions": [
+  {
+   "name": "70 Vir b",
+   "rv_based": {
+    "P_d": 116.69366120968803,
+    "K_ms": 315.4840016346986,
+    "e": 0.39928876466596763,
+    "omega_star_deg": 359.264147352244,
+    "M0_deg": 253.5927461560659,
+    "Tp_bjd_tcb": 2452957.796566794
+   },
+   "random": {
+    "inc_deg": 49.23615976381372,
+    "Omega_deg": 242.19057450469742
+   },
+   "derived": {
+    "mass_mj": 9.603987990001857,
+    "msini_mj": 7.2640005741367775,
+    "a_au": 0.4779631890177977,
+    "a_star_mas": 0.22632691850990788,
+    "thiele_innes_ABFG_mas": [
+     -0.10725875495174479,
+     -0.19928518974792744,
+     0.12934389907259472,
+     -0.07150868611529707
+    ]
+   },
+   "tref_mjd": 53039.498416808434
+  }
+ ],
+ "rv_trend_coefs": [],
+ "fixed": {
+  "mstar_msun": 1.06055,
+  "ra_deg": 202.10645605299496,
+  "dec_deg": 13.776228558320799,
+  "parallax_mas": 55.25105809943382,
+  "pmra_masyr": -235.95077478512644,
+  "pmdec_masyr": -575.9692081932296,
+  "G": 4.778970718383789,
+  "ref_epoch_mjd": 57388.5
+ },
+ "system": "70Vir",
+ "seed": 3,
+ "noise": {
+  "sigma_ccd_mas": 0.3610514640808105,
+  "extra_transit_sigma_mas": 0.027630888254014545,
+  "n_transits": 70,
+  "n_ccd_rows": 618,
+  "reject_frac": 0.1
+ },
+ "reference_fit": {
+  "planets": [
+   {
+    "P": 116.69366120968803,
+    "K": 315.4840016346986,
+    "e": 0.39928876466596763,
+    "omega": 6.270342255666725,
+    "M0": 4.426028379597544,
+    "Tp": 2452957.796566794,
+    "name": "70 Vir b"
+   }
+  ],
+  "lnL": -1255.8535113969924,
+  "trend_order": 0,
+  "trend_coefs": [],
+  "trend_steps": [
+   {
+    "n_companions": 0,
+    "action": "raise trend order 0 -> 1",
+    "dBIC": 220.71686335303093
+   },
+   {
+    "n_companions": 0,
+    "action": "keep trend order 1",
+    "dBIC_of_raising": -5.84619822363311
+   },
+   {
+    "n_companions": 1,
+    "action": "add 70 Vir b"
+   },
+   {
+    "n_companions": 1,
+    "action": "drop trend term 1 -> 0",
+    "worth_dBIC": -729.7161771746646
+   },
+   {
+    "n_companions": 1,
+    "action": "keep trend order 0",
+    "dBIC_of_raising": 2.8042719887521343
+   }
+  ],
+  "n_rv_excluded": 0,
+  "rv_binned_nightly": true,
+  "n_rv_points": 406,
+  "jitter_ms": {
+   "dace:APF:2021ApJS..255....8R": 3.3097403690032206,
+   "dace:ELODIE:TACOS": 7.821642481938923,
+   "dace:HAMILTON:2006ApJ...646..505B": 4.697437675721031,
+   "dace:HAMILTON:2014ApJS..210....5F": 8.649882100322884,
+   "dace:HAMILTON:2021ApJS..255....8R": 0.10000000000000002,
+   "dace:HIRES-POST04:2021ApJS..255....8R": 3.5835315781066366,
+   "dace:SOPHIE:HR_DRS-3.1b": 3.358706842197432
+  },
+  "rv_tref_bjd_tcb": 2453039.9984168084,
+  "rv_span_d": 11689.941034502815,
+  "hessian_held_fixed": [
+   9
+  ],
+  "n_extra": 0,
+  "long_period_keplerian_test": null,
+  "rv_support": [
+   {
+    "index": 0,
+    "dBIC_drop": 16447.93438305975,
+    "detected": true,
+    "name": "70 Vir b"
+   }
+  ],
+  "theta": [
+   4.759552220848036,
+   5.754107972723146,
+   0.6318408882084867,
+   -0.008115211265160342,
+   -1.8571569275820419,
+   1.1968697479449149,
+   2.0568945685563067,
+   1.5470171846753784,
+   2.1575456908304225,
+   -2.3025850929940455,
+   1.2763487884980216,
+   1.211556031500643
+  ],
+  "kind": "maximum likelihood",
+  "reference_fit_file": "validation/results/reference_fits/70Vir_fit.pkl",
+  "method": "maximum likelihood; no errors (from the Octofitter fits later)"
+ }
+}

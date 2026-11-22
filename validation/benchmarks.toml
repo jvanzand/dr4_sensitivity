@@ -4,6 +4,9 @@
 # frozen in validation/benchmarks/ and never regenerated, so every version of the search
 # is tested on identical data. Systems chosen by Judah on 2026-11-10. Regenerated on
 # 2026-11-16 with RV trends injected as the acceleration of a drawn trend companion.
+# Regenerated on 2026-11-21 (Judah) for all 13 systems with RV tables, from the saved reference
+# fits (validation/results/reference_fits/; maximum likelihood, nightly-binned RVs; NEA orbits for
+# NEA companions the RVs do not detect).
 
 [search]                  # settings of search.run_search used for every benchmark
 M = 50                    # noise-sampled datasets per simulated threshold
@@ -74,10 +77,29 @@ label = "HD 191939"
 seeds = [1, 2, 3, 4, 5]
 purpose = "census draw (six planets)"
 
-# HD 94340 stays disabled (2026-11-17): neither the polynomial trend nor a long-period Keplerian fits its RVs
-# (residuals 2-7 km/s per dataset); likely a stellar binary that needs a full binary fit.
-# [[system]]
-# name = "HD94340"
-# label = "HD 94340"
-# seeds = [1]
-# purpose = "census draw"
+# HD 94340 was disabled on 2026-11-17 (residuals of km/s); enabled again 2026-11-21 (Judah): with its
+# 6.84 d companion added, the reference fit describes its RVs.
+[[system]]
+name = "HD94340"
+label = "HD 94340"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census draw (strong b, 1124 d, K 1.35 km/s; 6.84 d companion)"
+
+# Added 2026-11-21 (Judah): the remaining census systems with RV tables and reference fits.
+[[system]]
+name = "70Vir"
+label = "70 Vir"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census system with RVs"
+
+[[system]]
+name = "HD10180"
+label = "HD 10180"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census system with RVs (many low-mass planets)"
+
+[[system]]
+name = "HD43691"
+label = "HD 43691"
+seeds = [1, 2, 3, 4, 5]
+purpose = "census system with RVs"

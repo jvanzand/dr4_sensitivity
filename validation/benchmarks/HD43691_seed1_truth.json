@@ -1,0 +1,122 @@
+{
+ "companions": [
+  {
+   "name": "HD 43691 b",
+   "rv_based": {
+    "P_d": 36.99901050346379,
+    "K_ms": 130.8817517695807,
+    "e": 0.08376539450584743,
+    "omega_star_deg": 285.69732389781285,
+    "M0_deg": 129.87702202508532,
+    "Tp_bjd_tcb": 2456044.2243999946
+   },
+   "random": {
+    "inc_deg": 12.613319484265741,
+    "Omega_deg": 44.53199957223335
+   },
+   "derived": {
+    "mass_mj": 11.85028531862443,
+    "msini_mj": 2.5762633426608668,
+    "a_au": 0.23905246636658717,
+    "a_star_mas": 0.023709820444472004,
+    "thiele_innes_ABFG_mas": [
+     0.02019426078445436,
+     -0.011379938512704706,
+     0.0118812049918739,
+     0.02047022955093571
+    ]
+   },
+   "tref_mjd": 56057.07251472259
+  }
+ ],
+ "rv_trend_coefs": [],
+ "fixed": {
+  "mstar_msun": 1.32,
+  "ra_deg": 94.89461657669304,
+  "dec_deg": 41.092069947009186,
+  "parallax_mas": 11.672592533292292,
+  "pmra_masyr": 22.684267499238683,
+  "pmdec_masyr": -53.139675594420794,
+  "G": 7.909127712249756,
+  "ref_epoch_mjd": 57388.5
+ },
+ "system": "HD43691",
+ "seed": 1,
+ "noise": {
+  "sigma_ccd_mas": 0.21545638561248784,
+  "extra_transit_sigma_mas": 0.009670819128565529,
+  "n_transits": 59,
+  "n_ccd_rows": 523,
+  "reject_frac": 0.1
+ },
+ "reference_fit": {
+  "planets": [
+   {
+    "P": 36.99901050346379,
+    "K": 130.8817517695807,
+    "e": 0.08376539450584743,
+    "omega": 4.986358966153514,
+    "M0": 2.2667816570229324,
+    "Tp": 2456044.2243999946,
+    "name": "HD 43691 b"
+   }
+  ],
+  "lnL": -337.114159323565,
+  "trend_order": 0,
+  "trend_coefs": [],
+  "trend_steps": [
+   {
+    "n_companions": 0,
+    "action": "keep trend order 0",
+    "dBIC_of_raising": -0.004603466952630697
+   },
+   {
+    "n_companions": 1,
+    "action": "add HD 43691 b"
+   },
+   {
+    "n_companions": 1,
+    "action": "keep trend order 0",
+    "dBIC_of_raising": 6.210709352344566
+   }
+  ],
+  "n_rv_excluded": 0,
+  "rv_binned_nightly": true,
+  "n_rv_points": 88,
+  "jitter_ms": {
+   "dace:ELODIE:TACOS": 15.888682003429675,
+   "dace:SOPHIE:HR_DRS-3.1": 12.870122140000802,
+   "dace:SOPHIE:HR_DRS-3.1b": 12.899717185776431,
+   "hires_j": 5.139928416685549,
+   "hires_k": 4.8159881564570926
+  },
+  "rv_tref_bjd_tcb": 2456057.5725147226,
+  "rv_span_d": 6085.142017569393,
+  "hessian_held_fixed": [],
+  "n_extra": 0,
+  "long_period_keplerian_test": null,
+  "rv_support": [
+   {
+    "index": 0,
+    "dBIC_drop": 878.1223003368947,
+    "detected": true,
+    "name": "HD 43691 b"
+   }
+  ],
+  "theta": [
+   3.610891169136993,
+   4.874294257312394,
+   0.07830484896699988,
+   -0.2786283279462136,
+   2.2667816570229324,
+   2.7656070320757498,
+   2.5549085118505555,
+   2.557205387544079,
+   1.6370391526552224,
+   1.5719412487960818
+  ],
+  "kind": "maximum likelihood",
+  "reference_fit_file": "validation/results/reference_fits/HD43691_fit.pkl",
+  "method": "maximum likelihood; no errors (from the Octofitter fits later)"
+ }
+}
