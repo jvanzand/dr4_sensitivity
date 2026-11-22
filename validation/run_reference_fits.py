@@ -72,13 +72,13 @@ def describe(fit, j):
     """Plain-words description of companion j of a fit: (name, what it is)."""
     lit = fit['lit']
     if j >= len(lit):
-        return ('Long-period Keplerian', 'fitted to RV curvature the known companions do not explain; '
-                'not a known companion')
+        return ('Blindly fitted companion', 'long-period Keplerian fitted to RV curvature the NEA '
+                'companions do not explain; not in the NEA')
     L = lit[j]
     if L.get('context'):
         why = CUT_WORDS.get(L.get('cut_reason'), L.get('cut_reason'))
-        return (L['name'], f'known companion, left out of our sample ({why})')
-    return (L['name'], 'known companion in our sample')
+        return (L['name'], f'NEA companion, not in the project sample ({why})')
+    return (L['name'], 'NEA companion in the project sample')
 
 
 def summarize(fit):
@@ -118,16 +118,16 @@ def model_lines(fit):
     n_known = sum(c['role'] != 'extra' for c in s['companions'])
     n_ctx = sum(c['role'] == 'context' for c in s['companions'])
     head = (f"Final model of {fit['system']} ({s['kind']} fit, {s['n_rv']} nightly RVs, "
-            f"{fit['rv'].nds} instruments): {n_known} known companions"
-            + (f" ({n_ctx} outside our sample)" if n_ctx else '')
-            + (f" + {s['n_extra']} long-period Keplerian" if s['n_extra'] else '')
+            f"{fit['rv'].nds} instruments): {n_known} NEA companions"
+            + (f" ({n_ctx} not in the project sample)" if n_ctx else '')
+            + (f" + {s['n_extra']} blindly fitted companion" if s['n_extra'] else '')
             + {0: ', no trend', 1: ' + linear trend', 2: ' + quadratic trend'}[tord])
     out = [(head, True)]
     for c in s['companions']:
         lit = f" (literature {c['P_lit_d']:.5g} d)" if c.get('P_lit_d') else ''
-        role = {'sample': 'in our sample', 'context': 'outside our sample (context)',
-                'extra': 'not a known companion'}[c['role']]
-        db = (f";  $\\Delta$BIC for dropping it = {c['dBIC_drop']:.1f}"
+        role = {'sample': 'NEA, project sample', 'context': 'NEA, not in the project sample',
+                'extra': 'blindly fitted, not in the NEA'}[c['role']]
+        db = (f";  $\\Delta$BIC = {c['dBIC_drop']:.1f}"
               + (' (not detected by the RVs)' if c['dBIC_drop'] < 20 else '')) if c.get('dBIC_drop') is not None else ''
         out.append((f"   {c['name']} [{role}]:  P = {c['P_d']:.5g} d{lit},  K = {c['K_ms']:.4g} m/s,  "
                     f"e = {c['e']:.3f}{db}", False))
@@ -139,6 +139,10 @@ def model_lines(fit):
     rep = fit.get('replaced_by_trend') or []
     if rep:
         out.append(('   replaced by the trend: ' + ', '.join(map(str, rep)), False))
+    if any(c.get('dBIC_drop') is not None for c in s['companions']):
+        out.append(('$\\Delta$BIC = BIC of the model refitted without the companion $-$ BIC of this model: > 0 means '
+                    'the RVs favor keeping it, $\\geq$ 20 counts as a detection, < 0 means the model without it is '
+                    'preferred', False))
     return out
 
 
@@ -184,7 +188,7 @@ def plot_fit(fit, path):
         ax[2].errorbar(yr(rv.t[idx]), res[idx], e, label=lab, **kw)
     trend_words = {1: 'linear trend', 2: 'quadratic trend'}.get(tord)
     ax[0].plot(yr(tm), cs.model_rv(th, sd.grid_for(tm, rv), n, tord), 'k-', lw=0.6, zorder=5,
-               label=f"model: {len(fit['lit'])} known companions" + (' + 1 long-period Keplerian' if fit['n_extra'] else '')
+               label=f"model: {len(fit['lit'])} NEA companions" + (' + 1 blindly fitted companion' if fit['n_extra'] else '')
                + (f' + {trend_words}' if tord else ''))
     ax[0].set(ylabel='RV - offset (m/s)',
               title=f"(a) {fit['system']}: RVs (one point per night and instrument) and the reference RV fit")
